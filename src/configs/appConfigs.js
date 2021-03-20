@@ -1,4 +1,4 @@
-import {END_POINT} from 'react-native-dotenv';
+//import {END_POINT} from 'react-native-dotenv';
 
 export const ENV_KEY = {
   PRODUCTION: 'PRODUCTION',
@@ -8,11 +8,11 @@ export const ENV_KEY = {
 const AppConfigs = {
   DEVELOPMENT: {
     ENV_KEY: ENV_KEY.DEVELOP,
-    END_POINT,
+    //END_POINT,
   },
   PRODUCTION: {
     ENV_KEY: ENV_KEY.PRODUCTION,
-    END_POINT,
+    //END_POINT,
   },
 };
 
