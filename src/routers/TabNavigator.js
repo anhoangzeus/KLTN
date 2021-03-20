@@ -2,6 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeContainer from 'scenes/main/home/Home.container';
 import ProfileContainer from 'scenes/main/profile/Profile.container';
+import CategoryContainer from 'scenes/main/category/Category.container';
 import SCENE_NAMES from 'constants/sceneName';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -33,6 +34,16 @@ function MainTabNavigator() {
         }}
         name={SCENE_NAMES.PROFILE}
         component={ProfileContainer}
+      />
+      <Tab.Screen
+        options={{
+          tabBarLabel: 'Category',
+          tabBarIcon: ({color, size}) => (
+            <MaterialCommunityIcons name="account" color={color} size={size} />
+          ),
+        }}
+        name={SCENE_NAMES.CATEGORY}
+        component={CategoryContainer}
       />
     </Tab.Navigator>
   );

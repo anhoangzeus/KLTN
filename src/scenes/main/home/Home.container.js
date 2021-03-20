@@ -23,7 +23,7 @@ function HomeContainer({navigation}) {
 
   reference.once('value')
   .then(snapshot => {
-    console.log('User data: ', snapshot.val());
+    // console.log('User data: ', snapshot.val());
   }); 
   // useLayoutEffect(() => {
   //   navigation.setOptions({
