@@ -27,6 +27,16 @@ function MainTabNavigator() {
       />
       <Tab.Screen
         options={{
+          tabBarLabel: 'Category',
+          tabBarIcon: ({color, size}) => (
+            <MaterialCommunityIcons name="apps" color={color} size={size} />
+          ),
+        }}
+        name={SCENE_NAMES.CATEGORY}
+        component={CategoryContainer}
+      />
+      <Tab.Screen
+        options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="account" color={color} size={size} />
@@ -34,16 +44,6 @@ function MainTabNavigator() {
         }}
         name={SCENE_NAMES.PROFILE}
         component={ProfileContainer}
-      />
-      <Tab.Screen
-        options={{
-          tabBarLabel: 'Category',
-          tabBarIcon: ({color, size}) => (
-            <MaterialCommunityIcons name="account" color={color} size={size} />
-          ),
-        }}
-        name={SCENE_NAMES.CATEGORY}
-        component={CategoryContainer}
       />
     </Tab.Navigator>
   );

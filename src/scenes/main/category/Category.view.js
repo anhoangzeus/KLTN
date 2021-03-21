@@ -10,101 +10,16 @@ import {
   RefreshControl,
   Dimensions,
 } from 'react-native';
-import NumberFormat from 'react-number-format';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styles from './Category.styles';
 import Swiper from 'react-native-swiper';
 const { width, height } = Dimensions.get('screen');
 // import {NAMESPACE} from './Category.constants';
 
-function RatingUI(rating) {
-  // var point = parseInt(rating);
-  // switch (point) {
-  //   case 1: return (
-  //     <View style={{ flexDirection: 'row' }}>
-  //       <FontAwesome name="star" size={17} color="#ffd700" style={styles.reviewimg} />
-  //       <FontAwesome name="star" size={17} color="#000" style={{ marginLeft: 5 }} />
-  //       <FontAwesome name="star" size={17} color="#000" style={{ marginLeft: 5 }} />
-  //       <FontAwesome name="star" size={17} color="#000" style={{ marginLeft: 5 }} />
-  //       <FontAwesome name="star" size={17} color="#000" style={{ marginLeft: 5 }} />
-  //     </View>
-  //   );
-  //   case 2: return (
-  //     <View style={{ flexDirection: 'row' }}>
-  //       <FontAwesome name="star" size={17} color="#ffd700" style={styles.reviewimg} />
-  //       <FontAwesome name="star" size={17} color="#ffd700" style={{ marginLeft: 5 }} />
-  //       <FontAwesome name="star" size={17} color="#000" style={{ marginLeft: 5 }} />
-  //       <FontAwesome name="star" size={17} color="#000" style={{ marginLeft: 5 }} />
-  //       <FontAwesome name="star" size={17} color="#000" style={{ marginLeft: 5 }} />
-  //     </View>
-  //   );
-  //   case 3: return (
-  //     <View style={{ flexDirection: 'row' }}>
-  //       <FontAwesome name="star" size={17} color="#ffd700" style={styles.reviewimg} />
-  //       <FontAwesome name="star" size={17} color="#ffd700" style={{ marginLeft: 5 }} />
-  //       <FontAwesome name="star" size={17} color="#ffd700" style={{ marginLeft: 5 }} />
-  //       <FontAwesome name="star" size={17} color="#000" style={{ marginLeft: 5 }} />
-  //       <FontAwesome name="star" size={17} color="#000" style={{ marginLeft: 5 }} />
-  //     </View>
-  //   );
-  //   case 4: return (
-  //     <View style={{ flexDirection: 'row' }}>
-  //       <FontAwesome name="star" size={17} color="#ffd700" style={styles.reviewimg} />
-  //       <FontAwesome name="star" size={17} color="#ffd700" style={{ marginLeft: 5 }} />
-  //       <FontAwesome name="star" size={17} color="#ffd700" style={{ marginLeft: 5 }} />
-  //       <FontAwesome name="star" size={17} color="#ffd700" style={{ marginLeft: 5 }} />
-  //       <FontAwesome name="star" size={17} color="#000" style={{ marginLeft: 5 }} />
-  //     </View>
-  //   );
-  //   case 5: return (
-  //     <View style={{ flexDirection: 'row' }}>
-  //       <FontAwesome name="star" size={17} color="#ffd700" style={styles.reviewimg} />
-  //       <FontAwesome name="star" size={17} color="#ffd700" style={{ marginLeft: 5 }} />
-  //       <FontAwesome name="star" size={17} color="#ffd700" style={{ marginLeft: 5 }} />
-  //       <FontAwesome name="star" size={17} color="#ffd700" style={{ marginLeft: 5 }} />
-  //       <FontAwesome name="star" size={17} color="#ffd700" style={{ marginLeft: 5 }} />
-  //     </View>
-  //   );
-  //   default: return null;
-  // }
-  return null;
-}
-
-const ProductItem = ({ image, name, price, rating, bough, PromotionPrice }) => (
-  <View style={styles.itemContainer}>
-    <Image source={{ uri: image }} style={styles.itemImage} />
-    <Text style={styles.itemName} numberOfLines={2}>
-      {name}
-    </Text>
-    <Text style={styles.itemPrice}><ReactNativeNumberFormat value={price} />
-      {price === PromotionPrice ? null :
-        // eslint-disable-next-line react-native/no-inline-styles
-        <Text style={{ color: 'red' }}>  -{((PromotionPrice - price) / PromotionPrice * 100).toFixed(0)}%</Text>
-      }
-    </Text>
-    <View style={styles.view}>
-      {RatingUI(rating)}
-      {bough !== 0 ? <Text style={styles.greenText}>({bough})</Text> : null}
-    </View>
-  </View>
-);
-
-function ReactNativeNumberFormat({ value }) {
-  return (
-    <NumberFormat
-      value={value}
-      displayType={'text'}
-      thousandSeparator={true}
-      renderText={formattedValue => <Text >{formattedValue} đ</Text>}
-    />
-  );
-}
-
-
-
 function CategoryView(props) {
-  const {BrandItem, CategoryItem,  _onRefresh,  renderNofiCart, renderNull, refesh, listcate, categoryid, listbrand, listcontent} = props;
+  const {BrandItem, CategoryItem,  _onRefresh,  renderNofiCart, renderNull, refesh, listproduct, listcate, categoryid, listbrand, listcontent, ProductItem} = props;
 
+  console.log('list product', listcate);
   {/* if (loading !== true){
     return (
       <View style={styles.loadingView }>
@@ -194,7 +109,7 @@ function CategoryView(props) {
               initialNumToRende={3}
               showsVerticalScrollIndicator={false}
               numColumns={2}
-              data={listcate}
+              data={listproduct}
               renderItem={({ item }) =>
                 <TouchableOpacity
                 //onPress={() => navigation.navigate('Items', { id: item.id, CategoryID: item.CategoryID, BrandID: item.BrandID })}

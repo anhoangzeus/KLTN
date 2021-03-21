@@ -1,16 +1,16 @@
-import React, {useLayoutEffect, useState, useEffect} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useState, useEffect} from 'react';
 import {TouchableOpacity, View, Text, Image, Dimensions, ImageBackground} from 'react-native';
 import CategoryView from './Category.view';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
 import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
-import {NAMESPACE} from './Category.constants';
-import {getString} from 'utils/i18n';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import styles from './Category.styles';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
+import NumberFormat from 'react-number-format';
 const functionsCounter = new Set();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
  // ACTION.HANDLER,
@@ -24,16 +24,12 @@ export default function CategoryContainer({navigation}) {
   const [listcate, setListCate] = useState([]);
   const [listbrand, setListBrand] = useState([]);
   const [listcontent, setListContent] = useState([]);
+  const [listproduct, setListProduct] = useState([]);
   const [brandid, setBrandID] = useState('');
   const [categoryid, setCategoryID] = useState('AIzaSyDSWIekvpvwQbRiGh4WF88H91tqFzL6OWI');
   const [loading, setLoading] = useState(true);
   const [refesh, setRefesh] = useState(false);
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      title: getString(`${NAMESPACE}.title`),
-    });
-  }, [navigation]);
 
   const BrandItem = ({ image, id }) => {
     return (
@@ -51,8 +47,8 @@ export default function CategoryContainer({navigation}) {
         <View style={styles.ViewImage}>
           <ImageBackground style={styles.ImageBack
           }
-            source={require('')}>
-            <Icons name={icon} color="#fff" size={width / 12}
+            source={require('../../../assets/images/bg.png')}>
+            <Icons name={icon} color="#fff" size={width / 12 }
               style={styles.cateIcon} />
           </ImageBackground>
         </View>
@@ -61,6 +57,36 @@ export default function CategoryContainer({navigation}) {
       </TouchableOpacity>
     );
   };
+
+  const ReactNativeNumberFormat = ({ value }) =>{
+    return (
+      <NumberFormat
+        value={value}
+        displayType={'text'}
+        thousandSeparator={true}
+        renderText={formattedValue => <Text >{formattedValue} đ</Text>}
+      />
+    );
+  };
+
+  const ProductItem = ({ image, name, price, rating, bough, PromotionPrice }) => (
+    <View style={styles.itemContainer}>
+      <Image source={{ uri: image }} style={styles.itemImage} />
+      <Text style={styles.itemName} numberOfLines={2}>
+        {name}
+      </Text>
+      <Text style={styles.itemPrice}><ReactNativeNumberFormat value={price} />
+        {price === PromotionPrice ? null :
+          // eslint-disable-next-line react-native/no-inline-styles
+          <Text style={{ color: 'red' }}>  -{((PromotionPrice - price) / PromotionPrice * 100).toFixed(0)}%</Text>
+        }
+      </Text>
+      <View style={styles.view}>
+        {/* {RatingUI(rating)} */}
+        {bough !== 0 ? <Text style={styles.greenText}>({bough})</Text> : null}
+      </View>
+    </View>
+  );
 
   const getnumcart = () => {
     if (auth().currentUser) {
@@ -211,9 +237,8 @@ export default function CategoryContainer({navigation}) {
           }
         }
       });
-      setListCate(items);
+      setListProduct(items);
     });
-    console.log(listcontent);
   };
   const renderNofiCart = () => {
     if (numcart == 0) {
@@ -250,13 +275,16 @@ export default function CategoryContainer({navigation}) {
   };
 
   useEffect(() => {
-    brandid;
-    ListenForItemsSamsung;
-    GetAllBrand;
-    GetAllCate;
-    getListBanner;
-    getnumcart;
-  });
+    ListenForItemsSamsung();
+    GetAllBrand();
+    GetAllCate();
+    getListBanner();
+    getnumcart();
+  }, []);
+
+  useEffect(()=>{
+    ListenForItemsSamsung();
+  }, [brandid, categoryid]);
 
   functionsCounter.add(BrandItem);
   functionsCounter.add(CategoryItem);
@@ -268,6 +296,7 @@ export default function CategoryContainer({navigation}) {
   functionsCounter.add(ListenForItemsSamsung);
   functionsCounter.add(renderNofiCart);
   functionsCounter.add(renderNull);
+  functionsCounter.add(ProductItem);
 
   return (
     <CategoryView isLoading={isLoading}
@@ -281,6 +310,8 @@ export default function CategoryContainer({navigation}) {
       ListenForItemsSamsung={ListenForItemsSamsung}
       renderNofiCart={renderNofiCart}
       renderNull={renderNull}
+      ProductItem={ProductItem}
+      listproduct={listproduct}
       refesh={refesh}
       listcate={listcate}
       categoryid={categoryid}
