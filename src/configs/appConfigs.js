@@ -16,4 +16,4 @@ const AppConfigs = {
   },
 };
 
-export default AppConfigs.DEVELOPMENT;
+ export default AppConfigs.DEVELOPMENT;

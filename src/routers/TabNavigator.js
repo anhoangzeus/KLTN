@@ -1,5 +1,5 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeContainer from 'scenes/main/home/Home.container';
 import ProfileContainer from 'scenes/main/profile/Profile.container';
 import CategoryContainer from 'scenes/main/category/Category.container';
@@ -17,8 +17,8 @@ function MainTabNavigator() {
       initialRouteName={SCENE_NAMES.HOME}>
       <Tab.Screen
         options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: ({color, size}) => (
+          tabBarLabel: 'Trang chủ',
+          tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home" color={color} size={size} />
           ),
         }}
@@ -28,7 +28,7 @@ function MainTabNavigator() {
       <Tab.Screen
         options={{
           tabBarLabel: 'Profile',
-          tabBarIcon: ({color, size}) => (
+          tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="account" color={color} size={size} />
           ),
         }}

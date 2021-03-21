@@ -1,7 +1,8 @@
 const SCENE_NAMES = {
   // Scene name
-  CATEGORY: 'CATEGORY_SCREEN',
   HOME: 'HomeScreen',
+  CATEGORY: 'CateScreen',
+  NOTIFY: 'NotiScreen',
   MAIN: 'MainScreen',
   SIGN_IN: 'SignInScreen',
   PROFILE: 'PROFILE_SCREEN',
