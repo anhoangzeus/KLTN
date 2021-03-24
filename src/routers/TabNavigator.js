@@ -1,10 +1,11 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeContainer from 'scenes/main/home/Home.container';
 import ProfileContainer from 'scenes/main/profile/Profile.container';
-import NotifyScreen from 'scenes/main/notify/notify.container';
+import NotifyContainer from 'scenes/main/notify/notify.container';
+import CategoryContainer from 'scenes/main/category/Category.container';
 import SCENE_NAMES from 'constants/sceneName';
-import { COLOR_APP } from 'constants/colors';
+import {COLOR_APP} from 'constants/colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
@@ -16,12 +17,15 @@ function MainTabNavigator() {
       tabBarOptions={{
         activeTintColor: COLOR_APP,
       }}>
-
       <Tab.Screen
         options={{
           tabBarLabel: 'Trang chủ',
-          tabBarIcon: ({ color, size, focused }) => (
-            <MaterialCommunityIcons name="home" color={focused ? COLOR_APP : color} size={size} />
+          tabBarIcon: ({color, size, focused}) => (
+            <MaterialCommunityIcons
+              name="home"
+              color={focused ? COLOR_APP : color}
+              size={size}
+            />
           ),
         }}
         name={SCENE_NAMES.HOME}
@@ -31,25 +35,43 @@ function MainTabNavigator() {
       <Tab.Screen
         options={{
           tabBarLabel: 'Thông báo',
-          tabBarIcon: ({ color, size, focused }) => (
-            <MaterialCommunityIcons name="bell" color={focused ? COLOR_APP : color} size={size} />
+          tabBarIcon: ({color, size, focused}) => (
+            <MaterialCommunityIcons
+              name="bell"
+              color={focused ? COLOR_APP : color}
+              size={size}
+            />
           ),
         }}
         name={SCENE_NAMES.NOTIFY}
-        component={NotifyScreen}
+        component={NotifyContainer}
       />
 
       <Tab.Screen
         options={{
+          tabBarLabel: 'Category',
+          tabBarIcon: ({color, size}) => (
+            <MaterialCommunityIcons name="apps" color={color} size={size} />
+          ),
+        }}
+        name={SCENE_NAMES.CATEGORY}
+        component={CategoryContainer}
+      />
+      <Tab.Screen
+        options={{
           tabBarLabel: 'Profile',
-          tabBarIcon: ({ color, size, focused }) => (
-            <MaterialCommunityIcons name="account" color={focused ? COLOR_APP : color} size={size} />
+          tabBarIcon: ({color, size, focused}) => (
+            <MaterialCommunityIcons
+              name="account"
+              color={focused ? COLOR_APP : color}
+              size={size}
+            />
           ),
         }}
         name={SCENE_NAMES.PROFILE}
         component={ProfileContainer}
       />
-    </Tab.Navigator >
+    </Tab.Navigator>
   );
 }
 
