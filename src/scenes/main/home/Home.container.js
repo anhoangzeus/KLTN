@@ -238,6 +238,19 @@ function HomeContainer({ navigation }) {
       setRefreshing(false);
     });
   };
+  const _onRefresh = () => {
+    setRefreshing(true);
+    setLoading(true);
+    getListBanner();
+    ListenForItems();
+    _getListPhoneNew();
+    _getListLaptopNew();
+    _getListTabletNew();
+    _getListDongHoNew();
+    _getListPhukienNew();
+    getnumcart();
+
+  };
   useEffect(() => {
     _getListPhoneNew();
     _getListLaptopNew();
@@ -272,28 +285,14 @@ function HomeContainer({ navigation }) {
   }
 
   functionsCounter.add(renderNofiCart);
-  functionsCounter.add(getListBanner);
-  functionsCounter.add(ListenForItems);
-  functionsCounter.add(_getListPhukienNew);
-  functionsCounter.add(_getListDongHoNew);
-  functionsCounter.add(_getListTabletNew);
-  functionsCounter.add(_getListLaptopNew);
-  functionsCounter.add(_getListPhoneNew);
   functionsCounter.add(getnumcart);
+  functionsCounter.add(_onRefresh);
 
   return (
     <HomeView
       isLoading={isFetchingTest}
       onPressTestApi={onPressTestApi}
       renderNofiCart={renderNofiCart}
-      getListBanner={getListBanner}
-      ListenForItems={ListenForItems}
-      _getListPhukienNew={_getListPhukienNew}
-      _getListDongHoNew={_getListDongHoNew}
-      _getListTabletNew={_getListTabletNew}
-      _getListLaptopNew={_getListLaptopNew}
-      _getListPhoneNew={_getListPhoneNew}
-      getnumcart={getnumcart}
       listpro={listpro}
       listall={listall}
       listcontents={listcontents}
@@ -304,6 +303,7 @@ function HomeContainer({ navigation }) {
       numcart={numcart}
       loading={loading}
       refreshing={refreshing}
+      _onRefresh={_onRefresh}
       navigation={navigation}
     />
   );

@@ -1,7 +1,7 @@
 /* eslint-disable radix */
 import React from 'react';
 import { View } from 'react-native';
-import styles from './style';
+import styles from './styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const StarRating = (rating) => {

@@ -7,10 +7,12 @@ import {
   Text,
   TouchableOpacity,
   FlatList,
+  ScrollView,
+  RefreshControl,
 } from 'react-native';
 import styles from './Home.styles';
 import withLoading from 'components/HOC/withLoading';
-import ScrollViewPullRefresh from 'components/ScrollViewPullRefresh';
+// import ScrollViewPullRefresh from 'components/ScrollViewPullRefresh';
 // import { SVG_NAME } from 'assets/path';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Foundation from 'react-native-vector-icons/Foundation';
@@ -22,8 +24,7 @@ import SwiperBraner from 'components/Swiper';
 console.disableYellowBox = true;
 
 function HomeView(props) {
-  const { renderNofiCart, listpro,
-    listall, listcontents, listdongho, listphone, listphukien, listtablet, navigation } = props;
+  const { renderNofiCart, listpro, listall, listcontents, listdongho, listphone, listphukien, listtablet, navigation, refreshing, _onRefresh } = props;
 
   return (
     <View style={styles.screenContainer}>
@@ -43,13 +44,13 @@ function HomeView(props) {
         </View>
       </View>
       <View style={styles.bodyContainer}>
-        <ScrollViewPullRefresh
-        // refreshControl={
-        //   <RefreshControl
-        //     refreshing={this.state.refreshing}
-        //     onRefresh={this._onRefresh}
-        //   />
-        // }
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={_onRefresh}
+            />
+          }
         >
           {SwiperBraner(listcontents, navigation)}
           <View style={styles.proHotContainer1}>
@@ -260,7 +261,7 @@ function HomeView(props) {
           </View>
           <View style={{ height: 10, backgroundColor: 'silver' }} />
           <View style={styles.sectionContainer} />
-        </ScrollViewPullRefresh>
+        </ScrollView>
       </View>
     </View >
   );

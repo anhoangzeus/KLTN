@@ -1,17 +1,17 @@
-import React, {useCallback, useMemo, Fragment} from 'react';
-import {ScrollView, RefreshControl, StyleSheet} from 'react-native';
-import {COLOR_PRIMARY} from 'constants/colors';
+import React, { useCallback, useMemo, Fragment } from 'react';
+import { ScrollView, RefreshControl, StyleSheet } from 'react-native';
+import { COLOR_APP } from 'constants/colors';
 import styles from './styles';
-import {SafeAreaView} from 'react-native';
+import { SafeAreaView } from 'react-native';
 import PropTypes from 'prop-types';
 
 export default function ScrollViewPullRefresh(props) {
-  const {onRefresh, isLoading} = props;
+  const { onRefresh, isLoading } = props;
   const refreshControl = useCallback(() => {
     return (
       <RefreshControl
-        colors={[COLOR_PRIMARY]}
-        tintColor={COLOR_PRIMARY}
+        colors={[COLOR_APP]}
+        tintColor={COLOR_APP}
         refreshing={isLoading}
         onRefresh={onRefresh}
       />
@@ -27,7 +27,7 @@ export default function ScrollViewPullRefresh(props) {
   }, [props.safeArea]);
 
   const newProps = useMemo(() => {
-    return props.safeArea ? {style: styles.container} : {};
+    return props.safeArea ? { style: styles.container } : {};
   }, [props.safeArea]);
 
   return (
@@ -50,6 +50,6 @@ ScrollViewPullRefresh.propTypes = {
 
 ScrollViewPullRefresh.defaultProps = {
   safeArea: false,
-  onRefresh: () => {},
+  onRefresh: () => { },
   isLoading: false,
 };

@@ -1,5 +1,5 @@
-import {Dimensions} from 'react-native';
-import {scalePortrait} from '../utils/responsive';
+import { Dimensions } from 'react-native';
+import { scalePortrait } from '../utils/responsive';
 
 // Dimensions
 export const deviceWidth = Dimensions.get('window').width;
@@ -13,12 +13,14 @@ export const DEVICE_HEIGHT = deviceHeight;
 export const BORDER_RADIUS = scalePortrait(6);
 export const BORDER_RADIUS_BUTTON = scalePortrait(20);
 export const BORDER_RADIUS_TEXT_INPUT = scalePortrait(25);
+export const HEADER_ICON_SIZE = 24;
 
 export default {
   DEFAULT_PADDING_HORIZONTAL,
   DEFAULT_PADDING_VERTICAL,
   DEVICE_WIDTH,
   DEVICE_HEIGHT,
+  HEADER_ICON_SIZE,
 };
 
 // ICON_SIZE
