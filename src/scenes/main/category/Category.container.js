@@ -1,6 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from 'react';
-import {TouchableOpacity, View, Text, Image, Dimensions, ImageBackground} from 'react-native';
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  Image,
+  Dimensions,
+  ImageBackground,
+} from 'react-native';
 import CategoryView from './Category.view';
 import useSelectorShallow, {
   selectorWithProps,
@@ -11,11 +18,12 @@ import auth from '@react-native-firebase/auth';
 import styles from './Category.styles';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import NumberFormat from 'react-number-format';
+import LottieView from 'lottie-react-native';
 const functionsCounter = new Set();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
- // ACTION.HANDLER,
+  // ACTION.HANDLER,
 ]);
-const { width} = Dimensions.get('screen');
+const {width} = Dimensions.get('screen');
 export default function CategoryContainer({navigation}) {
   const isLoading = useSelectorShallow(loadingSelector);
   const itemRef = database();
@@ -26,30 +34,37 @@ export default function CategoryContainer({navigation}) {
   const [listcontent, setListContent] = useState([]);
   const [listproduct, setListProduct] = useState([]);
   const [brandid, setBrandID] = useState('');
-  const [categoryid, setCategoryID] = useState('AIzaSyDSWIekvpvwQbRiGh4WF88H91tqFzL6OWI');
+  const [categoryid, setCategoryID] = useState(
+    'AIzaSyDSWIekvpvwQbRiGh4WF88H91tqFzL6OWI',
+  );
   const [loading, setLoading] = useState(true);
   const [refesh, setRefesh] = useState(false);
 
-
-  const BrandItem = ({ image, id }) => {
+  const BrandItem = ({image, id}) => {
     return (
       <View>
-        <TouchableOpacity onPress={() => setBrandID(id)} style={styles.branditemContainer}>
-          <Image source={{ uri: image }} style={styles.cateImage} />
+        <TouchableOpacity
+          onPress={() => setBrandID(id)}
+          style={styles.branditemContainer}>
+          <Image source={{uri: image}} style={styles.cateImage} />
         </TouchableOpacity>
-        </View>
+      </View>
     );
   };
-  const CategoryItem = ({ name, id, icon }) => {
+  const CategoryItem = ({name, id, icon}) => {
     const colorText = id === categoryid ? '#6e3b6e' : '#1ba8ff';
     return (
-      <TouchableOpacity onPress={() => setCategoryID(id)} >
+      <TouchableOpacity onPress={() => setCategoryID(id)}>
         <View style={styles.ViewImage}>
-          <ImageBackground style={styles.ImageBack
-          }
+          <ImageBackground
+            style={styles.ImageBack}
             source={require('../../../assets/images/bg.png')}>
-            <Icons name={icon} color="#fff" size={width / 12 }
-              style={styles.cateIcon} />
+            <Icons
+              name={icon}
+              color="#fff"
+              size={width / 12}
+              style={styles.cateIcon}
+            />
           </ImageBackground>
         </View>
 
@@ -58,28 +73,32 @@ export default function CategoryContainer({navigation}) {
     );
   };
 
-  const ReactNativeNumberFormat = ({ value }) =>{
+  const ReactNativeNumberFormat = ({value}) => {
     return (
       <NumberFormat
         value={value}
         displayType={'text'}
         thousandSeparator={true}
-        renderText={formattedValue => <Text >{formattedValue} đ</Text>}
+        renderText={(formattedValue) => <Text>{formattedValue} đ</Text>}
       />
     );
   };
 
-  const ProductItem = ({ image, name, price, rating, bough, PromotionPrice }) => (
+  const ProductItem = ({image, name, price, rating, bough, PromotionPrice}) => (
     <View style={styles.itemContainer}>
-      <Image source={{ uri: image }} style={styles.itemImage} />
+      <Image source={{uri: image}} style={styles.itemImage} />
       <Text style={styles.itemName} numberOfLines={2}>
         {name}
       </Text>
-      <Text style={styles.itemPrice}><ReactNativeNumberFormat value={price} />
-        {price === PromotionPrice ? null :
+      <Text style={styles.itemPrice}>
+        <ReactNativeNumberFormat value={price} />
+        {price === PromotionPrice ? null : (
           // eslint-disable-next-line react-native/no-inline-styles
-          <Text style={{ color: 'red' }}>  -{((PromotionPrice - price) / PromotionPrice * 100).toFixed(0)}%</Text>
-        }
+          <Text style={{color: 'red'}}>
+            {' '}
+            -{(((PromotionPrice - price) / PromotionPrice) * 100).toFixed(0)}%
+          </Text>
+        )}
       </Text>
       <View style={styles.view}>
         {/* {RatingUI(rating)} */}
@@ -90,7 +109,7 @@ export default function CategoryContainer({navigation}) {
 
   const getnumcart = () => {
     if (auth().currentUser) {
-      itemRef.ref('Cart/' + auth().currentUser.uid).on('value',snapshot => {
+      itemRef.ref('Cart/' + auth().currentUser.uid).on('value', (snapshot) => {
         var dem = 0;
         snapshot.forEach(function (childSnapshot) {
           dem += childSnapshot.val().Quantity;
@@ -102,75 +121,68 @@ export default function CategoryContainer({navigation}) {
 
   const GetAllBrand = () => {
     var items = [];
-    itemRef.ref('/Brands').once('value').then((snapshot) => {
-      snapshot.forEach(function (childSnapshot) {
-        items.push({
-          image: childSnapshot.val().Image,
-          id: childSnapshot.val().BrandID,
+    itemRef
+      .ref('/Brands')
+      .once('value')
+      .then((snapshot) => {
+        snapshot.forEach(function (childSnapshot) {
+          items.push({
+            image: childSnapshot.val().Image,
+            id: childSnapshot.val().BrandID,
+          });
         });
+        setListBrand(items);
       });
-      setListBrand(items);
-    });
   };
 
   const getListBanner = () => {
-    itemRef.ref('Contents').once('value').then((snapshot) => {
-      var items = [];
-      snapshot.forEach((childSnapshot) => {
-        items.push({
-          id: childSnapshot.key,
-          Detail: childSnapshot.val().Detail,
-          Image: childSnapshot.val().Image,
-          Name: childSnapshot.val().Name,
-          Url : childSnapshot.val().Url,
+    itemRef
+      .ref('Contents')
+      .once('value')
+      .then((snapshot) => {
+        var items = [];
+        snapshot.forEach((childSnapshot) => {
+          items.push({
+            id: childSnapshot.key,
+            Detail: childSnapshot.val().Detail,
+            Image: childSnapshot.val().Image,
+            Name: childSnapshot.val().Name,
+            Url: childSnapshot.val().Url,
+          });
         });
+        setListContent(items);
+        setRefesh(false);
       });
-      setListContent(items);
-      setRefesh(false);
-    });
   };
   const GetAllCate = () => {
     var items = [];
-    itemRef.ref('/Catogorys').orderByChild('Displayed').once('value').then((snapshot) => {
-      snapshot.forEach(function (childSnapshot) {
-        items.push({
-          name: childSnapshot.val().Name,
-          id: childSnapshot.val().CateProductID,
-          icon: childSnapshot.val().Icon,
+    itemRef
+      .ref('/Catogorys')
+      .orderByChild('Displayed')
+      .once('value')
+      .then((snapshot) => {
+        snapshot.forEach(function (childSnapshot) {
+          items.push({
+            name: childSnapshot.val().Name,
+            id: childSnapshot.val().CateProductID,
+            icon: childSnapshot.val().Icon,
+          });
         });
+        setListCate(items);
+        setLoading(false);
       });
-      setListCate(items);
-      setLoading(false);
-    });
   };
-  const ListenForItemsSamsung = () => {
+  const ListenForItemsSamsung = async () => {
     var items = [];
-    itemRef.ref('/Products').once('value').then((snapshot) => {
-      var Brandid = brandid;
-      var cateid = categoryid;
-      snapshot.forEach(function (childSnapshot) {
-        if (Brandid == '') {
-          if (cateid == '') {
-            var point = 0;
-            var count = 0;
-            childSnapshot.child('Rating').forEach((child) => {
-              point += child.val().Point;
-              count++;
-            });
-            items.push({
-              title: childSnapshot.val().Name,
-              price: childSnapshot.val().Price,
-              image: childSnapshot.val().Image,
-              metades: childSnapshot.val().MetaDescription,
-              id: childSnapshot.val().ProductID,
-              rating: point / count,
-              bough: count,
-              BrandID: childSnapshot.val().BrandID,
-              CategoryID: childSnapshot.val().CategoryID,
-              PromotionPrice: childSnapshot.val().PromotionPrice,
-            });
-          } else {
-            if (childSnapshot.val().CategoryID === cateid) {
+    itemRef
+      .ref('/Products')
+      .once('value')
+      .then((snapshot) => {
+        var Brandid = brandid;
+        var cateid = categoryid;
+        snapshot.forEach(function (childSnapshot) {
+          if (Brandid === '') {
+            if (cateid === '') {
               var point = 0;
               var count = 0;
               childSnapshot.child('Rating').forEach((child) => {
@@ -189,65 +201,90 @@ export default function CategoryContainer({navigation}) {
                 CategoryID: childSnapshot.val().CategoryID,
                 PromotionPrice: childSnapshot.val().PromotionPrice,
               });
-            }
-          }
-        } else {
-          if (cateid === '') {
-            if (childSnapshot.val().BrandID == brandid) {
-              var point = 0;
-              var count = 0;
-              childSnapshot.child('Rating').forEach((child) => {
-                point += child.val().Point;
-                count++;
-              });
-              items.push({
-                title: childSnapshot.val().Name,
-                price: childSnapshot.val().Price,
-                image: childSnapshot.val().Image,
-                metades: childSnapshot.val().MetaDescription,
-                id: childSnapshot.val().ProductID,
-                rating: point / count,
-                bough: count,
-                BrandID: childSnapshot.val().BrandID,
-                CategoryID: childSnapshot.val().CategoryID,
-                PromotionPrice: childSnapshot.val().PromotionPrice,
-              });
+            } else {
+              if (childSnapshot.val().CategoryID === cateid) {
+                var point = 0;
+                var count = 0;
+                childSnapshot.child('Rating').forEach((child) => {
+                  point += child.val().Point;
+                  count++;
+                });
+                items.push({
+                  title: childSnapshot.val().Name,
+                  price: childSnapshot.val().Price,
+                  image: childSnapshot.val().Image,
+                  metades: childSnapshot.val().MetaDescription,
+                  id: childSnapshot.val().ProductID,
+                  rating: point / count,
+                  bough: count,
+                  BrandID: childSnapshot.val().BrandID,
+                  CategoryID: childSnapshot.val().CategoryID,
+                  PromotionPrice: childSnapshot.val().PromotionPrice,
+                });
+              }
             }
           } else {
-            if (childSnapshot.val().BrandID == brandid && childSnapshot.val().CategoryID === cateid) {
-              var point = 0;
-              var count = 0;
-              childSnapshot.child('Rating').forEach((child) => {
-                point += child.val().Point;
-                count++;
-              });
-              items.push({
-                title: childSnapshot.val().Name,
-                price: childSnapshot.val().Price,
-                image: childSnapshot.val().Image,
-                metades: childSnapshot.val().MetaDescription,
-                id: childSnapshot.val().ProductID,
-                rating: point / count,
-                bough: count,
-                BrandID: childSnapshot.val().BrandID,
-                CategoryID: childSnapshot.val().CategoryID,
-                PromotionPrice: childSnapshot.val().PromotionPrice,
-              });
+            if (cateid === '') {
+              if (childSnapshot.val().BrandID === brandid) {
+                var point = 0;
+                var count = 0;
+                childSnapshot.child('Rating').forEach((child) => {
+                  point += child.val().Point;
+                  count++;
+                });
+                items.push({
+                  title: childSnapshot.val().Name,
+                  price: childSnapshot.val().Price,
+                  image: childSnapshot.val().Image,
+                  metades: childSnapshot.val().MetaDescription,
+                  id: childSnapshot.val().ProductID,
+                  rating: point / count,
+                  bough: count,
+                  BrandID: childSnapshot.val().BrandID,
+                  CategoryID: childSnapshot.val().CategoryID,
+                  PromotionPrice: childSnapshot.val().PromotionPrice,
+                });
+              }
+            } else {
+              if (
+                childSnapshot.val().BrandID === brandid &&
+                childSnapshot.val().CategoryID === cateid
+              ) {
+                var point = 0;
+                var count = 0;
+                childSnapshot.child('Rating').forEach((child) => {
+                  point += child.val().Point;
+                  count++;
+                });
+                items.push({
+                  title: childSnapshot.val().Name,
+                  price: childSnapshot.val().Price,
+                  image: childSnapshot.val().Image,
+                  metades: childSnapshot.val().MetaDescription,
+                  id: childSnapshot.val().ProductID,
+                  rating: point / count,
+                  bough: count,
+                  BrandID: childSnapshot.val().BrandID,
+                  CategoryID: childSnapshot.val().CategoryID,
+                  PromotionPrice: childSnapshot.val().PromotionPrice,
+                });
+              }
             }
           }
-        }
+        });
+        setListProduct(items);
+        setLoading(false);
       });
-      setListProduct(items);
-    });
   };
   const renderNofiCart = () => {
-    if (numcart == 0) {
+    if (numcart === 0) {
       return null;
-    }
-    else {
+    } else {
       return (
         <View style={styles.cartView}>
-          <Text style={styles.cartText} numberOfLines={1}>{numcart}</Text>
+          <Text style={styles.cartText} numberOfLines={1}>
+            {numcart}
+          </Text>
         </View>
       );
     }
@@ -265,9 +302,11 @@ export default function CategoryContainer({navigation}) {
   };
   const renderNull = () => {
     return (
-      <TouchableOpacity style={styles.ContainerEmpty}
-        onPress={() => {_onRefresh();}}
-      >
+      <TouchableOpacity
+        style={styles.ContainerEmpty}
+        onPress={() => {
+          _onRefresh();
+        }}>
         <Image source={''} style={styles.squareImage} />
         <Text style={styles.productNull}>Không có sản phẩm</Text>
       </TouchableOpacity>
@@ -275,6 +314,7 @@ export default function CategoryContainer({navigation}) {
   };
 
   useEffect(() => {
+    setLoading(true);
     ListenForItemsSamsung();
     GetAllBrand();
     GetAllCate();
@@ -282,9 +322,22 @@ export default function CategoryContainer({navigation}) {
     getnumcart();
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
+    setLoading(true);
     ListenForItemsSamsung();
   }, [brandid, categoryid]);
+
+  if (loading) {
+    return (
+      <View style={styles.screenContainer}>
+        <LottieView
+          source={require('../../../assets/images/loading.json')}
+          autoPlay
+          loop
+        />
+      </View>
+    );
+  }
 
   functionsCounter.add(BrandItem);
   functionsCounter.add(CategoryItem);
@@ -299,7 +352,8 @@ export default function CategoryContainer({navigation}) {
   functionsCounter.add(ProductItem);
 
   return (
-    <CategoryView isLoading={isLoading}
+    <CategoryView
+      isLoading={isLoading}
       BrandItem={BrandItem}
       CategoryItem={CategoryItem}
       getnumcart={getnumcart}

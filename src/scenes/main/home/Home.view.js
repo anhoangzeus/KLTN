@@ -24,20 +24,36 @@ import SwiperBraner from 'components/Swiper';
 console.disableYellowBox = true;
 
 function HomeView(props) {
-  const { renderNofiCart, listpro, listall, listcontents, listdongho, listphone, listphukien, listtablet, navigation, refreshing, _onRefresh } = props;
+  const {
+    renderNofiCart,
+    listpro,
+    listall,
+    listcontents,
+    //listdongho,
+    listphone,
+    //listphukien,
+    listtablet,
+    navigation,
+    refreshing,
+    _onRefresh,
+  } = props;
 
   return (
     <View style={styles.screenContainer}>
-      <StatusBar backgroundColor="#a2459a" barStyle="light-content" translucent={false} />
+      <StatusBar
+        backgroundColor="#a2459a"
+        barStyle="light-content"
+        translucent={false}
+      />
       <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={() => { }}>
+        <TouchableOpacity onPress={() => {}}>
           <View style={styles.inputContainer}>
             <FontAwesome name="search" size={24} color="#969696" />
             <Text style={styles.inputText}>Bạn tìm gì hôm nay?</Text>
           </View>
         </TouchableOpacity>
         <View style={styles.cartContainer}>
-          <TouchableOpacity onPress={() => { }}>
+          <TouchableOpacity onPress={() => {}}>
             <FontAwesome name="shopping-cart" size={24} color="#fff" />
             {renderNofiCart()}
           </TouchableOpacity>
@@ -46,48 +62,54 @@ function HomeView(props) {
       <View style={styles.bodyContainer}>
         <ScrollView
           refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={_onRefresh}
-            />
-          }
-        >
+            <RefreshControl refreshing={refreshing} onRefresh={_onRefresh} />
+          }>
           {SwiperBraner(listcontents, navigation)}
           <View style={styles.proHotContainer1}>
-            <Text style={{ fontSize: 17, color: 'black' }}>
+            <Text style={{fontSize: 17, color: 'black'}}>
               <Icons name="fire" color="red" size={25} />
-          Hot nhất hôm nay </Text>
-            <View style={{ flexDirection: 'row', marginTop: 5 }}>
-              <TouchableOpacity onPress={() => { }}>
-                <Image style={styles.tophotimg1}
+              Hot nhất hôm nay{' '}
+            </Text>
+            <View style={{flexDirection: 'row', marginTop: 5}}>
+              <TouchableOpacity onPress={() => {}}>
+                <Image
+                  style={styles.tophotimg1}
                   source={require('assets/images/iphonepromax.jpg')}
                 />
               </TouchableOpacity>
 
-              <View style={{ marginLeft: 5 }}>
-                <TouchableOpacity onPress={() => { }}>
-                  <Image style={styles.hotimgtype2} source={require('assets/images/sale1.jpg')}
+              <View style={{marginLeft: 5}}>
+                <TouchableOpacity onPress={() => {}}>
+                  <Image
+                    style={styles.hotimgtype2}
+                    source={require('assets/images/sale1.jpg')}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => { }}>
-                  <Image style={styles.hotimgtype1} source={require('assets/images/sale2.jpg')}
+                <TouchableOpacity onPress={() => {}}>
+                  <Image
+                    style={styles.hotimgtype1}
+                    source={require('assets/images/sale2.jpg')}
                   />
                 </TouchableOpacity>
               </View>
-              <View style={{ marginLeft: 5 }}>
-                <TouchableOpacity onPress={() => { }}>
-                  <Image style={styles.hotimgtype2} source={require('assets/images/sale3.jpg')}
+              <View style={{marginLeft: 5}}>
+                <TouchableOpacity onPress={() => {}}>
+                  <Image
+                    style={styles.hotimgtype2}
+                    source={require('assets/images/sale3.jpg')}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => { }}>
-                  <Image style={styles.hotimgtype1} source={require('assets/images/sale4.jpg')}
+                <TouchableOpacity onPress={() => {}}>
+                  <Image
+                    style={styles.hotimgtype1}
+                    source={require('assets/images/sale4.jpg')}
                   />
                 </TouchableOpacity>
               </View>
             </View>
           </View>
 
-          <View style={styles.proHotContainer1}>
+          {/* <View style={styles.proHotContainer1}>
             <Text style={{ fontSize: 17, color: 'black' }}>
               <Icons name="fire" color="red" size={25} />
           Top sản phẩm bán chạy </Text>
@@ -118,19 +140,19 @@ function HomeView(props) {
                 </TouchableOpacity>
               </View>
             </View>
-          </View>
+          </View> */}
           <View style={styles.proHotContainer}>
-            <Text style={{ fontSize: 17, color: 'black', marginVertical: 10 }}>
+            <Text style={{fontSize: 17, color: 'black', marginVertical: 10}}>
               <Foundation name="burst-new" color="red" size={25} />
-           Mẫu điện thoại mới nhất
-        </Text>
+              Pantry Staples
+            </Text>
             <FlatList
               horizontal={true}
               numberOfLines={2}
               showsHorizontalScrollIndicator={false}
               data={listphone}
-              renderItem={({ item }) =>
-                <TouchableOpacity onPress={() => { }}>
+              renderItem={({item}) => (
+                <TouchableOpacity onPress={() => {}}>
                   <NewProductItem
                     name={item.title}
                     image={item.image}
@@ -140,21 +162,21 @@ function HomeView(props) {
                     PromotionPrice={item.PromotionPrice}
                   />
                 </TouchableOpacity>
-              }
+              )}
             />
           </View>
           <View style={styles.proHotContainer}>
-            <Text style={{ fontSize: 17, color: 'black', marginVertical: 10 }}>
+            <Text style={{fontSize: 17, color: 'black', marginVertical: 10}}>
               <Foundation name="burst-new" color="red" size={25} />
-           Mẫu Tablet mớt nhất
-        </Text>
+              Breads & Bakery
+            </Text>
             <FlatList
               horizontal={true}
               numberOfLines={2}
               showsHorizontalScrollIndicator={false}
               data={listtablet}
-              renderItem={({ item }) =>
-                <TouchableOpacity onPress={() => { }}>
+              renderItem={({item}) => (
+                <TouchableOpacity onPress={() => {}}>
                   <NewProductItem
                     name={item.title}
                     image={item.image}
@@ -164,21 +186,21 @@ function HomeView(props) {
                     PromotionPrice={item.PromotionPrice}
                   />
                 </TouchableOpacity>
-              }
+              )}
             />
           </View>
           <View style={styles.proHotContainer}>
-            <Text style={{ fontSize: 17, color: 'black', marginVertical: 10 }}>
+            <Text style={{fontSize: 17, color: 'black', marginVertical: 10}}>
               <Foundation name="burst-new" color="red" size={25} />
-           Mẫu Laptop mới nhất
-        </Text>
+              Snack Foods
+            </Text>
             <FlatList
               horizontal={true}
               numberOfLines={2}
               showsHorizontalScrollIndicator={false}
               data={listpro}
-              renderItem={({ item }) =>
-                <TouchableOpacity onPress={() => { }}>
+              renderItem={({item}) => (
+                <TouchableOpacity onPress={() => {}}>
                   <NewProductItem
                     name={item.title}
                     image={item.image}
@@ -188,21 +210,21 @@ function HomeView(props) {
                     PromotionPrice={item.PromotionPrice}
                   />
                 </TouchableOpacity>
-              }
+              )}
             />
           </View>
-          <View style={styles.proHotContainer}>
-            <Text style={{ fontSize: 17, color: 'black', marginVertical: 10 }}>
+          {/* <View style={styles.proHotContainer}>
+            <Text style={{fontSize: 17, color: 'black', marginVertical: 10}}>
               <Foundation name="burst-new" color="red" size={25} />
-           Mẫu đồng hồ sang trọng mới
-        </Text>
+              Mẫu đồng hồ sang trọng mới
+            </Text>
             <FlatList
               horizontal={true}
               numberOfLines={2}
               showsHorizontalScrollIndicator={false}
               data={listdongho}
-              renderItem={({ item }) =>
-                <TouchableOpacity onPress={() => { }}>
+              renderItem={({item}) => (
+                <TouchableOpacity onPress={() => {}}>
                   <NewProductItem
                     name={item.title}
                     image={item.image}
@@ -212,21 +234,21 @@ function HomeView(props) {
                     PromotionPrice={item.PromotionPrice}
                   />
                 </TouchableOpacity>
-              }
+              )}
             />
           </View>
           <View style={styles.proHotContainer}>
-            <Text style={{ fontSize: 17, color: 'black', marginVertical: 10 }}>
+            <Text style={{fontSize: 17, color: 'black', marginVertical: 10}}>
               <Foundation name="burst-new" color="red" size={25} />
-           Mẫu phụ kiện mới nhất
-        </Text>
+              Mẫu phụ kiện mới nhất
+            </Text>
             <FlatList
               horizontal={true}
               numberOfLines={2}
               showsHorizontalScrollIndicator={false}
               data={listphukien}
-              renderItem={({ item }) =>
-                <TouchableOpacity onPress={() => { }}>
+              renderItem={({item}) => (
+                <TouchableOpacity onPress={() => {}}>
                   <NewProductItem
                     name={item.title}
                     image={item.image}
@@ -236,17 +258,17 @@ function HomeView(props) {
                     PromotionPrice={item.PromotionPrice}
                   />
                 </TouchableOpacity>
-              }
+              )}
             />
-          </View>
-          <View style={{ marginTop: 10 }}>
+          </View> */}
+          <View style={{marginTop: 10}}>
             <FlatList
               initialNumToRender={20}
               showsVerticalScrollIndicator={false}
               numColumns={2}
               data={listall}
-              renderItem={({ item }) =>
-                <TouchableOpacity onPress={() => { }}>
+              renderItem={({item}) => (
+                <TouchableOpacity onPress={() => {}}>
                   <ProductItem
                     name={item.title}
                     image={item.image}
@@ -256,14 +278,14 @@ function HomeView(props) {
                     PromotionPrice={item.PromotionPrice}
                   />
                 </TouchableOpacity>
-              }
+              )}
             />
           </View>
-          <View style={{ height: 10, backgroundColor: 'silver' }} />
+          <View style={{height: 10, backgroundColor: 'silver'}} />
           <View style={styles.sectionContainer} />
         </ScrollView>
       </View>
-    </View >
+    </View>
   );
 }
 
