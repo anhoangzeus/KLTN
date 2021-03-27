@@ -12,9 +12,10 @@ import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 // import { set } from 'lodash';
 // import SCENE_NAMES from 'constants/sceneName';
-import { View, Text, StatusBar, ActivityIndicator, Image } from 'react-native';
+import { View, Text } from 'react-native';
 // import {NAMESPACE} from './Home.constants';
 import styles from './Home.styles';
+import LottieView from 'lottie-react-native';
 const functionsCounter = new Set();
 
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
@@ -30,17 +31,19 @@ function HomeContainer({ navigation }) {
 
   // reference.once('value')
   // .then(snapshot => {
-    // console.log('User data: ', snapshot.val());
+  // console.log('User data: ', snapshot.val());
   // });
   // useLayoutEffect(() => {
   //   navigation.setOptions({
-  //     title: I18n.t(`${NAMESPACE}.title`),
+  //     title: I18n.t(${NAMESPACE}.title),
   //   });
   // }, [navigation]);
 
   const [listpro, setListPro] = useState([]);
   const [listphone, setListphone] = useState([]);
   const [listtablet, setListtablet] = useState([]);
+  const [listdongho, setListdongho] = useState([]);
+  const [listphukien, setListphukien] = useState([]);
   const [listall, setListall] = useState([]);
   const [listcontents, setListcontents] = useState([]);
   const [numcart, setNumcart] = useState(0);
@@ -49,83 +52,189 @@ function HomeContainer({ navigation }) {
 
   const getnumcart = () => {
     if (auth().currentUser) {
-      database().ref('Cart/' + auth().currentUser.uid).on('value', snapshot => {
-        var dem = 0;
-        snapshot.forEach(function (childSnapshot) {
-          dem += childSnapshot.val().Quantity;
+      database()
+        .ref('Cart/' + auth().currentUser.uid)
+        .on('value', (snapshot) => {
+          var dem = 0;
+          snapshot.forEach(function (childSnapshot) {
+            dem += childSnapshot.val().Quantity;
+          });
+          setNumcart(dem);
         });
-        setNumcart(dem);
-      });
     }
   };
   const _getListPhoneNew = () => {
-    database().ref('/Products').once('value').then((snapshot) => {
-      var itemsphone = [];
-      snapshot.forEach(function (childSnapshot) {
-        if (childSnapshot.val().CategoryID === 'AIzaSyDSWIekvpvwQbRiGh4WF88H91tqFzL6OWI') {
-          var point = 0;
-          var count = 0;
-          childSnapshot.child('Rating').forEach((child) => {
-            point += child.val().Point;
-            count++;
-          });
-          itemsphone.push({
-            title: childSnapshot.val().Name,
-            price: childSnapshot.val().Price,
-            image: childSnapshot.val().Image,
-            metades: childSnapshot.val().MetaDescription,
-            id: childSnapshot.val().ProductID,
-            rating: point / count,
-            bough: count,
-            BrandID: childSnapshot.val().BrandID,
-            CategoryID: childSnapshot.val().CategoryID,
-            PromotionPrice: childSnapshot.val().PromotionPrice,
-          });
-        }
+    database()
+      .ref('/Products')
+      .once('value')
+      .then((snapshot) => {
+        var itemsphone = [];
+        snapshot.forEach(function (childSnapshot) {
+          if (
+            childSnapshot.val().CategoryID ===
+            'AIzaSyDSWIekvpvwQbRiGh4WF88H91tqFzL6OWI'
+          ) {
+            var point = 0;
+            var count = 0;
+            childSnapshot.child('Rating').forEach((child) => {
+              point += child.val().Point;
+              count++;
+            });
+            itemsphone.push({
+              title: childSnapshot.val().Name,
+              price: childSnapshot.val().Price,
+              image: childSnapshot.val().Image,
+              metades: childSnapshot.val().MetaDescription,
+              id: childSnapshot.val().ProductID,
+              rating: point / count,
+              bough: count,
+              BrandID: childSnapshot.val().BrandID,
+              CategoryID: childSnapshot.val().CategoryID,
+              PromotionPrice: childSnapshot.val().PromotionPrice,
+            });
+          }
+        });
+        setListphone(itemsphone);
       });
-      setListphone(itemsphone);
-    });
   };
   const _getListLaptopNew = () => {
-    database().ref('/Products').once('value').then((snapshot) => {
-      var itemslap = [];
-      snapshot.forEach(function (childSnapshot) {
-        if (childSnapshot.val().CategoryID === '-MJaC7kTLJOYZjt9G4zs') {
-          var point = 0;
-          var count = 0;
-          childSnapshot.child('Rating').forEach((child) => {
-            point += child.val().Point;
-            count++;
-          });
-          itemslap.push({
-            title: childSnapshot.val().Name,
-            price: childSnapshot.val().Price,
-            image: childSnapshot.val().Image,
-            metades: childSnapshot.val().MetaDescription,
-            id: childSnapshot.val().ProductID,
-            rating: point / count,
-            bough: count,
-            BrandID: childSnapshot.val().BrandID,
-            CategoryID: childSnapshot.val().CategoryID,
-            PromotionPrice: childSnapshot.val().PromotionPrice,
-          });
-        }
+    database()
+      .ref('/Products')
+      .once('value')
+      .then((snapshot) => {
+        var itemslap = [];
+        snapshot.forEach(function (childSnapshot) {
+          if (childSnapshot.val().CategoryID === '-MJaC7kTLJOYZjt9G4zs') {
+            var point = 0;
+            var count = 0;
+            childSnapshot.child('Rating').forEach((child) => {
+              point += child.val().Point;
+              count++;
+            });
+            itemslap.push({
+              title: childSnapshot.val().Name,
+              price: childSnapshot.val().Price,
+              image: childSnapshot.val().Image,
+              metades: childSnapshot.val().MetaDescription,
+              id: childSnapshot.val().ProductID,
+              rating: point / count,
+              bough: count,
+              BrandID: childSnapshot.val().BrandID,
+              CategoryID: childSnapshot.val().CategoryID,
+              PromotionPrice: childSnapshot.val().PromotionPrice,
+            });
+          }
+        });
+        setListPro(itemslap);
       });
-      setListPro(itemslap);
-    });
   };
   const _getListTabletNew = () => {
-    database().ref('/Products').once('value').then((snapshot) => {
-      var itemstab = [];
-      snapshot.forEach(function (childSnapshot) {
-        if (childSnapshot.val().CategoryID === '-MJaB1_P1gTPbxmjMXSW') {
+    database()
+      .ref('/Products')
+      .once('value')
+      .then((snapshot) => {
+        var itemstab = [];
+        snapshot.forEach(function (childSnapshot) {
+          if (childSnapshot.val().CategoryID === '-MJaB1_P1gTPbxmjMXSW') {
+            var point = 0;
+            var count = 0;
+            childSnapshot.child('Rating').forEach((child) => {
+              point += child.val().Point;
+              count++;
+            });
+            itemstab.push({
+              title: childSnapshot.val().Name,
+              price: childSnapshot.val().Price,
+              image: childSnapshot.val().Image,
+              metades: childSnapshot.val().MetaDescription,
+              id: childSnapshot.val().ProductID,
+              rating: point / count,
+              bough: count,
+              BrandID: childSnapshot.val().BrandID,
+              CategoryID: childSnapshot.val().CategoryID,
+              PromotionPrice: childSnapshot.val().PromotionPrice,
+            });
+          }
+        });
+        setListtablet(itemstab);
+      });
+  };
+  const _getListDongHoNew = () => {
+    database()
+      .ref('/Products')
+      .once('value')
+      .then((snapshot) => {
+        var itemsdongho = [];
+        snapshot.forEach(function (childSnapshot) {
+          if (childSnapshot.val().CategoryID === '-MJaCJRVtI_o9Hv5XY-N') {
+            var point = 0;
+            var count = 0;
+            childSnapshot.child('Rating').forEach((child) => {
+              point += child.val().Point;
+              count++;
+            });
+            itemsdongho.push({
+              title: childSnapshot.val().Name,
+              price: childSnapshot.val().Price,
+              image: childSnapshot.val().Image,
+              metades: childSnapshot.val().MetaDescription,
+              id: childSnapshot.val().ProductID,
+              rating: point / count,
+              bough: count,
+              BrandID: childSnapshot.val().BrandID,
+              CategoryID: childSnapshot.val().CategoryID,
+              PromotionPrice: childSnapshot.val().PromotionPrice,
+            });
+          }
+        });
+        setListdongho(itemsdongho);
+      });
+  };
+  const _getListPhukienNew = () => {
+    database()
+      .ref('/Products')
+      .once('value')
+      .then((snapshot) => {
+        var itemsphukien = [];
+        snapshot.forEach(function (childSnapshot) {
+          if (childSnapshot.val().CategoryID === '-MJaCDw6CYGQenBvOtGO') {
+            var point = 0;
+            var count = 0;
+            childSnapshot.child('Rating').forEach((child) => {
+              point += child.val().Point;
+              count++;
+            });
+            itemsphukien.push({
+              title: childSnapshot.val().Name,
+              price: childSnapshot.val().Price,
+              image: childSnapshot.val().Image,
+              metades: childSnapshot.val().MetaDescription,
+              id: childSnapshot.val().ProductID,
+              rating: point / count,
+              bough: count,
+              BrandID: childSnapshot.val().BrandID,
+              CategoryID: childSnapshot.val().CategoryID,
+              PromotionPrice: childSnapshot.val().PromotionPrice,
+            });
+          }
+        });
+        setListphukien(itemsphukien);
+      });
+  };
+  const ListenForItems = () => {
+    database()
+      .ref('/Products')
+      .once('value')
+      .then((snapshot) => {
+        var items = [];
+        snapshot.forEach(function (childSnapshot) {
           var point = 0;
           var count = 0;
           childSnapshot.child('Rating').forEach((child) => {
             point += child.val().Point;
             count++;
           });
-          itemstab.push({
+          items.push({
             title: childSnapshot.val().Name,
             price: childSnapshot.val().Price,
             image: childSnapshot.val().Image,
@@ -137,53 +246,29 @@ function HomeContainer({ navigation }) {
             CategoryID: childSnapshot.val().CategoryID,
             PromotionPrice: childSnapshot.val().PromotionPrice,
           });
-        }
-      });
-      setListtablet(itemstab);
-    });
-  };
-  const ListenForItems = () => {
-    database().ref('/Products').once('value').then((snapshot) => {
-      var items = [];
-      snapshot.forEach(function (childSnapshot) {
-        var point = 0;
-        var count = 0;
-        childSnapshot.child('Rating').forEach((child) => {
-          point += child.val().Point;
-          count++;
         });
-        items.push({
-          title: childSnapshot.val().Name,
-          price: childSnapshot.val().Price,
-          image: childSnapshot.val().Image,
-          metades: childSnapshot.val().MetaDescription,
-          id: childSnapshot.val().ProductID,
-          rating: point / count,
-          bough: count,
-          BrandID: childSnapshot.val().BrandID,
-          CategoryID: childSnapshot.val().CategoryID,
-          PromotionPrice: childSnapshot.val().PromotionPrice,
-        });
+        setListall(items);
       });
-      setListall(items);
-    });
   };
   const getListBanner = () => {
-    database().ref('Contents').once('value').then((snapshot) => {
-      var items = [];
-      snapshot.forEach((childSnapshot) => {
-        items.push({
-          id: childSnapshot.key,
-          Detail: childSnapshot.val().Detail,
-          Image: childSnapshot.val().Image,
-          Name: childSnapshot.val().Name,
-          Url: childSnapshot.val().Url,
+    database()
+      .ref('Contents')
+      .once('value')
+      .then((snapshot) => {
+        var items = [];
+        snapshot.forEach((childSnapshot) => {
+          items.push({
+            id: childSnapshot.key,
+            Detail: childSnapshot.val().Detail,
+            Image: childSnapshot.val().Image,
+            Name: childSnapshot.val().Name,
+            Url: childSnapshot.val().Url,
+          });
         });
+        setListcontents(items);
+        setLoading(false);
+        setRefreshing(false);
       });
-      setListcontents(items);
-      setLoading(false);
-      setRefreshing(false);
-    });
   };
   const _onRefresh = () => {
     setRefreshing(true);
@@ -193,13 +278,16 @@ function HomeContainer({ navigation }) {
     _getListPhoneNew();
     _getListLaptopNew();
     _getListTabletNew();
+    _getListDongHoNew();
+    _getListPhukienNew();
     getnumcart();
-
   };
   useEffect(() => {
     _getListPhoneNew();
     _getListLaptopNew();
     _getListTabletNew();
+    _getListDongHoNew();
+    _getListPhukienNew();
     ListenForItems();
     getListBanner();
   }, []);
@@ -207,11 +295,12 @@ function HomeContainer({ navigation }) {
   const renderNofiCart = () => {
     if (numcart === 0) {
       return null;
-    }
-    else {
+    } else {
       return (
         <View style={styles.cartView}>
-          <Text style={styles.cartText} numberOfLines={1}>{numcart}</Text>
+          <Text style={styles.cartText} numberOfLines={1}>
+            {numcart}
+          </Text>
         </View>
       );
     }
@@ -219,10 +308,12 @@ function HomeContainer({ navigation }) {
 
   if (loading) {
     return (
-      <View style={styles.loadingview}>
-        <StatusBar barStyle="light-content" backgroundColor="#a2459a" />
-        <Image source={require('assets/images/homeloading.png')} style={styles.loadingImage} />
-        <ActivityIndicator size="large" color="'#a2459a" style={styles.activityView} />
+      <View style={styles.screenContainer}>
+        <LottieView
+          source={require('../../../assets/images/loading.json')}
+          autoPlay
+          loop
+        />
       </View>
     );
   }
@@ -239,7 +330,9 @@ function HomeContainer({ navigation }) {
       listpro={listpro}
       listall={listall}
       listcontents={listcontents}
+      listdongho={listdongho}
       listphone={listphone}
+      listphukien={listphukien}
       listtablet={listtablet}
       numcart={numcart}
       loading={loading}
@@ -251,4 +344,3 @@ function HomeContainer({ navigation }) {
 }
 
 export default withForceUpdate(HomeContainer);
-

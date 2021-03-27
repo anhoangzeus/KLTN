@@ -27,7 +27,11 @@ function HomeView(props) {
 
   return (
     <View style={styles.screenContainer}>
-      <StatusBar backgroundColor="#a2459a" barStyle="light-content" translucent={false} />
+      <StatusBar
+        backgroundColor="#a2459a"
+        barStyle="light-content"
+        translucent={false}
+      />
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => { }}>
           <View style={styles.inputContainer}>
@@ -45,12 +49,8 @@ function HomeView(props) {
       <View style={styles.bodyContainer}>
         <ScrollView
           refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={_onRefresh}
-            />
-          }
-        >
+            <RefreshControl refreshing={refreshing} onRefresh={_onRefresh} />
+          }>
           {SwiperBraner(listcontents, navigation)}
           {TopBraner('Hot nhất hôm nay')}
           <View style={styles.proHotContainer}>
@@ -63,7 +63,7 @@ function HomeView(props) {
               numberOfLines={2}
               showsHorizontalScrollIndicator={false}
               data={listphone}
-              renderItem={({ item }) =>
+              renderItem={({ item }) => (
                 <TouchableOpacity onPress={() => { }}>
                   <NewProductItem
                     name={item.title}
@@ -74,7 +74,7 @@ function HomeView(props) {
                     PromotionPrice={item.PromotionPrice}
                   />
                 </TouchableOpacity>
-              }
+              )}
             />
           </View>
           <View style={styles.proHotContainer}>
@@ -87,7 +87,7 @@ function HomeView(props) {
               numberOfLines={2}
               showsHorizontalScrollIndicator={false}
               data={listtablet}
-              renderItem={({ item }) =>
+              renderItem={({ item }) => (
                 <TouchableOpacity onPress={() => { }}>
                   <NewProductItem
                     name={item.title}
@@ -98,7 +98,7 @@ function HomeView(props) {
                     PromotionPrice={item.PromotionPrice}
                   />
                 </TouchableOpacity>
-              }
+              )}
             />
           </View>
           <View style={styles.proHotContainer}>
@@ -111,7 +111,7 @@ function HomeView(props) {
               numberOfLines={2}
               showsHorizontalScrollIndicator={false}
               data={listpro}
-              renderItem={({ item }) =>
+              renderItem={({ item }) => (
                 <TouchableOpacity onPress={() => { }}>
                   <NewProductItem
                     name={item.title}
@@ -122,7 +122,7 @@ function HomeView(props) {
                     PromotionPrice={item.PromotionPrice}
                   />
                 </TouchableOpacity>
-              }
+              )}
             />
           </View>
           <View style={{ marginTop: 10 }}>
@@ -131,7 +131,7 @@ function HomeView(props) {
               showsVerticalScrollIndicator={false}
               numColumns={2}
               data={listall}
-              renderItem={({ item }) =>
+              renderItem={({ item }) => (
                 <TouchableOpacity onPress={() => { }}>
                   <ProductItem
                     name={item.title}
@@ -142,14 +142,14 @@ function HomeView(props) {
                     PromotionPrice={item.PromotionPrice}
                   />
                 </TouchableOpacity>
-              }
+              )}
             />
           </View>
           <View style={{ height: 10, backgroundColor: 'silver' }} />
           <View style={styles.sectionContainer} />
         </ScrollView>
       </View>
-    </View >
+    </View>
   );
 }
 
