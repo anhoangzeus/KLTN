@@ -9,11 +9,14 @@ import {
   TouchableOpacity,
   RefreshControl,
   Dimensions,
+  SafeAreaView,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styles from './Category.styles';
 import Swiper from 'react-native-swiper';
 const {width, height} = Dimensions.get('screen');
+import SCENE_NAMES from 'constants/sceneName';
+import NavigationServices from 'utils/navigationServices';
 // import {NAMESPACE} from './Category.constants';
 
 function CategoryView(props) {
@@ -33,7 +36,7 @@ function CategoryView(props) {
   } = props;
 
   return (
-    <View style={styles.screenContainer}>
+    <SafeAreaView style={styles.screenContainer}>
       <StatusBar barStyle="light-content" translucent={false} />
       <View style={styles.headerContainer}>
         <TouchableOpacity>
@@ -67,8 +70,9 @@ function CategoryView(props) {
             {listcontent.map((item) => (
               <TouchableOpacity
                 key={item.id}
-                // onPress={() => this.props.navigation.navigate('Contents', { id: item.Url })}
-              >
+                onPress={() =>
+                  NavigationServices.navigate(SCENE_NAMES.HOME, {id: item.Url})
+                }>
                 <View style={styles.sectionContainer}>
                   <Image
                     source={{uri: item.Image}}
@@ -110,8 +114,13 @@ function CategoryView(props) {
                 data={listproduct}
                 renderItem={({item}) => (
                   <TouchableOpacity
-                  //onPress={() => navigation.navigate('Items', { id: item.id, CategoryID: item.CategoryID, BrandID: item.BrandID })}
-                  >
+                    onPress={() =>
+                      NavigationServices.navigate(SCENE_NAMES.PRODUCT, {
+                        id: item.id,
+                        CategoryID: item.CategoryID,
+                        BrandID: item.BrandID,
+                      })
+                    }>
                     <ProductItem
                       name={item.title}
                       image={item.image}
@@ -130,7 +139,7 @@ function CategoryView(props) {
           <View style={styles.safeArea} />
         </ScrollView>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

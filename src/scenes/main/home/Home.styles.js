@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import SIZE from 'constants/size';
 
 export default StyleSheet.create({
@@ -109,5 +109,9 @@ export default StyleSheet.create({
     margin: 1,
     fontWeight: 'bold',
     color: 'white',
+  },
+  safeContainer: {
+    flex: 1,
+    color: '#a2459a',
   },
 });
