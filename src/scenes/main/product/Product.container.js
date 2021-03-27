@@ -12,7 +12,7 @@ import {getString} from 'utils/i18n';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import styles from './Product.styles';
-import NavigationServices from 'utils/navigationServices';
+import NavigationServices, {getParams} from 'utils/navigationServices';
 
 const functionsCounter = new Set();
 
@@ -22,7 +22,7 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
 
 export default function ProductContainer({navigation, route}) {
   const isLoading = useSelectorShallow(loadingSelector);
-  const params = NavigationServices.getParams(route);
+  const {id, BrandID, CategoryID} = getParams(route);
   const itemRef = database();
 
   const {numcart, setnumcart} = useState(0);
@@ -36,7 +36,7 @@ export default function ProductContainer({navigation, route}) {
   const {listproductlienquan, setlistproductlienquan} = useState([]);
   const {listmoreimage} = useState([]);
   const {listcomment, setlistcomment} = useState([]);
-  const {idsanpham, setidsanpham} = useState(params.id);
+  const {idsanpham, setidsanpham} = useState(id);
   const {listcart, setlistcart} = useState([]);
   const {modalvisible, setmodalvisible} = useState(false);
   const {scrollY} = useState(new Animated.Value(0));
@@ -57,16 +57,15 @@ export default function ProductContainer({navigation, route}) {
     });
   }, [navigation]);
 
-  console.log('params', params);
   const getNameBrandCate = () => {
     itemRef
-      .ref('/Catogorys/' + params.CategoryID)
+      .ref('/Catogorys/' + CategoryID)
       .once('value')
       .then((snapshot) => {
         setcategoryname(snapshot.val().Name);
       });
     database()
-      .ref('/Brands/' + params.BrandID)
+      .ref('/Brands/' + BrandID)
       .once('value')
       .then((snapshot) => {
         setbrandname(snapshot.val().Name);
@@ -87,8 +86,8 @@ export default function ProductContainer({navigation, route}) {
     }
   };
   const getItemRespon = () => {
-    var CategoryID = params.CategoryID;
-    var BrandID = params.BrandID;
+    var Category_ID = CategoryID;
+    var Brand_ID = BrandID;
     var ProductID = idsanpham;
     database()
       .ref('/Products')
@@ -96,9 +95,9 @@ export default function ProductContainer({navigation, route}) {
       .then((snapshot) => {
         var items = [];
         snapshot.forEach(function (snapshot) {
-          if (snapshot.val().ProductID != ProductID) {
-            if (snapshot.val().CategoryID == CategoryID) {
-              if (snapshot.val().BrandID == BrandID) {
+          if (snapshot.val().ProductID !== ProductID) {
+            if (snapshot.val().CategoryID === Category_ID) {
+              if (snapshot.val().BrandID === Brand_ID) {
                 items.push({
                   image: snapshot.val().Image,
                   Name: snapshot.val().Name,
@@ -116,7 +115,7 @@ export default function ProductContainer({navigation, route}) {
     var ImageItems = [];
     database()
       .ref('/Products')
-      .child(params.id)
+      .child(id)
       .once('value')
       .then((snapshot) => {
         var point = 0;
@@ -168,7 +167,7 @@ export default function ProductContainer({navigation, route}) {
       });
     database()
       .ref('/Products/')
-      .child(params.id)
+      .child(id)
       .child('Images')
       .once('value')
       .then((snapshot) => {
@@ -258,11 +257,11 @@ export default function ProductContainer({navigation, route}) {
       if (temp === 0) {
         database()
           .ref('/Cart/' + auth().currentUser.uid)
-          .child(params.content)
+          .child(id)
           .set({
-            Id: params.content,
-            CategoryID: params.CategoryID,
-            BrandID: params.BrandID,
+            Id: id,
+            CategoryID: CategoryID,
+            BrandID: BrandID,
             CategoryName: categoryname,
             BrandName: brandname,
             Name: name,
@@ -275,8 +274,8 @@ export default function ProductContainer({navigation, route}) {
           .ref('/Cart/' + auth().currentUser.uid + '/' + key)
           .set({
             Id: product.ProductID,
-            CategoryID: params.CategoryID,
-            BrandID: params.BrandID,
+            CategoryID: CategoryID,
+            BrandID: BrandID,
             CategoryName: categoryname,
             BrandName: brandname,
             Name: product.Name,
@@ -291,8 +290,8 @@ export default function ProductContainer({navigation, route}) {
     }
     setModalVisible(true);
   };
-  const setID = (id) => {
-    setidsanpham(id);
+  const setID = (idpro) => {
+    setidsanpham(idpro);
   };
 
   useEffect(() => {
