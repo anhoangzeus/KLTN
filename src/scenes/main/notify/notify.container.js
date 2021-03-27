@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import NotifyView from './notify.view';
 import database from '@react-native-firebase/database';
@@ -153,8 +154,7 @@ export default function NotifyContainer({ navigation }) {
     useEffect(() => {
         getlistOrder();
         getThongBao();
-    });
-
+    }, []);
     functionsCounter.add(setIsdropdownid);
     functionsCounter.add(setStateNotigication);
     functionsCounter.add(setIschoose);

@@ -5,11 +5,6 @@ export default StyleSheet.create({
   screenContainer: {
     flex: 1,
   },
-  proHotContainer1: {
-    backgroundColor: '#fff',
-    paddingHorizontal: 12,
-    height: SIZE.DEVICE_HEIGHT / 2.8,
-  },
   headerContainer: {
     flexDirection: 'row',
     paddingTop: 15,
@@ -51,35 +46,9 @@ export default StyleSheet.create({
     paddingHorizontal: 12,
     height: SIZE.DEVICE_HEIGHT / 2.3,
   },
-
-  hotimgtype1: {
-    width: SIZE.DEVICE_WIDTH / 3.5,
-    height: SIZE.DEVICE_HEIGHT / 6.7,
-    borderWidth: 1,
-    borderColor: '#DDDDDD',
-    borderRadius: 5,
-    marginTop: 5,
-    resizeMode: 'contain',
-  },
-  hotimgtype2: {
-    width: SIZE.DEVICE_WIDTH / 3.5,
-    height: SIZE.DEVICE_HEIGHT / 6.7,
-    borderWidth: 1,
-    borderColor: '#DDDDDD',
-    borderRadius: 5,
-    resizeMode: 'contain',
-  },
   reviewimg: {
     height: SIZE.DEVICE_HEIGHT / 50,
     marginLeft: SIZE.DEVICE_WIDTH / 60,
-  },
-  tophotimg1: {
-    width: SIZE.DEVICE_WIDTH / 3,
-    height: SIZE.DEVICE_HEIGHT / 3.285,
-    borderWidth: 1,
-    borderColor: '#DDDDDD',
-    borderRadius: 5,
-    resizeMode: 'cover',
   },
   loadingview: {
     flex: 1,
