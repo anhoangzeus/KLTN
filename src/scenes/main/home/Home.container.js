@@ -27,6 +27,11 @@ function HomeContainer({ navigation }) {
   const onPressTestApi = useCallback(() => {
     actions.getUserInfoSubmit({ showLoading: false });
   }, [actions]);
+
+  // reference.once('value')
+  // .then(snapshot => {
+    // console.log('User data: ', snapshot.val());
+  // });
   // useLayoutEffect(() => {
   //   navigation.setOptions({
   //     title: I18n.t(`${NAMESPACE}.title`),

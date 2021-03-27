@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 // Screen Import
+import CategoryContainer from 'scenes/main/category/Category.container';
 import SignInContainer from 'scenes/auth/signIn/SignIn.container';
 import { TransitionPresets } from '@react-navigation/stack';
 import MainTabNavigator from './TabNavigator';
@@ -30,6 +31,7 @@ function RootNavigator({ onNavigationStateChange }) {
           <Stack.Screen name={SCENE_NAMES.DUMMY} component={DummyScreen} />
         )}
         {/* Plop screen */}
+				<Stack.Screen name={ SCENE_NAMES.CATEGORY } component={ CategoryContainer } />
         <Stack.Screen name={SCENE_NAMES.SIGN_IN} component={SignInContainer} />
         <Stack.Screen
           options={{ headerShown: false }}
