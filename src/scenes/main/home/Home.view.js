@@ -21,6 +21,8 @@ import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import NewProductItem from 'components/TopTrendProduct';
 import ProductItem from 'components/ProductItem';
 import SwiperBraner from 'components/Swiper';
+import SCENE_NAMES from 'constants/sceneName';
+import NavigationServices from 'utils/navigationServices';
 
 function HomeView(props) {
   const {
@@ -152,7 +154,14 @@ function HomeView(props) {
                 showsHorizontalScrollIndicator={false}
                 data={listphone}
                 renderItem={({item}) => (
-                  <TouchableOpacity onPress={() => {}}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      NavigationServices.navigate(SCENE_NAMES.PRODUCT, {
+                        id: item.id,
+                        CategoryID: item.CategoryID,
+                        BrandID: item.BrandID,
+                      })
+                    }>
                     <NewProductItem
                       name={item.title}
                       image={item.image}
@@ -176,7 +185,14 @@ function HomeView(props) {
                 showsHorizontalScrollIndicator={false}
                 data={listtablet}
                 renderItem={({item}) => (
-                  <TouchableOpacity onPress={() => {}}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      NavigationServices.navigate(SCENE_NAMES.PRODUCT, {
+                        id: item.id,
+                        CategoryID: item.CategoryID,
+                        BrandID: item.BrandID,
+                      })
+                    }>
                     <NewProductItem
                       name={item.title}
                       image={item.image}
@@ -200,7 +216,14 @@ function HomeView(props) {
                 showsHorizontalScrollIndicator={false}
                 data={listpro}
                 renderItem={({item}) => (
-                  <TouchableOpacity onPress={() => {}}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      NavigationServices.navigate(SCENE_NAMES.PRODUCT, {
+                        id: item.id,
+                        CategoryID: item.CategoryID,
+                        BrandID: item.BrandID,
+                      })
+                    }>
                     <NewProductItem
                       name={item.title}
                       image={item.image}

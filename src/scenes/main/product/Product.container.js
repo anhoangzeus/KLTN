@@ -25,31 +25,31 @@ export default function ProductContainer({navigation, route}) {
   const {id, BrandID, CategoryID} = getParams(route);
   const itemRef = database();
 
-  const {numcart, setnumcart} = useState(0);
-  const {decription, setdecription} = useState('');
-  const {image, setimage} = useState('');
-  const {name, setname} = useState('');
-  const {price, setprice} = useState('');
-  const {waranty, setwaranty} = useState('');
-  const {promotionprice, setpromotionprice} = useState('');
-  const {metadescription, setmetadescription} = useState('');
-  const {listproductlienquan, setlistproductlienquan} = useState([]);
-  const {listmoreimage} = useState([]);
-  const {listcomment, setlistcomment} = useState([]);
-  const {idsanpham, setidsanpham} = useState(id);
-  const {listcart, setlistcart} = useState([]);
-  const {modalvisible, setmodalvisible} = useState(false);
-  const {scrollY} = useState(new Animated.Value(0));
-  const {isloading} = useState(false);
-  const {brandname, setbrandname} = useState('');
-  const {categoryname, setcategoryname} = useState('');
-  const {rating, setrating} = useState(0);
-  const {bough, setbough} = useState(0);
-  const {sao1, setsao1} = useState(0);
-  const {sao2, setsao2} = useState(0);
-  const {sao3, setsao3} = useState(0);
-  const {sao4, setsao4} = useState(0);
-  const {sao5, setsao5} = useState(0);
+  const [numcart, setnumcart] = useState(0);
+  const [decription, setdecription] = useState('');
+  const [image, setimage] = useState('');
+  const [name, setname] = useState('');
+  const [price, setprice] = useState('');
+  const [waranty, setwaranty] = useState('');
+  const [promotionprice, setpromotionprice] = useState('');
+  const [metadescription, setmetadescription] = useState('');
+  const [listproductlienquan, setlistproductlienquan] = useState([]);
+  const [listmoreimage, setlistmoreimage] = useState([]);
+  const [listcomment, setlistcomment] = useState([]);
+  const [idsanpham, setidsanpham] = useState(id);
+  const [listcart, setlistcart] = useState([]);
+  const [modalvisible, setmodalvisible] = useState(false);
+  const [scrollY] = useState(new Animated.Value(0));
+  const [isloading, setisloading] = useState(false);
+  const [brandname, setbrandname] = useState('');
+  const [categoryname, setcategoryname] = useState('');
+  const [rating, setrating] = useState(0);
+  const [bough, setbough] = useState(0);
+  const [sao1, setsao1] = useState(0);
+  const [sao2, setsao2] = useState(0);
+  const [sao3, setsao3] = useState(0);
+  const [sao4, setsao4] = useState(0);
+  const [sao5, setsao5] = useState(0);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -114,8 +114,7 @@ export default function ProductContainer({navigation, route}) {
   const getData = () => {
     var ImageItems = [];
     database()
-      .ref('/Products')
-      .child(id)
+      .ref('/Products/' + id)
       .once('value')
       .then((snapshot) => {
         var point = 0;
@@ -148,7 +147,9 @@ export default function ProductContainer({navigation, route}) {
             UserName: child.val().UserName,
           });
         });
+        console.log('tên mo ta san pham', snapshot.val().Description);
         setdecription(snapshot.val().Description);
+        console.log('state của des', decription);
         setimage(snapshot.val().Image);
         setname(snapshot.val().Name);
         setprice(snapshot.val().Price);
@@ -175,8 +176,9 @@ export default function ProductContainer({navigation, route}) {
           ImageItems.push(child.val().Image);
         });
       });
-    // setlistmoreimage(ImageItems);
-    // setisloading(false);
+
+    setlistmoreimage(ImageItems);
+    setisloading(false);
   };
 
   const GetCartData = () => {

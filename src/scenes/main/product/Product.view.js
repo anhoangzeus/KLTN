@@ -6,7 +6,6 @@ import {
   Alert,
   View,
   Text,
-  StatusBar,
   FlatList,
   Modal,
   TouchableHighlight,
@@ -17,7 +16,7 @@ import {
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-// import Swiper from 'react-native-swiper';
+import Swiper from 'react-native-swiper';
 
 import styles from './Product.styles';
 import NumberFormat from 'components/NumberFormat';
@@ -26,15 +25,15 @@ import CommentItem from 'components/CommentItem';
 import NavigationServices from 'utils/navigationServices';
 // import {NAMESPACE} from './Product.constants';
 
-const {height} = Dimensions.get('screen');
+const {height, width} = Dimensions.get('screen');
 function ProductView(props) {
   const {
     addCart,
     handleClose,
     renderNofiCart,
-    // ProductItem,
-    // setID,
-    // listproductlienquan,
+    ProductItem,
+    setID,
+    listproductlienquan,
     listmoreimage,
     bough,
     name,
@@ -67,11 +66,11 @@ function ProductView(props) {
   });
   return (
     <SafeAreaView style={styles.safeView}>
-      <StatusBar
+      {/* <StatusBar
         barStyle="dark-content"
         backgroundColor="transparent"
         translucent={true}
-      />
+      /> */}
       <Animated.View style={[styles.headerFont1, {height: headerHeight}]}>
         <TouchableOpacity
           style={styles.container}
@@ -103,7 +102,7 @@ function ProductView(props) {
         onScroll={Animated.event([
           {nativeEvent: {contentOffset: {y: scrollY}}},
         ])}>
-        {/* <Swiper
+        <Swiper
           loop={true}
           showsPagination={true}
           index={0}
@@ -114,7 +113,7 @@ function ProductView(props) {
               <Image source={{uri: item}} style={styles.profileImage} />
             </View>
           ))}
-        </Swiper> */}
+        </Swiper>
         <View style={styles.headerFont}>
           <TouchableOpacity
             style={styles.settingTouch}
@@ -193,7 +192,7 @@ function ProductView(props) {
           <View />
         </View>
         <View />
-        {/* {listproductlienquan.length === 0 ? null : (
+        {listproductlienquan.length === 0 ? null : (
           <View style={styles.relateView}>
             <Text bold size={12} style={styles.relateText}>
               Sản Phẩm Tương Tự
@@ -215,7 +214,7 @@ function ProductView(props) {
               keyExtractor={(item) => item.proid}
             />
           </View>
-        )} */}
+        )}
         <View style={styles.fiveView} />
         <View style={styles.whiteView}>
           <Text bold size={12} style={styles.desText}>
