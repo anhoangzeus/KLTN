@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StatusBar, TouchableOpacity, FlatList, RefreshControl, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, RefreshControl, ActivityIndicator } from 'react-native';
 import styles from './notify.styles';
 import { COLOR_BLUEAIR, COLOR_BLACK } from 'constants/colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -156,7 +156,7 @@ export default function NotifyView(props) {
     const { listThongBao, loading, ischoose, listOrder, redPoint1, redPoint2, redPoint3, setIschoose, getlistOrder, _onRefresh, refreshing } = props;
     return (
         <View style={styles.screenContainer}>
-            <StatusBar barStyle="light-content" />
+            {/* <StatusBar barStyle="light-content" /> */}
             <Header title="Thông báo" />
             <View style={styles.bodyContainer}>
                 <View>

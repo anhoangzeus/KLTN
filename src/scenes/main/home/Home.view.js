@@ -2,7 +2,6 @@
 import * as React from 'react';
 import {
   View,
-  Image,
   StatusBar,
   Text,
   TouchableOpacity,
@@ -10,19 +9,23 @@ import {
   ScrollView,
   RefreshControl,
   SafeAreaView,
+  Image,
 } from 'react-native';
 import styles from './Home.styles';
 import withLoading from 'components/HOC/withLoading';
 // import ScrollViewPullRefresh from 'components/ScrollViewPullRefresh';
 // import { SVG_NAME } from 'assets/path';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Foundation from 'react-native-vector-icons/Foundation';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Foundation from 'react-native-vector-icons/Foundation';
 import NewProductItem from 'components/TopTrendProduct';
 import ProductItem from 'components/ProductItem';
-import SwiperBraner from 'components/Swiper';
+import SwiperBraner from 'components/Swiper/SwiperBanner';
 import SCENE_NAMES from 'constants/sceneName';
 import NavigationServices from 'utils/navigationServices';
+//import TopBraner from 'components/Swiper/TopBanner';
+
+console.disableYellowBox = true;
 
 function HomeView(props) {
   const {
@@ -30,9 +33,7 @@ function HomeView(props) {
     listpro,
     listall,
     listcontents,
-    //listdongho,
     listphone,
-    //listphukien,
     listtablet,
     navigation,
     refreshing,
@@ -245,9 +246,9 @@ function HomeView(props) {
               horizontal={true}
               numberOfLines={2}
               showsHorizontalScrollIndicator={false}
-              data={listdongho}
-              renderItem={({item}) => (
-                <TouchableOpacity onPress={() => {}}>
+              data={listtablet}
+              renderItem={({ item }) =>
+                <TouchableOpacity onPress={() => { }}>
                   <NewProductItem
                     name={item.title}
                     image={item.image}
@@ -257,21 +258,21 @@ function HomeView(props) {
                     PromotionPrice={item.PromotionPrice}
                   />
                 </TouchableOpacity>
-              )}
+              }
             />
           </View>
           <View style={styles.proHotContainer}>
-            <Text style={{fontSize: 17, color: 'black', marginVertical: 10}}>
+            <Text style={{ fontSize: 17, color: 'black', marginVertical: 10 }}>
               <Foundation name="burst-new" color="red" size={25} />
-              Mẫu phụ kiện mới nhất
-            </Text>
+            Snack Foods Hot Sale
+        </Text>
             <FlatList
               horizontal={true}
               numberOfLines={2}
               showsHorizontalScrollIndicator={false}
-              data={listphukien}
-              renderItem={({item}) => (
-                <TouchableOpacity onPress={() => {}}>
+              data={listpro}
+              renderItem={({ item }) =>
+                <TouchableOpacity onPress={() => { }}>
                   <NewProductItem
                     name={item.title}
                     image={item.image}
@@ -281,7 +282,27 @@ function HomeView(props) {
                     PromotionPrice={item.PromotionPrice}
                   />
                 </TouchableOpacity>
-              )}
+              }
+            />
+          </View>
+          <View style={{ marginTop: 10 }}>
+            <FlatList
+              initialNumToRender={20}
+              showsVerticalScrollIndicator={false}
+              numColumns={2}
+              data={listall}
+              renderItem={({ item }) =>
+                <TouchableOpacity onPress={() => { }}>
+                  <ProductItem
+                    name={item.title}
+                    image={item.image}
+                    price={item.price}
+                    rating={item.rating}
+                    bough={item.bough}
+                    PromotionPrice={item.PromotionPrice}
+                  />
+                </TouchableOpacity>
+              }
             />
           </View> */}
             <View style={{marginTop: 10}}>
