@@ -154,7 +154,9 @@ export default function NotifyContainer({ navigation }) {
     useEffect(() => {
         getlistOrder();
         getThongBao();
-    }, []);
+    }, [
+        ischoose,
+    ]);
     functionsCounter.add(setIsdropdownid);
     functionsCounter.add(setStateNotigication);
     functionsCounter.add(setIschoose);

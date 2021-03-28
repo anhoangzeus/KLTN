@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, TouchableOpacity, FlatList, RefreshControl, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, RefreshControl, ActivityIndicator, SafeAreaView } from 'react-native';
 import styles from './notify.styles';
 import { COLOR_BLUEAIR, COLOR_BLACK } from 'constants/colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -155,109 +155,111 @@ export default function NotifyView(props) {
     };
     const { listThongBao, loading, ischoose, listOrder, redPoint1, redPoint2, redPoint3, setIschoose, getlistOrder, _onRefresh, refreshing } = props;
     return (
-        <View style={styles.screenContainer}>
-            {/* <StatusBar barStyle="light-content" /> */}
-            <Header title="Thông báo" />
-            <View style={styles.bodyContainer}>
-                <View>
-                    <TouchableOpacity onPress={() => setIschoose(1)}
-                        style={ischoose === 1 ? styles.buttonActiveContainer : styles.buttonInactiveContainer}>
-                        {ischoose === 1 ? <View style={styles.activeMark} /> : null}
-                        {ischoose === 1 ? null :
-                            redPoint3 ?
-                                <View style={styles.redPoint} />
-                                : null
-                        }
-                        <MaterialCommunityIcons
-                            name="home"
-                            color={ischoose === 1 ? '#a2459a' : '#949494'}
-                            size={25}
-                            style={ischoose === 1 ? styles.activeIcon : null}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setIschoose(2)}
-                        style={ischoose === 2 ? styles.buttonActiveContainer : styles.buttonInactiveContainer}>
-                        {ischoose === 2 ? <View style={styles.activeMark} /> : null}
-                        {ischoose === 2 ? null :
-                            redPoint2 ?
-                                <View style={styles.redPoint} />
-                                : null
-                        }
-                        <MaterialCommunityIcons
-                            name="backup-restore"
-                            color={ischoose === 2 ? '#a2459a' : '#949494'}
-                            size={25}
-                            style={ischoose === 2 ? styles.activeIcon : null}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setIschoose(3)}
-                        style={ischoose === 3 ? styles.buttonActiveContainer : styles.buttonInactiveContainer}>
-                        {ischoose === 3 ? <View style={styles.activeMark} /> : null}
-                        {ischoose === 3 ? null :
-                            redPoint1 ?
-                                <View style={styles.redPoint} />
-                                : null
-                        }
-                        <MaterialCommunityIcons
-                            name="sale"
-                            color={ischoose === 3 ? '#a2459a' : '#949494'}
-                            size={25}
-                            style={ischoose === 3 ? styles.activeIcon : null}
-                        />
-                    </TouchableOpacity>
-                    {auth().currentUser ?
-                        // eslint-disable-next-line no-sequences
-                        <TouchableOpacity onPress={() => { getlistOrder(), setIschoose(4); }}
-                            style={ischoose === 4 ? styles.buttonActiveContainer : styles.buttonInactiveContainer}>
-                            {ischoose === 4 ? <View style={styles.activeMark} /> : null}
-                            {ischoose === 4 ? null :
-                                <View style={styles.redPoint} />
+        <SafeAreaView style={styles.screenContainer}>
+            <View style={styles.screenContainer}>
+                {/* <StatusBar barStyle="light-content" /> */}
+                <Header title="Thông báo" />
+                <View style={styles.bodyContainer}>
+                    <View>
+                        <TouchableOpacity onPress={() => setIschoose(1)}
+                            style={ischoose === 1 ? styles.buttonActiveContainer : styles.buttonInactiveContainer}>
+                            {ischoose === 1 ? <View style={styles.activeMark} /> : null}
+                            {ischoose === 1 ? null :
+                                redPoint3 ?
+                                    <View style={styles.redPoint} />
+                                    : null
                             }
                             <MaterialCommunityIcons
-                                name="clipboard-text-outline"
-                                color={ischoose === 4 ? '#a2459a' : '#949494'}
+                                name="home"
+                                color={ischoose === 1 ? '#a2459a' : '#949494'}
                                 size={25}
-                                style={ischoose === 4 ? styles.activeIcon : null}
-
+                                style={ischoose === 1 ? styles.activeIcon : null}
                             />
-                        </TouchableOpacity> : null}
-
-                </View>
-                {loading ?
-                    <View style={styles.listIndiContainer}>
-                        <ActivityIndicator size="large" color="'#a2459a" style={styles.indicatorView} />
-                    </View>
-                    :
-                    ischoose === 4 ?
-                        <View style={styles.listContainer}>
-                            <FlatList
-                                refreshControl={
-                                    <RefreshControl
-                                        refreshing={refreshing}
-                                        onRefresh={_onRefresh}
-                                    />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => setIschoose(2)}
+                            style={ischoose === 2 ? styles.buttonActiveContainer : styles.buttonInactiveContainer}>
+                            {ischoose === 2 ? <View style={styles.activeMark} /> : null}
+                            {ischoose === 2 ? null :
+                                redPoint2 ?
+                                    <View style={styles.redPoint} />
+                                    : null
+                            }
+                            <MaterialCommunityIcons
+                                name="backup-restore"
+                                color={ischoose === 2 ? '#a2459a' : '#949494'}
+                                size={25}
+                                style={ischoose === 2 ? styles.activeIcon : null}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => setIschoose(3)}
+                            style={ischoose === 3 ? styles.buttonActiveContainer : styles.buttonInactiveContainer}>
+                            {ischoose === 3 ? <View style={styles.activeMark} /> : null}
+                            {ischoose === 3 ? null :
+                                redPoint1 ?
+                                    <View style={styles.redPoint} />
+                                    : null
+                            }
+                            <MaterialCommunityIcons
+                                name="sale"
+                                color={ischoose === 3 ? '#a2459a' : '#949494'}
+                                size={25}
+                                style={ischoose === 3 ? styles.activeIcon : null}
+                            />
+                        </TouchableOpacity>
+                        {auth().currentUser ?
+                            // eslint-disable-next-line no-sequences
+                            <TouchableOpacity onPress={() => { getlistOrder(), setIschoose(4); }}
+                                style={ischoose === 4 ? styles.buttonActiveContainer : styles.buttonInactiveContainer}>
+                                {ischoose === 4 ? <View style={styles.activeMark} /> : null}
+                                {ischoose === 4 ? null :
+                                    <View style={styles.redPoint} />
                                 }
-                                data={listOrder}
-                                keyExtractor={(item) => item.Id}
-                                renderItem={({ item }) => <renderOrder item={item} />}
-                            />
+                                <MaterialCommunityIcons
+                                    name="clipboard-text-outline"
+                                    color={ischoose === 4 ? '#a2459a' : '#949494'}
+                                    size={25}
+                                    style={ischoose === 4 ? styles.activeIcon : null}
+
+                                />
+                            </TouchableOpacity> : null}
+
+                    </View>
+                    {loading ?
+                        <View style={styles.listIndiContainer}>
+                            <ActivityIndicator size="large" color="'#a2459a" style={styles.indicatorView} />
                         </View>
                         :
-                        <View style={styles.listContainer}>
-                            <FlatList
-                                refreshControl={
-                                    <RefreshControl
-                                        refreshing={refreshing}
-                                        onRefresh={_onRefresh}
-                                    />
-                                }
-                                data={listThongBao}
-                                keyExtractor={(item) => item.orderId}
-                                renderItem={({ item }) => <NotificationItem item={item} />}
-                            />
-                        </View>
-                }
+                        ischoose === 4 ?
+                            <View style={styles.listContainer}>
+                                <FlatList
+                                    refreshControl={
+                                        <RefreshControl
+                                            refreshing={refreshing}
+                                            onRefresh={_onRefresh}
+                                        />
+                                    }
+                                    data={listOrder}
+                                    keyExtractor={(item) => item.Id}
+                                    renderItem={({ item }) => <renderOrder item={item} />}
+                                />
+                            </View>
+                            :
+                            <View style={styles.listContainer}>
+                                <FlatList
+                                    refreshControl={
+                                        <RefreshControl
+                                            refreshing={refreshing}
+                                            onRefresh={_onRefresh}
+                                        />
+                                    }
+                                    data={listThongBao}
+                                    keyExtractor={(item) => item.orderId}
+                                    renderItem={({ item }) => <NotificationItem item={item} />}
+                                />
+                            </View>
+                    }
+                </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }

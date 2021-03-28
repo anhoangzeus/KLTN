@@ -1,15 +1,15 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import NetInfo from '@react-native-community/netinfo';
 import RootNavigator from 'routers/RootNavigator';
-import {onAppConnectivityChange} from 'appRedux/actions/connectActions';
-import {useActions} from 'hooks/useActions';
+import { onAppConnectivityChange } from 'appRedux/actions/connectActions';
+import { useActions } from 'hooks/useActions';
 import useSelectorShallow from 'hooks/useSelectorShallowEqual';
-import {getIsLoadingSelector} from 'appRedux/selectors/loadingSelector';
-import {getIsConnectedSelector} from 'appRedux/selectors/connectSelector';
-import {hideError} from 'appRedux/actions/alertActions';
+import { getIsLoadingSelector } from 'appRedux/selectors/loadingSelector';
+import { getIsConnectedSelector } from 'appRedux/selectors/connectSelector';
+import { hideError } from 'appRedux/actions/alertActions';
 import AppLoading from 'components/AppLoading';
-import {getActiveRouteName} from 'utils/activeRouteName';
-import {BackHandler} from 'react-native';
+import { getActiveRouteName } from 'utils/activeRouteName';
+import { BackHandler } from 'react-native';
 import SCENE_NAMES from 'constants/sceneName';
 import NavigationServices from 'utils/navigationServices';
 import I18n from 'utils/i18n';
@@ -19,7 +19,7 @@ import ModalNotification, {
 
 export default function Scenes() {
   const isConnected = useSelectorShallow(getIsConnectedSelector);
-  const actions = useActions({onAppConnectivityChange, hideError});
+  const actions = useActions({ onAppConnectivityChange, hideError });
   const [currentRouteName, setCurrentRouteName] = useState('');
   const isLoading = useSelectorShallow(getIsLoadingSelector);
 

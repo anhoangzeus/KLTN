@@ -8,7 +8,11 @@ import CategoryContainer from 'scenes/main/category/Category.container';
 import SignInContainer from 'scenes/auth/signIn/SignIn.container';
 import { TransitionPresets } from '@react-navigation/stack';
 import MainTabNavigator from './TabNavigator';
+import TopStackLogin from './TopTabNavigator/LoginTab';
 import GetStartContainer from 'scenes/getStart/GetStart.container';
+import LoginScreen from 'scenes/auth/login/login.container';
+import ProfileScreen from 'scenes/main/profile/Profile.container';
+import ProfileMainScreen from 'scenes/main/profileMain/Profile.container';
 import DummyScreen from 'scenes/dummy';
 const Stack = createStackNavigator();
 
@@ -31,7 +35,7 @@ function RootNavigator({ onNavigationStateChange }) {
           <Stack.Screen name={SCENE_NAMES.DUMMY} component={DummyScreen} />
         )}
         {/* Plop screen */}
-				<Stack.Screen name={ SCENE_NAMES.CATEGORY } component={ CategoryContainer } />
+        <Stack.Screen name={SCENE_NAMES.CATEGORY} component={CategoryContainer} />
         <Stack.Screen name={SCENE_NAMES.SIGN_IN} component={SignInContainer} />
         <Stack.Screen
           options={{ headerShown: false }}
@@ -40,9 +44,15 @@ function RootNavigator({ onNavigationStateChange }) {
         />
         <Stack.Screen
           options={{ headerShown: false }}
+          name={SCENE_NAMES.TopStackLogin} component={TopStackLogin} />
+        <Stack.Screen
+          options={{ headerShown: false }}
           name={SCENE_NAMES.GET_START}
           component={GetStartContainer}
         />
+        <Stack.Screen name={SCENE_NAMES.LOGIN} component={LoginScreen} />
+        <Stack.Screen name={SCENE_NAMES.PROFILE} component={ProfileScreen} />
+        <Stack.Screen name={SCENE_NAMES.PROFILEMAIN} component={ProfileMainScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
