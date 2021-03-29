@@ -57,5 +57,6 @@ const NavigationServices = {
   replace,
   pop,
   push,
+  getParams,
 };
 export default NavigationServices;

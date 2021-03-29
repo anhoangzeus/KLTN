@@ -24,7 +24,7 @@ function RootNavigator({ onNavigationStateChange }) {
   return (
     <NavigationContainer
       onStateChange={onNavigationStateChange}
-      ref={navigatorRef => {
+      ref={(navigatorRef) => {
         NavigationServices.setTopLevelNavigator(navigatorRef);
       }}>
       <Stack.Navigator
