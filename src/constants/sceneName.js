@@ -11,6 +11,7 @@ const SCENE_NAMES = {
   DUMMY: 'DUMMY_SCREEN',
   LOGIN: 'Login_Screen',
   PROFILEMAIN: 'PROFILEMAIN_SCREEN',
+  Route_Contents: 'Route_Contents',
 };
 
 export default SCENE_NAMES;

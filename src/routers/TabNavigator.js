@@ -33,7 +33,16 @@ function MainTabNavigator() {
         name={SCENE_NAMES.HOME}
         component={HomeContainer}
       />
-
+      <Tab.Screen
+        options={{
+          tabBarLabel: 'Category',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="apps" color={color} size={size} />
+          ),
+        }}
+        name={SCENE_NAMES.CATEGORY}
+        component={CategoryContainer}
+      />
       <Tab.Screen
         options={{
           tabBarLabel: 'Notify',
@@ -47,17 +56,6 @@ function MainTabNavigator() {
         }}
         name={SCENE_NAMES.NOTIFY}
         component={NotifyContainer}
-      />
-
-      <Tab.Screen
-        options={{
-          tabBarLabel: 'Category',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="apps" color={color} size={size} />
-          ),
-        }}
-        name={SCENE_NAMES.CATEGORY}
-        component={CategoryContainer}
       />
       <Tab.Screen
         options={{

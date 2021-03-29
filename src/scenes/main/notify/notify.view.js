@@ -5,6 +5,7 @@ import { COLOR_BLUEAIR, COLOR_BLACK } from 'constants/colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header from 'components/Header';
 import auth from '@react-native-firebase/auth';
+import SCENE_NAMES from 'constants/sceneName';
 
 export default function NotifyView(props) {
     const renderTrangThai = (Status) => {
@@ -117,7 +118,7 @@ export default function NotifyView(props) {
         return (
             <TouchableOpacity style={styles.itemContainer}
                 // eslint-disable-next-line no-sequences
-                onPress={() => { setStateNotigication(item.Id), navigation.navigate('Contents', { id: item.Url }); }} >
+                onPress={() => { setStateNotigication(item.Id), navigation.navigate(SCENE_NAMES.Route_Contents, { id: item.Url }); }} >
                 <View style={styles.itemTopContainer}>
                     <View
                         style={[
