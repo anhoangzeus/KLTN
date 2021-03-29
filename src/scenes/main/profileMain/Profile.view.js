@@ -1,10 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity, StatusBar, ScrollView, Image } from 'react-native';
+import { View, Text, SafeAreaView, TouchableOpacity, ScrollView, Image } from 'react-native';
 import styles from './Profile.styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import auth from '@react-native-firebase/auth';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import NavigationServices from 'utils/navigationServices';
+import SCENE_NAMES from 'constants/sceneName';
 
 const ProfileItem = ({ icon, name }) => (
     <View style={styles.itemContainer}>
@@ -18,7 +20,6 @@ const ProfileMainView = (props) => {
     return (
         <SafeAreaView style={styles.screenContainer}>
             <View style={styles.screenContainer}>
-                <StatusBar backgroundColor="#a2459a" barStyle="light-content" />
                 <View style={styles.headerContainer}>
                     <Text style={styles.headerText}>Cá nhân</Text>
                 </View>
@@ -110,17 +111,15 @@ const ProfileMainView = (props) => {
 
                         <TouchableOpacity
                             style={styles.signIn}
-                            onPress={() => { auth().signOut(); }}
+                            onPress={() => { auth().signOut(); NavigationServices.replace(SCENE_NAMES.MAIN, { name: SCENE_NAMES.HOME }); }}
                         >
-                            <TouchableOpacity style={styles.signIn}>
-                                <Text style={styles.textSign}>Đăng xuất</Text>
-                            </TouchableOpacity>
+                            <Text style={styles.textSign}>Đăng xuất</Text>
                         </TouchableOpacity>
                         <View style={styles.divider} />
                     </View>
                 </ScrollView>
             </View>
-        </SafeAreaView>
+        </SafeAreaView >
     );
 };
 export default ProfileMainView;

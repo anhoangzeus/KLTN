@@ -20,6 +20,8 @@ import NewProductItem from 'components/TopTrendProduct';
 import ProductItem from 'components/ProductItem';
 import SwiperBraner from 'components/Swiper/SwiperBanner';
 import TopBraner from 'components/Swiper/TopBanner';
+import NavigationServices from 'utils/navigationServices';
+import SCENE_NAMES from 'constants/sceneName';
 
 console.disableYellowBox = true;
 
@@ -35,7 +37,7 @@ function HomeView(props) {
           translucent={false}
         />
         <View style={styles.headerContainer}>
-          <TouchableOpacity onPress={() => { }}>
+          <TouchableOpacity onPress={() => { navigation.goBack(); }}>
             <View style={styles.inputContainer}>
               <FontAwesome name="search" size={24} color="#969696" />
               <Text style={styles.inputText}>Bạn tìm gì hôm nay?</Text>
@@ -66,7 +68,7 @@ function HomeView(props) {
                 showsHorizontalScrollIndicator={false}
                 data={listphone}
                 renderItem={({ item }) => (
-                  <TouchableOpacity onPress={() => { }}>
+                  <TouchableOpacity onPress={() => { NavigationServices.navigate(SCENE_NAMES.PRODUCT, { id: item.id, CategoryID: item.CategoryID, BrandID: item.BrandID }); }}>
                     <NewProductItem
                       name={item.title}
                       image={item.image}
@@ -90,7 +92,7 @@ function HomeView(props) {
                 showsHorizontalScrollIndicator={false}
                 data={listtablet}
                 renderItem={({ item }) => (
-                  <TouchableOpacity onPress={() => { }}>
+                  <TouchableOpacity onPress={() => { NavigationServices.navigate(SCENE_NAMES.PRODUCT, { id: item.id, CategoryID: item.CategoryID, BrandID: item.BrandID }); }}>
                     <NewProductItem
                       name={item.title}
                       image={item.image}
@@ -114,7 +116,7 @@ function HomeView(props) {
                 showsHorizontalScrollIndicator={false}
                 data={listpro}
                 renderItem={({ item }) => (
-                  <TouchableOpacity onPress={() => { }}>
+                  <TouchableOpacity onPress={() => { NavigationServices.navigate(SCENE_NAMES.PRODUCT, { id: item.id, CategoryID: item.CategoryID, BrandID: item.BrandID }); }}>
                     <NewProductItem
                       name={item.title}
                       image={item.image}
@@ -134,7 +136,7 @@ function HomeView(props) {
                 numColumns={2}
                 data={listall}
                 renderItem={({ item }) => (
-                  <TouchableOpacity onPress={() => { }}>
+                  <TouchableOpacity onPress={() => { NavigationServices.navigate(SCENE_NAMES.PRODUCT, { id: item.id, CategoryID: item.CategoryID, BrandID: item.BrandID }); }}>
                     <ProductItem
                       name={item.title}
                       image={item.image}

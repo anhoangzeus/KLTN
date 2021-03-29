@@ -4,6 +4,8 @@ import LoginScreen from 'scenes/auth/login/login.container';
 import RegisterScreen from 'scenes/auth/register/register.container';
 import { HeaderBackButton } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import NavigationServices from 'utils/navigationServices';
+import SCENE_NAMES from 'constants/sceneName';
 
 const TabTop = createMaterialTopTabNavigator();
 
@@ -31,7 +33,7 @@ const TopStackLogin = ({ props }) => {
                 source={require('../../assets/images/shop2.png')}
                 style={styles.image}
             />
-            <HeaderBackButton style={styles.texthead} onPress={() => props.navigation.navigate('App')} />
+            <HeaderBackButton style={styles.texthead} onPress={() => NavigationServices.navigate(SCENE_NAMES.MAIN)} />
             <TabTop.Navigator
                 tabBarOptions={{
                     activeTintColor: 'blue',

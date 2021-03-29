@@ -1,6 +1,7 @@
+/* eslint-disable radix */
 export function compareGreaterVersion(v1 = '', v2 = '') {
   try {
-    console.log('>>>>compareGreaterVersion', {v1, v2});
+    console.log('>>>>compareGreaterVersion', { v1, v2 });
 
     const a1 = v1.split('.');
     const a2 = v2.split('.');

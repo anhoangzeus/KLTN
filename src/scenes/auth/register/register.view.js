@@ -11,7 +11,7 @@ const RegisterView = (props) => {
     const { textInputChange, data, handlePasswordChange, updateSecureTextEntry, textInputChange1, registerHandle } = props;
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor="#1ba8ff" barStyle="light-content" />
+            <StatusBar backgroundColor="#1ba8ff" barStyle="light-content" translucent={false} />
             <Animatable.View
                 animation="fadeInUpBig"
                 style={styles.footer}
@@ -126,9 +126,7 @@ const RegisterView = (props) => {
                             style={styles.signIn}
                             onPress={() => { registerHandle(); }}
                         >
-                            <TouchableOpacity style={styles.signIn}>
-                                <Text style={styles.textSign}>Đăng kí</Text>
-                            </TouchableOpacity>
+                            <Text style={styles.textSign}>Đăng kí</Text>
                         </TouchableOpacity>
 
                     </View>

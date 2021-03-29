@@ -12,6 +12,7 @@ import {
   Dimensions,
   Animated,
   SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
@@ -21,11 +22,12 @@ import Swiper from 'react-native-swiper';
 import styles from './Product.styles';
 import NumberFormat from 'components/NumberFormat';
 import StarRating from 'components/StarRating';
-import CommentItem from 'components/CommentItem';
+import CommentItem from 'components/CommentItem/index';
 import NavigationServices from 'utils/navigationServices';
+import SCENE_NAMES from 'constants/sceneName';
 // import {NAMESPACE} from './Product.constants';
 
-const {height, width} = Dimensions.get('screen');
+const { height, width } = Dimensions.get('screen');
 function ProductView(props) {
   const {
     addCart,
@@ -66,30 +68,30 @@ function ProductView(props) {
   });
   return (
     <SafeAreaView style={styles.safeView}>
-      {/* <StatusBar
+      <StatusBar
         barStyle="dark-content"
         backgroundColor="transparent"
         translucent={true}
-      /> */}
-      <Animated.View style={[styles.headerFont1, {height: headerHeight}]}>
+      />
+      <Animated.View style={[styles.headerFont1, { height: headerHeight }]}>
         <TouchableOpacity
-          style={styles.container}
+          style={styles.setTouchableBack}
           onPress={() => NavigationServices.goBack()}>
           <FontAwesome name="chevron-left" size={25} color="white" />
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.setTouchable}
+          style={styles.settingTouchSearch}
           onPress={() => NavigationServices.navigate('Setting')}>
           <FontAwesome name="search" size={25} color="white" />
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.setTouchable}
-          onPress={() => NavigationServices.navigate('App')}>
+          style={styles.settingTouch}
+          onPress={() => NavigationServices.navigate(SCENE_NAMES.MAIN, { name: SCENE_NAMES.HOME })}>
           <FontAwesome name="home" size={30} color="white" />
         </TouchableOpacity>
         <View>
           <TouchableOpacity
-            style={styles.setTouchable}
+            style={styles.settingTouch}
             onPress={() => NavigationServices.navigate('Cart')}>
             <FontAwesome name="shopping-cart" size={30} color="white" />
           </TouchableOpacity>
@@ -100,7 +102,7 @@ function ProductView(props) {
         showsVerticalScrollIndicator={false}
         scrollEventThrottle={16}
         onScroll={Animated.event([
-          {nativeEvent: {contentOffset: {y: scrollY}}},
+          { nativeEvent: { contentOffset: { y: scrollY } } },
         ])}>
         <Swiper
           loop={true}
@@ -110,24 +112,24 @@ function ProductView(props) {
           height={height / 2}>
           {listmoreimage.map((item) => (
             <View backgroundColor="white" style={styles.profileContainer}>
-              <Image source={{uri: item}} style={styles.profileImage} />
+              <Image source={{ uri: item }} style={styles.profileImage} />
             </View>
           ))}
         </Swiper>
         <View style={styles.headerFont}>
           <TouchableOpacity
-            style={styles.settingTouch}
+            style={styles.setTouchableBack}
             onPress={() => NavigationServices.goBack()}>
             <FontAwesome name="chevron-left" size={25} color="white" />
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.settingTouch}
+            style={styles.settingTouchSearch}
             onPress={() => NavigationServices.navigate('Setting')}>
             <FontAwesome name="search" size={25} color="white" />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.settingTouch}
-            onPress={() => NavigationServices.navigate('App')}>
+            onPress={() => NavigationServices.navigate(SCENE_NAMES.MAIN, { name: SCENE_NAMES.HOME })}>
             <FontAwesome name="home" size={30} color="white" />
           </TouchableOpacity>
           <View>
@@ -149,7 +151,7 @@ function ProductView(props) {
                   <StarRating rating={rating} size={17} />
                   <TouchableOpacity
                     // eslint-disable-next-line react-native/no-inline-styles
-                    style={{marginLeft: 10}}
+                    style={{ marginLeft: 10 }}
                     onPress={() => {
                       NavigationServices.navigate('RatingView', {
                         id: idsanpham,
@@ -169,7 +171,7 @@ function ProductView(props) {
                 </Text>
                 {price === promotionprice ? null : (
                   // eslint-disable-next-line react-native/no-inline-styles
-                  <View style={{flexDirection: 'row'}}>
+                  <View style={{ flexDirection: 'row' }}>
                     <Text style={styles.promotionText}>
                       <NumberFormat value={promotionprice} />
                     </Text>
@@ -202,7 +204,7 @@ function ProductView(props) {
               showsHorizontalScrollIndicator={false}
               style={styles.flatstyle}
               data={listproductlienquan}
-              renderItem={({item}) => (
+              renderItem={({ item }) => (
                 <TouchableOpacity onPress={setID(item.proid)}>
                   <ProductItem
                     image={item.image}
@@ -281,7 +283,7 @@ function ProductView(props) {
           showsVerticalScrollIndicator={false}
           initialNumToRender={3}
           pagingEnabled={true}
-          renderItem={({item}) => <CommentItem item={item} />}
+          renderItem={({ item }) => <CommentItem item={item} />}
         />
       </ScrollView>
       <View style={styles.centeredView}>
@@ -309,7 +311,7 @@ function ProductView(props) {
               </View>
 
               <View style={styles.rowView}>
-                <Image source={{uri: image}} style={styles.modalImage} />
+                <Image source={{ uri: image }} style={styles.modalImage} />
                 <View style={styles.byView}>
                   <Text numberOfLines={1} style={styles.modalnameText}>
                     {name}

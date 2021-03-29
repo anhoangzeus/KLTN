@@ -11,9 +11,11 @@ import MainTabNavigator from './TabNavigator';
 import TopStackLogin from './TopTabNavigator/LoginTab';
 import GetStartContainer from 'scenes/getStart/GetStart.container';
 import LoginScreen from 'scenes/auth/login/login.container';
+import RegisterScreen from 'scenes/auth/register/register.container';
 import ProfileScreen from 'scenes/main/profile/Profile.container';
 import ProfileMainScreen from 'scenes/main/profileMain/Profile.container';
 import DummyScreen from 'scenes/dummy';
+import ProductScreen from 'scenes/main/product/Product.container';
 
 //Route Import
 import Route_Contents from 'components/WebView/index';
@@ -55,12 +57,16 @@ function RootNavigator({ onNavigationStateChange }) {
           component={GetStartContainer}
         />
         <Stack.Screen name={SCENE_NAMES.LOGIN} component={LoginScreen} />
+        <Stack.Screen name={SCENE_NAMES.Register} component={RegisterScreen} />
         <Stack.Screen name={SCENE_NAMES.PROFILE} component={ProfileScreen} />
         <Stack.Screen name={SCENE_NAMES.PROFILEMAIN} component={ProfileMainScreen} />
-
         <Stack.Screen
           options={{ headerShown: false }}
           name={SCENE_NAMES.Route_Contents} component={Route_Contents}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={SCENE_NAMES.PRODUCT} component={ProductScreen}
         />
 
       </Stack.Navigator>

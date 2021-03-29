@@ -2,6 +2,8 @@ import React from 'react';
 import LoginView from './login.view';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
+import NavigationServices from 'utils/navigationServices';
+import SCENE_NAMES from 'constants/sceneName';
 // import { LoginManager, AccessToken } from 'react-native-fbsdk';
 // import { GoogleSignin } from '@react-native-community/google-signin';
 const functionsCounter = new Set();
@@ -115,7 +117,9 @@ function LoginContainer({ navigation }) {
     //     var giay = new Date().getSeconds();
     //     return date + '/' + month + '/' + year + ' ' + gio + ':' + phut + ':' + giay;
     // }
-    const loginHandle = () => {
+    const loginHandle = (username, password) => {
+        console.log('go');
+        console.log(data.username, data.password);
         if (data.username.length < 6 || data.password.length < 6) {
             setModalVisibleWarning(true, 'Quý khách chưa nhập đầy đủ thông tin');
             return;
@@ -123,12 +127,13 @@ function LoginContainer({ navigation }) {
         database().ref('Users').on('value', snapshot => {
             var temp = false;
             snapshot.forEach((child) => {
-                if (child.val().UserName === data.username) {
+                console.log(child);
+                if (child.val().UserName === username) {
                     temp = true;
                     if (child.val().Passwords === data.password) {
-                        auth().signInWithEmailAndPassword(child.val().email, data.password)
+                        auth().signInWithEmailAndPassword(username, password)
                             .then(() => {
-                                console.log('login');
+                                NavigationServices.navigate(SCENE_NAMES.MAIN, { name: SCENE_NAMES.HOME });
                             })
                             .catch(function (error) {
                                 setModalVisibleWarning(true, 'Quý khách vui lòng kiểm tra lại Internet');

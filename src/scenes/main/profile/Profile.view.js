@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
-import { View, Text, StatusBar, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import styles from './Profile.styles';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -19,7 +19,6 @@ export default function ProfileView(props) {
   return (
     <SafeAreaView style={styles.screenContainer}>
       <View style={styles.screenContainer}>
-        <StatusBar backgroundColor={styles.backgroundColor} barStyle="light-content" />
         <View style={styles.headerContainer}>
           <View style={styles.cartContainer}>
             <View style={styles.cartIcon} />

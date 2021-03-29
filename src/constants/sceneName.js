@@ -11,6 +11,7 @@ const SCENE_NAMES = {
   GET_START: 'GetStartContainer',
   DUMMY: 'DUMMY_SCREEN',
   LOGIN: 'Login_Screen',
+  Register: 'Register_Screen',
   PROFILEMAIN: 'PROFILEMAIN_SCREEN',
   Route_Contents: 'Route_Contents',
 };

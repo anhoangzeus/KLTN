@@ -60,16 +60,18 @@ export default StyleSheet.create({
         marginTop: 50,
     },
     signIn: {
-        width: '95%',
+        width: '90%',
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10,
-
+        backgroundColor: 'red',
+        marginHorizontal: 20,
     },
     textSign: {
         fontSize: 18,
         fontWeight: 'bold',
+        color: 'white',
     },
     headerContainer: {
         flexDirection: 'row',

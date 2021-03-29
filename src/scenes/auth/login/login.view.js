@@ -25,7 +25,7 @@ const LoginView = (props) => {
     const { colors } = useTheme();
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor="#1ba8ff" barStyle="light-content" />
+            <StatusBar backgroundColor="#1ba8ff" barStyle="light-content" translucent={false} />
             <Animatable.View
                 animation="fadeInUpBig"
                 style={[styles.footer, {
@@ -121,11 +121,9 @@ const LoginView = (props) => {
                 <View style={styles.button}>
                     <TouchableOpacity
                         style={styles.signIn}
-                        onPress={() => { loginHandle(); }}
+                        onPress={() => { loginHandle(data.username, data.password); }}
                     >
-                        <TouchableOpacity style={styles.signIn}>
-                            <Text style={styles.textSign}>Đăng nhập</Text>
-                        </TouchableOpacity>
+                        <Text style={styles.textSign}>Đăng nhập</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{ marginTop: 10, flexDirection: 'row' }}>
