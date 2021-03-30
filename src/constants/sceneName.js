@@ -14,6 +14,7 @@ const SCENE_NAMES = {
   Register: 'Register_Screen',
   PROFILEMAIN: 'PROFILEMAIN_SCREEN',
   Route_Contents: 'Route_Contents',
+  CART_SCREEN: 'CART_SCREEN',
 };
 
 export default SCENE_NAMES;

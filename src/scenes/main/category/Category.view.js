@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-  Image,
   ScrollView,
   StatusBar,
   View,
@@ -8,13 +7,13 @@ import {
   FlatList,
   TouchableOpacity,
   RefreshControl,
-  Dimensions,
   SafeAreaView,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styles from './Category.styles';
-import Swiper from 'react-native-swiper';
-const { width, height } = Dimensions.get('screen');
+import SwiperBraner from 'components/Swiper/SwiperBanner';
+import NavigationServices from 'utils/navigationServices';
+import SCENE_NAMES from 'constants/sceneName';
 // import {NAMESPACE} from './Category.constants';
 
 function CategoryView(props) {
@@ -45,7 +44,7 @@ function CategoryView(props) {
             </View>
           </TouchableOpacity>
           <View style={styles.cartContainer}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => { NavigationServices.navigate(SCENE_NAMES.CART_SCREEN); }}>
               <FontAwesome name="shopping-cart" size={24} color="#fff" />
               {renderNofiCart}
             </TouchableOpacity>
@@ -57,29 +56,7 @@ function CategoryView(props) {
             refreshControl={
               <RefreshControl refreshing={refesh} onRefresh={_onRefresh} />
             }>
-            <Swiper
-              autoplay={true}
-              autoplayTimeout={2}
-              loop={true}
-              showsPagination={true}
-              showsButtons={true}
-              index={0}
-              width={width}
-              height={height / 4.2}>
-              {listcontent.map((item) => (
-                <TouchableOpacity
-                  key={item.id}
-                // onPress={() => this.props.navigation.navigate('Contents', { id: item.Url })}
-                >
-                  <View style={styles.sectionContainer}>
-                    <Image
-                      source={{ uri: item.Image }}
-                      style={styles.sectionImage}
-                    />
-                  </View>
-                </TouchableOpacity>
-              ))}
-            </Swiper>
+            {SwiperBraner(listcontent)}
             <View style={styles.whiteBackground}>
               <View style={styles.productBackground} />
               <FlatList
@@ -111,9 +88,7 @@ function CategoryView(props) {
                   numColumns={2}
                   data={listproduct}
                   renderItem={({ item }) => (
-                    <TouchableOpacity
-                    //onPress={() => navigation.navigate('Items', { id: item.id, CategoryID: item.CategoryID, BrandID: item.BrandID })}
-                    >
+                    <TouchableOpacity onPress={() => { NavigationServices.navigate(SCENE_NAMES.PRODUCT, { id: item.id, CategoryID: item.CategoryID, BrandID: item.BrandID }); }}>
                       <ProductItem
                         name={item.title}
                         image={item.image}

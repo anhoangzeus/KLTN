@@ -37,14 +37,14 @@ function HomeView(props) {
           translucent={false}
         />
         <View style={styles.headerContainer}>
-          <TouchableOpacity onPress={() => { navigation.goBack(); }}>
+          <TouchableOpacity onPress={() => { }}>
             <View style={styles.inputContainer}>
               <FontAwesome name="search" size={24} color="#969696" />
               <Text style={styles.inputText}>Bạn tìm gì hôm nay?</Text>
             </View>
           </TouchableOpacity>
           <View style={styles.cartContainer}>
-            <TouchableOpacity onPress={() => { }}>
+            <TouchableOpacity onPress={() => { navigation.navigate(SCENE_NAMES.CART_SCREEN); }}>
               <FontAwesome name="shopping-cart" size={24} color="#fff" />
               {renderNofiCart()}
             </TouchableOpacity>
@@ -55,7 +55,7 @@ function HomeView(props) {
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={_onRefresh} />
             }>
-            {SwiperBraner(listcontents, navigation)}
+            {SwiperBraner(listcontents)}
             {TopBraner('Hot nhất hôm nay')}
             <View style={styles.proHotContainer}>
               <Text style={{ fontSize: 17, color: 'black', marginVertical: 10 }}>

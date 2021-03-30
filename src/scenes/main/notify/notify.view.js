@@ -240,8 +240,8 @@ export default function NotifyView(props) {
                                         />
                                     }
                                     data={listOrder}
-                                    keyExtractor={(item) => item.Id}
                                     renderItem={({ item }) => <renderOrder item={item} />}
+                                    keyExtractor={(item) => item.Id}
                                 />
                             </View>
                             :
@@ -254,8 +254,8 @@ export default function NotifyView(props) {
                                         />
                                     }
                                     data={listThongBao}
-                                    keyExtractor={(item) => item.orderId}
                                     renderItem={({ item }) => <NotificationItem item={item} />}
+                                    keyExtractor={(item) => item.orderId}
                                 />
                             </View>
                     }

@@ -227,9 +227,7 @@ export default function ProductContainer({ navigation, route }) {
   const setModalVisible = (visible) => {
     if (auth().currentUser) {
       setmodalvisible(visible);
-      () => {
-        setTimeout(handleClose, 3000);
-      };
+      setTimeout(() => handleClose(), 2500);
     }
   };
   const addCart = () => {

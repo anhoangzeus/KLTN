@@ -92,7 +92,7 @@ function ProductView(props) {
         <View>
           <TouchableOpacity
             style={styles.settingTouch}
-            onPress={() => NavigationServices.navigate('Cart')}>
+            onPress={() => NavigationServices.navigate(SCENE_NAMES.CART_SCREEN)}>
             <FontAwesome name="shopping-cart" size={30} color="white" />
           </TouchableOpacity>
           {renderNofiCart()}
@@ -135,7 +135,7 @@ function ProductView(props) {
           <View>
             <TouchableOpacity
               style={styles.settingTouch}
-              onPress={() => NavigationServices.navigate('Cart')}>
+              onPress={() => NavigationServices.navigate(SCENE_NAMES.CART_SCREEN)}>
               <FontAwesome name="shopping-cart" size={30} color="white" />
             </TouchableOpacity>
             {renderNofiCart()}
@@ -316,7 +316,7 @@ function ProductView(props) {
                   <Text numberOfLines={1} style={styles.modalnameText}>
                     {name}
                   </Text>
-                  <Text style={styles.byText}>Cung cấp bởi {brandname}</Text>
+                  <Text numberOfLines={1} style={styles.byText}>Cung cấp bởi {brandname}</Text>
                   <Text>
                     <NumberFormat value={price} />
                   </Text>
@@ -324,7 +324,7 @@ function ProductView(props) {
               </View>
               <TouchableHighlight
                 style={styles.cartButton}
-                onPress={() => NavigationServices.navigate('Cart')}>
+                onPress={() => NavigationServices.navigate(SCENE_NAMES.CART_SCREEN)}>
                 <Text style={styles.cartView}>Xem giỏ hàng</Text>
               </TouchableHighlight>
             </View>
@@ -333,7 +333,7 @@ function ProductView(props) {
       </View>
       <View style={styles.devide} />
       <View style={styles.buyView}>
-        <TouchableOpacity style={styles.btnmua} onPress={() => addCart}>
+        <TouchableOpacity style={styles.btnmua} onPress={() => addCart()}>
           <Text style={styles.addText}>Thêm vào giỏ hàng</Text>
         </TouchableOpacity>
       </View>

@@ -3,6 +3,8 @@ import React from 'react';
 import SIZE from 'constants/size';
 import styles from './style';
 import { TouchableOpacity, View, Image } from 'react-native';
+import NavigationServices from 'utils/navigationServices';
+import SCENE_NAMES from 'constants/sceneName';
 
 const SwiperBraner = (listcontents) => {
     return (
@@ -18,7 +20,7 @@ const SwiperBraner = (listcontents) => {
             {listcontents.map((item) =>
                 <TouchableOpacity
                     key={item.id}
-                    onPress={() => { }}>
+                    onPress={() => NavigationServices.navigate(SCENE_NAMES.Route_Contents, { id: item.Url })}>
                     <View style={styles.sectionContainer}>
                         <Image source={{ uri: item.Image }} style={styles.sectionImage} />
                     </View>

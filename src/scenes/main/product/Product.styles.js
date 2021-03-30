@@ -260,7 +260,10 @@ export default StyleSheet.create({
     marginLeft: 10,
   },
   modalnameText: { color: '#000', width: width / 1.8 },
-  byText: { color: '#000' },
+  byText: {
+    color: '#000',
+    width: width / 1.5,
+  },
   cartButton: {
     backgroundColor: '#a2459a',
     width: width / 1.2,
