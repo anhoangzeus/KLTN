@@ -46,7 +46,7 @@ function CategoryView(props) {
           <View style={styles.cartContainer}>
             <TouchableOpacity onPress={() => { NavigationServices.navigate(SCENE_NAMES.CART_SCREEN); }}>
               <FontAwesome name="shopping-cart" size={24} color="#fff" />
-              {renderNofiCart}
+              {renderNofiCart()}
             </TouchableOpacity>
           </View>
         </View>

@@ -341,7 +341,6 @@ export default function CategoryContainer({ navigation }) {
 
   functionsCounter.add(BrandItem);
   functionsCounter.add(CategoryItem);
-  functionsCounter.add(getnumcart);
   functionsCounter.add(_onRefresh);
   functionsCounter.add(GetAllBrand);
   functionsCounter.add(getListBanner);
@@ -356,7 +355,6 @@ export default function CategoryContainer({ navigation }) {
       isLoading={isLoading}
       BrandItem={BrandItem}
       CategoryItem={CategoryItem}
-      getnumcart={getnumcart}
       _onRefresh={_onRefresh}
       GetAllBrand={GetAllBrand}
       getListBanner={getListBanner}

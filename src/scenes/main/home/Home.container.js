@@ -290,6 +290,7 @@ function HomeContainer({ navigation }) {
     _getListPhukienNew();
     ListenForItems();
     getListBanner();
+    getnumcart();
   }, []);
 
   const renderNofiCart = () => {
