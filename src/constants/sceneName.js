@@ -1,5 +1,6 @@
 const SCENE_NAMES = {
   // Scene name
+  DETAIL_ADDRESS: 'DETAIL_ADDRESS_SCREEN',
   PRODUCT: 'PRODUCT_SCREEN',
   HOME: 'HomeScreen',
   CATEGORY: 'CateScreen',

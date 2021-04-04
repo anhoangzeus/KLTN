@@ -57,6 +57,10 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+!/ios
+/ios/Pods/*
+!/ios/Pods/Pods.xcodeproj
+
 
 # Local config
 .env
