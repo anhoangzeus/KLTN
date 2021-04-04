@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   TouchableOpacity,
   View,
@@ -12,7 +12,7 @@ import CategoryView from './Category.view';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
+import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import styles from './Category.styles';
@@ -23,8 +23,8 @@ const functionsCounter = new Set();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
-const {width} = Dimensions.get('screen');
-export default function CategoryContainer({navigation}) {
+const { width } = Dimensions.get('screen');
+export default function CategoryContainer({ navigation }) {
   const isLoading = useSelectorShallow(loadingSelector);
   const itemRef = database();
 
@@ -40,18 +40,18 @@ export default function CategoryContainer({navigation}) {
   const [loading, setLoading] = useState(true);
   const [refesh, setRefesh] = useState(false);
 
-  const BrandItem = ({image, id}) => {
+  const BrandItem = ({ image, id }) => {
     return (
       <View>
         <TouchableOpacity
           onPress={() => setBrandID(id)}
           style={styles.branditemContainer}>
-          <Image source={{uri: image}} style={styles.cateImage} />
+          <Image source={{ uri: image }} style={styles.cateImage} />
         </TouchableOpacity>
       </View>
     );
   };
-  const CategoryItem = ({name, id, icon}) => {
+  const CategoryItem = ({ name, id, icon }) => {
     const colorText = id === categoryid ? '#6e3b6e' : '#1ba8ff';
     return (
       <TouchableOpacity onPress={() => setCategoryID(id)}>
@@ -73,7 +73,7 @@ export default function CategoryContainer({navigation}) {
     );
   };
 
-  const ReactNativeNumberFormat = ({value}) => {
+  const ReactNativeNumberFormat = ({ value }) => {
     return (
       <NumberFormat
         value={value}
@@ -84,9 +84,9 @@ export default function CategoryContainer({navigation}) {
     );
   };
 
-  const ProductItem = ({image, name, price, rating, bough, PromotionPrice}) => (
+  const ProductItem = ({ image, name, price, rating, bough, PromotionPrice }) => (
     <View style={styles.itemContainer}>
-      <Image source={{uri: image}} style={styles.itemImage} />
+      <Image source={{ uri: image }} style={styles.itemImage} />
       <Text style={styles.itemName} numberOfLines={2}>
         {name}
       </Text>
@@ -94,7 +94,7 @@ export default function CategoryContainer({navigation}) {
         <ReactNativeNumberFormat value={price} />
         {price === PromotionPrice ? null : (
           // eslint-disable-next-line react-native/no-inline-styles
-          <Text style={{color: 'red'}}>
+          <Text style={{ color: 'red' }}>
             {' '}
             -{(((PromotionPrice - price) / PromotionPrice) * 100).toFixed(0)}%
           </Text>
@@ -341,7 +341,6 @@ export default function CategoryContainer({navigation}) {
 
   functionsCounter.add(BrandItem);
   functionsCounter.add(CategoryItem);
-  functionsCounter.add(getnumcart);
   functionsCounter.add(_onRefresh);
   functionsCounter.add(GetAllBrand);
   functionsCounter.add(getListBanner);
@@ -356,7 +355,6 @@ export default function CategoryContainer({navigation}) {
       isLoading={isLoading}
       BrandItem={BrandItem}
       CategoryItem={CategoryItem}
-      getnumcart={getnumcart}
       _onRefresh={_onRefresh}
       GetAllBrand={GetAllBrand}
       getListBanner={getListBanner}
@@ -372,6 +370,7 @@ export default function CategoryContainer({navigation}) {
       listbrand={listbrand}
       listcontent={listcontent}
       loading={loading}
+      navigation={navigation}
     />
   );
 }

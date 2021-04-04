@@ -1,18 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useLayoutEffect, useEffect, useState} from 'react';
-import {View, Text, Animated} from 'react-native';
+import React, { useLayoutEffect, useEffect, useState } from 'react';
+import { View, Text, Animated } from 'react-native';
 import ProductView from './Product.view';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
-import {NAMESPACE} from './Product.constants';
-import {getString} from 'utils/i18n';
+import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
+import { NAMESPACE } from './Product.constants';
+import { getString } from 'utils/i18n';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import styles from './Product.styles';
-import NavigationServices, {getParams} from 'utils/navigationServices';
+import NavigationServices, { getParams } from 'utils/navigationServices';
 
 const functionsCounter = new Set();
 
@@ -20,9 +20,9 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 
-export default function ProductContainer({navigation, route}) {
+export default function ProductContainer({ navigation, route }) {
   const isLoading = useSelectorShallow(loadingSelector);
-  const {id, BrandID, CategoryID} = getParams(route);
+  const { id, BrandID, CategoryID } = getParams(route);
   const itemRef = database();
 
   const [numcart, setnumcart] = useState(0);
@@ -94,15 +94,15 @@ export default function ProductContainer({navigation, route}) {
       .once('value')
       .then((snapshot) => {
         var items = [];
-        snapshot.forEach(function (snapshot) {
-          if (snapshot.val().ProductID !== ProductID) {
-            if (snapshot.val().CategoryID === Category_ID) {
-              if (snapshot.val().BrandID === Brand_ID) {
+        snapshot.forEach(function (child) {
+          if (child.val().ProductID !== ProductID) {
+            if (child.val().CategoryID === Category_ID) {
+              if (child.val().BrandID === Brand_ID) {
                 items.push({
-                  image: snapshot.val().Image,
-                  Name: snapshot.val().Name,
-                  Price: snapshot.val().Price,
-                  proid: snapshot.val().ProductID,
+                  image: child.val().Image,
+                  Name: child.val().Name,
+                  Price: child.val().Price,
+                  proid: child.val().ProductID,
                 });
               }
             }
@@ -117,25 +117,25 @@ export default function ProductContainer({navigation, route}) {
       .ref('/Products/' + id)
       .once('value')
       .then((snapshot) => {
+        var _sao1 = 0;
+        var _sao2 = 0;
+        var _sao3 = 0;
+        var _sao4 = 0;
+        var _sao5 = 0;
         var point = 0;
         var count = 0;
-        var sao1 = 0;
-        var sao2 = 0;
-        var sao3 = 0;
-        var sao4 = 0;
-        var sao5 = 0;
         var items = [];
         snapshot.child('Rating').forEach((child) => {
           if (child.val().Point === '1') {
-            sao1++;
+            _sao1++;
           } else if (child.val().Point === '2') {
-            sao2++;
+            _sao2++;
           } else if (child.val().Point === '3') {
-            sao3++;
+            _sao3++;
           } else if (child.val().Point === '4') {
-            sao4++;
+            _sao4++;
           } else if (child.val().Point === '5') {
-            sao5++;
+            _sao5++;
           }
           point += child.val().Point;
           count++;
@@ -159,11 +159,11 @@ export default function ProductContainer({navigation, route}) {
         setrating(point / count);
         setlistcomment(items);
         setbough(count);
-        setsao1(sao1);
-        setsao2(sao2);
-        setsao3(sao3);
-        setsao4(sao4);
-        setsao5(sao5);
+        setsao1(_sao1);
+        setsao2(_sao2);
+        setsao3(_sao3);
+        setsao4(_sao4);
+        setsao5(_sao5);
         ImageItems.push(snapshot.val().Image);
       });
     database()
@@ -215,7 +215,7 @@ export default function ProductContainer({navigation, route}) {
     } else {
       return (
         <View style={styles.cartposition}>
-          <Text style={{color: 'white'}}>{numcart}</Text>
+          <Text style={{ color: 'white' }}>{numcart}</Text>
         </View>
       );
     }
@@ -226,10 +226,8 @@ export default function ProductContainer({navigation, route}) {
   };
   const setModalVisible = (visible) => {
     if (auth().currentUser) {
-      setmodalvisible(visible),
-        () => {
-          setTimeout(handleClose, 3000);
-        };
+      setmodalvisible(visible);
+      setTimeout(() => handleClose(), 2500);
     }
   };
   const addCart = () => {
