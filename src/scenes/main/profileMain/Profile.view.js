@@ -25,7 +25,7 @@ const ProfileMainView = (props) => {
                 </View>
                 <ScrollView>
                     <View style={styles.bodyContainer}>
-                        <TouchableOpacity onPress={() => { props.navigation.navigate('InfoUser'); }}>
+                        <TouchableOpacity onPress={() => { NavigationServices.navigate(SCENE_NAMES.InfoUser); }}>
                             <View style={styles.userContainer}>
                                 <View style={styles.avatarContainer}>
                                     <Image source={{ uri: Avatar }} size={80} style={styles.avatarContainer} />
@@ -75,7 +75,7 @@ const ProfileMainView = (props) => {
                             <ProfileItem name="Đơn hàng trả lại" />
                         </TouchableOpacity>
                         <View style={styles.divider} />
-                        <TouchableOpacity onPress={() => { props.navigation.navigate('AddressScreen'); }}>
+                        <TouchableOpacity onPress={() => { NavigationServices.navigate(SCENE_NAMES.AddRessScreen); }}>
                             <ProfileItem icon="map-marker-outline" name="Số địa chỉ" />
                         </TouchableOpacity>
                         <View style={styles.divider1} />

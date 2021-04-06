@@ -1,26 +1,27 @@
-import React, {useState, useLayoutEffect} from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import DetailAddressView from './DetailAddress.view';
-import {View} from 'react-native';
-import {Picker} from '@react-native-picker/picker';
+import { View } from 'react-native';
+import { Picker } from '@react-native-community/picker';
 import vn from '../../../../vn.json';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
-import {NAMESPACE} from './DetailAddress.constants';
-import {getString} from 'utils/i18n';
-import {getParams} from 'utils/navigationServices';
+import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
+import { NAMESPACE } from './DetailAddress.constants';
+import { getString } from 'utils/i18n';
+import { getParams } from 'utils/navigationServices';
+import NavigationServices from 'utils/navigationServices';
+import SCENE_NAMES from 'constants/sceneName';
 const functionsCounter = new Set();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 
-export default function DetailAddressContainer({navigation, route}) {
+export default function DetailAddressContainer({ navigation, route }) {
   const isLoading = useSelectorShallow(loadingSelector);
-  const {content} = getParams(route);
-  console.log('content >>>>>>', content);
+  const { content } = getParams(route);
   const [data, setData] = React.useState({
     ListID: '',
     ShipName: '',
@@ -43,7 +44,7 @@ export default function DetailAddressContainer({navigation, route}) {
   }, [navigation]);
 
   const CheckBoxChange = (val) => {
-    if (data.Main == false) {
+    if (data.Main === false) {
       setData({
         ...data,
         Main: val,
@@ -81,7 +82,7 @@ export default function DetailAddressContainer({navigation, route}) {
     }
   };
   const textInputPhone = (val) => {
-    if (val.trim().length == 10) {
+    if (val.trim().length === 10) {
       setData({
         ...data,
         ShipPhone: val,
@@ -118,11 +119,11 @@ export default function DetailAddressContainer({navigation, route}) {
     var location = '';
     //Lấy tọa độ của xã phường
     for (let i = 0; i < vn.length; i++) {
-      if (vn[i].name == data.City) {
+      if (vn[i].name === data.City) {
         for (let j = 0; j < vn[i].huyen.length; j++) {
-          if (vn[i].huyen[j].name == data.Huyen) {
+          if (vn[i].huyen[j].name === data.Huyen) {
             for (let z = 0; z < vn[i].huyen[j].xa.length; z++) {
-              if (vn[i].huyen[j].xa[z].name == data.Xa) {
+              if (vn[i].huyen[j].xa[z].name === data.Xa) {
                 location = vn[i].huyen[j].xa[z].location;
                 z = vn[i].huyen[j].xa.length;
               }
@@ -134,9 +135,9 @@ export default function DetailAddressContainer({navigation, route}) {
       }
     }
     if (
-      data.ShipName.length == 0 ||
-      data.ShipPhone.length == 0 ||
-      data.NumberAddress.length == 0 ||
+      data.ShipName.length === 0 ||
+      data.ShipPhone.length === 0 ||
+      data.NumberAddress.length === 0 ||
       data.City === 'Chọn tỉnh/thành phố' ||
       data.Huyen === 'Chọn quận/huyện' ||
       data.Xa === 'Chọn xã/phường' ||
@@ -158,7 +159,7 @@ export default function DetailAddressContainer({navigation, route}) {
             .then((snapshot) => {
               snapshot.forEach(function (child) {
                 if (child !== data.ListID) {
-                  child.ref.update({Main: false});
+                  child.ref.update({ Main: false });
                 }
               });
             });
@@ -183,8 +184,8 @@ export default function DetailAddressContainer({navigation, route}) {
               Location: location,
             })
             .then(
-              navigation.navigate('App'),
-              navigation.navigate('AddressScreen'),
+              NavigationServices.navigate(SCENE_NAMES.MAIN),
+              NavigationServices.navigate(SCENE_NAMES.AddRessScreen),
             )
             .catch();
         } else {
@@ -209,13 +210,13 @@ export default function DetailAddressContainer({navigation, route}) {
               Location: location,
             })
             .then(
-              navigation.navigate('App'),
-              navigation.navigate('AddressScreen'),
+              NavigationServices.navigate(SCENE_NAMES.MAIN),
+              NavigationServices.navigate(SCENE_NAMES.AddRessScreen),
             )
             .catch();
         }
       } else {
-        if (data.Main == true) {
+        if (data.Main === true) {
           await database()
             .ref('ListAddress')
             .child(auth().currentUser.uid)
@@ -223,8 +224,8 @@ export default function DetailAddressContainer({navigation, route}) {
             .once('value')
             .then((snapshot) => {
               snapshot.forEach(function (child) {
-                if (child != data.ListID) {
-                  child.ref.update({Main: false});
+                if (child !== data.ListID) {
+                  child.ref.update({ Main: false });
                 }
               });
             });
@@ -243,8 +244,8 @@ export default function DetailAddressContainer({navigation, route}) {
               Location: location,
             })
             .then(
-              navigation.navigate('App'),
-              navigation.navigate('AddressScreen'),
+              NavigationServices.navigate(SCENE_NAMES.MAIN),
+              NavigationServices.navigate(SCENE_NAMES.AddRessScreen),
             )
             .catch();
         } else {
@@ -263,8 +264,8 @@ export default function DetailAddressContainer({navigation, route}) {
               Location: location,
             })
             .then(
-              navigation.navigate('App'),
-              navigation.navigate('AddressScreen'),
+              NavigationServices.navigate(SCENE_NAMES.MAIN),
+              NavigationServices.navigate(SCENE_NAMES.AddRessScreen),
             )
             .catch();
         }
@@ -273,21 +274,21 @@ export default function DetailAddressContainer({navigation, route}) {
   };
   //Lấy dữ liệu tỉnh/tp từ all.json
   const provinceData = () => {
-    var items = [{id: 0, name: 'Chọn tỉnh/thành phố'}, ...vn];
+    var items = [{ id: 0, name: 'Chọn tỉnh/thành phố' }, ...vn];
     return items.map((item, i) => {
       <View
         // eslint-disable-next-line react-native/no-inline-styles
-        style={{backgroundColor: '#fff', justifyContent: 'center', flex: 1}}
+        style={{ backgroundColor: '#fff', justifyContent: 'center', flex: 1 }}
       />;
       return <Picker.Item label={item.name} key={i} value={item.name} />;
     });
   };
   //Lấy dữ liệu quận từ all.json
   const districtData = (pname) => {
-    var items = [{id: 0, name: 'Chọn quận/huyện'}];
-    if (pname != 'Chọn tỉnh/thành phố') {
+    var items = [{ id: 0, name: 'Chọn quận/huyện' }];
+    if (pname !== 'Chọn tỉnh/thành phố') {
       for (let i = 0; i < vn.length; i++) {
-        if (vn[i].name == pname) {
+        if (vn[i].name === pname) {
           items = [...items, ...vn[i].huyen];
           i = vn.length;
         }
@@ -299,12 +300,12 @@ export default function DetailAddressContainer({navigation, route}) {
   };
   //Lấy dữ liệu phường từ all.json
   const wardData = (pname, dname) => {
-    var items = [{id: 0, name: 'Chọn xã/phường'}];
-    if (pname != 'Chọn tỉnh/thành phố' && dname != 'Chọn quận/huyện') {
+    var items = [{ id: 0, name: 'Chọn xã/phường' }];
+    if (pname !== 'Chọn tỉnh/thành phố' && dname !== 'Chọn quận/huyện') {
       for (let i = 0; i < vn.length; i++) {
-        if (vn[i].name == pname) {
+        if (vn[i].name === pname) {
           for (let j = 0; j < vn[i].huyen.length; j++) {
-            if (vn[i].huyen[j].name == dname) {
+            if (vn[i].huyen[j].name === dname) {
               items = [...items, ...vn[i].huyen[j].xa];
               j = vn[i].huyen.length;
             }
@@ -318,6 +319,7 @@ export default function DetailAddressContainer({navigation, route}) {
     });
   };
   useState(() => {
+    console.log(content);
     if (auth().currentUser.uid !== null && content) {
       database()
         .ref('ListAddress')

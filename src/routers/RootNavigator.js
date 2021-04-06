@@ -1,13 +1,13 @@
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 // Screen Import
 import DetailAddressContainer from 'scenes/main/detailAddress/DetailAddress.container';
 import CategoryContainer from 'scenes/main/category/Category.container';
 import SignInContainer from 'scenes/auth/signIn/SignIn.container';
-import {TransitionPresets} from '@react-navigation/stack';
+import { TransitionPresets } from '@react-navigation/stack';
 import MainTabNavigator from './TabNavigator';
 import TopStackLogin from './TopTabNavigator/LoginTab';
 import GetStartContainer from 'scenes/getStart/GetStart.container';
@@ -18,13 +18,15 @@ import ProfileMainScreen from 'scenes/main/profileMain/Profile.container';
 import DummyScreen from 'scenes/dummy';
 import ProductScreen from 'scenes/main/product/Product.container';
 import CartScreen from 'scenes/main/cart/cart.container';
+import InfoUser from 'scenes/userOption/profile/infoUser.container';
+import AddRessScreen from 'scenes/userOption/Address/address.container';
 
 //Route Import
 import Route_Contents from 'components/WebView/index';
 
 const Stack = createStackNavigator();
 
-function RootNavigator({onNavigationStateChange}) {
+function RootNavigator({ onNavigationStateChange }) {
   return (
     <NavigationContainer
       onStateChange={onNavigationStateChange}
@@ -44,7 +46,7 @@ function RootNavigator({onNavigationStateChange}) {
         )}
         {/* Plop screen */}
         <Stack.Screen
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
           name={SCENE_NAMES.DETAIL_ADDRESS}
           component={DetailAddressContainer}
         />
@@ -54,22 +56,22 @@ function RootNavigator({onNavigationStateChange}) {
         />
         <Stack.Screen name={SCENE_NAMES.SIGN_IN} component={SignInContainer} />
         <Stack.Screen
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
           name={SCENE_NAMES.MAIN}
           component={MainTabNavigator}
         />
         <Stack.Screen
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
           name={SCENE_NAMES.TopStackLogin}
           component={TopStackLogin}
         />
         <Stack.Screen
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
           name={SCENE_NAMES.GET_START}
           component={GetStartContainer}
         />
         <Stack.Screen
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
           name={SCENE_NAMES.CART_SCREEN}
           component={CartScreen}
         />
@@ -77,17 +79,25 @@ function RootNavigator({onNavigationStateChange}) {
         <Stack.Screen name={SCENE_NAMES.Register} component={RegisterScreen} />
         <Stack.Screen name={SCENE_NAMES.PROFILE} component={ProfileScreen} />
         <Stack.Screen
+          options={{ headerShown: false }}
+          name={SCENE_NAMES.AddRessScreen}
+          component={AddRessScreen}
+        />
+        <Stack.Screen
           name={SCENE_NAMES.PROFILEMAIN}
           component={ProfileMainScreen}
         />
-
         <Stack.Screen
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
+          name={SCENE_NAMES.InfoUser}
+          component={InfoUser} />
+        <Stack.Screen
+          options={{ headerShown: false }}
           name={SCENE_NAMES.Route_Contents}
           component={Route_Contents}
         />
         <Stack.Screen
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
           name={SCENE_NAMES.PRODUCT}
           component={ProductScreen}
         />

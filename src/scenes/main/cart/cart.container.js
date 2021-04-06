@@ -34,6 +34,7 @@ const CartContainer = ({ navigation }) => {
                         Huyen: '',
                         City: '',
                         Location: '',
+                        Id: '',
                     };
                     if (childSnapshot.val().Main === true) {
                         address.ShipName = childSnapshot.val().ShipName;
@@ -43,6 +44,7 @@ const CartContainer = ({ navigation }) => {
                         address.Huyen = childSnapshot.val().Huyen;
                         address.City = childSnapshot.val().City;
                         address.Location = childSnapshot.val().Location;
+                        address.Id = childSnapshot.val().ListID;
                         item = address;
                     }
                 });

@@ -16,6 +16,8 @@ const SCENE_NAMES = {
   PROFILEMAIN: 'PROFILEMAIN_SCREEN',
   Route_Contents: 'Route_Contents',
   CART_SCREEN: 'CART_SCREEN',
+  InfoUser: 'InfoUser',
+  AddRessScreen: 'AddRessScreen',
 };
 
 export default SCENE_NAMES;
