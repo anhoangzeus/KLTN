@@ -14,10 +14,12 @@ export default StyleSheet.create({
     backgroundColor: '#ededed',
   },
   userContainer: {
+    marginTop: 5,
     backgroundColor: '#fff',
     flexDirection: 'row',
   },
   totalContainer1: {
+    marginTop: 5,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -27,6 +29,7 @@ export default StyleSheet.create({
   },
   whiteText: {
     color: '#000',
+    fontSize: height / 40,
   },
   totalContainer: {
     flexDirection: 'row',
@@ -39,7 +42,7 @@ export default StyleSheet.create({
   },
   welcomeText: {
     color: 'black',
-    fontSize: 15,
+    fontSize: height / 40,
   },
   divider: {
     height: 2,
@@ -65,11 +68,11 @@ export default StyleSheet.create({
   },
   titletext: {
     color: 'black',
-    fontSize: 15,
+    fontSize: height / 40,
   },
   errtext: {
     color: 'red',
-    fontSize: 15,
+    fontSize: height / 40,
   },
   modalView: {
     margin: 20,

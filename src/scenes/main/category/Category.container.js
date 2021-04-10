@@ -1,30 +1,29 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   TouchableOpacity,
   View,
   Text,
   Image,
-  Dimensions,
   ImageBackground,
 } from 'react-native';
 import CategoryView from './Category.view';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
+import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import styles from './Category.styles';
-import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
+//import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import NumberFormat from 'react-number-format';
 import LottieView from 'lottie-react-native';
 const functionsCounter = new Set();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
-const { width } = Dimensions.get('screen');
-export default function CategoryContainer({ navigation }) {
+// const {width} = Dimensions.get('screen');
+export default function CategoryContainer({navigation}) {
   const isLoading = useSelectorShallow(loadingSelector);
   const itemRef = database();
 
@@ -40,31 +39,69 @@ export default function CategoryContainer({ navigation }) {
   const [loading, setLoading] = useState(true);
   const [refesh, setRefesh] = useState(false);
 
-  const BrandItem = ({ image, id }) => {
+  const BrandItem = ({image, id}) => {
     return (
       <View>
         <TouchableOpacity
           onPress={() => setBrandID(id)}
           style={styles.branditemContainer}>
-          <Image source={{ uri: image }} style={styles.cateImage} />
+          <Image source={{uri: image}} style={styles.cateImage} />
         </TouchableOpacity>
       </View>
     );
   };
-  const CategoryItem = ({ name, id, icon }) => {
+  const CategoryItem = ({name, id, icon}) => {
     const colorText = id === categoryid ? '#6e3b6e' : '#1ba8ff';
+    let iconpath = '../../../assets/icons/orther.png';
+    switch (icon) {
+      case 'orther':
+        iconpath =
+          'https://firebasestorage.googleapis.com/v0/b/doan-d2374.appspot.com/o/cateIcon%2Forther.png?alt=media&token=b47f965b-08b6-4988-aca1-51fcd31f0cab';
+        break;
+      case 'donglanh':
+        iconpath =
+          'https://firebasestorage.googleapis.com/v0/b/doan-d2374.appspot.com/o/cateIcon%2Fdonglanh.png?alt=media&token=c1edab19-309a-46ce-bc45-45a7b6a4bfff';
+        break;
+      case 'giavi':
+        iconpath =
+          'https://firebasestorage.googleapis.com/v0/b/doan-d2374.appspot.com/o/cateIcon%2Fgiavi.png?alt=media&token=52fa7a43-ddba-4713-b7fd-521dc2f9e298';
+        break;
+      case 'thucuong':
+        iconpath =
+          'https://firebasestorage.googleapis.com/v0/b/doan-d2374.appspot.com/o/cateIcon%2Fthucuong.png?alt=media&token=0242298d-8406-42b5-9b08-4c16633a7417';
+        break;
+      case 'anlien':
+        iconpath =
+          'https://firebasestorage.googleapis.com/v0/b/doan-d2374.appspot.com/o/cateIcon%2Fanlien.png?alt=media&token=c4bb7263-2916-4fbc-a213-d38d01a255f9';
+        break;
+      case 'saykho':
+        iconpath =
+          'https://firebasestorage.googleapis.com/v0/b/doan-d2374.appspot.com/o/cateIcon%2Fsaykho.png?alt=media&token=4c9928b5-6890-43a1-8e50-a4eb1dc5ed8f';
+        break;
+      case 'donghop':
+        iconpath =
+          'https://firebasestorage.googleapis.com/v0/b/doan-d2374.appspot.com/o/cateIcon%2Fdonghop.png?alt=media&token=bbd92ad8-083d-4e49-8a6e-0ff261e5f4dd';
+        break;
+      case 'chankhong':
+        iconpath =
+          'https://firebasestorage.googleapis.com/v0/b/doan-d2374.appspot.com/o/cateIcon%2Fchankhong.png?alt=media&token=766d5fca-e6f5-44ca-807f-ea1de55a061a';
+    }
+
+    console.log(typeof iconpath);
     return (
       <TouchableOpacity onPress={() => setCategoryID(id)}>
         <View style={styles.ViewImage}>
           <ImageBackground
             style={styles.ImageBack}
-            source={require('../../../assets/images/bg.png')}>
-            <Icons
+            // source={require('../../../assets/images/bg.png')}
+          >
+            {/* <Icons
               name={icon}
               color="#fff"
               size={width / 12}
               style={styles.cateIcon}
-            />
+            /> */}
+            <Image style={styles.ImageBack} source={{uri: iconpath}} />
           </ImageBackground>
         </View>
 
@@ -73,7 +110,7 @@ export default function CategoryContainer({ navigation }) {
     );
   };
 
-  const ReactNativeNumberFormat = ({ value }) => {
+  const ReactNativeNumberFormat = ({value}) => {
     return (
       <NumberFormat
         value={value}
@@ -84,9 +121,9 @@ export default function CategoryContainer({ navigation }) {
     );
   };
 
-  const ProductItem = ({ image, name, price, rating, bough, PromotionPrice }) => (
+  const ProductItem = ({image, name, price, rating, bough, PromotionPrice}) => (
     <View style={styles.itemContainer}>
-      <Image source={{ uri: image }} style={styles.itemImage} />
+      <Image source={{uri: image}} style={styles.itemImage} />
       <Text style={styles.itemName} numberOfLines={2}>
         {name}
       </Text>
@@ -94,7 +131,7 @@ export default function CategoryContainer({ navigation }) {
         <ReactNativeNumberFormat value={price} />
         {price === PromotionPrice ? null : (
           // eslint-disable-next-line react-native/no-inline-styles
-          <Text style={{ color: 'red' }}>
+          <Text style={{color: 'red'}}>
             {' '}
             -{(((PromotionPrice - price) / PromotionPrice) * 100).toFixed(0)}%
           </Text>

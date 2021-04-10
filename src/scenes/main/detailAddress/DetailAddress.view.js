@@ -6,7 +6,6 @@ import {
   StatusBar,
   ScrollView,
   TextInput,
-  CheckBox,
   Modal,
   Dimensions,
   TouchableOpacity,
@@ -15,6 +14,7 @@ import {
 } from 'react-native';
 import styles from './DetailAddress.styles';
 import * as Animatable from 'react-native-animatable';
+import CheckBox from '@react-native-community/checkbox';
 import NavigationServices from 'utils/navigationServices';
 import {Picker} from '@react-native-picker/picker';
 import RNPickerSelect from 'react-native-picker-select';
@@ -173,6 +173,7 @@ function DetailAddressView(props) {
                   </Picker>
                 ) : (
                   <RNPickerSelect
+                    style={styles.picker}
                     onValueChange={(value) => {
                       setData({...data, City: value});
                     }}
@@ -201,6 +202,7 @@ function DetailAddressView(props) {
                       setData({...data, Huyen: value});
                     }}
                     items={districtData(data.City)}
+                    style={styles.picker1}
                   />
                 )}
               </View>
