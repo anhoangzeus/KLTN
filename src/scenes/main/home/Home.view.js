@@ -39,7 +39,7 @@ function HomeView(props) {
   } = props;
 
   return (
-    <SafeAreaView style={styles.screenContainer}>
+    <SafeAreaView style={styles.screenContainersafe}>
       <View style={styles.screenContainer}>
         <StatusBar
           backgroundColor="#a2459a"

@@ -5,6 +5,10 @@ export default StyleSheet.create({
   screenContainer: {
     flex: 1,
   },
+  screenContainersafe: {
+    flex: 1,
+    backgroundColor: '#a2459a',
+  },
   headerContainer: {
     flexDirection: 'row',
     paddingTop: 15,
