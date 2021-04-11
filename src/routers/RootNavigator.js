@@ -3,13 +3,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
+//TopTab
+import MainTabNavigator from './TabNavigator';
+import TopStackLogin from './TopTabNavigator/LoginTab';
+import TopStackOrder from './TopTabNavigator/OrderTab';
+
 // Screen Import
 import DetailAddressContainer from 'scenes/main/detailAddress/DetailAddress.container';
 import CategoryContainer from 'scenes/main/category/Category.container';
 import SignInContainer from 'scenes/auth/signIn/SignIn.container';
 import { TransitionPresets } from '@react-navigation/stack';
-import MainTabNavigator from './TabNavigator';
-import TopStackLogin from './TopTabNavigator/LoginTab';
+
 import GetStartContainer from 'scenes/getStart/GetStart.container';
 import LoginScreen from 'scenes/auth/login/login.container';
 import RegisterScreen from 'scenes/auth/register/register.container';
@@ -19,8 +23,8 @@ import DummyScreen from 'scenes/dummy';
 import ProductScreen from 'scenes/main/product/Product.container';
 import CartScreen from 'scenes/main/cart/cart.container';
 import InfoUser from 'scenes/userOption/profile/infoUser.container';
-import AddRessScreen from 'scenes/userOption/Address/address.container';
-
+import AddRessScreen from 'scenes/userOption/address/address.container';
+import RatingScreen from 'scenes/userOption/rating/rating.container';
 //Route Import
 import Route_Contents from 'components/WebView/index';
 
@@ -64,6 +68,16 @@ function RootNavigator({ onNavigationStateChange }) {
           options={{ headerShown: false }}
           name={SCENE_NAMES.TopStackLogin}
           component={TopStackLogin}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={SCENE_NAMES.TopStackOrder}
+          component={TopStackOrder}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={SCENE_NAMES.RatingScreen}
+          component={RatingScreen}
         />
         <Stack.Screen
           options={{ headerShown: false }}
