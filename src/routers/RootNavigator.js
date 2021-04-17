@@ -9,6 +9,8 @@ import TopStackLogin from './TopTabNavigator/LoginTab';
 import TopStackOrder from './TopTabNavigator/OrderTab';
 import TopRatingScreen from './TopTabNavigator/RatingTab';
 // Screen Import
+import ZalopayContainer from 'scenes/main/zalopay/Zalopay.container';
+import PaymentMethodContainer from 'scenes/main/paymentMethod/PaymentMethod.container';
 import DetailAddressContainer from 'scenes/main/detailAddress/DetailAddress.container';
 import CategoryContainer from 'scenes/main/category/Category.container';
 import SignInContainer from 'scenes/auth/signIn/SignIn.container';
@@ -49,6 +51,12 @@ function RootNavigator({onNavigationStateChange}) {
           <Stack.Screen name={SCENE_NAMES.DUMMY} component={DummyScreen} />
         )}
         {/* Plop screen */}
+				<Stack.Screen name={ SCENE_NAMES.ZALOPAY } component={ ZalopayContainer } />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name={SCENE_NAMES.PAYMENT_METHOD}
+          component={PaymentMethodContainer}
+        />
         <Stack.Screen
           options={{headerShown: false}}
           name={SCENE_NAMES.DETAIL_ADDRESS}

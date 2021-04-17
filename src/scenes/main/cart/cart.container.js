@@ -94,7 +94,7 @@ const CartContainer = ({navigation}) => {
   };
   const _checkGioHang = () => {
     if (amount !== 0 && hasAddress === true) {
-      navigation.navigate('ItemsCart', {
+      NavigationServices.navigate(SCENE_NAMES.PAYMENT_METHOD, {
         content: amount,
         listItem: CartItem,
         address: Address,
@@ -114,7 +114,7 @@ const CartContainer = ({navigation}) => {
         element.Quantity = item.Quantity + 1;
       }
     });
-    setAmount(Number(amount + item.Price));
+    setAmount(Number(amount + Number(item.Price)));
     setRefesh(!refesh);
   };
   const _giamSoLuong = (item) => {
@@ -129,7 +129,7 @@ const CartContainer = ({navigation}) => {
           element.Quantity = item.Quantity - 1;
         }
       });
-      setAmount(Number(amount - item.Price));
+      setAmount(Number(amount - Number(item.Price)));
       setRefesh(!refesh);
     } else {
       setModalVisible(true);
