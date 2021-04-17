@@ -39,9 +39,9 @@ const TopStackLogin = ({ props }) => {
                     activeTintColor: 'blue',
                 }}
             >
-                <TabTop.Screen name="Đăng nhập" component={LoginScreen}
+                <TabTop.Screen name={SCENE_NAMES.LOGIN} component={LoginScreen}
                 />
-                <TabTop.Screen name="Đăng kí" component={RegisterScreen} />
+                <TabTop.Screen name={SCENE_NAMES.Register} component={RegisterScreen} />
             </TabTop.Navigator></View>
     );
 };

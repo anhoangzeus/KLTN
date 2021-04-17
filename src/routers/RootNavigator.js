@@ -7,7 +7,7 @@ import SCENE_NAMES from 'constants/sceneName';
 import MainTabNavigator from './TabNavigator';
 import TopStackLogin from './TopTabNavigator/LoginTab';
 import TopStackOrder from './TopTabNavigator/OrderTab';
-
+import TopRatingScreen from './TopTabNavigator/RatingTab';
 // Screen Import
 import DetailAddressContainer from 'scenes/main/detailAddress/DetailAddress.container';
 import CategoryContainer from 'scenes/main/category/Category.container';
@@ -68,6 +68,11 @@ function RootNavigator({ onNavigationStateChange }) {
           options={{ headerShown: false }}
           name={SCENE_NAMES.TopStackLogin}
           component={TopStackLogin}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={SCENE_NAMES.TopRatingScreen}
+          component={TopRatingScreen}
         />
         <Stack.Screen
           options={{ headerShown: false }}

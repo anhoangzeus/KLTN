@@ -8,7 +8,7 @@ import styles from './rating.styles';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 
-const ProductItem = ({ item }) => (
+export const ProductItem = ({ item }) => (
     <View style={styles.itemContainer1}>
         <Text style={styles.txtCodeName}>Mã đơn hàng:{item.OrderID}</Text>
         <View style={styles.row}>

@@ -43,7 +43,7 @@ const ProfileMainView = (props) => {
                             <ProfileItem icon="facebook" name="Kết nối mạng xã hội" />
                         </TouchableOpacity>
                         <View style={styles.divider} />
-                        <TouchableOpacity onPress={() => { NavigationServices.navigate(SCENE_NAMES.RatingScreen); }}>
+                        <TouchableOpacity onPress={() => { NavigationServices.navigate(SCENE_NAMES.TopRatingScreen); }}>
                             <ProfileItem icon="star-outline" name="Đánh giá sản phẩm" />
                         </TouchableOpacity>
                         <View style={styles.divider} />
