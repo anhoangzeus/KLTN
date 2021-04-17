@@ -25,6 +25,7 @@ import CartScreen from 'scenes/main/cart/cart.container';
 import InfoUser from 'scenes/userOption/profile/infoUser.container';
 import AddRessScreen from 'scenes/userOption/address/address.container';
 import RatingScreen from 'scenes/userOption/rating/rating.container';
+import DetailOrderContainer from 'scenes/userOption/order/detail_order/detail_order.container';
 //Route Import
 import Route_Contents from 'components/WebView/index';
 
@@ -83,6 +84,11 @@ function RootNavigator({ onNavigationStateChange }) {
           options={{ headerShown: false }}
           name={SCENE_NAMES.RatingScreen}
           component={RatingScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={SCENE_NAMES.DetailOrderContainer}
+          component={DetailOrderContainer}
         />
         <Stack.Screen
           options={{ headerShown: false }}

@@ -27,6 +27,7 @@ const SCENE_NAMES = {
   Order_TraHang: 'Order_TraHang',
   RatingScreen: 'RatingScreen',
   TopRatingScreen: 'TopRatingScreen',
+  DetailOrderContainer: 'DetailOrderContainer',
 };
 
 export default SCENE_NAMES;

@@ -1,9 +1,40 @@
+/* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 import { View, Text, FlatList, TouchableOpacity, ActivityIndicator, Image, RefreshControl } from 'react-native';
 import styles from './order.styles';
+import NavigationServices from 'utils/navigationServices';
+import ReactNativeNumberFormat from 'components/NumberFormat';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import SCENE_NAMES from 'constants/sceneName';
 
 const OrderView = (props) => {
     const { loading, _onRefresh, refreshing, listOrder } = props;
+    const RenderList = ({ CreatedDate, ShipAddress, ShipName, ShipMoblie, ToTalPrice, orderDetail, id }) => (
+        <TouchableOpacity style={styles.listItem} onPress={() => { NavigationServices.navigate(SCENE_NAMES.DetailOrderContainer, { id: id }); }}>
+            <View style={{ flex: 1, margin: 10 }}>
+                <Text style={{ color: '#a2459a' }}>Mã đơn hàng: {id}</Text>
+                {orderDetail.map((data) => {
+                    return (
+                        <View>
+                            <Text>{data.Name}</Text>
+                            <Image source={{ uri: data.Picture }} style={{ width: 50, height: 50, resizeMode: 'contain' }} />
+                            <Text><ReactNativeNumberFormat value={data.Price} />  x {data.Quantity}</Text>
+                        </View>
+                    );
+                })}
+                <View style={{ flexDirection: 'row' }} >
+                    <MaterialIcons name="event-available" size={20} color="#1e88e5" />
+                    <Text style={{ marginLeft: 10, color: '#000' }}>{CreatedDate}</Text>
+                </View>
+                <View style={{ flexDirection: 'row' }} >
+                    <MaterialIcons name="location-on" size={20} color="#1e88e5" />
+                    <Text numberOfLines={1} style={styles.address}>{ShipAddress}</Text>
+                </View>
+                <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#000' }}>Tổng tiền: <ReactNativeNumberFormat value={ToTalPrice} /></Text>
+            </View >
+            <Text style={{ color: 'white', textAlign: 'center' }}>Xem</Text>
+        </TouchableOpacity>
+    );
     const renderNull = () => {
         return (
             <TouchableOpacity style={styles.containerNull}
@@ -33,7 +64,7 @@ const OrderView = (props) => {
             data={listOrder}
             initialNumToRender={10}
             renderItem={({ item }) =>
-                <this.RenderList
+                <RenderList
                     CreatedDate={item.CreatedDate}
                     ShipAddress={item.ShipAddress}
                     ShipName={item.ShipName}
