@@ -43,35 +43,35 @@ const ProfileMainView = (props) => {
                             <ProfileItem icon="facebook" name="Kết nối mạng xã hội" />
                         </TouchableOpacity>
                         <View style={styles.divider} />
-                        <TouchableOpacity onPress={() => { props.navigation.navigate('TopTabScreen'); }}>
+                        <TouchableOpacity onPress={() => { NavigationServices.navigate(SCENE_NAMES.TopRatingScreen); }}>
                             <ProfileItem icon="star-outline" name="Đánh giá sản phẩm" />
                         </TouchableOpacity>
                         <View style={styles.divider} />
-                        <TouchableOpacity onPress={() => { props.navigation.navigate('TopOrder'); }}>
+                        <TouchableOpacity onPress={() => { NavigationServices.navigate(SCENE_NAMES.TopStackOrder); }}>
                             <ProfileItem icon="format-list-bulleted" name="Quản lí đơn hàng" />
                         </TouchableOpacity>
                         <View style={styles.divider1} />
-                        <TouchableOpacity onPress={() => { props.navigation.navigate('TopOrder', { screen: 'OrderXuli' }); }}>
+                        <TouchableOpacity onPress={() => { NavigationServices.navigate(SCENE_NAMES.TopStackOrder, { screen: SCENE_NAMES.OrderXuli }); }}>
                             <ProfileItem name="Đơn hàng đang chờ xác nhận" />
                         </TouchableOpacity>
                         <View style={styles.divider1} />
-                        <TouchableOpacity onPress={() => { props.navigation.navigate('TopOrder', { screen: 'Order_LayHangScreen' }); }}>
+                        <TouchableOpacity onPress={() => { NavigationServices.navigate(SCENE_NAMES.TopStackOrder, { screen: SCENE_NAMES.Order_LayHangScreen }); }}>
                             <ProfileItem name="Đơn hàng đang chờ lấy hàng" />
                         </TouchableOpacity>
                         <View style={styles.divider1} />
-                        <TouchableOpacity onPress={() => { props.navigation.navigate('TopOrder', { screen: 'Order_DangVanChuyen' }); }}>
+                        <TouchableOpacity onPress={() => { NavigationServices.navigate(SCENE_NAMES.TopStackOrder, { screen: SCENE_NAMES.Order_DangVanChuyen }); }}>
                             <ProfileItem name="Đơn hàng đang vận chuyển" />
                         </TouchableOpacity>
                         <View style={styles.divider1} />
-                        <TouchableOpacity onPress={() => { props.navigation.navigate('TopOrder', { screen: 'Order_DaGiao' }); }}>
+                        <TouchableOpacity onPress={() => { NavigationServices.navigate(SCENE_NAMES.TopStackOrder, { screen: SCENE_NAMES.Order_DaGiao }); }}>
                             <ProfileItem name="Đơn hàng thành công" />
                         </TouchableOpacity>
                         <View style={styles.divider1} />
-                        <TouchableOpacity onPress={() => { props.navigation.navigate('TopOrder', { screen: 'Order_DaHuy' }); }}>
+                        <TouchableOpacity onPress={() => { NavigationServices.navigate(SCENE_NAMES.TopStackOrder, { screen: SCENE_NAMES.Order_DaHuy }); }}>
                             <ProfileItem name="Đơn hàng đã huỷ" />
                         </TouchableOpacity>
                         <View style={styles.divider1} />
-                        <TouchableOpacity onPress={() => { props.navigation.navigate('TopOrder', { screen: 'Order_Payment' }); }}>
+                        <TouchableOpacity onPress={() => { NavigationServices.navigate(SCENE_NAMES.TopStackOrder, { screen: SCENE_NAMES.Order_TraHang }); }}>
                             <ProfileItem name="Đơn hàng trả lại" />
                         </TouchableOpacity>
                         <View style={styles.divider} />
