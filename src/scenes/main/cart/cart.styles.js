@@ -4,6 +4,7 @@ const {width, height} = Dimensions.get('screen');
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
+    backgroundColor: '#fff',
   },
   screenContainersafe: {
     flex: 1,
