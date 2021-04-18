@@ -1,11 +1,15 @@
 import {StyleSheet, Dimensions} from 'react-native';
 
-const { width, height } = Dimensions.get('screen');
+const {width, height} = Dimensions.get('screen');
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
   },
-  viewRow:{
+  screenContainersafe: {
+    flex: 1,
+    backgroundColor: '#a2459a',
+  },
+  viewRow: {
     flexDirection: 'row',
   },
   headerContainer: {
@@ -107,8 +111,8 @@ export default StyleSheet.create({
     fontSize: 15,
     color: '#1ba8ff',
   },
-  greenText:{
-    color:'green',
+  greenText: {
+    color: 'green',
   },
   itemImage1: {
     width: 100,
@@ -137,55 +141,79 @@ export default StyleSheet.create({
     marginLeft: width / 40,
     alignSelf: 'center',
   },
-  ContainerEmpty:{
-    height:height / 3,
-    justifyContent:'center',
-    alignItems:'center',
+  ContainerEmpty: {
+    height: height / 3,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  safeArea :{
-    height: 20, backgroundColor: '#fff',
-  },
-  whiteBackground:{
+  safeArea: {
+    height: 20,
     backgroundColor: '#fff',
   },
-  productBackground:{
-    height: 2, backgroundColor: '#a2459a',
+  whiteBackground: {
+    backgroundColor: '#fff',
   },
-  loadingView:{
-    flex: 1, backgroundColor: '#fff', justifyContent: 'center',
+  productBackground: {
+    height: 2,
+    backgroundColor: '#a2459a',
   },
-  imageLoading:{
-    width: width, height: height, resizeMode: 'contain',
+  loadingView: {
+    flex: 1,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
   },
-  indicator:{
-    position: 'absolute', alignSelf: 'center',
+  imageLoading: {
+    width: width,
+    height: height,
+    resizeMode: 'contain',
   },
-  space:{
-    height: 5, backgroundColor: '#a2459a',
+  indicator: {
+    position: 'absolute',
+    alignSelf: 'center',
   },
-  ViewImage:{
-    width: width / 7, height: height / 15, marginHorizontal: 10,
+  space: {
+    height: 5,
+    backgroundColor: '#a2459a',
+  },
+  ViewImage: {
+    width: width / 7,
+    height: height / 15,
+    marginHorizontal: 10,
     marginVertical: 5,
     justifyContent: 'center',
   },
-  ImageBack:{
-    width: width / 7, height: height / 16.1,
+  ImageBack: {
+    width: width / 7,
+    height: height / 16.1,
     marginVertical: 5,
     justifyContent: 'center',
   },
-  textSelect : colorText => ({
-     textAlign: 'center', fontWeight: 'bold', color: colorText,
+  textSelect: (colorText) => ({
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: colorText,
   }),
-  cartView:{
-    position: 'absolute', borderRadius: 25, backgroundColor: 'red', alignItems: 'center', marginLeft: width / 30, width: width / 20,
+  cartView: {
+    position: 'absolute',
+    borderRadius: 25,
+    backgroundColor: 'red',
+    alignItems: 'center',
+    marginLeft: width / 30,
+    width: width / 20,
   },
-  cartText:{
-    alignSelf: 'center', fontSize: 10, margin: 1, fontWeight: 'bold', color: 'white',
+  cartText: {
+    alignSelf: 'center',
+    fontSize: 10,
+    margin: 1,
+    fontWeight: 'bold',
+    color: 'white',
   },
-  productNull:{
-    fontSize: 20, color: '#1ba8ff',
+  productNull: {
+    fontSize: 20,
+    color: '#1ba8ff',
   },
-  squareImage:{
-    width: 50, height: 50,
+  squareImage: {
+    width: 50,
+    height: 50,
   },
 });

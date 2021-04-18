@@ -6,19 +6,21 @@ import {
   StatusBar,
   ScrollView,
   TextInput,
-  CheckBox,
   Modal,
   Dimensions,
   TouchableOpacity,
   SafeAreaView,
+  Platform,
 } from 'react-native';
 import styles from './DetailAddress.styles';
 import * as Animatable from 'react-native-animatable';
+import CheckBox from '@react-native-community/checkbox';
 import NavigationServices from 'utils/navigationServices';
-import { Picker } from '@react-native-community/picker';
+import {Picker} from '@react-native-picker/picker';
+import RNPickerSelect from 'react-native-picker-select';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-const { width } = Dimensions.get('screen');
+const {width} = Dimensions.get('screen');
 // import {NAMESPACE} from './DetailAddress.constants';
 
 function DetailAddressView(props) {
@@ -34,6 +36,7 @@ function DetailAddressView(props) {
     saveChangesHandle,
     CheckBoxChange,
   } = props;
+  console.log('province data', provinceData());
   return (
     <SafeAreaView style={styles.screenContainer}>
       <View style={styles.screenContainer2}>
@@ -48,7 +51,7 @@ function DetailAddressView(props) {
               name="angle-left"
               size={30}
               color="#fff"
-              style={{ marginLeft: width / 40 }}
+              style={{marginLeft: width / 40}}
             />
           </TouchableOpacity>
           <Text style={styles.headerText}>Cập nhật địa chỉ</Text>
@@ -86,7 +89,7 @@ function DetailAddressView(props) {
               <View style={styles.divider} />
             ) : (
               // eslint-disable-next-line react-native/no-inline-styles
-              <View style={{ height: 2, backgroundColor: 'red' }} />
+              <View style={{height: 2, backgroundColor: 'red'}} />
             )}
 
             <View style={styles.userContainer}>
@@ -120,7 +123,7 @@ function DetailAddressView(props) {
               <View style={styles.divider} />
             ) : (
               // eslint-disable-next-line react-native/no-inline-styles
-              <View style={{ height: 2, backgroundColor: 'red' }} />
+              <View style={{height: 2, backgroundColor: 'red'}} />
             )}
             <View style={styles.userContainer}>
               <View style={styles.textContainer}>
@@ -152,48 +155,77 @@ function DetailAddressView(props) {
               <View style={styles.divider} />
             ) : (
               // eslint-disable-next-line react-native/no-inline-styles
-              <View style={{ height: 2, backgroundColor: 'red' }} />
+              <View style={{height: 2, backgroundColor: 'red'}} />
             )}
             <View style={styles.divider} />
             <View style={styles.userContainer}>
               <View style={styles.textContainer}>
                 <Text style={styles.whiteText}>Tỉnh/Thành phố</Text>
-                <Picker
-                  style={styles.picker}
-                  selectedValue={data.City}
-                  mode="dialog"
-                  onValueChange={(value) => {
-                    setData({ ...data, City: value });
-                  }}>
-                  {provinceData()}
-                </Picker>
+                {Platform.OS === 'android' ? (
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={data.City}
+                    mode="dialog"
+                    onValueChange={(value) => {
+                      setData({...data, City: value});
+                    }}>
+                    {provinceData()}
+                  </Picker>
+                ) : (
+                  <RNPickerSelect
+                    style={styles.picker}
+                    onValueChange={(value) => {
+                      setData({...data, City: value});
+                    }}
+                    items={provinceData()}
+                  />
+                )}
               </View>
             </View>
             <View style={styles.divider} />
             <View style={styles.userContainer}>
               <View style={styles.textContainer}>
                 <Text style={styles.whiteText}>Quận/Huyện</Text>
-                <Picker
-                  style={styles.picker1}
-                  selectedValue={data.Huyen}
-                  mode="dialog"
-                  onValueChange={(value) => {
-                    setData({ ...data, Huyen: value });
-                  }}>
-                  {districtData(data.City)}
-                </Picker>
+                {Platform.OS === 'android' ? (
+                  <Picker
+                    style={styles.picker1}
+                    selectedValue={data.Huyen}
+                    mode="dialog"
+                    onValueChange={(value) => {
+                      setData({...data, Huyen: value});
+                    }}>
+                    {districtData(data.City)}
+                  </Picker>
+                ) : (
+                  <RNPickerSelect
+                    onValueChange={(value) => {
+                      setData({...data, Huyen: value});
+                    }}
+                    items={districtData(data.City)}
+                    style={styles.picker1}
+                  />
+                )}
               </View>
               <View style={styles.textContainer}>
                 <Text style={styles.whiteText}>Phường/Xã</Text>
-                <Picker
-                  style={styles.picker1}
-                  selectedValue={data.Xa}
-                  mode="dialog"
-                  onValueChange={(value) => {
-                    setData({ ...data, Xa: value });
-                  }}>
-                  {wardData(data.City, data.Huyen)}
-                </Picker>
+                {Platform.OS === 'android' ? (
+                  <Picker
+                    style={styles.picker1}
+                    selectedValue={data.Xa}
+                    mode="dialog"
+                    onValueChange={(value) => {
+                      setData({...data, Xa: value});
+                    }}>
+                    {wardData(data.City, data.Huyen)}
+                  </Picker>
+                ) : (
+                  <RNPickerSelect
+                    onValueChange={(value) => {
+                      setData({...data, Xa: value});
+                    }}
+                    items={wardData(data.City, data.Huyen)}
+                  />
+                )}
               </View>
             </View>
             <View style={styles.divider} />
