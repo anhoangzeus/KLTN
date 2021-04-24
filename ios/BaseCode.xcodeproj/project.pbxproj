@@ -20,8 +20,7 @@
 		36C7424827AEE7A76EE7F879 /* libPods-BaseCode-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF56E2C340C7C5C6FC1DFEDE /* libPods-BaseCode-tvOS.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9C9460581AAA4C288243D0BE /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1F6B94EBDD04D3B88D2724C /* rubicon-icon-font.ttf */; };
-		AC35B03B2605B069001A7B01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC35B03A2605B069001A7B01 /* GoogleService-Info.plist */; };
-		AD19CFD426220528006B2B73 /* mockupblack.png in Resources */ = {isa = PBXBuildFile; fileRef = AD19CFD326220528006B2B73 /* mockupblack.png */; };
+		AD9D480C2631E3EB00D73B96 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD9D480B2631E3EB00D73B96 /* GoogleService-Info.plist */; };
 		C2CC2C6EE1F2A5BDE65D5CA7 /* libPods-BaseCode-BaseCodeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48B3F68F12ADDEFC40ED0C1A /* libPods-BaseCode-BaseCodeTests.a */; };
 		C8826B4B4792471BA1153DB5 /* BadScript-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 305F6D2A1AA44D8AA3230655 /* BadScript-Regular.ttf */; };
 		D4FDA0C300BF7C6F7E04CFEA /* libPods-BaseCode-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E66498DED74C786F622A9E /* libPods-BaseCode-tvOSTests.a */; };
@@ -79,8 +78,8 @@
 		926B0DB5B06446C59A71D26F /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		9AD7D16962ED4939B97B1A50 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		A201A2D1237442EDB46C46F6 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/native-base/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
-		AC35B03A2605B069001A7B01 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		AD19CFD326220528006B2B73 /* mockupblack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mockupblack.png; path = ../../../../Downloads/mockupblack.png; sourceTree = "<group>"; };
+		AD9D480B2631E3EB00D73B96 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AD9D48192631E4E800D73B96 /* BaseCode.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = BaseCode.entitlements; path = BaseCode/BaseCode.entitlements; sourceTree = "<group>"; };
 		C0A39E10CFB3452AA892E1A8 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		C0FD63E26D0A487197BF5BE1 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		C15FC7FADD04D0707041DB23 /* Pods-BaseCode-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaseCode-tvOS.release.xcconfig"; path = "Target Support Files/Pods-BaseCode-tvOS/Pods-BaseCode-tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -168,13 +167,13 @@
 		13B07FAE1A68108700A75B9A /* BaseCode */ = {
 			isa = PBXGroup;
 			children = (
+				AD9D48192631E4E800D73B96 /* BaseCode.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
-				AD19CFD326220528006B2B73 /* mockupblack.png */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = BaseCode;
@@ -230,7 +229,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				AC35B03A2605B069001A7B01 /* GoogleService-Info.plist */,
+				AD9D480B2631E3EB00D73B96 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* BaseCode */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* BaseCodeTests */,
@@ -400,13 +399,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				AD9D480C2631E3EB00D73B96 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				C8826B4B4792471BA1153DB5 /* BadScript-Regular.ttf in Resources */,
 				073D575683F94AD58FD468D9 /* Roboto_medium.ttf in Resources */,
 				F0D07B27F4564C119EFF7414 /* Roboto.ttf in Resources */,
 				9C9460581AAA4C288243D0BE /* rubicon-icon-font.ttf in Resources */,
-				AD19CFD426220528006B2B73 /* mockupblack.png in Resources */,
-				AC35B03B2605B069001A7B01 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -798,6 +796,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = BaseCode/BaseCode.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4VQX9Q4V2J;
 				ENABLE_BITCODE = NO;
@@ -822,6 +821,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = BaseCode/BaseCode.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4VQX9Q4V2J;
 				INFOPLIST_FILE = BaseCode/Info.plist;
