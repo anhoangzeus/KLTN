@@ -39,6 +39,11 @@ const ProfileMainView = (props) => {
                             </View>
                         </TouchableOpacity>
                         <View style={styles.divider} />
+                        <TouchableOpacity
+                            onPress={() => { NavigationServices.navigate(SCENE_NAMES.MyStoreOptionContainer, { FullName: FullName, Avatar: Avatar }) }}>
+                            <ProfileItem icon="storefront" name="Cửa hàng của tôi" />
+                        </TouchableOpacity>
+                        <View style={styles.divider} />
                         <TouchableOpacity>
                             <ProfileItem icon="facebook" name="Kết nối mạng xã hội" />
                         </TouchableOpacity>

@@ -1,5 +1,7 @@
 const SCENE_NAMES = {
   // Scene name
+  ZALOPAY: 'ZALOPAY_SCREEN',
+  PAYMENT_METHOD: 'PAYMENT_METHOD_SCREEN',
   DETAIL_ADDRESS: 'DETAIL_ADDRESS_SCREEN',
   PRODUCT: 'PRODUCT_SCREEN',
   HOME: 'HomeScreen',
@@ -28,6 +30,8 @@ const SCENE_NAMES = {
   RatingScreen: 'RatingScreen',
   TopRatingScreen: 'TopRatingScreen',
   DetailOrderContainer: 'DetailOrderContainer',
+  MyStoreOptionContainer: 'MyStoreOptionContainer',
+  AddProductContainer: 'AddProductContainer',
 };
 
 export default SCENE_NAMES;

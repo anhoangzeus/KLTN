@@ -9,11 +9,14 @@ import TopStackLogin from './TopTabNavigator/LoginTab';
 import TopStackOrder from './TopTabNavigator/OrderTab';
 import TopRatingScreen from './TopTabNavigator/RatingTab';
 // Screen Import
+import ZalopayContainer from 'scenes/main/zalopay/Zalopay.container';
+import PaymentMethodContainer from 'scenes/main/paymentMethod/PaymentMethod.container';
 import DetailAddressContainer from 'scenes/main/detailAddress/DetailAddress.container';
 import CategoryContainer from 'scenes/main/category/Category.container';
 import SignInContainer from 'scenes/auth/signIn/SignIn.container';
 import { TransitionPresets } from '@react-navigation/stack';
 
+import AddRessScreen from 'scenes/userOption/address/address.container';
 import GetStartContainer from 'scenes/getStart/GetStart.container';
 import LoginScreen from 'scenes/auth/login/login.container';
 import RegisterScreen from 'scenes/auth/register/register.container';
@@ -23,11 +26,15 @@ import DummyScreen from 'scenes/dummy';
 import ProductScreen from 'scenes/main/product/Product.container';
 import CartScreen from 'scenes/main/cart/cart.container';
 import InfoUser from 'scenes/userOption/profile/infoUser.container';
-import AddRessScreen from 'scenes/userOption/address/address.container';
+
+import MyStoreOptionContainer from 'scenes/mystore/myStoreOption/myStoreOption.container';
+
+
 import RatingScreen from 'scenes/userOption/rating/rating.container';
 import DetailOrderContainer from 'scenes/userOption/order/detail_order/detail_order.container';
 //Route Import
 import Route_Contents from 'components/WebView/index';
+import AddProductContainer from 'scenes/mystore/addProduct/addProduct.container';
 
 const Stack = createStackNavigator();
 
@@ -50,6 +57,12 @@ function RootNavigator({ onNavigationStateChange }) {
           <Stack.Screen name={SCENE_NAMES.DUMMY} component={DummyScreen} />
         )}
         {/* Plop screen */}
+        <Stack.Screen name={SCENE_NAMES.ZALOPAY} component={ZalopayContainer} />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={SCENE_NAMES.PAYMENT_METHOD}
+          component={PaymentMethodContainer}
+        />
         <Stack.Screen
           options={{ headerShown: false }}
           name={SCENE_NAMES.DETAIL_ADDRESS}
@@ -64,6 +77,11 @@ function RootNavigator({ onNavigationStateChange }) {
           options={{ headerShown: false }}
           name={SCENE_NAMES.MAIN}
           component={MainTabNavigator}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={SCENE_NAMES.AddProductContainer}
+          component={AddProductContainer}
         />
         <Stack.Screen
           options={{ headerShown: false }}
@@ -105,6 +123,10 @@ function RootNavigator({ onNavigationStateChange }) {
         <Stack.Screen name={SCENE_NAMES.PROFILE} component={ProfileScreen} />
         <Stack.Screen
           options={{ headerShown: false }}
+          name={SCENE_NAMES.MyStoreOptionContainer}
+          component={MyStoreOptionContainer} />
+        <Stack.Screen
+          options={{ headerShown: false }}
           name={SCENE_NAMES.AddRessScreen}
           component={AddRessScreen}
         />
@@ -115,7 +137,8 @@ function RootNavigator({ onNavigationStateChange }) {
         <Stack.Screen
           options={{ headerShown: false }}
           name={SCENE_NAMES.InfoUser}
-          component={InfoUser} />
+          component={InfoUser}
+        />
         <Stack.Screen
           options={{ headerShown: false }}
           name={SCENE_NAMES.Route_Contents}

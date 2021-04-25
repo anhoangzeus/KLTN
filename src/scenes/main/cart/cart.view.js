@@ -20,6 +20,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import ReactNativeNumberFormat from 'components/NumberFormat/index';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
+//import {NAMESPACE} from '../detailAddress/DetailAddress.constants';
 const {width} = Dimensions.get('screen');
 
 export default function CartView(props) {
@@ -145,6 +146,7 @@ export default function CartView(props) {
       </View>
     );
   }
+
   return (
     <SafeAreaView style={styles.screenContainersafe}>
       <View style={styles.screenContainer}>

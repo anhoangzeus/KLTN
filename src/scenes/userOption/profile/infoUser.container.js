@@ -13,6 +13,7 @@ export default function infoUserContainer({ navigation }) {
         password: '',
         comfirm_pass: '',
         FullName: '',
+        Avatar: 'https://i.ibb.co/HDzz1rC/avartarnone.png',
         Phone: '',
         CMND: '',
         Email: '',
@@ -40,6 +41,7 @@ export default function infoUserContainer({ navigation }) {
                         Phone: snapshot.val().Phone,
                         pass: snapshot.val().Password,
                         Email: snapshot.val().Email,
+                        Avatar: snapshot.val().Avatar,
                     });
                 });
         }
