@@ -4,14 +4,8 @@ const thumbMeasure = (width - 48 - 32) / 3;
 
 export default StyleSheet.create({
   container: {
-    width: 50,
-    height: 30,
-    backgroundColor: '#a2459a',
-    borderRadius: 25,
-    alignItems: 'center',
-    marginLeft: 5,
-    justifyContent: 'center',
-    marginTop: 10,
+    backgroundColor: '#fff',
+    flex: 1,
   },
   safeView: {flex: 1, backgroundColor: '#a2459a'},
   setTouchableBack: {

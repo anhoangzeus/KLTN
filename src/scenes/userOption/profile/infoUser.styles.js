@@ -2,8 +2,12 @@ import { StyleSheet } from 'react-native';
 import SIZE from 'constants/size';
 
 export default StyleSheet.create({
+  screenContainersafe: {
+    flex: 1,
+  },
   screenContainer: {
     flex: 1,
+    backgroundColor: '#fff',
   },
   bodyContainer: {
     flex: 1,

@@ -7,6 +7,9 @@ target 'BaseCode' do
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
+  
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
 
   target 'BaseCodeTests' do
     inherit! :complete

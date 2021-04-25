@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Text, TextInput } from 'react-native';
+import {Text, TextInput} from 'react-native';
 import 'react-native-gesture-handler';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
 import Scenes from 'scenes';
 import configureStore from 'appRedux/store/configureStore';
 const storeConfig = configureStore();

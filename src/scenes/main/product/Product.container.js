@@ -1,18 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, { useLayoutEffect, useEffect, useState } from 'react';
-import { View, Text, Animated } from 'react-native';
+import React, {useLayoutEffect, useEffect, useState} from 'react';
+import {View, Text, Animated} from 'react-native';
 import ProductView from './Product.view';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
-import { NAMESPACE } from './Product.constants';
-import { getString } from 'utils/i18n';
+import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
+import {NAMESPACE} from './Product.constants';
+import {getString} from 'utils/i18n';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import styles from './Product.styles';
-import NavigationServices, { getParams } from 'utils/navigationServices';
+import NavigationServices, {getParams} from 'utils/navigationServices';
 
 const functionsCounter = new Set();
 
@@ -20,9 +20,9 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 
-export default function ProductContainer({ navigation, route }) {
+export default function ProductContainer({navigation, route}) {
   const isLoading = useSelectorShallow(loadingSelector);
-  const { id, BrandID, CategoryID } = getParams(route);
+  const {id, BrandID, CategoryID} = getParams(route);
   const itemRef = database();
 
   const [numcart, setnumcart] = useState(0);
@@ -87,7 +87,6 @@ export default function ProductContainer({ navigation, route }) {
   };
   const getItemRespon = () => {
     var Category_ID = CategoryID;
-    var Brand_ID = BrandID;
     var ProductID = idsanpham;
     database()
       .ref('/Products')
@@ -97,14 +96,12 @@ export default function ProductContainer({ navigation, route }) {
         snapshot.forEach(function (child) {
           if (child.val().ProductID !== ProductID) {
             if (child.val().CategoryID === Category_ID) {
-              if (child.val().BrandID === Brand_ID) {
-                items.push({
-                  image: child.val().Image,
-                  Name: child.val().Name,
-                  Price: child.val().Price,
-                  proid: child.val().ProductID,
-                });
-              }
+              items.push({
+                image: child.val().Image,
+                Name: child.val().Name,
+                Price: child.val().Price,
+                proid: child.val().ProductID,
+              });
             }
           }
         });
@@ -114,7 +111,7 @@ export default function ProductContainer({ navigation, route }) {
   const getData = () => {
     var ImageItems = [];
     database()
-      .ref('/Products/' + id)
+      .ref('/Products/' + idsanpham)
       .once('value')
       .then((snapshot) => {
         var _sao1 = 0;
@@ -147,9 +144,7 @@ export default function ProductContainer({ navigation, route }) {
             UserName: child.val().UserName,
           });
         });
-        console.log('tên mo ta san pham', snapshot.val().Description);
         setdecription(snapshot.val().Description);
-        console.log('state của des', decription);
         setimage(snapshot.val().Image);
         setname(snapshot.val().Name);
         setprice(snapshot.val().Price);
@@ -215,7 +210,7 @@ export default function ProductContainer({ navigation, route }) {
     } else {
       return (
         <View style={styles.cartposition}>
-          <Text style={{ color: 'white' }}>{numcart}</Text>
+          <Text style={{color: 'white'}}>{numcart}</Text>
         </View>
       );
     }
@@ -307,6 +302,11 @@ export default function ProductContainer({ navigation, route }) {
     getItemRespon();
   }, [idsanpham]);
 
+  useEffect(() => {
+    getData();
+    getItemRespon();
+  }, [idsanpham]);
+
   functionsCounter.add(handleClose);
   functionsCounter.add(setModalVisible);
   functionsCounter.add(renderNofiCart);
@@ -330,6 +330,7 @@ export default function ProductContainer({ navigation, route }) {
       addCart={addCart}
       getNameBrandCate={getNameBrandCate}
       getnumcart={getnumcart}
+      setID={setID}
       numcart={numcart}
       decription={decription}
       image={image}
