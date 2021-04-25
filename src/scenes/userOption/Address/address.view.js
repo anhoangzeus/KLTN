@@ -12,11 +12,11 @@ import {
     TouchableOpacity,
     SafeAreaView,
 } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 import styles from './address.styles';
+import Header from 'components/Header';
 
 export default function AddressView(props) {
     const { status,
@@ -76,12 +76,7 @@ export default function AddressView(props) {
         <SafeAreaView style={styles.screenContainer}>
             <View style={styles.screenContainer}>
                 <StatusBar backgroundColor="#a2459a" barStyle="light-content" />
-                <View style={styles.headerContainer}>
-                    <TouchableOpacity style={styles.cartContainer} onPress={() => { NavigationServices.goBack(); }}>
-                        <FontAwesome name="angle-left" size={30} color="#fff" style={styles.marginHeader} />
-                    </TouchableOpacity>
-                    <Text style={styles.headerText}>Thông tin địa chỉ</Text>
-                </View>
+                <Header title={'Thông tin địa chỉ'} />
                 {status === false ?
                     <RenderNull />
                     :

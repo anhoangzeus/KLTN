@@ -1,8 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Dimensions, Text } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 import OrderXuli from 'scenes/userOption/order/order/orderXacNhan/orderXacNhan.container';
 import Order_LayHangScreen from 'scenes/userOption/order/order/orderLayHang/orderLayHang.container';
@@ -10,6 +8,7 @@ import Order_DangVanChuyen from 'scenes/userOption/order/order/orderDangGiao/ord
 import Order_DaGiao from 'scenes/userOption/order/order/orderDaGiao/orderDaGiao.container';
 import Order_DaHuy from 'scenes/userOption/order/order/orderDaHuy/orderDaHuy.container';
 import Order_TraHang from 'scenes/userOption/order/order/orderTraHang/orderTraHang.container';
+import Header from 'components/Header';
 
 const { width } = Dimensions.get('screen');
 const TopStackOrder = createMaterialTopTabNavigator();
@@ -39,12 +38,7 @@ const styles = StyleSheet.create({
 export default function TopOrder(props) {
     return (
         <View style={styles.containner}>
-            <View style={styles.headconteiner}>
-                <TouchableOpacity style={styles.btn} onPress={() => NavigationServices.navigate(SCENE_NAMES.MAIN)}>
-                    <FontAwesome name="angle-left" size={30} color="#fff" style={{ marginLeft: width / 40 }} />
-                </TouchableOpacity>
-                <Text style={styles.texthead}>ĐƠN HÀNG CỦA TÔI</Text>
-            </View>
+            <Header title={'Đơn hàng của tôi'} type={true} />
             <TopStackOrder.Navigator
 
                 tabBarOptions={{

@@ -24,4 +24,7 @@ export default StyleSheet.create({
         fontSize: 20,
         fontWeight: '500',
     },
+    maginIcon: {
+        width: SIZE.HEADER_ICON_SIZE,
+    },
 });

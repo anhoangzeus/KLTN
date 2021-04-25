@@ -14,12 +14,11 @@ import {
 } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CheckBox from '@react-native-community/checkbox';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import auth from '@react-native-firebase/auth';
 import * as Animatable from 'react-native-animatable';
 import styles from './infoUser.styles';
-import NavigationServices from 'utils/navigationServices';
+import Header from 'components/Header';
 
 export default function infoUserView(props) {
     const {
@@ -42,12 +41,7 @@ export default function infoUserView(props) {
 
         <SafeAreaView style={styles.screenContainer}>
             <StatusBar backgroundColor="#a2459a" barStyle="light-content" />
-            <View style={styles.headerContainer}>
-                <TouchableOpacity style={styles.cartContainer} onPress={() => { NavigationServices.goBack(); }}>
-                    <FontAwesome name="angle-left" size={30} color="#fff" style={styles.maginIcon} />
-                </TouchableOpacity>
-                <Text style={styles.headerText}>Thông tin tài khoản</Text>
-            </View>
+            <Header title={'Thông tin tài khoản'} />
             <ScrollView>
                 <KeyboardAvoidingView behavior="padding">
                     <View

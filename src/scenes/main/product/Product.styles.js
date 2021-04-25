@@ -1,5 +1,5 @@
-import {StyleSheet, Dimensions} from 'react-native';
-const {width, height} = Dimensions.get('screen');
+import { StyleSheet, Dimensions } from 'react-native';
+const { width, height } = Dimensions.get('screen');
 const thumbMeasure = (width - 48 - 32) / 3;
 
 export default StyleSheet.create({
@@ -7,7 +7,7 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     flex: 1,
   },
-  safeView: {flex: 1, backgroundColor: '#a2459a'},
+  safeView: { flex: 1, backgroundColor: '#a2459a' },
   setTouchableBack: {
     width: 50,
     height: 30,
@@ -81,13 +81,13 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: width / 40,
   },
-  relateView: {backgroundColor: '#fff', height: height / 3.5},
+  relateView: { backgroundColor: '#fff' },
   headerFont: {
     flexDirection: 'row',
     position: 'absolute',
     width: width,
   },
-  quarView: {height: 25},
+  quarView: { height: 25 },
   relateText: {
     marginVertical: 10,
     marginLeft: width / 40,
@@ -104,7 +104,7 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     color: '#000',
   },
-  viewAll: {color: '#a2459a', marginRight: width / 40},
+  viewAll: { color: '#a2459a', marginRight: width / 40 },
   headerFont1: {
     flexDirection: 'row',
     paddingTop: height / 30,
@@ -115,13 +115,13 @@ export default StyleSheet.create({
   devide: {
     height: 2,
   },
-  whiteView: {backgroundColor: '#fff'},
+  whiteView: { backgroundColor: '#fff' },
   profileImage: {
     width: width,
     height: height / 2,
     resizeMode: 'contain',
   },
-  fiveView: {height: 5},
+  fiveView: { height: 15 },
   profileContainer: {
     width: width,
     height: height / 2,
@@ -142,7 +142,7 @@ export default StyleSheet.create({
     paddingTop: -5,
     backgroundColor: '#fff',
     shadowColor: 'black',
-    shadowOffset: {width: 0, height: 0},
+    shadowOffset: { width: 0, height: 0 },
     shadowRadius: 8,
     shadowOpacity: 0.2,
     zIndex: 2,
@@ -226,23 +226,23 @@ export default StyleSheet.create({
     height: height / 20,
     flexDirection: 'row',
   },
-  rowView: {flexDirection: 'row'},
-  flatstyle: {marginHorizontal: 10},
+  rowView: { flexDirection: 'row' },
+  flatstyle: { marginHorizontal: 10 },
   ratingView: {
     flexDirection: 'column',
     marginHorizontal: width / 6,
     marginVertical: height / 30,
   },
-  ratingText: {fontSize: 50, color: '#000'},
-  commentText: {fontSize: 15, color: 'green', marginTop: 5},
-  startView: {width: 1, backgroundColor: '#DDDDDD'},
-  marginView: {marginLeft: 5},
+  ratingText: { fontSize: 50, color: '#000' },
+  commentText: { fontSize: 15, color: 'green', marginTop: 5 },
+  startView: { width: 1, backgroundColor: '#DDDDDD' },
+  marginView: { marginLeft: 5 },
   starUI: {
     marginLeft: width / 12,
     color: '#a2459a',
     fontWeight: 'bold',
   },
-  modalButton: {width: width / 15, borderRadius: 10},
+  modalButton: { width: width / 15, borderRadius: 10 },
   modalImage: {
     height: height / 8,
     width: width / 5,
@@ -253,7 +253,7 @@ export default StyleSheet.create({
     marginTop: 10,
     marginLeft: 10,
   },
-  modalnameText: {color: '#000', width: width / 1.8},
+  modalnameText: { color: '#000', width: width / 1.8 },
   byText: {
     color: '#000',
     width: width / 1.5,
@@ -277,7 +277,7 @@ export default StyleSheet.create({
     height: height / 16,
     justifyContent: 'center',
   },
-  addText: {color: '#fff', fontSize: 20},
-  valueText: {marginLeft: 5, color: 'red'},
-  starratingView: {flexDirection: 'row', marginLeft: 10},
+  addText: { color: '#fff', fontSize: 20 },
+  valueText: { marginLeft: 5, color: 'red' },
+  starratingView: { flexDirection: 'row', marginLeft: 10 },
 });

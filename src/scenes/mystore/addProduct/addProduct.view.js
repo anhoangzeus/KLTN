@@ -1,3 +1,4 @@
+/* eslint-disable react/self-closing-comp */
 /* eslint-disable no-unused-vars */
 import * as React from 'react';
 import {
@@ -17,11 +18,15 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Header from 'components/Header';
 
 export default function AddProductView(props) {
     return (
-        <View>
-            <Text>Them san pham</Text>
-        </View>
+        <SafeAreaView>
+            <ScrollView>
+                <StatusBar backgroundColor="#a2459a" barStyle="light-content" />
+                <Header title={'Thêm sản phẩm'} />
+            </ScrollView>
+        </SafeAreaView>
     );
 }

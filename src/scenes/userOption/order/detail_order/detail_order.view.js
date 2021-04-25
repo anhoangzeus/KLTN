@@ -2,12 +2,13 @@
 import * as React from 'react';
 import { View, Text, StatusBar, ScrollView, TouchableOpacity, FlatList, Modal, Alert, Image } from 'react-native';
 import styles from './detail_order.styles';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import NavigationServices from 'utils/navigationServices';
 import ReactNativeNumberFormat from 'components/NumberFormat';
 import SCENE_NAMES from 'constants/sceneName';
 import SIZE from 'constants/size';
+import Header from 'components/Header';
+
 const RenderList = ({ ProductName, BrandName, ProductImage, Quantity, Price, cate_Name }) => (
     <View style={styles.userContainer}>
         <View>
@@ -42,12 +43,7 @@ const DetailOrderView = (props) => {
     return (
         <View style={styles.screenContainer}>
             <StatusBar backgroundColor="#a2459a" barStyle="light-content" />
-            <View style={styles.headerContainer}>
-                <TouchableOpacity style={styles.cartContainer} onPress={() => NavigationServices.goBack()}>
-                    <FontAwesome name="angle-left" size={30} color="#fff" style={{ marginLeft: SIZE.DEVICE_WIDTH / 40 }} />
-                </TouchableOpacity>
-                <Text style={styles.headerText}>Chi tiết đơn hàng</Text>
-            </View>
+            <Header title={'Chi tiết đơn hàng'} />
             <ScrollView >
                 <View style={styles.bodyContainer}>
                     <View style={styles.userContainer}>

@@ -14,6 +14,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Header from 'components/Header';
 
 const ProfileItem = ({ icon, name }) => (
     <View style={styles.itemContainer}>
@@ -28,12 +29,7 @@ export default function MyStoreOptionView(props) {
         <SafeAreaView style={styles.screenContainer}>
             <ScrollView style={styles.screenContainer}>
                 <StatusBar backgroundColor="#a2459a" barStyle="light-content" />
-                <View style={styles.headerContainer}>
-                    <TouchableOpacity style={styles.cartContainer} onPress={() => { NavigationServices.goBack(); }}>
-                        <FontAwesome name="angle-left" size={30} color="#fff" style={styles.maginIcon} />
-                    </TouchableOpacity>
-                    <Text style={styles.headerText}>Quản lí bán hàng</Text>
-                </View>
+                <Header title={'Quản lí bán hàng'} />
                 <View style={styles.bodyContainer}>
                     <TouchableOpacity
                         onPress={() => { NavigationServices.navigate(SCENE_NAMES.InfoUser); }}
