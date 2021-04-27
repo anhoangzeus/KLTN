@@ -3,18 +3,12 @@ import {
   View,
   StyleSheet,
   StatusBar,
-  TouchableOpacity,
-  Dimensions,
-  Text,
 } from 'react-native';
-import Rating from 'scenes/userOption/Rating/rating.container';
+import Rating from 'scenes/userOption/rating/rating.container';
 import RatingDone from 'scenes/userOption/ratingDone/ratingdone.container';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import NavigationServices from 'utils/navigationServices';
-import SCENE_NAMES from 'constants/sceneName';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import Header from 'components/Header';
 
-const {width} = Dimensions.get('screen');
 const TopTab = createMaterialTopTabNavigator();
 
 const styles = StyleSheet.create({
@@ -43,22 +37,8 @@ const styles = StyleSheet.create({
 export default function TopRatingScreen(props) {
   return (
     <View style={styles.screenContainer}>
-      <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
-      <View style={styles.headerContainer}>
-        <TouchableOpacity
-          style={styles.cartContainer}
-          onPress={() => {
-            NavigationServices.navigate(SCENE_NAMES.MAIN);
-          }}>
-          <FontAwesome
-            name="angle-left"
-            size={30}
-            color="#fff"
-            style={{marginLeft: width / 40}}
-          />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Đánh giá sản phẩm</Text>
-      </View>
+      <StatusBar backgroundColor="#a2459a" barStyle="light-content" />
+      <Header title={'Đánh giá sản phẩm'} type={true} />
       <TopTab.Navigator
         tabBarOptions={{
           activeTintColor: '#2B4F8C',

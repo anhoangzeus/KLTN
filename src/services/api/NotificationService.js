@@ -1,8 +1,8 @@
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import messaging from '@react-native-firebase/messaging';
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 import PushNotification from 'react-native-push-notification';
-export function displayNotification({title, body}, data) {
+export function displayNotification({ title, body }, data) {
   PushNotification.localNotificationSchedule({
     title,
     message: body, // (required)
@@ -11,7 +11,7 @@ export function displayNotification({title, body}, data) {
   });
 }
 export default class NotificationService {
-  static initPushNotifications = (onNotification = () => {}) => {
+  static initPushNotifications = (onNotification = () => { }) => {
     PushNotification.configure({
       // (optional) Called when Token is generated (iOS and Android)
       onRegister: function (token) {
@@ -69,7 +69,7 @@ export default class NotificationService {
     //   });
   };
 
-  static getFcmToken = (callback = () => {}) => {
+  static getFcmToken = (callback = () => { }) => {
     try {
       messaging()
         .getToken()

@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import SIZE from 'constants/size';
 
 export default StyleSheet.create({
@@ -14,10 +14,16 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: '#ededed',
   },
+  camera: {
+    width: 20,
+    height: 20,
+    marginTop: 55,
+    marginLeft: 60,
+  },
   userContainer: {
     backgroundColor: '#fff',
     flexDirection: 'row',
-    paddingHorizontal: 5,
+    paddingHorizontal: 10,
     paddingVertical: 5,
   },
   userContainer1: {
@@ -30,6 +36,21 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  avatarContainer: {
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: SIZE.DEVICE_HEIGHT / 7,
+    flexDirection: 'row',
+  },
+  img: {
+    width: 80,
+    height: 80,
+    borderRadius: 80,
+    borderWidth: 1,
+    borderColor: '#a2459a',
+    position: 'absolute',
+  },
   totalContainer: {
     flexDirection: 'row',
     paddingHorizontal: 10,
@@ -41,6 +62,13 @@ export default StyleSheet.create({
     marginLeft: 10,
   },
   welcomeText: {
+    color: 'black',
+    fontSize: 15,
+    borderBottomColor: '#dddddd',
+    borderBottomWidth: 1,
+    width: SIZE.DEVICE_WIDTH / 2,
+  },
+  errtext: {
     color: 'black',
     fontSize: 15,
   },
@@ -73,8 +101,9 @@ export default StyleSheet.create({
     color: 'black',
     fontSize: 20,
   },
+  // eslint-disable-next-line no-dupe-keys
   errtext: {
-    color: 'red',
+    color: 'black',
     fontSize: 20,
   },
   errtext1: {
@@ -135,7 +164,7 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
   },
   btnTouch: {
-    backgroundColor: '#FF3333',
+    backgroundColor: '#a2459a',
     marginHorizontal: 10,
     marginVertical: 10,
     height: SIZE.DEVICE_HEIGHT / 20,

@@ -7,7 +7,6 @@ import {
   ScrollView,
   TextInput,
   Modal,
-  Dimensions,
   TouchableOpacity,
   SafeAreaView,
   Platform,
@@ -15,13 +14,10 @@ import {
 import styles from './DetailAddress.styles';
 import * as Animatable from 'react-native-animatable';
 import CheckBox from '@react-native-community/checkbox';
-import NavigationServices from 'utils/navigationServices';
 import {Picker} from '@react-native-picker/picker';
 import RNPickerSelect from 'react-native-picker-select';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-const {width} = Dimensions.get('screen');
-// import {NAMESPACE} from './DetailAddress.constants';
+import Header from 'components/Header';
 
 function DetailAddressView(props) {
   const {
@@ -40,22 +36,8 @@ function DetailAddressView(props) {
   return (
     <SafeAreaView style={styles.screenContainer}>
       <View style={styles.screenContainer2}>
-        <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
-        <View style={styles.headerContainer}>
-          <TouchableOpacity
-            style={styles.cartContainer}
-            onPress={() => {
-              NavigationServices.goBack();
-            }}>
-            <FontAwesome
-              name="angle-left"
-              size={30}
-              color="#fff"
-              style={{marginLeft: width / 40}}
-            />
-          </TouchableOpacity>
-          <Text style={styles.headerText}>Cập nhật địa chỉ</Text>
-        </View>
+        <StatusBar backgroundColor="#a2459a" barStyle="light-content" />
+        <Header title={'Cập nhật địa chỉ'} />
         <View style={styles.divider} />
         <ScrollView>
           <View style={styles.bodyContainer}>
