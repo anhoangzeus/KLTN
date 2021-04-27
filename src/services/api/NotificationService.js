@@ -15,7 +15,7 @@ export default class NotificationService {
     PushNotification.configure({
       // (optional) Called when Token is generated (iOS and Android)
       onRegister: function (token) {
-        console.log('TOKEN:', token);
+        console.log('TOKEN register FCM:', token);
       },
 
       // (required) Called when a remote is received or opened, or local notification is opened
@@ -100,6 +100,8 @@ export default class NotificationService {
     if (enabled) {
       console.log('Authorization status:', authStatus);
       return true;
+    } else {
+      console.log('Authorization status return false');
     }
     return false;
   };

@@ -1275,10 +1275,10 @@
   resolved "https://registry.yarnpkg.com/@react-native-firebase/database/-/database-11.2.0.tgz#7a3e1710aee16c74aaaf29cc881bbde5b99adf91"
   integrity sha512-GdOOOLT2bSk2Sdb/MEwOewg7+DKz2/VXiFXI7pr42FZoorzGkawvJVPwNesuCH4ROg7KD4D59k6hwSdECLzgVQ==
 
-"@react-native-firebase/messaging@^11.1.2":
-  version "11.2.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-11.2.0.tgz#e5eb21707f49aed0572fecb46b81d3f4ed693b70"
-  integrity sha512-TSfEpTqZGf/eQ/5qTVyhX74YvOkk4Kx7Dq/y6XBz8rYFEyxayjpJ/RV9SXTUbDYunOyhC7EUJxcWvG6C5AjoTw==
+"@react-native-firebase/messaging@11.3.1":
+  version "11.3.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-11.3.1.tgz#2a1bb516085cb4030c20b4c1f992fb01f15f705a"
+  integrity sha512-f/eLMFL0JsQOzYqNSDllaIYCOTVGltbbcitDuLStrgrq0oVxj2pu4XLOO2HtF9qxcm9+YUfN9S1FN1ZCRnwtLQ==
 
 "@react-native-picker/picker@^1.14.0", "@react-native-picker/picker@^1.8.3":
   version "1.14.0"
