@@ -172,7 +172,7 @@ function PaymentMethodView(props) {
                 {prop.address.Xa}, {prop.address.Huyen}, {prop.address.City}
               </Text>
               <Text style={styles.address}>
-                {checked == 'first'
+                {checked === 'first'
                   ? 'Thanh toán khi nhận hàng'
                   : 'Thanh toán trực tuyến'}
               </Text>

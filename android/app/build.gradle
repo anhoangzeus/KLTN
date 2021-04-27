@@ -190,9 +190,10 @@ dependencies {
 
     implementation platform('com.google.firebase:firebase-bom:26.7.0')
 
-    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-analytics:17.3.0'
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+    implementation project(path: ':zpdk-release')
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'

@@ -9,7 +9,8 @@ import {NAMESPACE} from './PaymentMethod.constants';
 import {getString} from 'utils/i18n';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
-import {getParams} from 'utils/navigationServices';
+import NavigationServices, {getParams} from 'utils/navigationServices';
+import SCENE_NAMES from 'constants/sceneName';
 const functionsCounter = new Set();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
@@ -24,7 +25,6 @@ export default function PaymentMethodContainer({navigation, route}) {
   const [shipMoney, setshipMoney] = useState(0);
   const [modalVisibleConfirm, setmodalVisibleConfirm] = useState(false);
   const isLoading = useSelectorShallow(loadingSelector);
-
   const props = getParams(route);
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -38,8 +38,6 @@ export default function PaymentMethodContainer({navigation, route}) {
     var b = a.indexOf('-');
     var radlat1 = (Math.PI * shopLa) / 180;
     var radlat2 = (Math.PI * parseFloat(a.substring(0, b))) / 180;
-    // var radlon1 = (Math.PI * shopLo) / 180;
-    // var radlon2 = (Math.PI * parseFloat(a.substring(b + 1, a.length))) / 180;
     var theta = shopLo - parseFloat(a.substring(b + 1, a.length));
     var radtheta = (Math.PI * theta) / 180;
     var dist =
@@ -59,7 +57,6 @@ export default function PaymentMethodContainer({navigation, route}) {
     } else if (dist >= 50) {
       shipmoney = 250000;
     }
-
     setshipMoney(shipmoney);
   };
 
@@ -123,7 +120,6 @@ export default function PaymentMethodContainer({navigation, route}) {
   const thanhToan = async () => {
     if (checked === 'first') {
       var key = database().ref().child('Orders/').push().key;
-      console.log('>>>>key thanh toan>>>', key);
       var phone = props.address.ShipPhone;
       var name = props.address.ShipName;
       var location = props.address.Location;
@@ -189,8 +185,8 @@ export default function PaymentMethodContainer({navigation, route}) {
       setModalVisible(true);
     } else {
       handleCloseConfirm();
-      props.navigation.navigate('ZaloPayScreen', {
-        amount: props.amount,
+      NavigationServices.navigate(SCENE_NAMES.ZALOPAY, {
+        amount: props.content,
         shipMoney: shipMoney,
         listItem: props.CartItem,
         Address: props.address,
