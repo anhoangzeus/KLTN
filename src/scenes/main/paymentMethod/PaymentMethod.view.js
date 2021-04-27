@@ -37,7 +37,7 @@ function PaymentMethodView(props) {
       <View style={styles.screenContainer}>
         <StatusBar
           barStyle="light-content"
-          backgroundColor="#a2459a"
+          backgroundColor="#2B4F8C"
           translucent={false}
         />
         <View style={styles.headerContainer}>
@@ -145,7 +145,7 @@ function PaymentMethodView(props) {
           }}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <FontAwesome5 name="kiss-wink-heart" size={70} color="#a2459a" />
+              <FontAwesome5 name="kiss-wink-heart" size={70} color="#2B4F8C" />
               <Text style={styles.modalText}>Đặt hàng thành công!</Text>
               <TouchableOpacity
                 style={styles.modalMain}

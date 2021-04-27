@@ -7,11 +7,11 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     flex: 1,
   },
-  safeView: {flex: 1, backgroundColor: '#a2459a'},
+  safeView: {flex: 1, backgroundColor: '#2B4F8C'},
   setTouchableBack: {
     width: 50,
     height: 30,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
     borderRadius: 25,
     alignItems: 'center',
     marginLeft: 5,
@@ -21,7 +21,7 @@ export default StyleSheet.create({
   settingTouchSearch: {
     width: 50,
     height: 30,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
     borderRadius: 25,
     marginLeft: width * 0.45,
     alignItems: 'center',
@@ -31,7 +31,7 @@ export default StyleSheet.create({
   settingTouch: {
     width: 50,
     height: 30,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
     borderRadius: 25,
     marginLeft: width * 0.01,
     alignItems: 'center',
@@ -104,7 +104,7 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     color: '#000',
   },
-  viewAll: {color: '#a2459a', marginRight: width / 40},
+  viewAll: {color: '#2B4F8C', marginRight: width / 40},
   headerFont1: {
     flexDirection: 'row',
     paddingTop: height / 30,
@@ -179,7 +179,7 @@ export default StyleSheet.create({
   },
   btnmua: {
     width: width / 1.1,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
     justifyContent: 'center',
     borderRadius: 5,
     marginVertical: 5,
@@ -220,7 +220,7 @@ export default StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
     fontSize: 22,
-    color: '#a2459a',
+    color: '#2B4F8C',
   },
   star: {
     height: height / 20,
@@ -239,7 +239,7 @@ export default StyleSheet.create({
   marginView: {marginLeft: 5},
   starUI: {
     marginLeft: width / 12,
-    color: '#a2459a',
+    color: '#2B4F8C',
     fontWeight: 'bold',
   },
   modalButton: {width: width / 15, borderRadius: 10},
@@ -259,7 +259,7 @@ export default StyleSheet.create({
     width: width / 1.5,
   },
   cartButton: {
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
     width: width / 1.2,
     height: height / 17,
     borderRadius: 15,

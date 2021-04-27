@@ -231,7 +231,7 @@ export default function NotifyView(props) {
               ) : null}
               <MaterialCommunityIcons
                 name="home"
-                color={ischoose === 1 ? '#a2459a' : '#949494'}
+                color={ischoose === 1 ? '#2B4F8C' : '#949494'}
                 size={25}
                 style={ischoose === 1 ? styles.activeIcon : null}
               />
@@ -249,7 +249,7 @@ export default function NotifyView(props) {
               ) : null}
               <MaterialCommunityIcons
                 name="backup-restore"
-                color={ischoose === 2 ? '#a2459a' : '#949494'}
+                color={ischoose === 2 ? '#2B4F8C' : '#949494'}
                 size={25}
                 style={ischoose === 2 ? styles.activeIcon : null}
               />
@@ -267,7 +267,7 @@ export default function NotifyView(props) {
               ) : null}
               <MaterialCommunityIcons
                 name="sale"
-                color={ischoose === 3 ? '#a2459a' : '#949494'}
+                color={ischoose === 3 ? '#2B4F8C' : '#949494'}
                 size={25}
                 style={ischoose === 3 ? styles.activeIcon : null}
               />
@@ -287,7 +287,7 @@ export default function NotifyView(props) {
                 {ischoose === 4 ? null : <View style={styles.redPoint} />}
                 <MaterialCommunityIcons
                   name="clipboard-text-outline"
-                  color={ischoose === 4 ? '#a2459a' : '#949494'}
+                  color={ischoose === 4 ? '#2B4F8C' : '#949494'}
                   size={25}
                   style={ischoose === 4 ? styles.activeIcon : null}
                 />
@@ -298,7 +298,7 @@ export default function NotifyView(props) {
             <View style={styles.listIndiContainer}>
               <ActivityIndicator
                 size="large"
-                color="'#a2459a"
+                color="'#2B4F8C"
                 style={styles.indicatorView}
               />
             </View>

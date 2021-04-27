@@ -4,7 +4,7 @@ import SIZE from 'constants/size';
 export default StyleSheet.create({
   screenContainersafe: {
     flex: 1,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
   },
   screenContainer: {
     flex: 1,
@@ -58,7 +58,7 @@ export default StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     paddingTop: 15,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
     paddingBottom: 12,
   },
   cartContainer: {
@@ -121,7 +121,7 @@ export default StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
     fontSize: 20,
-    color: '#a2459a',
+    color: '#2B4F8C',
   },
   modalText1: {
     marginBottom: 15,

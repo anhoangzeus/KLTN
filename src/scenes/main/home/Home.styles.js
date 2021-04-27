@@ -7,13 +7,13 @@ export default StyleSheet.create({
   },
   screenContainersafe: {
     flex: 1,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
   },
   headerContainer: {
     flexDirection: 'row',
     paddingTop: 15,
     paddingBottom: 4,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
   },
   inputContainer: {
     backgroundColor: '#fff',
@@ -85,6 +85,6 @@ export default StyleSheet.create({
   },
   safeContainer: {
     flex: 1,
-    color: '#a2459a',
+    color: '#2B4F8C',
   },
 });

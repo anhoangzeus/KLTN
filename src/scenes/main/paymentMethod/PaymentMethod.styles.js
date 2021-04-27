@@ -7,13 +7,13 @@ export default StyleSheet.create({
   },
   screenContainersafe: {
     flex: 1,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
   },
   headerContainer: {
     flexDirection: 'row',
     paddingTop: 20,
     paddingBottom: 4,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
   },
   headerText: {
     color: 'white',
@@ -55,7 +55,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     marginVertical: 10,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
   },
   address: {
     marginTop: 5,
@@ -144,7 +144,7 @@ export default StyleSheet.create({
     width: width / 1.5,
     height: height / 15,
     borderRadius: 13,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
     justifyContent: 'center',
   },
   btnContinue: {

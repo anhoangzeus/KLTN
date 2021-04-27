@@ -40,7 +40,7 @@ function DetailAddressView(props) {
   return (
     <SafeAreaView style={styles.screenContainer}>
       <View style={styles.screenContainer2}>
-        <StatusBar backgroundColor="#a2459a" barStyle="light-content" />
+        <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
         <View style={styles.headerContainer}>
           <TouchableOpacity
             style={styles.cartContainer}

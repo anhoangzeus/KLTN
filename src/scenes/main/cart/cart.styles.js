@@ -8,13 +8,13 @@ export default StyleSheet.create({
   },
   screenContainersafe: {
     flex: 1,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
   },
   headerContainer: {
     flexDirection: 'row',
     paddingTop: 20,
     paddingBottom: 4,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
   },
   headerText: {
     color: 'white',
@@ -81,7 +81,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     marginVertical: 10,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
   },
   address: {
     marginTop: 5,
@@ -131,7 +131,7 @@ export default StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
     fontSize: 20,
-    color: '#a2459a',
+    color: '#2B4F8C',
   },
   loadingContainer: {
     alignItems: 'center',
@@ -224,11 +224,11 @@ export default StyleSheet.create({
   },
   txtEmpty: {
     textAlign: 'center',
-    color: '#a2459a',
+    color: '#2B4F8C',
     fontSize: 20,
   },
   btnBackHome: {
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
     margin: 20,
     borderRadius: 20,
     height: height / 18,

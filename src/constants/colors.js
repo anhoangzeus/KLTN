@@ -17,6 +17,6 @@ export const COLOR_BLUE = '#0071bb';
 export const COLOR_BORDER_BOTTOM = '#e8e8e8';
 export const COLOR_WHITE = '#fff';
 export const COLOR_TEXT_DISABLE = '#B9B9B9';
-export const COLOR_APP = '#a2459a';
+export const COLOR_APP = '#2B4F8C';
 export const COLOR_BLUEAIR = '#1ba8ff';
 export const COLOR_BLACK = '#000';

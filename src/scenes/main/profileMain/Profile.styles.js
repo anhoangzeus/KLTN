@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
   },
   bodyContainer: {
     flex: 1,
@@ -27,7 +27,7 @@ export default StyleSheet.create({
     marginLeft: 20,
   },
   authText1: {
-    color: '#a2459a',
+    color: '#2B4F8C',
     fontSize: 18,
     fontWeight: '500',
   },
@@ -77,7 +77,7 @@ export default StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     paddingTop: 15,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
     justifyContent: 'center',
     paddingBottom: 12,
   },

@@ -14,13 +14,14 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import NavigationServices from 'utils/navigationServices';
 import styles from './Zalopay.styles';
+import {SafeAreaView} from 'react-native-safe-area-context';
 // import {NAMESPACE} from './Zalopay.constants';
 
 function ZalopayView(props) {
   const {payOrder, getStatus, modalVisible, amount} = props;
   console.log('gia tri hoa don: ', amount);
   return (
-    <View>
+    <SafeAreaView style={styles.safeView}>
       <View style={styles.headerContainer}>
         <TouchableOpacity
           style={styles.btnback}
@@ -83,7 +84,7 @@ function ZalopayView(props) {
           </View>
         </Modal>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

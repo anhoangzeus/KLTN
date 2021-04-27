@@ -39,7 +39,7 @@ export default function infoUserView(props) {
   return (
     <SafeAreaView style={styles.screenContainersafe}>
       <View style={styles.screenContainer}>
-        <StatusBar backgroundColor="#a2459a" barStyle="light-content" />
+        <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
         <View style={styles.headerContainer}>
           <TouchableOpacity
             style={styles.cartContainer}
@@ -309,7 +309,7 @@ export default function infoUserView(props) {
           }}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <FontAwesome5 name="grin-beam" size={40} color="#a2459a" />
+              <FontAwesome5 name="grin-beam" size={40} color="#2B4F8C" />
               <Text style={styles.modalText}>{data.textAlert}</Text>
             </View>
           </View>

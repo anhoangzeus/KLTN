@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     paddingTop: 15,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
     paddingBottom: 12,
   },
   cartContainer: {
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
 export default function TopRatingScreen(props) {
   return (
     <View style={styles.screenContainer}>
-      <StatusBar backgroundColor="#a2459a" barStyle="light-content" />
+      <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
       <View style={styles.headerContainer}>
         <TouchableOpacity
           style={styles.cartContainer}
@@ -61,7 +61,7 @@ export default function TopRatingScreen(props) {
       </View>
       <TopTab.Navigator
         tabBarOptions={{
-          activeTintColor: '#a2459a',
+          activeTintColor: '#2B4F8C',
         }}>
         <TopTab.Screen
           name="Rating"

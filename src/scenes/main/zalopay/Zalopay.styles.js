@@ -8,12 +8,13 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     height: height * 0.9,
   },
+  safeView: {flex: 1, backgroundColor: '#2B4F8C'},
   btnback: {width: width / 5},
   headerContainer: {
     flexDirection: 'row',
     paddingTop: 10,
     paddingBottom: 4,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
   },
   headerText: {
     color: 'white',
