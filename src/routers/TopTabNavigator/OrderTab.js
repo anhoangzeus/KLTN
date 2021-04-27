@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import {View, StyleSheet, Dimensions} from 'react-native';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import SCENE_NAMES from 'constants/sceneName';
 import OrderXuli from 'scenes/userOption/order/order/orderXacNhan/orderXacNhan.container';
 import Order_LayHangScreen from 'scenes/userOption/order/order/orderLayHang/orderLayHang.container';
@@ -36,41 +36,57 @@ const styles = StyleSheet.create({
   },
 });
 export default function TopOrder(props) {
-    return (
-        <View style={styles.containner}>
-            <Header title={'Đơn hàng của tôi'} type={true} />
-            <TopStackOrder.Navigator
-
-                tabBarOptions={{
-                    activeTintColor: '#a2459a',
-                    scrollEnabled: true,
-                }}
-            >
-                <TopStackOrder.Screen name={SCENE_NAMES.OrderXuli} component={OrderXuli}
-                    options={{
-                        title: 'Chờ xác nhận',
-                    }} />
-                <TopStackOrder.Screen name={SCENE_NAMES.Order_LayHangScreen} component={Order_LayHangScreen}
-                    options={{
-                        title: 'Chờ lấy hàng',
-                    }} />
-                <TopStackOrder.Screen name={SCENE_NAMES.Order_DangVanChuyen} component={Order_DangVanChuyen}
-                    options={{
-                        title: 'Đang vận chuyển',
-                    }} />
-                <TopStackOrder.Screen name={SCENE_NAMES.Order_DaGiao} component={Order_DaGiao}
-                    options={{
-                        title: 'Đã giao',
-                    }} />
-                <TopStackOrder.Screen name={SCENE_NAMES.Order_DaHuy} component={Order_DaHuy}
-                    options={{
-                        title: 'Đã huỷ',
-                    }} />
-                <TopStackOrder.Screen name={SCENE_NAMES.Order_TraHang} component={Order_TraHang}
-                    options={{
-                        title: 'Trả hàng',
-                    }} />
-            </TopStackOrder.Navigator>
-        </View >
-    );
+  return (
+    <View style={styles.containner}>
+      <Header title={'Đơn hàng của tôi'} type={true} />
+      <TopStackOrder.Navigator
+        tabBarOptions={{
+          activeTintColor: '#2B4F8C',
+          scrollEnabled: true,
+        }}>
+        <TopStackOrder.Screen
+          name={SCENE_NAMES.OrderXuli}
+          component={OrderXuli}
+          options={{
+            title: 'Chờ xác nhận',
+          }}
+        />
+        <TopStackOrder.Screen
+          name={SCENE_NAMES.Order_LayHangScreen}
+          component={Order_LayHangScreen}
+          options={{
+            title: 'Chờ lấy hàng',
+          }}
+        />
+        <TopStackOrder.Screen
+          name={SCENE_NAMES.Order_DangVanChuyen}
+          component={Order_DangVanChuyen}
+          options={{
+            title: 'Đang vận chuyển',
+          }}
+        />
+        <TopStackOrder.Screen
+          name={SCENE_NAMES.Order_DaGiao}
+          component={Order_DaGiao}
+          options={{
+            title: 'Đã giao',
+          }}
+        />
+        <TopStackOrder.Screen
+          name={SCENE_NAMES.Order_DaHuy}
+          component={Order_DaHuy}
+          options={{
+            title: 'Đã huỷ',
+          }}
+        />
+        <TopStackOrder.Screen
+          name={SCENE_NAMES.Order_TraHang}
+          component={Order_TraHang}
+          options={{
+            title: 'Trả hàng',
+          }}
+        />
+      </TopStackOrder.Navigator>
+    </View>
+  );
 }
