@@ -7,7 +7,7 @@ export default StyleSheet.create({
   },
   screenContainersafe: {
     flex: 1,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
   },
   orderWidth: {
     width: SIZE.DEVICE_WIDTH / 1.5,
@@ -29,7 +29,7 @@ export default StyleSheet.create({
     borderBottomColor: '#e5e5e5',
   },
   activeMark: {
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
     width: 4,
   },
   activeIcon: {
@@ -89,7 +89,7 @@ export default StyleSheet.create({
     marginVertical: 8,
   },
   lineView: {
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
     width: 2,
   },
   lineHolder: {

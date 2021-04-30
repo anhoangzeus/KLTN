@@ -11,6 +11,9 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import androidx.multidex.MultiDexApplication;
+import com.basecode.zpmodule.PayZaloBridge;
+import vn.zalopay.sdk.Environment;
+import vn.zalopay.sdk.ZaloPaySDK;
 
 public class MainApplication extends MultiDexApplication implements ReactApplication {
 
@@ -27,6 +30,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
+            packages.add(new PayZaloBridge());
           return packages;
         }
 
@@ -41,12 +45,6 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     return mReactNativeHost;
   }
 
-  @Override
-  public void onCreate() {
-    super.onCreate();
-    SoLoader.init(this, /* native exopackage */ false);
-    initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
-  }
 
   /**
    * Loads Flipper in React Native templates. Call this in the onCreate method with something like
@@ -78,4 +76,12 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
       }
     }
   }
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        SoLoader.init(this, /* native exopackage */ false);
+        //initializeFlipper(this); // Remove this line if you don't want Flipper enabled
+        ZaloPaySDK.init(553, Environment.SANDBOX);
+
+    }
 }

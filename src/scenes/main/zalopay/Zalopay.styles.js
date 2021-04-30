@@ -1,0 +1,88 @@
+import {StyleSheet, Dimensions} from 'react-native';
+const {height, width} = Dimensions.get('screen');
+export default StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    backgroundColor: '#fff',
+    height: height * 0.9,
+  },
+  safeView: {flex: 1, backgroundColor: '#2B4F8C'},
+  btnback: {width: width / 5},
+  headerContainer: {
+    flexDirection: 'row',
+    paddingTop: 10,
+    paddingBottom: 4,
+    backgroundColor: '#2B4F8C',
+  },
+  headerText: {
+    color: 'white',
+    textAlignVertical: 'center',
+    marginLeft: width * 0.15,
+    fontSize: 20,
+  },
+  btnHome: {width: width * 0.9, height: height / 10},
+  imgZalo: {
+    width: width / 3,
+    height: height / 7,
+    resizeMode: 'contain',
+    marginTop: height / 10,
+  },
+  btnOpen: {color: '#3399FF', fontWeight: 'bold', fontSize: 17},
+  iconback: {marginLeft: width / 40},
+  welcomeHead: {
+    fontSize: 20,
+    textAlign: 'center',
+    marginTop: height / 20,
+    backgroundColor: '#fff',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 20,
+    marginTop: height / 4,
+    color: '#484848',
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+  inputText: {
+    marginBottom: 20,
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  centeredView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    justifyContent: 'center',
+  },
+  btnPayment: {
+    width: width * 0.7,
+    height: height / 18,
+    borderColor: '#3399FF',
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 15,
+    marginBottom: 15,
+  },
+});

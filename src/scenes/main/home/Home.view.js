@@ -42,7 +42,7 @@ function HomeView(props) {
     <SafeAreaView style={styles.screenContainersafe}>
       <View style={styles.screenContainer}>
         <StatusBar
-          backgroundColor="#a2459a"
+          backgroundColor="#2B4F8C"
           barStyle="light-content"
           translucent={false}
         />

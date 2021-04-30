@@ -4,10 +4,11 @@ const {width, height} = Dimensions.get('screen');
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
+    backgroundColor: '#fff',
   },
   screenContainersafe: {
     flex: 1,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
   },
   viewRow: {
     flexDirection: 'row',
@@ -16,7 +17,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     paddingTop: 15,
     paddingBottom: 4,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
   },
   inputContainer: {
     backgroundColor: '#fff',
@@ -45,7 +46,7 @@ export default StyleSheet.create({
   },
   bodyContainer: {
     flex: 1,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#fff',
     marginTop: 1,
   },
   scrollCate1: {
@@ -57,7 +58,7 @@ export default StyleSheet.create({
     width: width / 2,
     height: height / 3.62,
     margin: -0.2,
-    borderColor: '#a2459a',
+    borderColor: '#2B4F8C',
     borderWidth: 1,
   },
   listItemContainer: {
@@ -132,7 +133,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     borderWidth: 2,
     borderRadius: 70,
-    borderColor: '#a2459a',
+    borderColor: '#2B4F8C',
   },
   cateIcon: {
     marginHorizontal: 14,
@@ -155,7 +156,7 @@ export default StyleSheet.create({
   },
   productBackground: {
     height: 2,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
   },
   loadingView: {
     flex: 1,
@@ -173,7 +174,7 @@ export default StyleSheet.create({
   },
   space: {
     height: 5,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
   },
   ViewImage: {
     width: width / 7,

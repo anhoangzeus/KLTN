@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   screenContainer: {
@@ -21,7 +21,7 @@ export default StyleSheet.create({
     borderRadius: 25,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
   },
   textContainer: {
     flex: 1,
@@ -31,7 +31,7 @@ export default StyleSheet.create({
     color: 'black',
   },
   authText: {
-    color: '#a2459a',
+    color: '#2B4F8C',
     fontSize: 18,
     fontWeight: '500',
   },
@@ -52,7 +52,7 @@ export default StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     paddingTop: 15,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
     justifyContent: 'space-between',
     paddingBottom: 12,
   },
@@ -71,6 +71,6 @@ export default StyleSheet.create({
     fontWeight: '500',
   },
   backgroundColor: {
-    color: '#a2459a',
+    color: '#2B4F8C',
   },
 });

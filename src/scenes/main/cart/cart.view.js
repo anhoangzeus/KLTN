@@ -152,7 +152,7 @@ export default function CartView(props) {
       <View style={styles.screenContainer}>
         <StatusBar
           barStyle="light-content"
-          backgroundColor="#a2459a"
+          backgroundColor="#2B4F8C"
           translucent={false}
         />
         <View style={styles.headerContainer}>
@@ -238,7 +238,7 @@ export default function CartView(props) {
                     padding: 35,
                     alignItems: 'center',
                   }}>
-                  <Entypo name="emoji-flirt" size={40} color="#a2459a" />
+                  <Entypo name="emoji-flirt" size={40} color="#2B4F8C" />
                   <Text style={styles.modalText1}>Mua sắm ngay nào!!!</Text>
                 </View>
               </View>

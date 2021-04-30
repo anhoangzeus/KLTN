@@ -2,17 +2,22 @@
  * @format
  */
 
-import {AppRegistry} from 'react-native';
+import {AppRegistry, Platform} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
+import messaging from '@react-native-firebase/messaging';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import PushNotification from 'react-native-push-notification';
+
+messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+  console.log('Message handled in the background!', remoteMessage);
+});
 
 // Must be outside of any component LifeCycle (such as `componentDidMount`).
 PushNotification.configure({
   // (optional) Called when Token is generated (iOS and Android)
   onRegister: function (token) {
-    console.log('TOKEN tại index:', token);
+    console.log('TOKEN:', token);
   },
 
   // (required) Called when a remote is received or opened, or local notification is opened
@@ -56,7 +61,7 @@ PushNotification.configure({
    * - if you are not using remote notification or do not have Firebase installed, use this:
    *     requestPermissions: Platform.OS === 'ios'
    */
-  requestPermissions: true,
+  requestPermissions: Platform.OS === 'ios',
 });
 
 AppRegistry.registerComponent(appName, () => App);
