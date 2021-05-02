@@ -9,7 +9,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import styles from './notify.styles';
-import {COLOR_BLUEAIR, COLOR_BLACK} from 'constants/colors';
+import { COLOR_BLUEAIR, COLOR_BLACK } from 'constants/colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header from 'components/Header';
 import auth from '@react-native-firebase/auth';
@@ -70,8 +70,8 @@ const renderTimeLine = (name, item) => {
     </View>
   );
 };
-const OrderItem = ({item, props}) => {
-  const {isdropdownid, navigation, setIsdropdownid} = props;
+const OrderItem = ({ item, props }) => {
+  const { isdropdownid, navigation, setIsdropdownid } = props;
   return (
     <View style={styles.jContent}>
       <View style={styles.itemsContainer}>
@@ -80,18 +80,18 @@ const OrderItem = ({item, props}) => {
             item.Status === 4
               ? navigation.navigate(SCENE_NAMES.TopStackOrder)
               : navigation.navigate(SCENE_NAMES.DetailOrderContainer, {
-                  id: item.orderId,
-                });
+                id: item.orderId,
+              });
           }}
           style={styles.orderWidth}>
-          <Text style={{color: COLOR_BLUEAIR}}>Mã đơn hàng {item.orderId}</Text>
-          <Text style={{color: COLOR_BLACK}}>
+          <Text style={{ color: COLOR_BLUEAIR }}>Mã đơn hàng {item.orderId}</Text>
+          <Text style={{ color: COLOR_BLACK }}>
             {item.payment === '01'
               ? 'Thanh toán khi nhận hàng'
               : 'Đã thanh toán trực tuyến'}
           </Text>
           {renderTrangThai(item.Status)}
-          <Text style={{color: COLOR_BLACK}}>
+          <Text style={{ color: COLOR_BLACK }}>
             <MaterialCommunityIcons name="clock" size={13} /> {item.createdated}
           </Text>
         </TouchableOpacity>
@@ -122,24 +122,24 @@ const OrderItem = ({item, props}) => {
           {item.TimeLine.ChoXacNhan === ''
             ? null
             : renderTimeLine(
-                'Xác nhận đã nhận đơn hàng',
-                item.TimeLine.ChoXacNhan,
-              )}
+              'Xác nhận đã nhận đơn hàng',
+              item.TimeLine.ChoXacNhan,
+            )}
           {item.TimeLine.ChoLayHang === ''
             ? null
             : renderTimeLine(
-                'Nhận kiện hàng thành công',
-                item.TimeLine.ChoLayHang,
-              )}
+              'Nhận kiện hàng thành công',
+              item.TimeLine.ChoLayHang,
+            )}
           {item.TimeLine.DangVanChuyen === ''
             ? null
             : renderTimeLine('Đang vận chuyển', item.TimeLine.DangVanChuyen)}
           {item.TimeLine.DaGiaoHang === ''
             ? null
             : renderTimeLine(
-                'Đã giao hàng thành công',
-                item.TimeLine.DaGiaoHang,
-              )}
+              'Đã giao hàng thành công',
+              item.TimeLine.DaGiaoHang,
+            )}
           {item.TimeLine.DaHuy === ''
             ? null
             : renderTimeLine('Xác nhận huỷ đơn hàng', item.TimeLine.DaHuy)}
@@ -152,15 +152,14 @@ const OrderItem = ({item, props}) => {
   );
 };
 export default function NotifyView(props) {
-  const NotificationItem = ({item}) => {
-    const {setStateNotigication, navigation} = props;
+  const NotificationItem = ({ item }) => {
+    const { setStateNotigication, navigation } = props;
     return (
       <TouchableOpacity
         style={styles.itemContainer}
-        // eslint-disable-next-line no-sequences
         onPress={() => {
-          setStateNotigication(item.Id),
-            navigation.navigate(SCENE_NAMES.Route_Contents, {id: item.Url});
+          setStateNotigication(item.Id);
+          navigation.navigate(SCENE_NAMES.Route_Contents, { id: item.Url });
         }}>
         <View style={styles.itemTopContainer}>
           <View
@@ -271,10 +270,9 @@ export default function NotifyView(props) {
               />
             </TouchableOpacity>
             {auth().currentUser ? (
-              // eslint-disable-next-line no-sequences
               <TouchableOpacity
                 onPress={() => {
-                  getlistOrder(), setIschoose(4);
+                  getlistOrder(); setIschoose(4);
                 }}
                 style={
                   ischoose === 4
@@ -310,7 +308,7 @@ export default function NotifyView(props) {
                   />
                 }
                 data={listOrder}
-                renderItem={({item}) => <OrderItem item={item} props={props} />}
+                renderItem={({ item }) => <OrderItem item={item} props={props} />}
                 keyExtractor={(item) => item.Id}
               />
             </View>
@@ -324,7 +322,7 @@ export default function NotifyView(props) {
                   />
                 }
                 data={listThongBao}
-                renderItem={({item}) => <NotificationItem item={item} />}
+                renderItem={({ item }) => <NotificationItem item={item} />}
                 keyExtractor={(item) => item.orderId}
               />
             </View>

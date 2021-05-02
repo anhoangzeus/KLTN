@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
@@ -66,7 +66,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    backgroundColor: 'red',
+    backgroundColor: '#2B4F8C',
     marginHorizontal: 20,
   },
   textSign: {

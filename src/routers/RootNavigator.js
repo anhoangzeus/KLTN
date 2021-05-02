@@ -30,6 +30,7 @@ import MainTabNavigator from './TabNavigator';
 import TopStackLogin from './TopTabNavigator/LoginTab';
 import TopStackOrder from './TopTabNavigator/OrderTab';
 import TopRatingScreen from './TopTabNavigator/RatingTab';
+import ChatBoxContainer from 'scenes/main/chatBox/chatBox.container';
 
 
 
@@ -78,6 +79,11 @@ function RootNavigator({ onNavigationStateChange }) {
           options={{ headerShown: false }}
           name={SCENE_NAMES.MAIN}
           component={MainTabNavigator}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={SCENE_NAMES.ChatBoxContainer}
+          component={ChatBoxContainer}
         />
         <Stack.Screen
           options={{ headerShown: false }}

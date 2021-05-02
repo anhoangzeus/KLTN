@@ -8,7 +8,9 @@ import CategoryContainer from 'scenes/main/category/Category.container';
 import SCENE_NAMES from 'constants/sceneName';
 import { COLOR_APP } from 'constants/colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import auth from '@react-native-firebase/auth';
+import ChatContainer from 'scenes/main/chat/chat.container';
 
 const Tab = createBottomTabNavigator();
 
@@ -42,6 +44,20 @@ function MainTabNavigator() {
         }}
         name={SCENE_NAMES.CATEGORY}
         component={CategoryContainer}
+      />
+      <Tab.Screen
+        options={{
+          tabBarLabel: 'Chat',
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons
+              name="chatbox-ellipses"
+              color={focused ? COLOR_APP : color}
+              size={size}
+            />
+          ),
+        }}
+        name={SCENE_NAMES.ChatContainer}
+        component={ChatContainer}
       />
       <Tab.Screen
         options={{
