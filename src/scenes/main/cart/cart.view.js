@@ -20,8 +20,9 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import ReactNativeNumberFormat from 'components/NumberFormat/index';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
+import Header from 'components/Header';
 //import {NAMESPACE} from '../detailAddress/DetailAddress.constants';
-const {width} = Dimensions.get('screen');
+const { width } = Dimensions.get('screen');
 
 export default function CartView(props) {
   const {
@@ -42,7 +43,7 @@ export default function CartView(props) {
     _xoaGioHang,
   } = props;
 
-  const CartItemContainer = ({item}) => {
+  const CartItemContainer = ({ item }) => {
     return (
       <View style={styles.itemcard}>
         <View style={styles.cartItem}>
@@ -70,7 +71,7 @@ export default function CartView(props) {
           <Text style={styles.txtReceice}>Nhận một phần quà may mắn</Text>
         </View>
         <View style={styles.itemInfo}>
-          <Image style={styles.itemImage} source={{uri: item.Picture}} />
+          <Image style={styles.itemImage} source={{ uri: item.Picture }} />
           <View style={styles.itemDec}>
             <Text style={styles.txtPrice}>
               <ReactNativeNumberFormat value={item.Price} />
@@ -104,7 +105,7 @@ export default function CartView(props) {
               Alert.alert('Modal has been closed.');
             }}>
             <View style={styles.centeredView}>
-              <View style={{...styles.modalView, padding: width / 15}}>
+              <View style={{ ...styles.modalView, padding: width / 15 }}>
                 <Text style={styles.modalText}>
                   Bạn có chắc bỏ sản phẩm này khỏi giỏ hàng?
                 </Text>
@@ -155,23 +156,11 @@ export default function CartView(props) {
           backgroundColor="#2B4F8C"
           translucent={false}
         />
-        <View style={styles.headerContainer}>
-          <TouchableOpacity
-            style={{width: 75}}
-            onPress={() => NavigationServices.goBack()}>
-            <FontAwesome
-              name="angle-left"
-              size={35}
-              color="#fff"
-              style={{marginLeft: width / 40}}
-            />
-          </TouchableOpacity>
-          <Text style={styles.headerText}>Giỏ hàng</Text>
-        </View>
+        <Header title={'Giỏ hàng'} />
         <ScrollView>
           {hasAddress ? (
             <View style={styles.listItem}>
-              <View style={{flex: 1, margin: 10}}>
+              <View style={{ flex: 1, margin: 10 }}>
                 <View
                   style={{
                     flexDirection: 'row',
@@ -185,7 +174,7 @@ export default function CartView(props) {
                       });
                     }}>
                     <Text
-                      style={{color: 'green', marginRight: 5, fontSize: 17}}>
+                      style={{ color: 'green', marginRight: 5, fontSize: 17 }}>
                       Thay đổi
                     </Text>
                   </TouchableOpacity>
@@ -215,9 +204,9 @@ export default function CartView(props) {
                     id: '',
                   });
                 }}
-                style={{flex: 1, margin: 10, flexDirection: 'row'}}>
+                style={{ flex: 1, margin: 10, flexDirection: 'row' }}>
                 <FontAwesome name="plus" color="green" size={25} />
-                <Text style={{color: 'green', fontSize: 20, marginLeft: 10}}>
+                <Text style={{ color: 'green', fontSize: 20, marginLeft: 10 }}>
                   Thêm địa chỉ nhận hàng
                 </Text>
               </TouchableOpacity>
@@ -262,7 +251,7 @@ export default function CartView(props) {
           ) : null}
           <FlatList
             data={CartItem}
-            renderItem={({item}) => <CartItemContainer item={item} />}
+            renderItem={({ item }) => <CartItemContainer item={item} />}
             extraData={refesh}
             keyExtractor={(item) => item.Id}
           />
@@ -282,7 +271,6 @@ export default function CartView(props) {
             <Text style={styles.txtCreatOrder}>Tiến hành đặt hàng</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.bodyContainer} />
       </View>
     </SafeAreaView>
   );

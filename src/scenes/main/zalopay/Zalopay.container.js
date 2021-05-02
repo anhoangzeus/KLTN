@@ -1,18 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useLayoutEffect, useEffect} from 'react';
+import React, { useLayoutEffect, useEffect } from 'react';
 import ZalopayView from './Zalopay.view';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
-import {NativeModules, NativeEventEmitter} from 'react-native';
-import {NAMESPACE} from './Zalopay.constants';
-import {getString} from 'utils/i18n';
+import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
+import { NativeModules, NativeEventEmitter } from 'react-native';
+import { NAMESPACE } from './Zalopay.constants';
+import { getString } from 'utils/i18n';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import CryptoJS from 'crypto-js';
-import {getParams} from 'utils/navigationServices';
-const {PayZaloBridge} = NativeModules;
+import { getParams } from 'utils/navigationServices';
+const { PayZaloBridge } = NativeModules;
 const payZaloBridgeEmitter = new NativeEventEmitter(PayZaloBridge);
 let apptransid;
 const functionsCounter = new Set();
@@ -54,7 +54,7 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 
-export default function ZalopayContainer({navigation, route}) {
+export default function ZalopayContainer({ navigation, route }) {
   const isLoading = useSelectorShallow(loadingSelector);
   const routes = getParams(route);
   useLayoutEffect(() => {

@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, StyleSheet, StatusBar} from 'react-native';
-import Rating from 'scenes/userOption/Rating/rating.container';
+import { View, StyleSheet, StatusBar } from 'react-native';
+import Rating from 'scenes/userOption/rating/rating.container';
 import RatingDone from 'scenes/userOption/ratingDone/ratingdone.container';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Header from 'components/Header';
 
 const TopTab = createMaterialTopTabNavigator();

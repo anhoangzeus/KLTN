@@ -1,18 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useLayoutEffect, useEffect, useState} from 'react';
-import {View, Text, Animated} from 'react-native';
+import React, { useLayoutEffect, useEffect, useState } from 'react';
+import { View, Text, Animated } from 'react-native';
 import ProductView from './Product.view';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
-import {NAMESPACE} from './Product.constants';
-import {getString} from 'utils/i18n';
+import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
+import { NAMESPACE } from './Product.constants';
+import { getString } from 'utils/i18n';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import styles from './Product.styles';
-import NavigationServices, {getParams} from 'utils/navigationServices';
+import NavigationServices, { getParams } from 'utils/navigationServices';
 
 const functionsCounter = new Set();
 
@@ -20,9 +20,9 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 
-export default function ProductContainer({navigation, route}) {
+export default function ProductContainer({ navigation, route }) {
   const isLoading = useSelectorShallow(loadingSelector);
-  const {id, BrandID, CategoryID} = getParams(route);
+  const { id, BrandID, CategoryID } = getParams(route);
   const itemRef = database();
 
   const [numcart, setnumcart] = useState(0);
@@ -96,11 +96,16 @@ export default function ProductContainer({navigation, route}) {
         snapshot.forEach(function (child) {
           if (child.val().ProductID !== ProductID) {
             if (child.val().CategoryID === Category_ID) {
+              var point = 0;
+              var count = 0;
               items.push({
+                title: child.val().Name,
+                price: child.val().Price,
                 image: child.val().Image,
-                Name: child.val().Name,
-                Price: child.val().Price,
-                proid: child.val().ProductID,
+                id: child.val().ProductID,
+                rating: point / count,
+                bough: count,
+                PromotionPrice: child.val().PromotionPrice,
               });
             }
           }
@@ -210,7 +215,7 @@ export default function ProductContainer({navigation, route}) {
     } else {
       return (
         <View style={styles.cartposition}>
-          <Text style={{color: 'white'}}>{numcart}</Text>
+          <Text style={{ color: 'white' }}>{numcart}</Text>
         </View>
       );
     }
