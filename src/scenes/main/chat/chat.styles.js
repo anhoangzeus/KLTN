@@ -54,4 +54,5 @@ export default StyleSheet.create({
         alignItems: 'center',
         position: 'absolute',
     },
+
 });

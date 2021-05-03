@@ -1,9 +1,6 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import SIZE from 'constants/size';
 export default StyleSheet.create({
-  screenContainer: {
-    flex: 1,
-  },
   headerContainer: {
     flexDirection: 'row',
     paddingTop: 15,
@@ -15,13 +12,29 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
     alignItems: 'center',
     justifyContent: 'center',
+    width: 75,
   },
   cartIcon: {
-    width: SIZE.HEADER_ICON_SIZE,
+    width: 24,
   },
   headerText: {
     color: '#fff',
     fontSize: 20,
     fontWeight: '500',
+  },
+  cartView: {
+    position: 'absolute',
+    borderRadius: 25,
+    backgroundColor: 'red',
+    alignItems: 'center',
+    marginLeft: SIZE.DEVICE_WIDTH / 30,
+    width: SIZE.DEVICE_WIDTH / 20,
+  },
+  cartText: {
+    alignSelf: 'center',
+    fontSize: 10,
+    margin: 1,
+    fontWeight: 'bold',
+    color: 'white',
   },
 });

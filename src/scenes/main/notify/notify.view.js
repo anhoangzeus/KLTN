@@ -1,19 +1,17 @@
+import auth from '@react-native-firebase/auth';
+import Header from 'components/Header';
+import { COLOR_BLACK, COLOR_BLUEAIR } from 'constants/colors';
+import SCENE_NAMES from 'constants/sceneName';
 import * as React from 'react';
 import {
-  View,
-  Text,
-  TouchableOpacity,
-  FlatList,
+  ActivityIndicator, FlatList,
   RefreshControl,
-  ActivityIndicator,
-  SafeAreaView,
+
+  SafeAreaView, Text,
+  TouchableOpacity, View,
 } from 'react-native';
-import styles from './notify.styles';
-import { COLOR_BLUEAIR, COLOR_BLACK } from 'constants/colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Header from 'components/Header';
-import auth from '@react-native-firebase/auth';
-import SCENE_NAMES from 'constants/sceneName';
+import styles from './notify.styles';
 const renderTrangThai = (Status) => {
   if (Status === 1) {
     return (
@@ -212,7 +210,7 @@ export default function NotifyView(props) {
     <SafeAreaView style={styles.screenContainer}>
       <View style={styles.screenContainer}>
         {/* <StatusBar barStyle="light-content" /> */}
-        <Header title="Thông báo" />
+        <Header title="Thông báo" isCart={true} />
         <View style={styles.bodyContainer}>
           <View>
             <TouchableOpacity

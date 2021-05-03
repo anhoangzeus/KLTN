@@ -1,14 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
 
-import Header from 'components/Header';
 import * as React from 'react';
 import {
     Dimensions, FlatList,
     Image, Text,
-    TextInput, View,
+    TextInput, View, TouchableOpacity,
 } from 'react-native';
+import NavigationServices from 'utils/navigationServices';
 import { normalize } from 'react-native-elements';
 import styles from './chatBox.styles';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+// import SCENE_NAMES from 'constants/sceneName';
 
 const { width, height } = Dimensions.get('screen');
 const listTest = [
@@ -80,9 +84,26 @@ class ChatBoxContainer extends React.Component {
         const { userid } = this.props;
         const { ListChat, onInputChat } = this.state;
         return (
-            // Truyen id consultant vao toptitle
             <View style={{ flex: 1 }}>
-                <Header title={userid} />
+                <View style={styles.headerContainer}>
+                    <TouchableOpacity
+                        onPress={() => { NavigationServices.goBack(); }}
+                        style={styles.cartContainer}>
+                        <FontAwesome name="angle-left" size={30} color="#fff" style={styles.maginIcon} />
+                    </TouchableOpacity>
+                    <Text style={styles.headerText}>{userid}</Text>
+                    <View style={{ flexDirection: 'row' }} >
+                        <TouchableOpacity>
+                            <MaterialIcons name="call" size={25} color="#fff" style={styles.iconimg} />
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <MaterialIcons name="videocam" size={25} color="#fff" style={styles.iconimg} />
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Ionicons name="md-ellipsis-vertical" size={25} color="#fff" style={styles.iconimg} />
+                        </TouchableOpacity>
+                    </View>
+                </View>
                 <View style={styles.container}>
                     <FlatList
                         showsVerticalScrollIndicator={false}
@@ -106,7 +127,9 @@ class ChatBoxContainer extends React.Component {
                             onFocus={() => { }}
                             onBlur={() => { }}
                         />
-                        <Image source={require('../../../assets/images/ic_sendmess.png')} style={{ ...styles.iconsend }} />
+                        <TouchableOpacity>
+                            <Image source={require('../../../assets/images/ic_sendmess.png')} style={styles.iconsend} />
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>

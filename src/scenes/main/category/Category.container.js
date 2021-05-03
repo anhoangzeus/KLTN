@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   TouchableOpacity,
   View,
@@ -11,7 +11,7 @@ import CategoryView from './Category.view';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
+import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import styles from './Category.styles';
@@ -23,7 +23,7 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 // const {width} = Dimensions.get('screen');
-export default function CategoryContainer({navigation}) {
+export default function CategoryContainer({ navigation }) {
   const isLoading = useSelectorShallow(loadingSelector);
   const itemRef = database();
 
@@ -39,18 +39,18 @@ export default function CategoryContainer({navigation}) {
   const [loading, setLoading] = useState(true);
   const [refesh, setRefesh] = useState(false);
 
-  const BrandItem = ({image, id}) => {
+  const BrandItem = ({ image, id }) => {
     return (
       <View>
         <TouchableOpacity
           onPress={() => setBrandID(id)}
           style={styles.branditemContainer}>
-          <Image source={{uri: image}} style={styles.cateImage} />
+          <Image source={{ uri: image }} style={styles.cateImage} />
         </TouchableOpacity>
       </View>
     );
   };
-  const CategoryItem = ({name, id, icon}) => {
+  const CategoryItem = ({ name, id, icon }) => {
     const colorText = id === categoryid ? '#6e3b6e' : '#1ba8ff';
     let iconpath = '../../../assets/icons/orther.png';
     switch (icon) {
@@ -87,13 +87,12 @@ export default function CategoryContainer({navigation}) {
           'https://firebasestorage.googleapis.com/v0/b/doan-d2374.appspot.com/o/cateIcon%2Fchankhong.png?alt=media&token=766d5fca-e6f5-44ca-807f-ea1de55a061a';
     }
 
-    console.log(typeof iconpath);
     return (
       <TouchableOpacity onPress={() => setCategoryID(id)}>
         <View style={styles.ViewImage}>
           <ImageBackground
             style={styles.ImageBack}
-            // source={require('../../../assets/images/bg.png')}
+          // source={require('../../../assets/images/bg.png')}
           >
             {/* <Icons
               name={icon}
@@ -101,7 +100,7 @@ export default function CategoryContainer({navigation}) {
               size={width / 12}
               style={styles.cateIcon}
             /> */}
-            <Image style={styles.ImageBack} source={{uri: iconpath}} />
+            <Image style={styles.ImageBack} source={{ uri: iconpath }} />
           </ImageBackground>
         </View>
 
@@ -110,7 +109,7 @@ export default function CategoryContainer({navigation}) {
     );
   };
 
-  const ReactNativeNumberFormat = ({value}) => {
+  const ReactNativeNumberFormat = ({ value }) => {
     return (
       <NumberFormat
         value={value}
@@ -121,9 +120,9 @@ export default function CategoryContainer({navigation}) {
     );
   };
 
-  const ProductItem = ({image, name, price, rating, bough, PromotionPrice}) => (
+  const ProductItem = ({ image, name, price, rating, bough, PromotionPrice }) => (
     <View style={styles.itemContainer}>
-      <Image source={{uri: image}} style={styles.itemImage} />
+      <Image source={{ uri: image }} style={styles.itemImage} />
       <Text style={styles.itemName} numberOfLines={2}>
         {name}
       </Text>
@@ -131,7 +130,7 @@ export default function CategoryContainer({navigation}) {
         <ReactNativeNumberFormat value={price} />
         {price === PromotionPrice ? null : (
           // eslint-disable-next-line react-native/no-inline-styles
-          <Text style={{color: 'red'}}>
+          <Text style={{ color: 'red' }}>
             {' '}
             -{(((PromotionPrice - price) / PromotionPrice) * 100).toFixed(0)}%
           </Text>

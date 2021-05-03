@@ -78,8 +78,9 @@ export default StyleSheet.create({
     flexDirection: 'row',
     paddingTop: 15,
     backgroundColor: '#2B4F8C',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     paddingBottom: 12,
+
   },
   cartContainer: {
     paddingHorizontal: 20,

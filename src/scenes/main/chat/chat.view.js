@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 
+import Header from 'components/Header';
 import SCENE_NAMES from 'constants/sceneName';
 import * as React from 'react';
 import {
@@ -134,7 +135,7 @@ class ChatContainer extends React.Component {
         const { listItem } = this.state;
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
-                <Text style={styles.textTitle}>TIAN CHAT</Text>
+                <Header title="Chat" isCart={true} />
                 <TouchableOpacity style={styles.searchView}>
                     <Text style={styles.text}><Icon name="search1" size={20} color="#000" />  Tìm kiếm</Text>
                 </TouchableOpacity>

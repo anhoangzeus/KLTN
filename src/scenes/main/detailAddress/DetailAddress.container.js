@@ -4,7 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
 import SCENE_NAMES from 'constants/sceneName';
 import useSelectorShallow, {
-  selectorWithProps
+  selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
 import React, { useLayoutEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
