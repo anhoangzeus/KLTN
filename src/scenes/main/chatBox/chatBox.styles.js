@@ -25,7 +25,7 @@ export default StyleSheet.create({
     },
     messText: {
         fontWeight: '400',
-        fontSize: 10,
+        fontSize: 15,
         color: '#666666',
     },
     messTime: {

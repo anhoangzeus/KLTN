@@ -2,6 +2,7 @@
 
 import Header from 'components/Header';
 import SCENE_NAMES from 'constants/sceneName';
+import moment from 'moment';
 import * as React from 'react';
 import {
     FlatList,
@@ -110,29 +111,29 @@ class ChatContainer extends React.Component {
             listItem: listTest,
         };
     }
-    listChat = ({ item }) => {
+    listChatView = ({ item }) => {
+        console.log(moment().unix());
         return (
             <TouchableOpacity
-                onPress={() => { NavigationServices.navigate(SCENE_NAMES.ChatBoxContainer, { id: item.id }); }}
+                onPress={() => { NavigationServices.navigate(SCENE_NAMES.ChatBoxContainer, { id: item.id, Name: item.Name }); }}
                 style={styles.itemMessView}>
                 <View>
-                    <Image source={{ uri: item.avatar }} style={styles.avatar} />
-                    {item.new_message > 0 &&
+                    <Image source={{ uri: item.Avatar }} style={styles.avatar} />
+                    {item.Status > 0 &&
                         <View style={styles.redPoint}>
-                            <Text style={{ color: '#fff', fontSize: 10, fontWeight: 'bold' }}>{item.new_message}</Text>
+                            <Text style={{ color: '#fff', fontSize: 10, fontWeight: 'bold' }}>{item.Status}</Text>
                         </View>}
                 </View>
-
-                <View style={{ marginLeft: normalize(10) }}>
-                    <Text style={styles.textName}>{item.name}</Text>
-                    <Text>{item.last_message}</Text>
+                <View style={{ marginRight: normalize(70) }}>
+                    <Text style={styles.textName}>{item.Name}</Text>
+                    <Text>{item.LastMess}</Text>
                 </View>
-                <Text style={styles.textTime}>{item.last_messtime}</Text>
+                <Text style={styles.textTime}>{moment.unix(item.LastMessTime).format('hh:mm MM-DD-YY')}</Text>
             </TouchableOpacity>
         );
     }
     render() {
-        const { listItem } = this.state;
+        const { listChat } = this.props;
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
                 <Header title="Chat" isCart={true} />
@@ -140,9 +141,9 @@ class ChatContainer extends React.Component {
                     <Text style={styles.text}><Icon name="search1" size={20} color="#000" />  Tìm kiếm</Text>
                 </TouchableOpacity>
                 <FlatList
-                    data={listItem}
+                    data={listChat}
                     renderItem={({ item }) =>
-                        <this.listChat item={item} />
+                        <this.listChatView item={item} />
                     }
                     keyExtractor={(item) => item.id}
                 />

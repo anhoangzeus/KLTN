@@ -12,77 +12,40 @@ import styles from './chatBox.styles';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import moment from 'moment';
 // import SCENE_NAMES from 'constants/sceneName';
 
 const { width, height } = Dimensions.get('screen');
-const listTest = [
-    {
-        id: 1,
-        userType: 'CUSTOMER',
-        content: '안녕하세요. (주)정리정리의 김사장입니다. 안녕하세요. (주)정리정리의 김사장입니다. 안녕하세요. (주)정리정리의 김사장입니다. 안녕하세요. (주)정리정리의 김사장입니다. 안녕하세요. (주)정리정리의 김사장입니다. 감사합니다.',
-        time: '12:48 05-02-21',
-    },
-    {
-        id: 2,
-        userType: 'USER',
-        content: '안녕하세요. 궁금한 점들이 있습니다. 문의드려도 될까요?',
-        time: '12:50 05-02-21',
-    },
-    {
-        id: 3,
-        userType: 'CUSTOMER',
-        content: '안녕하세요. (주)정리정리의 김사장입니다. 안녕하세요. (주)정리정리의 김사장입니다. 안녕하세요. (주)정리정리의 김사장입니다. 안녕하세요. (주)정리정리의 김사장입니다. 안녕하세요. (주)정리정리의 김사장입니다. 감사합니다.',
-        time: '12:52 05-02-21',
-    },
-    {
-        id: 4,
-        userType: 'USER',
-        content: '안녕하세요. 궁금한 점들이 있습니다. 문의드려도 될까요?',
-        time: '13:00 05-02-21',
-    },
-    {
-        id: 5,
-        userType: 'CUSTOMER',
-        content: '안녕하세요. (주)정리정리의 김사장입니다. 안녕하세요. (주)정리정리의 김사장입니다. 안녕하세요. (주)정리정리의 김사장입니다. 안녕하세요. (주)정리정리의 김사장입니다. 안녕하세요. (주)정리정리의 김사장입니다. 감사합니다.',
-        time: '13:52 05-02-21',
-    },
-    {
-        id: 6,
-        userType: 'USER',
-        content: '안녕하세요. 궁금한 점들이 있습니다. 문의드려도 될까요?',
-        time: '13:55 05-02-21',
-    },
-];
+
 
 class ChatBoxContainer extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            ListChat: listTest,
             onInputChat: false,
         };
     }
     chatMessage = ({ item }) => {
         return (
-            item.userType === 'CUSTOMER' ?
+            item.Type === 'CUS' ?
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <View style={styles.messageView}>
-                        <Text style={styles.messText}>{item.content}</Text>
+                        <Text style={styles.messText}>{item.Text}</Text>
                     </View>
-                    <Text style={{ ...styles.messTime, marginRight: normalize(20) }}>{item.time}</Text>
+                    <Text style={{ ...styles.messTime, marginRight: normalize(20) }}>{moment.unix(item.CreatedTime).format('hh:mm MM-DD-YY')}</Text>
                 </View>
                 :
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={{ ...styles.messTime, marginLeft: normalize(20) }}>{item.time}</Text>
-                    <View style={styles.messageView}>
-                        <Text style={styles.messText}>{item.content}</Text>
+                    <Text style={{ ...styles.messTime, marginLeft: normalize(20) }}>{moment.unix(item.CreatedTime).format('hh:mm MM-DD-YY')}</Text>
+                    <View style={{ ...styles.messageView, backgroundColor: '#0084ff' }}>
+                        <Text style={{ ...styles.messText, color: '#fff' }}>{item.Text}</Text>
                     </View>
                 </View>
         );
     }
     render() {
-        const { userid } = this.props;
-        const { ListChat, onInputChat } = this.state;
+        const { Name, listchat, textchat, onChangeText, sentMessage } = this.props;
+        const { onInputChat } = this.state;
         return (
             <View style={{ flex: 1 }}>
                 <View style={styles.headerContainer}>
@@ -91,7 +54,7 @@ class ChatBoxContainer extends React.Component {
                         style={styles.cartContainer}>
                         <FontAwesome name="angle-left" size={30} color="#fff" style={styles.maginIcon} />
                     </TouchableOpacity>
-                    <Text style={styles.headerText}>{userid}</Text>
+                    <Text style={styles.headerText}>{Name}</Text>
                     <View style={{ flexDirection: 'row' }} >
                         <TouchableOpacity>
                             <MaterialIcons name="call" size={25} color="#fff" style={styles.iconimg} />
@@ -107,7 +70,7 @@ class ChatBoxContainer extends React.Component {
                 <View style={styles.container}>
                     <FlatList
                         showsVerticalScrollIndicator={false}
-                        data={ListChat}
+                        data={listchat}
                         renderItem={({ item }) =>
                             <this.chatMessage item={item} />
                         }
@@ -124,10 +87,14 @@ class ChatBoxContainer extends React.Component {
                             placeholder={'Soạn tin...'}
                             placeholderTextColor={'#000'}
                             multiline={true}
+                            value={textchat}
+                            onChangeText={(val) => { onChangeText(val); }}
                             onFocus={() => { }}
                             onBlur={() => { }}
                         />
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => sentMessage()}
+                        >
                             <Image source={require('../../../assets/images/ic_sendmess.png')} style={styles.iconsend} />
                         </TouchableOpacity>
                     </View>

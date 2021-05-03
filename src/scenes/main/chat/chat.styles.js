@@ -26,8 +26,9 @@ export default StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#E5E5E5',
         padding: normalize(10),
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
+        paddingHorizontal: normalize(25),
     },
     textName: {
         fontSize: 18,
