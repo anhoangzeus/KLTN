@@ -3,10 +3,16 @@ import React, { useState } from 'react';
 import UserView from './infoUser.view';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
-
+import storage from '@react-native-firebase/storage';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { chooseImageOptions } from '../../../utils/options';
+import moment from 'moment';
+import { Platform } from 'react-native';
 const functionsCounter = new Set();
 export default function infoUserContainer({ navigation }) {
     const [isSelected, setSelection] = useState(false);
+    const [visibleViewing, setvisibleViewing] = useState(false);
+    const [visibleChooseImage, setvisibleChooseImage] = useState(false);
     const [data, setData] = useState({
         pass: '',
         oldpass: '',
@@ -17,6 +23,7 @@ export default function infoUserContainer({ navigation }) {
         Phone: '',
         CMND: '',
         Email: '',
+        filename: '',
         check_textInputFullName: true,
         check_textInputSDT: true,
         check_textInputCMND: true,
@@ -209,7 +216,13 @@ export default function infoUserContainer({ navigation }) {
             textAlert: text,
         }, setTimeout(handleClose, 2000));
     };
-    const saveChangesHandle = () => {
+    const saveChangesHandle = async () => {
+        const task = storage().ref(data.filename).putFile(data.Avatar);
+        try {
+            await task;
+        } catch (e) {
+            console.error(e);
+        }
         var date = GetCurrentDate();
         if (isSelected === false) {
             if (data.FullName.length <= 1 || data.Phone.length <= 1) {
@@ -265,6 +278,43 @@ export default function infoUserContainer({ navigation }) {
             }
         }
     };
+
+    const pairToSubmitImage = (response) => {
+        console.log('aaa');
+        if (response.didCancel) {
+            console.log('ImagePicker', 'cancel');
+        } else if (response.error) {
+            console.log('ImagePickerError: ', response.error);
+        } else {
+            const data1 = new FormData();
+            var fileName = '';
+            if (Platform.OS === 'android') {
+                var fileExt = response.uri.split('.');
+                var fileName = 'avartar' + moment().format('_YYYY_MM_DD_HH_mm_ss.') + fileExt[fileExt.length - 1];
+            } else {
+                var fileExt = response.uri.split('.');
+                var fileName = 'avartar' + moment().format('_YYYY_MM_DD_HH_mm_ss.') + fileExt[fileExt.length - 1];
+            }
+            data1.append('files', {
+                name: fileName,
+                type: response.type,
+                uri: Platform.OS === 'android' ? response.uri : response.uri.replace('file://', '/private'),
+            });
+            data1.append('secret', '123456');
+            setData({ ...data, Avatar: response.uri, filename: fileName });
+        }
+    };
+    const chooseImageTake = () => {
+        launchCamera(chooseImageOptions, (response) => {
+            pairToSubmitImage(response);
+        });
+    };
+
+    const chooseImageLibrary = () => {
+        launchImageLibrary(chooseImageOptions, (response) => {
+            pairToSubmitImage(response);
+        });
+    };
     functionsCounter.add(updateSecureTextEntryOld);
     functionsCounter.add(updateSecureTextEntryNew);
     functionsCounter.add(updateSecureTextEntryConfirm);
@@ -275,6 +325,8 @@ export default function infoUserContainer({ navigation }) {
     functionsCounter.add(textInputPhone);
     functionsCounter.add(textInputCMND);
     functionsCounter.add(textInputFullName);
+    functionsCounter.add(chooseImageTake);
+    functionsCounter.add(chooseImageLibrary);
 
     return (
         <UserView
@@ -283,11 +335,17 @@ export default function infoUserContainer({ navigation }) {
             updateSecureTextEntryConfirm={updateSecureTextEntryConfirm}
             textInputOldPass={textInputOldPass}
             textInputNewPass={textInputNewPass}
+            chooseImageTake={chooseImageTake}
             textInputConfirm={textInputConfirm}
             saveChangesHandle={saveChangesHandle}
             textInputPhone={textInputPhone}
             textInputFullName={textInputFullName}
+            chooseImageLibrary={chooseImageLibrary}
+            visibleViewing={visibleViewing}
+            setvisibleViewing={setvisibleViewing}
             textInputCMND={textInputCMND}
+            visibleChooseImage={visibleChooseImage}
+            setvisibleChooseImage={setvisibleChooseImage}
             data={data}
             isSelected={isSelected}
             setSelection={setSelection}

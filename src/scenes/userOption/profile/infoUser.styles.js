@@ -1,10 +1,24 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import SIZE from 'constants/size';
+import { normalize } from 'react-native-elements';
 
 export default StyleSheet.create({
   screenContainersafe: {
     flex: 1,
     backgroundColor: '#2B4F8C',
+  },
+  avatarView: {
+    width: normalize(82),
+    height: normalize(82),
+    borderRadius: normalize(82),
+    borderWidth: 1,
+    borderColor: '#2B4F8C',
+    position: 'absolute',
+  },
+  toudhCamera: {
+    marginTop: normalize(55),
+    marginLeft: normalize(60),
+    padding: 10,
   },
   screenContainer: {
     flex: 1,
@@ -15,10 +29,8 @@ export default StyleSheet.create({
     backgroundColor: '#ededed',
   },
   camera: {
-    width: 20,
-    height: 20,
-    marginTop: 55,
-    marginLeft: 60,
+    width: normalize(20),
+    height: normalize(20),
   },
   userContainer: {
     backgroundColor: '#fff',
@@ -29,27 +41,27 @@ export default StyleSheet.create({
   userContainer1: {
     backgroundColor: '#fff',
     flexDirection: 'column',
-    paddingHorizontal: 5,
-    paddingVertical: 5,
+    padding: 5,
   },
   totalContainer1: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   avatarContainer: {
-    backgroundColor: '#fff',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    height: SIZE.DEVICE_HEIGHT / 7,
-    flexDirection: 'row',
+    height: normalize(106),
+    width: normalize(106),
+    alignSelf: 'center',
   },
   img: {
-    width: 80,
-    height: 80,
-    borderRadius: 80,
+    width: normalize(80),
+    height: normalize(80),
+    borderRadius: normalize(80),
     borderWidth: 1,
-    borderColor: '#2B4F8C',
-    position: 'absolute',
+    borderColor: '#fff',
+    backgroundColor: '#f7f5f0',
   },
   totalContainer: {
     flexDirection: 'row',
