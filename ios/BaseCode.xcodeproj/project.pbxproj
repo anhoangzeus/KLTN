@@ -20,6 +20,9 @@
 		36C7424827AEE7A76EE7F879 /* libPods-BaseCode-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF56E2C340C7C5C6FC1DFEDE /* libPods-BaseCode-tvOS.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9C9460581AAA4C288243D0BE /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1F6B94EBDD04D3B88D2724C /* rubicon-icon-font.ttf */; };
+		AD98884A264660E8003FC85B /* PayZaloBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = AD988849264660E8003FC85B /* PayZaloBridge.m */; };
+		AD9888AF264665B5003FC85B /* zpdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9888AE264665B5003FC85B /* zpdk.framework */; };
+		AD9888B826466625003FC85B /* zpdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9888AE264665B5003FC85B /* zpdk.framework */; };
 		AD9D480C2631E3EB00D73B96 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD9D480B2631E3EB00D73B96 /* GoogleService-Info.plist */; };
 		C2CC2C6EE1F2A5BDE65D5CA7 /* libPods-BaseCode-BaseCodeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48B3F68F12ADDEFC40ED0C1A /* libPods-BaseCode-BaseCodeTests.a */; };
 		C8826B4B4792471BA1153DB5 /* BadScript-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 305F6D2A1AA44D8AA3230655 /* BadScript-Regular.ttf */; };
@@ -78,6 +81,9 @@
 		926B0DB5B06446C59A71D26F /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		9AD7D16962ED4939B97B1A50 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		A201A2D1237442EDB46C46F6 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/native-base/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
+		AD988848264660E8003FC85B /* PayZaloBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PayZaloBridge.h; path = "../../../../Downloads/DemoZPDK_ReactNative/demo-app-to-app/ios/PayZaloBridge.h"; sourceTree = "<group>"; };
+		AD988849264660E8003FC85B /* PayZaloBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PayZaloBridge.m; path = "../../../../Downloads/DemoZPDK_ReactNative/demo-app-to-app/ios/PayZaloBridge.m"; sourceTree = "<group>"; };
+		AD9888AE264665B5003FC85B /* zpdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = zpdk.framework; sourceTree = "<group>"; };
 		AD9D480B2631E3EB00D73B96 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AD9D48192631E4E800D73B96 /* BaseCode.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = BaseCode.entitlements; path = BaseCode/BaseCode.entitlements; sourceTree = "<group>"; };
 		C0A39E10CFB3452AA892E1A8 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
@@ -110,6 +116,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0322F5E47173B71264DCE9DD /* libPods-BaseCode.a in Frameworks */,
+				AD9888B826466625003FC85B /* zpdk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,6 +133,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4FDA0C300BF7C6F7E04CFEA /* libPods-BaseCode-tvOSTests.a in Frameworks */,
+				AD9888AF264665B5003FC85B /* zpdk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,6 +190,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AD9888AE264665B5003FC85B /* zpdk.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				4F32DCBA3E16F2FA31251742 /* libPods-BaseCode.a */,
@@ -229,6 +238,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				AD988848264660E8003FC85B /* PayZaloBridge.h */,
+				AD988849264660E8003FC85B /* PayZaloBridge.m */,
 				AD9D480B2631E3EB00D73B96 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* BaseCode */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -351,8 +362,9 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 4VQX9Q4V2J;
+						DevelopmentTeam = 7CVP2Q3W9T;
 						LastSwiftMigration = 1120;
+						ProvisioningStyle = Automatic;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -458,6 +470,9 @@
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
 			name = "[CP-User] [RNFB] Core Configuration";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -711,6 +726,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				AD98884A264660E8003FC85B /* PayZaloBridge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -797,9 +813,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = BaseCode/BaseCode.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4VQX9Q4V2J;
+				DEVELOPMENT_TEAM = 7CVP2Q3W9T;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = BaseCode/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -809,6 +831,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = vn.charmid;
 				PRODUCT_NAME = BaseCode;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -822,8 +845,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = BaseCode/BaseCode.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4VQX9Q4V2J;
+				DEVELOPMENT_TEAM = 7CVP2Q3W9T;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = BaseCode/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -833,6 +862,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = vn.charmid;
 				PRODUCT_NAME = BaseCode;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -905,6 +935,10 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "BaseCode-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -932,6 +966,10 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "BaseCode-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

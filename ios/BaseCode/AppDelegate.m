@@ -7,7 +7,7 @@
 #import "RNFBMessagingModule.h"
 #import <UserNotifications/UserNotifications.h>
 #import <RNCPushNotificationIOS.h>
-
+#import <zpdk/zpdk.h>
 
 @implementation AppDelegate
 
@@ -36,6 +36,7 @@
   // Define UNUserNotificationCenter
   UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     center.delegate = self;
+  [[ZaloPaySDK sharedInstance] initWithAppId:553 uriScheme:@"veganmarket://app" environment:ZPZPIEnvironment_Sandbox];
   return YES;
 }
 
@@ -76,5 +77,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 {
   [RNCPushNotificationIOS didReceiveNotificationResponse:response];
 }
-
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
+  return [[ZaloPaySDK sharedInstance] application:app openURL:url sourceApplication:@"vn.com.vng.zalopay" annotation:nil];
+}
 @end

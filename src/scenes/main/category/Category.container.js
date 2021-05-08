@@ -86,8 +86,6 @@ export default function CategoryContainer({navigation}) {
         iconpath =
           'https://firebasestorage.googleapis.com/v0/b/doan-d2374.appspot.com/o/cateIcon%2Fchankhong.png?alt=media&token=766d5fca-e6f5-44ca-807f-ea1de55a061a';
     }
-
-    console.log(typeof iconpath);
     return (
       <TouchableOpacity onPress={() => setCategoryID(id)}>
         <View style={styles.ViewImage}>
