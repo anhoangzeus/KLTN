@@ -31,17 +31,28 @@ export default function ChatBoxContainer({ navigation, route }) {
         database().ref('Chats').child(auth().currentUser.uid).child(id).update({
             Status: 0,
         });
+        database().ref('Messages').child(id).child(auth().currentUser.uid).once('value').then((snapshot) => {
+            snapshot.forEach((child) => {
+                child.ref.update({
+                    Status: false
+                })
+            })
+        })
     };
     const getSeen = () => {
         var num = 1;
-        database().ref('Chats').child(auth().currentUser.uid).child(id).once('value').then((snapshot) => {
-            num = snapshot.val().Status;
-        });
+        database().ref('Messages').child(id).child(auth().currentUser.uid).once('value').then((snapshot) => {
+            snapshot.forEach((child) => {
+                if (child.val().Status) {
+                    num++;
+                }
+            })
+        })
         return num++;
     };
     const getListChat = () => {
         database().ref('Messages').child(auth().currentUser.uid).child(id).orderByChild('CreatedTime', 'desc')
-            .once('value').then((snapshot) => {
+            .on('value', snapshot => {
                 var items = [];
                 snapshot.forEach((childSnapshot) => {
                     items.push({
@@ -60,7 +71,6 @@ export default function ChatBoxContainer({ navigation, route }) {
     };
 
     const sentMessage = () => {
-        console.log(moment().unix(), 'aa');
         if (textchat === '') { return; }
         var newPostKey = database().ref().child('Messages').child(auth().currentUser.uid).child(id).push().key;
         database().ref('Messages').child(auth().currentUser.uid).child(id).child(newPostKey)
@@ -68,12 +78,14 @@ export default function ChatBoxContainer({ navigation, route }) {
                 CreatedTime: moment().unix(),
                 Text: textchat,
                 Type: 'USER',
+                Status: false,
             });
         database().ref('Messages').child(id).child(auth().currentUser.uid).child(newPostKey)
             .set({
                 CreatedTime: moment().unix(),
                 Text: textchat,
                 Type: 'CUS',
+                Status: true,
             });
         ////
         var numSeen = getSeen();

@@ -12,7 +12,9 @@ export default StyleSheet.create({
         borderRadius: 15,
         paddingHorizontal: normalize(10),
         paddingVertical: normalize(8),
-        width: width * 0.624,
+        alignItems: 'center',
+        maxWidth: width * 0.624,
+        minWidth: width * 0.15,
         marginTop: normalize(20),
     },
     messageViewUser: {

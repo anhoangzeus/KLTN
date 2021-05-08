@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, Text, Image } from 'react-native';
 import ReactNativeNumberFormat from 'components/NumberFormat';
-import styles from './styles';
 import StarRating from 'components/StarRating';
+import React from 'react';
+import { Image, Text, View } from 'react-native';
+import styles from './styles';
 
 const ProductItem = ({ image, name, price, rating, bough, PromotionPrice }) => (
     <View style={styles.itemContainer}>

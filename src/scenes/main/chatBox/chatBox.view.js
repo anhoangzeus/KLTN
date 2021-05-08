@@ -28,15 +28,15 @@ class ChatBoxContainer extends React.Component {
     chatMessage = ({ item }) => {
         return (
             item.Type === 'CUS' ?
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <View style={{ flexDirection: 'row' }}>
                     <View style={styles.messageView}>
                         <Text style={styles.messText}>{item.Text}</Text>
                     </View>
-                    <Text style={{ ...styles.messTime, marginRight: normalize(20) }}>{moment.unix(item.CreatedTime).format('hh:mm MM-DD-YY')}</Text>
+                    <Text style={{ ...styles.messTime, marginLeft: normalize(15) }}>{moment.unix(item.CreatedTime).format('hh:mm MM-DD-YY')}</Text>
                 </View>
                 :
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={{ ...styles.messTime, marginLeft: normalize(20) }}>{moment.unix(item.CreatedTime).format('hh:mm MM-DD-YY')}</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+                    <Text style={{ ...styles.messTime, marginRight: normalize(15) }}>{moment.unix(item.CreatedTime).format('hh:mm MM-DD-YY')}</Text>
                     <View style={{ ...styles.messageView, backgroundColor: '#0084ff' }}>
                         <Text style={{ ...styles.messText, color: '#fff' }}>{item.Text}</Text>
                     </View>
