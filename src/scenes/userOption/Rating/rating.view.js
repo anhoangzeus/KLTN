@@ -14,18 +14,18 @@ import {
   SafeAreaView,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {Rating} from 'react-native-ratings';
+import { Rating } from 'react-native-ratings';
 import NumberFormat from 'components/NumberFormat';
 import styles from './rating.styles';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 
-export const ProductItem = ({item}) => (
+export const ProductItem = ({ item }) => (
   <View style={styles.itemContainer1}>
     <Text style={styles.txtCodeName}>Mã đơn hàng:{item.OrderID}</Text>
     <View style={styles.row}>
-      <Image source={{uri: item.Picture}} style={styles.itemImage} />
-      <View style={{marginLeft: 20}}>
+      <Image source={{ uri: item.Picture }} style={styles.itemImage} />
+      <View style={{ marginLeft: 20 }}>
         <Text style={styles.txtPrice}>{item.CreatedDate}</Text>
         <Text style={styles.txtPrice}>
           {item.Payment === '01'
@@ -75,7 +75,7 @@ const RatingView = (props) => {
         <TouchableOpacity
           style={styles.btnBuyNow}
           onPress={() => NavigationServices.navigate(SCENE_NAMES.MAIN)}>
-          <Text style={styles.txttitle}>Mua Sắm Ngay</Text>
+          <Text style={{ ...styles.txttitle, color: '#fff' }}>Mua Sắm Ngay</Text>
         </TouchableOpacity>
       </TouchableOpacity>
     );
@@ -90,7 +90,7 @@ const RatingView = (props) => {
           numberOfLines={2}
           showsVerticalScrollIndicator={false}
           data={ListProduct}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() => {
                 setModalVisible(true);
@@ -126,7 +126,7 @@ const RatingView = (props) => {
                   imageSize={40}
                   showRating
                   onFinishRating={this.ratingCompleted}
-                  style={{marginBottom: 5}}
+                  style={{ marginBottom: 5 }}
                 />
                 <TextInput
                   textAlignVertical="top"

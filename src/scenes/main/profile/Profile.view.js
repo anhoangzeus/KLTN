@@ -1,33 +1,26 @@
 /* eslint-disable react-native/no-inline-styles */
-import * as React from 'react';
-import {View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
-import styles from './Profile.styles';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Header from 'components/Header';
 import SCENE_NAMES from 'constants/sceneName';
+import * as React from 'react';
+import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import styles from './Profile.styles';
 
 export default function ProfileView(props) {
-  const ProfileItem = ({icon, name}) => (
+  const ProfileItem = ({ icon, name }) => (
     <View style={styles.itemContainer}>
       <MaterialCommunityIcons name={icon} size={26} color="#1e1e1e" />
-      <Text style={[styles.itemText, {marginLeft: icon ? 20 : 0}]}>{name}</Text>
+      <Text style={[styles.itemText, { marginLeft: icon ? 20 : 0 }]}>{name}</Text>
       <FontAwesome name="angle-right" size={15} color="#1e1e1e" />
     </View>
   );
-  const {navigation} = props;
+  const { navigation } = props;
   return (
     <SafeAreaView style={styles.screenContainer}>
       <View style={styles.screenContainer}>
-        <View style={styles.headerContainer}>
-          <View style={styles.cartContainer}>
-            <View style={styles.cartIcon} />
-          </View>
-          <Text style={styles.headerText}>Cá nhân</Text>
-          <TouchableOpacity style={styles.cartContainer} onPress={() => {}}>
-            <FontAwesome name="shopping-cart" size={24} color="#fff" />
-          </TouchableOpacity>
-        </View>
+        <Header title="Cá nhân" isCart={true} />
         <View style={styles.bodyContainer}>
           <TouchableOpacity
             style={styles.userContainer}
@@ -44,19 +37,19 @@ export default function ProfileView(props) {
             <FontAwesome name="angle-right" size={26} color="#2B4F8C" />
           </TouchableOpacity>
           <View style={styles.divider} />
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={() => { }}>
             <ProfileItem icon="format-list-bulleted" name="Quản lý đơn hàng" />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={() => { }}>
             <ProfileItem icon="cart-outline" name="Sản phẩm đã mua" />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={() => { }}>
             <ProfileItem icon="eye-outline" name="Sản phẩm đã xem" />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={() => { }}>
             <ProfileItem icon="heart-outline" name="Sản phẩm yêu thích" />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={() => { }}>
             <ProfileItem icon="bookmark-outline" name="Sản phẩm mua sau" />
           </TouchableOpacity>
           <View style={styles.divider} />

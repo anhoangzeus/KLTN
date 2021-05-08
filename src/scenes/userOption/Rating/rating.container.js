@@ -5,7 +5,7 @@ import RatingView from './rating.view';
 
 const functionsCounter = new Set();
 
-const Rating = () => {
+export default function Rating({ navigation }) {
 
     const [ListProduct, setListProduct] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
@@ -138,6 +138,4 @@ const Rating = () => {
         />
     );
 };
-
-export default Rating;
 

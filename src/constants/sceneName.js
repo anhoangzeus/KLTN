@@ -32,6 +32,8 @@ const SCENE_NAMES = {
   DetailOrderContainer: 'DetailOrderContainer',
   MyStoreOptionContainer: 'MyStoreOptionContainer',
   AddProductContainer: 'AddProductContainer',
+  ChatContainer: 'ChatContainer',
+  ChatBoxContainer: 'ChatBoxContainer',
 };
 
 export default SCENE_NAMES;

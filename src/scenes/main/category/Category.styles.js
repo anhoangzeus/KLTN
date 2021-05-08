@@ -1,6 +1,6 @@
-import {StyleSheet, Dimensions} from 'react-native';
-
-const {width, height} = Dimensions.get('screen');
+import { StyleSheet, Dimensions } from 'react-native';
+import SIZE from 'constants/size';
+const { width, height } = Dimensions.get('screen');
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
@@ -25,11 +25,11 @@ export default StyleSheet.create({
     flex: 1,
     marginLeft: 10,
     alignItems: 'center',
-    paddingVertical: height / 50,
+    paddingVertical: SIZE.DEVICE_HEIGHT / 50,
     paddingHorizontal: 12,
     borderRadius: 2,
-    height: height / 10,
-    width: width * 0.8,
+    height: SIZE.DEVICE_HEIGHT / 10,
+    width: SIZE.DEVICE_WIDTH * 0.8,
   },
   inputText: {
     color: '#969696',
@@ -47,7 +47,6 @@ export default StyleSheet.create({
   bodyContainer: {
     flex: 1,
     backgroundColor: '#fff',
-    marginTop: 1,
   },
   scrollCate1: {
     height: height / 12,

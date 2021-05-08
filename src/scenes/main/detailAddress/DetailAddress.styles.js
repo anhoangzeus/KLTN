@@ -1,5 +1,5 @@
-import {StyleSheet, Dimensions} from 'react-native';
-const {width, height} = Dimensions.get('screen');
+import { StyleSheet, Dimensions } from 'react-native';
+const { width, height } = Dimensions.get('screen');
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
@@ -115,9 +115,9 @@ export default StyleSheet.create({
     height: 40,
     width: width / 2,
   },
-  marTen: {marginLeft: 10},
-  marHori: {marginHorizontal: 10},
-  greenText: {color: 'green', fontSize: 20},
+  marTen: { marginLeft: 10 },
+  marHori: { marginHorizontal: 10 },
+  greenText: { color: 'green', fontSize: 20 },
   btnSubmit: {
     backgroundColor: '#FF3333',
     marginHorizontal: 10,
