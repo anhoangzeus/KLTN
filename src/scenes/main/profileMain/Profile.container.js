@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProfileMainView from './Profile.view';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
@@ -9,7 +9,8 @@ function ProfileMainContainer({ navigation }) {
     const [CreatedDate, setCreatedDate] = useState('dd/mm/yy hh:mm AM');
     const [Avatar, setAvatar] = useState('https://i.ibb.co/HDzz1rC/avartarnone.png');
 
-    useState(() => {
+
+    const getData = () => {
         if (auth().currentUser != null) {
             database().ref('Users').child(auth().currentUser.uid)
                 .on('value', (snapshot) => {
@@ -19,7 +20,11 @@ function ProfileMainContainer({ navigation }) {
                     setAvatar(snapshot.val().Avatar);
                 });
         }
-    });
+    };
+
+    useEffect(() => {
+        getData();
+    }, []);
 
     return (
         <ProfileMainView

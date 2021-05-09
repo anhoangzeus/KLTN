@@ -8,7 +8,7 @@ import SCENE_NAMES from 'constants/sceneName';
 // import { GoogleSignin } from '@react-native-community/google-signin';
 const functionsCounter = new Set();
 
-function LoginContainer({navigation}) {
+function LoginContainer({ navigation }) {
   const [data, setData] = React.useState({
     username: '',
     password: '',
@@ -111,15 +111,6 @@ function LoginContainer({navigation}) {
       textChangPass: '',
     });
   };
-  // function GetCurrentDate() {
-  //     var date = new Date().getDate();
-  //     var month = new Date().getMonth() + 1;
-  //     var year = new Date().getFullYear();
-  //     var gio = new Date().getHours();
-  //     var phut = new Date().getMinutes();
-  //     var giay = new Date().getSeconds();
-  //     return date + '/' + month + '/' + year + ' ' + gio + ':' + phut + ':' + giay;
-  // }
   const loginHandle = (username, password) => {
     console.log('go');
     console.log(data.username, data.password);
@@ -164,7 +155,6 @@ function LoginContainer({navigation}) {
   };
   // const loginFacebook = async () => {
   //     const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
-
   //     if (result.isCancelled) {
   //         setModalVisibleWarning(true, 'Huỷ đăng nhập');
   //     }
@@ -235,7 +225,7 @@ function LoginContainer({navigation}) {
             handleResetPass();
             setModalVisibleWarning(true, 'Email chưa được đăng kí');
           });
-      } catch {}
+      } catch { }
     }
   };
   functionsCounter.add(textInputChange);
