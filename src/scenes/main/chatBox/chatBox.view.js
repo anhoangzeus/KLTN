@@ -52,6 +52,11 @@ class ChatBoxContainer extends React.Component {
       </View>
     );
   };
+  //   mainView = () => {
+  //     return(
+
+  //     )
+  //   }
   render() {
     const {Name, listchat, textchat, onChangeText, sentMessage} = this.props;
     const {onInputChat} = this.state;
@@ -59,7 +64,7 @@ class ChatBoxContainer extends React.Component {
       <SafeAreaView style={{flex: 1, backgroundColor: '#2B4F8C'}}>
         <KeyboardAvoidingView
           style={{height: height * 0.9}}
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          behavior={Platform.OS === 'ios' && 'padding'}>
           <View style={styles.headerContainer}>
             <TouchableOpacity
               onPress={() => {
@@ -103,6 +108,7 @@ class ChatBoxContainer extends React.Component {
           </View>
           <View style={styles.container}>
             <FlatList
+              //inverted
               showsVerticalScrollIndicator={false}
               data={listchat}
               renderItem={({item}) => <this.chatMessage item={item} />}
