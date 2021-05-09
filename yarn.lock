@@ -1279,6 +1279,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-11.3.3.tgz#63d8969875b5d1f5c5ea08c946d7bdc9ae814f97"
   integrity sha512-D6t9fO4AYXSfuzZcRtc6Webxp6/oO3HRbF4gQzOmYJb8XDGXyA4A6CQCDtBCO/rY8bJSkzI+CcHK0hfSuePfCA==
 
+"@react-native-firebase/storage@^11.4.1":
+  version "11.4.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/storage/-/storage-11.4.1.tgz#ae38602b59473564f11b6358d6e6b00bbc1dd757"
+  integrity sha512-unQ66/z7txJhIodR72xzYj9hc0oJM+XozS1NVqTRnbDpBUfUaTJXpXUJPjGdePzLP/zmtSAN1iLnSnFxYDy9rA==
+
 "@react-native-picker/picker@^1.14.0", "@react-native-picker/picker@^1.8.3":
   version "1.15.0"
   resolved "https://registry.yarnpkg.com/@react-native-picker/picker/-/picker-1.15.0.tgz#f571a8b013e001a840db905b21ec18e9d205f01b"
@@ -7388,15 +7393,20 @@ react-native-gesture-handler@1.8.0:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
-react-native-image-picker@2.3.4:
-  version "2.3.4"
-  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-2.3.4.tgz#1c31dbe9872ade17e2ed6457b0c669d63c322590"
-  integrity sha512-4UHu+zOyDT570r5mIbjH6h1iMrKIq/qfsKiAVUEZwncVegh0usJiEYNyJw4CEVwNeehmye/ia5sLDsa+kzIE4g==
+react-native-image-picker@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-3.5.0.tgz#bfcf6ea49d432a8f065203af1485eaf1605d7cf6"
+  integrity sha512-i3vr3cM/nu+FbpDpW+msxKX5dvFCMo0DIvHgDGxD9r43KgEDHcROavjQSAXjul/WDfMA2dqlR6gqi1AM8JLkvA==
 
 react-native-image-resizer@1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/react-native-image-resizer/-/react-native-image-resizer-1.3.0.tgz#d76abcb6a0ac8dfbe6f5858fe13fc65ffb856281"
   integrity sha512-ymnx++RCZ8AJ1D/XAeK9tOLorYhFedeQvxeZSiisj4P49OP2mWdJ4z2uxxpVSb4SBA+i1hPYAtIAbOVObtUslQ==
+
+react-native-image-viewing@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-image-viewing/-/react-native-image-viewing-0.2.0.tgz#3c0bc67cfb9aa7607cec632139d7ef4c45e07e4e"
+  integrity sha512-j2JXv86WRXGNme4LPsNCJ/2MgX+oVbmJ5ZLbGrYbKXcCPe9OshqlQI5L3SdbAxWu/F5pubcMaXp0zoYNaZVuzA==
 
 react-native-iphone-x-helper@^1.0.3, react-native-iphone-x-helper@^1.3.0, react-native-iphone-x-helper@^1.3.1:
   version "1.3.1"

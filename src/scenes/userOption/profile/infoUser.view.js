@@ -1,24 +1,19 @@
+import CheckBox from '@react-native-community/checkbox';
+import auth from '@react-native-firebase/auth';
+import Header from 'components/Header';
+import PopupChooseImage from 'components/PopupChooseImage';
 import * as React from 'react';
 import {
-  View,
-  Text,
-  Alert,
-  StatusBar,
-  ScrollView,
-  TextInput,
-  Modal,
-  TouchableOpacity,
-  SafeAreaView,
-  KeyboardAvoidingView,
-  Image,
+  Alert, Image, KeyboardAvoidingView, Modal,
+  SafeAreaView, ScrollView, StatusBar, Text,
+  TextInput, TouchableOpacity, View
 } from 'react-native';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import CheckBox from '@react-native-community/checkbox';
-import Feather from 'react-native-vector-icons/Feather';
-import auth from '@react-native-firebase/auth';
 import * as Animatable from 'react-native-animatable';
+import ImageView from 'react-native-image-viewing';
+import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import styles from './infoUser.styles';
-import Header from 'components/Header';
+
 
 export default function infoUserView(props) {
   const {
@@ -32,7 +27,13 @@ export default function infoUserView(props) {
     updateSecureTextEntryOld,
     updateSecureTextEntryNew,
     updateSecureTextEntryConfirm,
+    setvisibleViewing,
+    visibleChooseImage,
+    setvisibleChooseImage,
+    visibleViewing,
     textInputConfirm,
+    chooseImageTake,
+    chooseImageLibrary,
     saveChangesHandle,
     textInputNewPass,
   } = props;
@@ -43,13 +44,14 @@ export default function infoUserView(props) {
       <Header title={'Thông tin tài khoản'} />
       <ScrollView>
         <KeyboardAvoidingView behavior="padding">
-          <View onPress={() => {}} style={styles.avatarContainer}>
-            <Image source={{uri: data.Avatar}} size={80} style={styles.img} />
-            <Image
-              source={require('../../../assets/images/camera.png')}
-              style={styles.camera}
-            />
-          </View>
+          <TouchableOpacity onPress={() => { setvisibleViewing(true) }} style={styles.avatarContainer}>
+            <View style={styles.avatarView}>
+              <Image source={{ uri: data.Avatar }} size={80} style={styles.img} />
+            </View>
+            <TouchableOpacity onPress={() => setvisibleChooseImage(true)} style={styles.toudhCamera}>
+              <Image source={require('../../../assets/images/camera.png')} style={styles.camera} />
+            </TouchableOpacity>
+          </TouchableOpacity>
           <View style={styles.userContainer}>
             <View style={styles.textContainer}>
               <View style={styles.row}>
@@ -61,7 +63,7 @@ export default function infoUserView(props) {
                   }>
                   Họ tên
                 </Text>
-                {data.check_textInputFullName ? null : (
+                {data.check_textInputFullName || (
                   <Animatable.View animation="fadeInLeft" duration={500}>
                     <Text style={styles.errorMsg}>Vui lòng nhập Họ tên</Text>
                   </Animatable.View>
@@ -91,7 +93,7 @@ export default function infoUserView(props) {
                   }>
                   Số điện thoại
                 </Text>
-                {data.check_textInputSDT ? null : (
+                {data.check_textInputSDT || (
                   <Animatable.View animation="fadeInLeft" duration={500}>
                     <Text style={styles.errorMsg}>
                       Số điện thoại sai định dạng
@@ -315,6 +317,17 @@ export default function infoUserView(props) {
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+      <ImageView
+        images={[{ uri: data.Avatar }]}
+        imageIndex={0}
+        visible={visibleViewing}
+        onRequestClose={() => setvisibleViewing(false)} />
+      {/* Popup choose image */}
+      <PopupChooseImage
+        onChooseTake={chooseImageTake}
+        onChooseLibrary={chooseImageLibrary}
+        onClosePress={() => setvisibleChooseImage(false)}
+        isVisible={visibleChooseImage} />
+    </SafeAreaView >
   );
 }

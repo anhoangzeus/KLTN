@@ -2,6 +2,7 @@
 
 import Header from 'components/Header';
 import SCENE_NAMES from 'constants/sceneName';
+import size from 'constants/size';
 import moment from 'moment';
 import * as React from 'react';
 import {
@@ -9,106 +10,14 @@ import {
     Image, SafeAreaView, Text,
     TouchableOpacity, View,
 } from 'react-native';
-import { normalize } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/AntDesign';
 import NavigationServices from 'utils/navigationServices';
 import styles from './chat.styles';
-
-const listTest = [
-    {
-        id: 1,
-        avatar: 'https://i.ibb.co/c66514c/175383481-2804888926430106-2280786548134825274-n.jpg',
-        name: 'aaaaaa',
-        new_message: 1,
-        last_message: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        last_messtime: '13:59 30-04-21',
-    },
-    {
-        id: 2,
-        avatar: 'https://i.ibb.co/c66514c/175383481-2804888926430106-2280786548134825274-n.jpg',
-        name: 'aaaaaa',
-        new_message: 1,
-        last_message: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        last_messtime: '13:59 30-04-21',
-    },
-    {
-        id: 3,
-        avatar: 'https://i.ibb.co/c66514c/175383481-2804888926430106-2280786548134825274-n.jpg',
-        name: 'aaaaaa',
-        new_message: 1,
-        last_message: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        last_messtime: '13:59 30-04-21',
-    },
-    {
-        id: 4,
-        avatar: 'https://i.ibb.co/c66514c/175383481-2804888926430106-2280786548134825274-n.jpg',
-        name: 'aaaaaa',
-        last_message: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        last_messtime: '13:59 30-04-21',
-    },
-    {
-        id: 5,
-        avatar: 'https://i.ibb.co/c66514c/175383481-2804888926430106-2280786548134825274-n.jpg',
-        name: 'aaaaaa',
-        new_message: 1,
-        last_message: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        last_messtime: '13:59 30-04-21',
-    },
-    {
-        id: 5,
-        avatar: 'https://i.ibb.co/c66514c/175383481-2804888926430106-2280786548134825274-n.jpg',
-        name: 'aaaaaa',
-        new_message: 1,
-        last_message: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        last_messtime: '13:59 30-04-21',
-    },
-    {
-        id: 5,
-        avatar: 'https://i.ibb.co/c66514c/175383481-2804888926430106-2280786548134825274-n.jpg',
-        name: 'aaaaaa',
-        new_message: 1,
-        last_message: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        last_messtime: '13:59 30-04-21',
-    },
-    {
-        id: 5,
-        avatar: 'https://i.ibb.co/c66514c/175383481-2804888926430106-2280786548134825274-n.jpg',
-        name: 'aaaaaa',
-        new_message: 1,
-        last_message: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        last_messtime: '13:59 30-04-21',
-    },
-    {
-        id: 5,
-        avatar: 'https://i.ibb.co/c66514c/175383481-2804888926430106-2280786548134825274-n.jpg',
-        name: 'aaaaaa',
-        new_message: 1,
-        last_message: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        last_messtime: '13:59 30-04-21',
-    }, {
-        id: 5,
-        avatar: 'https://i.ibb.co/c66514c/175383481-2804888926430106-2280786548134825274-n.jpg',
-        name: 'aaaaaa',
-        new_message: 1,
-        last_message: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        last_messtime: '13:59 30-04-21',
-    },
-    {
-        id: 5,
-        avatar: 'https://i.ibb.co/c66514c/175383481-2804888926430106-2280786548134825274-n.jpg',
-        name: 'aaaaaa',
-        new_message: 1,
-        last_message: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        last_messtime: '13:59 30-04-21',
-    },
-];
-
 
 class ChatContainer extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            listItem: listTest,
         };
     }
     listChatView = ({ item }) => {
@@ -124,9 +33,9 @@ class ChatContainer extends React.Component {
                             <Text style={{ color: '#fff', fontSize: 10, fontWeight: 'bold' }}>{item.Status}</Text>
                         </View>}
                 </View>
-                <View style={{ marginRight: normalize(70) }}>
+                <View style={{}}>
                     <Text style={styles.textName}>{item.Name}</Text>
-                    <Text>{item.LastMess}</Text>
+                    <Text numberOfLines={1} style={{ width: size.DEVICE_WIDTH / 2, color: '#666666' }}>{item.LastMess}</Text>
                 </View>
                 <Text style={styles.textTime}>{moment.unix(item.LastMessTime).format('hh:mm MM-DD-YY')}</Text>
             </TouchableOpacity>
