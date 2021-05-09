@@ -13,13 +13,13 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
   },
   bodyContainer: {
-    flex: 1,
-    backgroundColor: '#ededed',
+    backgroundColor: '#fff',
   },
   userContainer: {
     marginTop: 5,
     backgroundColor: '#fff',
     flexDirection: 'row',
+    height: height / 4,
   },
   totalContainer1: {
     marginTop: 5,
@@ -40,7 +40,7 @@ export default StyleSheet.create({
     marginLeft: width / 10,
   },
   nameView: {
-    justifyContent: 'space-between',
+    //justifyContent: 'space-between',
     height: height / 5,
   },
   imgView: {
@@ -63,6 +63,7 @@ export default StyleSheet.create({
   },
   divider: {
     height: 2,
+    backgroundColor: '#ededed',
   },
   errorMsg: {
     color: '#FF0000',
@@ -86,6 +87,7 @@ export default StyleSheet.create({
   titletext: {
     color: 'black',
     fontSize: height / 40,
+    marginTop: height / 40,
   },
   errtext: {
     color: 'red',
@@ -147,8 +149,18 @@ export default StyleSheet.create({
     marginTop: 5,
   },
   itemText: {
+    color: '#1e1e1e',
+    fontSize: 20,
     flex: 1,
-    color: 'black',
   },
-  cardOption: {},
+  cardOption: {
+    height: height / 15,
+    width: width,
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+  },
+  itemContainer: {
+    flexDirection: 'row',
+    flex: 1,
+  },
 });

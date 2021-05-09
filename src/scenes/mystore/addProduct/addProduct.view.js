@@ -21,17 +21,29 @@ import SCENE_NAMES from 'constants/sceneName';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header from 'components/Header';
 import {TextInput} from 'react-native-gesture-handler';
+import PopupChooseImage from 'components/PopupChooseImage';
+import {set} from 'lodash-es';
 const {height, width} = Dimensions.get('screen');
 const ProfileItem = ({icon, name}) => (
   <View style={styles.itemContainer}>
     <MaterialCommunityIcons name={icon} size={26} color="#1e1e1e" />
-    <Text style={[styles.itemText, {marginLeft: icon ? width / 15 : 0}]}>
-      {name}
-    </Text>
+    <Text style={styles.itemText}>{name}</Text>
+    <FontAwesome
+      name="angle-right"
+      size={26}
+      color="#1e1e1e"
+      style={{marginRight: 0}}
+    />
   </View>
 );
 
 export default function AddProductView(props) {
+  const {
+    chooseImage,
+    setChooseImage,
+    chooseImageLibrary,
+    chooseImageTake,
+  } = props;
   return (
     <SafeAreaView style={styles.screenContainer}>
       <View style={styles.screenContainer2}>
@@ -40,7 +52,9 @@ export default function AddProductView(props) {
         <View style={styles.divider} />
 
         <ScrollView style={styles.bodyContainer}>
-          <TouchableOpacity style={styles.userContainer}>
+          <TouchableOpacity
+            style={styles.userContainer}
+            onPress={() => setChooseImage(true)}>
             <View style={styles.imgView}>
               <Image
                 source={require('../../../assets/images/noimage.png')}
@@ -74,16 +88,31 @@ export default function AddProductView(props) {
             </View>
           </View>
           <View style={styles.divider} />
-
-          <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
-            <ProfileItem icon="heart-outline" name="Danh mục" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
-            <ProfileItem icon="bookmark-outline" name="Giá" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
-            <ProfileItem icon="star" name="Vận chuyển" />
-          </TouchableOpacity>
+          <View style={styles.userContainer}>
+            {/* <View style={styles.cardOption}> */}
+            <View style={styles.nameView}>
+              <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
+                <ProfileItem icon="format-list-bulleted" name="Danh mục" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
+                <ProfileItem icon="bookmark-outline" name="Giá" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
+                <ProfileItem icon="truck" name="Vận chuyển" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
+                <ProfileItem icon="information-variant" name="Tình trạng" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
+                <ProfileItem icon="sale" name="Khuyến Mãi" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
+                <ProfileItem icon="facebook" name="Chia sẻ lên facebook" />
+              </TouchableOpacity>
+            </View>
+            {/* </View> */}
+          </View>
+          <View style={{height: height / 7}} />
         </ScrollView>
         <View style={styles.divider} />
 
@@ -93,6 +122,12 @@ export default function AddProductView(props) {
           <Text style={styles.subBtnText}>Đăng bán</Text>
         </TouchableOpacity>
       </View>
+      <PopupChooseImage
+        onChooseTake={chooseImageTake}
+        onChooseLibrary={chooseImageLibrary}
+        onClosePress={() => setChooseImage(false)}
+        isVisible={chooseImage}
+      />
     </SafeAreaView>
   );
 }
