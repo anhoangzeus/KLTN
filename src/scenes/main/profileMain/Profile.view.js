@@ -4,26 +4,27 @@ import Header from 'components/Header';
 import SCENE_NAMES from 'constants/sceneName';
 import * as React from 'react';
 import {
-  Image, SafeAreaView,
-
-  ScrollView, Text,
-
-  TouchableOpacity, View,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import NavigationServices from 'utils/navigationServices';
 import styles from './Profile.styles';
 
-const ProfileItem = ({ icon, name }) => (
+const ProfileItem = ({icon, name}) => (
   <View style={styles.itemContainer}>
     <MaterialCommunityIcons name={icon} size={26} color="#1e1e1e" />
-    <Text style={[styles.itemText, { marginLeft: icon ? 20 : 0 }]}>{name}</Text>
+    <Text style={[styles.itemText, {marginLeft: icon ? 20 : 0}]}>{name}</Text>
     <FontAwesome name="angle-right" size={15} color="#1e1e1e" />
   </View>
 );
 const ProfileMainView = (props) => {
-  const { Avatar, FullName, Email, CreatedDate } = props;
+  const {Avatar, FullName, Email, CreatedDate, Merchant} = props;
   return (
     <SafeAreaView style={styles.screenContainer}>
       <View style={styles.screenContainer}>
@@ -37,7 +38,7 @@ const ProfileMainView = (props) => {
               <View style={styles.userContainer}>
                 <View style={styles.avatarContainer}>
                   <Image
-                    source={{ uri: Avatar }}
+                    source={{uri: Avatar}}
                     size={80}
                     style={styles.avatarContainer}
                   />
@@ -57,10 +58,12 @@ const ProfileMainView = (props) => {
               onPress={() => {
                 NavigationServices.navigate(
                   SCENE_NAMES.MyStoreOptionContainer,
-                  { FullName: FullName, Avatar: Avatar },
+                  {FullName: FullName, Avatar: Avatar},
                 );
               }}>
-              <ProfileItem icon="storefront" name="Cửa hàng của tôi" />
+              {Merchant ? (
+                <ProfileItem icon="storefront" name="Cửa hàng của tôi" />
+              ) : null}
             </TouchableOpacity>
             <View style={styles.divider} />
             <TouchableOpacity>

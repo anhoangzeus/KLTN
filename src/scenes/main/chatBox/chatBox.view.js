@@ -7,17 +7,15 @@ import {
   Dimensions,
   FlatList,
   Image,
-
-
-
-
   KeyboardAvoidingView,
-  Platform, Text,
+  Platform,
+  Text,
   TextInput,
-  TouchableOpacity, View,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import { normalize } from 'react-native-elements';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {normalize} from 'react-native-elements';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -25,46 +23,46 @@ import NavigationServices from 'utils/navigationServices';
 import styles from './chatBox.styles';
 // import SCENE_NAMES from 'constants/sceneName';
 
-const { width, height } = Dimensions.get('screen');
+const {width, height} = Dimensions.get('screen');
 
 class ChatBoxContainer extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       onInputChat: false,
     };
   }
 
-  chatMessage = ({ item }) => {
+  chatMessage = ({item}) => {
     return item.Type === 'CUS' ? (
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{flexDirection: 'row'}}>
         <View style={styles.messageView}>
           <Text style={styles.messText}>{item.Text}</Text>
         </View>
-        <Text style={{ ...styles.messTime, marginLeft: normalize(15) }}>
+        <Text style={{...styles.messTime, marginLeft: normalize(15)}}>
           {moment.unix(item.CreatedTime).format('hh:mm MM-DD-YY')}
         </Text>
       </View>
     ) : (
-      <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-        <Text style={{ ...styles.messTime, marginRight: normalize(15) }}>
+      <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+        <Text style={{...styles.messTime, marginRight: normalize(15)}}>
           {moment.unix(item.CreatedTime).format('hh:mm MM-DD-YY')}
         </Text>
-        <View style={{ ...styles.messageView, backgroundColor: '#0084ff' }}>
-          <Text style={{ ...styles.messText, color: '#fff' }}>{item.Text}</Text>
+        <View style={{...styles.messageView, backgroundColor: '#0084ff'}}>
+          <Text style={{...styles.messText, color: '#fff'}}>{item.Text}</Text>
         </View>
       </View>
     );
   };
   render() {
-    const { Name, listchat, textchat, onChangeText, sentMessage } = this.props;
-    const { onInputChat } = this.state;
+    const {Name, listchat, textchat, onChangeText, sentMessage} = this.props;
+    const {onInputChat} = this.state;
 
     if (Platform.OS === 'ios') {
       return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#2B4F8C' }}>
+        <SafeAreaView style={{flex: 1, backgroundColor: '#2B4F8C'}}>
           <KeyboardAvoidingView
-            style={{ height: height * 0.91 }}
+            style={{height: height * 0.91}}
             behavior={Platform.OS === 'ios' && 'padding'}>
             <View style={styles.headerContainer}>
               <TouchableOpacity
@@ -72,18 +70,38 @@ class ChatBoxContainer extends React.Component {
                   NavigationServices.goBack();
                 }}
                 style={styles.cartContainer}>
-                <FontAwesome name="angle-left" size={30} color="#fff" style={styles.maginIcon} />
+                <FontAwesome
+                  name="angle-left"
+                  size={30}
+                  color="#fff"
+                  style={styles.maginIcon}
+                />
               </TouchableOpacity>
               <Text style={styles.headerText}>{Name}</Text>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{flexDirection: 'row'}}>
                 <TouchableOpacity>
-                  <MaterialIcons name="call" size={25} color="#fff" style={styles.iconimg} />
+                  <MaterialIcons
+                    name="call"
+                    size={25}
+                    color="#fff"
+                    style={styles.iconimg}
+                  />
                 </TouchableOpacity>
                 <TouchableOpacity>
-                  <MaterialIcons name="videocam" size={25} color="#fff" style={styles.iconimg} />
+                  <MaterialIcons
+                    name="videocam"
+                    size={25}
+                    color="#fff"
+                    style={styles.iconimg}
+                  />
                 </TouchableOpacity>
                 <TouchableOpacity>
-                  <Ionicons name="md-ellipsis-vertical" size={25} color="#fff" style={styles.iconimg} />
+                  <Ionicons
+                    name="md-ellipsis-vertical"
+                    size={25}
+                    color="#fff"
+                    style={styles.iconimg}
+                  />
                 </TouchableOpacity>
               </View>
             </View>
@@ -91,9 +109,9 @@ class ChatBoxContainer extends React.Component {
               <FlatList
                 showsVerticalScrollIndicator={false}
                 data={listchat}
-                renderItem={({ item }) => <this.chatMessage item={item} />}
+                renderItem={({item}) => <this.chatMessage item={item} />}
                 keyExtractor={(item) => item.id}
-                ListFooterComponent={<View style={{ height: normalize(30) }} />}
+                ListFooterComponent={<View style={{height: normalize(30)}} />}
               />
             </View>
             <View
@@ -101,7 +119,7 @@ class ChatBoxContainer extends React.Component {
                 ...styles.containerComposize,
                 height: onInputChat ? width * 0.24 : height * 0.07,
               }}>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{flexDirection: 'row'}}>
                 <TextInput
                   style={styles.vChat}
                   placeholder={'Soạn tin...'}
@@ -123,28 +141,47 @@ class ChatBoxContainer extends React.Component {
           </KeyboardAvoidingView>
         </SafeAreaView>
       );
-    }
-    else {
+    } else {
       return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#2B4F8C' }}>
+        <SafeAreaView style={{flex: 1, backgroundColor: '#2B4F8C'}}>
           <View style={styles.headerContainer}>
             <TouchableOpacity
               onPress={() => {
                 NavigationServices.goBack();
               }}
               style={styles.cartContainer}>
-              <FontAwesome name="angle-left" size={30} color="#fff" style={styles.maginIcon} />
+              <FontAwesome
+                name="angle-left"
+                size={30}
+                color="#fff"
+                style={styles.maginIcon}
+              />
             </TouchableOpacity>
             <Text style={styles.headerText}>{Name}</Text>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{flexDirection: 'row'}}>
               <TouchableOpacity>
-                <MaterialIcons name="call" size={25} color="#fff" style={styles.iconimg} />
+                <MaterialIcons
+                  name="call"
+                  size={25}
+                  color="#fff"
+                  style={styles.iconimg}
+                />
               </TouchableOpacity>
               <TouchableOpacity>
-                <MaterialIcons name="videocam" size={25} color="#fff" style={styles.iconimg} />
+                <MaterialIcons
+                  name="videocam"
+                  size={25}
+                  color="#fff"
+                  style={styles.iconimg}
+                />
               </TouchableOpacity>
               <TouchableOpacity>
-                <Ionicons name="md-ellipsis-vertical" size={25} color="#fff" style={styles.iconimg} />
+                <Ionicons
+                  name="md-ellipsis-vertical"
+                  size={25}
+                  color="#fff"
+                  style={styles.iconimg}
+                />
               </TouchableOpacity>
             </View>
           </View>
@@ -153,9 +190,9 @@ class ChatBoxContainer extends React.Component {
               ref="flatList"
               showsVerticalScrollIndicator={false}
               data={listchat}
-              renderItem={({ item }) => <this.chatMessage item={item} />}
+              renderItem={({item}) => <this.chatMessage item={item} />}
               keyExtractor={(item) => item.id}
-              ListFooterComponent={<View style={{ height: normalize(30) }} />}
+              ListFooterComponent={<View style={{height: normalize(30)}} />}
               onContentSizeChange={() => this.refs.flatList.scrollToEnd()}
             />
           </View>
@@ -164,7 +201,7 @@ class ChatBoxContainer extends React.Component {
               ...styles.containerComposize,
               height: onInputChat ? width * 0.24 : height * 0.07,
             }}>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{flexDirection: 'row'}}>
               <TextInput
                 style={styles.vChat}
                 placeholder={'Soạn tin...'}
@@ -174,8 +211,12 @@ class ChatBoxContainer extends React.Component {
                 onChangeText={(val) => {
                   onChangeText(val);
                 }}
-                onFocus={() => { this.refs.flatList.scrollToEnd(); }}
-                onBlur={() => { this.refs.flatList.scrollToEnd(); }}
+                onFocus={() => {
+                  this.refs.flatList.scrollToEnd();
+                }}
+                onBlur={() => {
+                  this.refs.flatList.scrollToEnd();
+                }}
               />
               <TouchableOpacity onPress={() => sentMessage()}>
                 <Image
@@ -188,7 +229,6 @@ class ChatBoxContainer extends React.Component {
         </SafeAreaView>
       );
     }
-
   }
 }
 export default ChatBoxContainer;
