@@ -184,17 +184,6 @@ export default function infoUserContainer({ navigation }) {
             });
         }
     };
-
-    const GetCurrentDate = () => {
-        var date = new Date().getDate();
-        var month = new Date().getMonth() + 1;
-        var year = new Date().getFullYear();
-        var gio = new Date().getHours();
-        var phut = new Date().getMinutes();
-        var giay = new Date().getSeconds();
-        return date + '/' + month + '/' + year + ' ' + gio + ':' + phut + ':' + giay;
-
-    };
     const handleClose = () => {
         setData({
             ...data,
@@ -217,13 +206,15 @@ export default function infoUserContainer({ navigation }) {
         }, setTimeout(handleClose, 2000));
     };
     const saveChangesHandle = async () => {
-        const task = storage().ref(data.filename).putFile(data.Avatar);
+        const task = storage().ref('avatar/' + data.filename).putFile(data.Avatar);
         try {
             await task;
         } catch (e) {
             console.error(e);
         }
-        var date = GetCurrentDate();
+        const url = await storage().ref('avatar/' + data.filename).getDownloadURL();
+        console.log(url);
+        var date = moment().subtract(10, 'days').calendar();
         if (isSelected === false) {
             if (data.FullName.length <= 1 || data.Phone.length <= 1) {
                 setModalVisibleWarning(true, 'Bạn chưa điền đầy đủ thông tin');
@@ -236,6 +227,7 @@ export default function infoUserContainer({ navigation }) {
                     CMND: data.CMND,
                     ModifiedBy: 'User',
                     ModifiedDate: date,
+                    Avatar: url,
                 }).then(
                     setModalVisible(true, 'Thay đổi thành công')
                 ).catch();
@@ -263,6 +255,7 @@ export default function infoUserContainer({ navigation }) {
                             ModifiedBy: 'User',
                             ModifiedDate: date,
                             Password: data.password,
+                            Avatar: url,
                         }).then(
                             setModalVisible(true, 'Thay đổi thành công')
                         ).catch();
