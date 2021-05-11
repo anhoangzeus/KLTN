@@ -2,6 +2,8 @@ package com.basecode;
 
 import android.app.Application;
 import android.content.Context;
+import android.net.Uri;
+import com.basecode.zpmodule.PayZaloBridge;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
@@ -11,7 +13,6 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import androidx.multidex.MultiDexApplication;
-import com.basecode.zpmodule.PayZaloBridge;
 import vn.zalopay.sdk.Environment;
 import vn.zalopay.sdk.ZaloPaySDK;
 
@@ -84,4 +85,5 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         ZaloPaySDK.init(553, Environment.SANDBOX);
 
     }
+    
 }

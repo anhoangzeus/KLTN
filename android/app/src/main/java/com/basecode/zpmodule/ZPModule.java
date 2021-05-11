@@ -2,6 +2,7 @@ package com.basecode.zpmodule;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.BaseActivityEventListener;
@@ -31,6 +32,7 @@ public class ZPModule extends ReactContextBaseJavaModule {
             params.putString("transToken", transToken);
             params.putString("appTransID", appTransID);
             params.putString("returnCode", PAYMENTSUCCESS);
+            Log.e("EventPayZalo","xuat hien event");
             sendEvent(mReactContext, "EventPayZalo", params);
         }
 
@@ -41,6 +43,7 @@ public class ZPModule extends ReactContextBaseJavaModule {
             params.putString("returnCode",  PAYMENTCANCELED);
             params.putString("zpTranstoken", transToken);
             params.putString("appTransID", appTransID);
+            Log.e("EventPayZalo","xuat hien event");
             sendEvent(mReactContext, "EventPayZalo", params);
         }
 
@@ -51,6 +54,7 @@ public class ZPModule extends ReactContextBaseJavaModule {
             params.putString("returnCode",  PAYMENTFAILED);
             params.putString("zpTranstoken", transToken);
             params.putString("appTransID", appTransID);
+            Log.e("EventPayZalo","xuat hien event");
             sendEvent(mReactContext, "EventPayZalo", params);
         }
     };
