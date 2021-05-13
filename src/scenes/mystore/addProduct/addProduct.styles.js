@@ -16,7 +16,7 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
   },
   userContainer: {
-    marginTop: 5,
+    marginTop: 0,
     backgroundColor: '#fff',
     flexDirection: 'row',
     height: height / 4,
@@ -41,7 +41,7 @@ export default StyleSheet.create({
   },
   nameView: {
     //justifyContent: 'space-between',
-    height: height / 5,
+    height: height / 3.5,
   },
   imgView: {
     flexDirection: 'row',
@@ -59,7 +59,6 @@ export default StyleSheet.create({
   welcomeText: {
     color: 'black',
     fontSize: height / 40,
-    marginTop: height / 100,
   },
   divider: {
     height: 2,

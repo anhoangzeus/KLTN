@@ -25,6 +25,7 @@ const ProfileItem = ({icon, name}) => (
 );
 const ProfileMainView = (props) => {
   const {Avatar, FullName, Email, CreatedDate, Merchant} = props;
+  console.log('merchant: ', Merchant);
   return (
     <SafeAreaView style={styles.screenContainer}>
       <View style={styles.screenContainer}>
