@@ -15,6 +15,7 @@ export default function infoUserContainer({navigation}) {
   const [isSelected, setSelection] = useState(false);
   const [visibleViewing, setvisibleViewing] = useState(false);
   const [visibleChooseImage, setvisibleChooseImage] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [isloading, setIsloading] = useState(false);
   const [data, setData] = useState({
     pass: '',
@@ -223,6 +224,9 @@ export default function infoUserContainer({navigation}) {
     );
   };
   const saveChangesHandle = async () => {
+    if (isloading) {
+      LoadingView();
+    }
     const task = storage()
       .ref('avatar/' + data.filename)
       .putFile(data.Avatar);
@@ -231,14 +235,9 @@ export default function infoUserContainer({navigation}) {
     } catch (e) {
       console.error(e);
     }
-    if (isloading) {
-      LoadingView();
-    }
-
     const url = await storage()
       .ref('avatar/' + data.filename)
       .getDownloadURL();
-    setIsloading(true);
     console.log(url);
     var date = moment().subtract(10, 'days').calendar();
     if (isSelected === false) {

@@ -229,8 +229,8 @@ class ChatBoxContainer extends React.Component {
             <View style={{flexDirection: 'row'}}>
               <TouchableOpacity onPress={() => openGalary()}>
                 <Image
-                  source={require('../../../assets/images/ic_sendmess.png')}
-                  style={styles.iconsend}
+                  source={require('../../../assets/images/gallery.png')}
+                  style={styles.iconUp}
                 />
               </TouchableOpacity>
               <TextInput

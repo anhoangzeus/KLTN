@@ -82,7 +82,13 @@ export default StyleSheet.create({
     width: width * 0.1,
     height: width * 0.1,
     alignSelf: 'center',
-    marginLeft: width * 0.04,
+    marginLeft: width * 0.03,
+  },
+  iconUp: {
+    width: width * 0.1,
+    height: width * 0.1,
+    alignSelf: 'center',
+    marginLeft: -width / 20,
   },
   icon: {
     height: 25,

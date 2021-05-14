@@ -147,16 +147,21 @@ export default function ChatBoxContainer({navigation, route}) {
 
   const openGalary = () => {
     launchImageLibrary('photo', (response) => {
-      console.log('hinh anh nhan duoc tu galary', response.uri);
-      RNFS.readFile(response.uri, 'base64').then((res) => {
-        let source = 'data:image/png;base64,' + res;
-        setImage(source);
-      });
-      sentMessage();
-      getListChat();
+      if (response.didCancel) {
+        console.log('ImagePicker', 'cancel');
+      } else if (response.error) {
+        console.log('ImagePickerError: ', response.error);
+      } else {
+        console.log('hinh anh nhan duoc tu galary', response.uri);
+        RNFS.readFile(response.uri, 'base64').then((res) => {
+          let source = 'data:image/png;base64,' + res;
+          setImage(source);
+        });
+        sentMessage();
+        getListChat();
+      }
     });
   };
-
   functionsCounter.add(onChangeText);
   functionsCounter.add(sentMessage);
   functionsCounter.add(openGalary);
