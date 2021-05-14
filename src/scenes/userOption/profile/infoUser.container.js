@@ -1,21 +1,19 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, {useState} from 'react';
-import UserView from './infoUser.view';
-import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
 import storage from '@react-native-firebase/storage';
+import moment from 'moment';
+import React, {useState} from 'react';
+import {Platform} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {chooseImageOptions} from '../../../utils/options';
-import moment from 'moment';
-import {Platform, ActivityIndicator, View} from 'react-native';
-import styles from './infoUser.styles';
+import UserView from './infoUser.view';
 
 const functionsCounter = new Set();
 export default function infoUserContainer({navigation}) {
   const [isSelected, setSelection] = useState(false);
   const [visibleViewing, setvisibleViewing] = useState(false);
   const [visibleChooseImage, setvisibleChooseImage] = useState(false);
-  // eslint-disable-next-line no-unused-vars
   const [isloading, setIsloading] = useState(false);
   const [data, setData] = useState({
     pass: '',
@@ -216,17 +214,9 @@ export default function infoUserContainer({navigation}) {
       setTimeout(handleClose, 2000),
     );
   };
-  const LoadingView = () => {
-    return (
-      <View style={[styles.container, styles.horizontal]}>
-        <ActivityIndicator size="large" color="#00ff00" />
-      </View>
-    );
-  };
+
   const saveChangesHandle = async () => {
-    if (isloading) {
-      LoadingView();
-    }
+    setIsloading(true);
     const task = storage()
       .ref('avatar/' + data.filename)
       .putFile(data.Avatar);
@@ -235,9 +225,11 @@ export default function infoUserContainer({navigation}) {
     } catch (e) {
       console.error(e);
     }
+
     const url = await storage()
       .ref('avatar/' + data.filename)
       .getDownloadURL();
+
     console.log(url);
     var date = moment().subtract(10, 'days').calendar();
     if (isSelected === false) {
@@ -257,7 +249,10 @@ export default function infoUserContainer({navigation}) {
             ModifiedDate: date,
             Avatar: url,
           })
-          .then(setModalVisible(true, 'Thay đổi thành công'))
+          .then(
+            setIsloading(false),
+            setModalVisible(true, 'Thay đổi thành công'),
+          )
           .catch();
       } else {
         setModalVisibleWarning(true, 'Xin quý khách kiểm tra lại Internet');
@@ -363,7 +358,12 @@ export default function infoUserContainer({navigation}) {
   functionsCounter.add(textInputFullName);
   functionsCounter.add(chooseImageTake);
   functionsCounter.add(chooseImageLibrary);
-
+  //     return (
+  //         <Col center style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+  //             <Loading />
+  //         </Col>
+  //     )
+  // }
   return (
     <UserView
       updateSecureTextEntryOld={updateSecureTextEntryOld}
@@ -385,6 +385,7 @@ export default function infoUserContainer({navigation}) {
       data={data}
       isSelected={isSelected}
       setSelection={setSelection}
+      isloading={isloading}
     />
   );
 }

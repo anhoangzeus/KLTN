@@ -1,6 +1,8 @@
 import CheckBox from '@react-native-community/checkbox';
 import auth from '@react-native-firebase/auth';
+import Col from 'components/Col';
 import Header from 'components/Header';
+import Loading from 'components/LoadingView';
 import PopupChooseImage from 'components/PopupChooseImage';
 import * as React from 'react';
 import {
@@ -43,6 +45,7 @@ export default function infoUserView(props) {
     chooseImageLibrary,
     saveChangesHandle,
     textInputNewPass,
+    isloading,
   } = props;
 
   return (
@@ -57,7 +60,7 @@ export default function infoUserView(props) {
             }}
             style={styles.avatarContainer}>
             <View style={styles.avatarView}>
-              <Image source={{uri: data.Avatar}} size={80} style={styles.img} />
+              <Image source={{ uri: data.Avatar }} size={80} style={styles.img} />
             </View>
             <TouchableOpacity
               onPress={() => setvisibleChooseImage(true)}
@@ -334,7 +337,7 @@ export default function infoUserView(props) {
         </View>
       </Modal>
       <ImageView
-        images={[{uri: data.Avatar}]}
+        images={[{ uri: data.Avatar }]}
         imageIndex={0}
         visible={visibleViewing}
         onRequestClose={() => setvisibleViewing(false)}
@@ -346,6 +349,12 @@ export default function infoUserView(props) {
         onClosePress={() => setvisibleChooseImage(false)}
         isVisible={visibleChooseImage}
       />
+      {isloading &&
+        // eslint-disable-next-line react-native/no-inline-styles
+        <Col center style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+          <Loading />
+        </Col>
+      }
     </SafeAreaView>
   );
 }
