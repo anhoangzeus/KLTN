@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import SIZE from 'constants/size';
-import { normalize } from 'react-native-elements';
+import {normalize} from 'react-native-elements';
 
 export default StyleSheet.create({
   screenContainersafe: {
@@ -210,5 +210,14 @@ export default StyleSheet.create({
   },
   maginIcon: {
     marginLeft: SIZE.DEVICE_WIDTH / 40,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
   },
 });

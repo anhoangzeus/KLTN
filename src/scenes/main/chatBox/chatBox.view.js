@@ -34,11 +34,17 @@ class ChatBoxContainer extends React.Component {
   }
 
   chatMessage = ({item}) => {
+    //console.log('gia tri image: ', item.Image);
     return item.Type === 'CUS' ? (
       <View style={{flexDirection: 'row'}}>
-        <View style={styles.messageView}>
-          <Text style={styles.messText}>{item.Text}</Text>
-        </View>
+        {item.Image === '' || item.Image === undefined ? (
+          <View style={styles.messageView}>
+            <Text style={styles.messText}>{item.Text}</Text>
+          </View>
+        ) : (
+          <Image source={{uri: item.Image}} style={styles.msgImage} />
+        )}
+
         <Text style={{...styles.messTime, marginLeft: normalize(15)}}>
           {moment.unix(item.CreatedTime).format('hh:mm MM-DD-YY')}
         </Text>
@@ -48,14 +54,27 @@ class ChatBoxContainer extends React.Component {
         <Text style={{...styles.messTime, marginRight: normalize(15)}}>
           {moment.unix(item.CreatedTime).format('hh:mm MM-DD-YY')}
         </Text>
-        <View style={{...styles.messageView, backgroundColor: '#0084ff'}}>
-          <Text style={{...styles.messText, color: '#fff'}}>{item.Text}</Text>
-        </View>
+
+        {item.Image === '' || item.Image === undefined ? (
+          <View style={{...styles.messageView, backgroundColor: '#0084ff'}}>
+            <Text style={styles.text}>{item.Text}</Text>
+          </View>
+        ) : (
+          <Image source={{uri: item.Image}} style={styles.msgImage} />
+        )}
       </View>
     );
   };
   render() {
-    const {Name, listchat, textchat, onChangeText, sentMessage} = this.props;
+    const {
+      Name,
+      listchat,
+      textchat,
+      onChangeText,
+      sentMessage,
+      openGalary,
+      //loading,
+    } = this.props;
     const {onInputChat} = this.state;
 
     if (Platform.OS === 'ios') {
@@ -120,6 +139,12 @@ class ChatBoxContainer extends React.Component {
                 height: onInputChat ? width * 0.24 : height * 0.07,
               }}>
               <View style={{flexDirection: 'row'}}>
+                <TouchableOpacity onPress={() => openGalary()}>
+                  <Image
+                    source={require('../../../assets/images/ic_sendmess.png')}
+                    style={styles.iconsend}
+                  />
+                </TouchableOpacity>
                 <TextInput
                   style={styles.vChat}
                   placeholder={'Soạn tin...'}
@@ -202,6 +227,12 @@ class ChatBoxContainer extends React.Component {
               height: onInputChat ? width * 0.24 : height * 0.07,
             }}>
             <View style={{flexDirection: 'row'}}>
+              <TouchableOpacity onPress={() => openGalary()}>
+                <Image
+                  source={require('../../../assets/images/ic_sendmess.png')}
+                  style={styles.iconsend}
+                />
+              </TouchableOpacity>
               <TextInput
                 style={styles.vChat}
                 placeholder={'Soạn tin...'}

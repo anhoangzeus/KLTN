@@ -14,7 +14,7 @@ import {
 import styles from './DetailAddress.styles';
 import * as Animatable from 'react-native-animatable';
 import CheckBox from '@react-native-community/checkbox';
-import { Picker } from '@react-native-picker/picker';
+import {Picker} from '@react-native-picker/picker';
 import RNPickerSelect from 'react-native-picker-select';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Header from 'components/Header';
@@ -32,7 +32,6 @@ function DetailAddressView(props) {
     saveChangesHandle,
     CheckBoxChange,
   } = props;
-  console.log('province data', provinceData());
   return (
     <SafeAreaView style={styles.screenContainer}>
       <View style={styles.screenContainer2}>
@@ -71,7 +70,7 @@ function DetailAddressView(props) {
               <View style={styles.divider} />
             ) : (
               // eslint-disable-next-line react-native/no-inline-styles
-              <View style={{ height: 2, backgroundColor: 'red' }} />
+              <View style={{height: 2, backgroundColor: 'red'}} />
             )}
 
             <View style={styles.userContainer}>
@@ -105,7 +104,7 @@ function DetailAddressView(props) {
               <View style={styles.divider} />
             ) : (
               // eslint-disable-next-line react-native/no-inline-styles
-              <View style={{ height: 2, backgroundColor: 'red' }} />
+              <View style={{height: 2, backgroundColor: 'red'}} />
             )}
             <View style={styles.userContainer}>
               <View style={styles.textContainer}>
@@ -137,7 +136,7 @@ function DetailAddressView(props) {
               <View style={styles.divider} />
             ) : (
               // eslint-disable-next-line react-native/no-inline-styles
-              <View style={{ height: 2, backgroundColor: 'red' }} />
+              <View style={{height: 2, backgroundColor: 'red'}} />
             )}
             <View style={styles.divider} />
             <View style={styles.userContainer}>
@@ -149,7 +148,7 @@ function DetailAddressView(props) {
                     selectedValue={data.City}
                     mode="dialog"
                     onValueChange={(value) => {
-                      setData({ ...data, City: value });
+                      setData({...data, City: value});
                     }}>
                     {provinceData()}
                   </Picker>
@@ -157,7 +156,7 @@ function DetailAddressView(props) {
                   <RNPickerSelect
                     style={styles.picker}
                     onValueChange={(value) => {
-                      setData({ ...data, City: value });
+                      setData({...data, City: value});
                     }}
                     items={provinceData()}
                   />
@@ -174,14 +173,14 @@ function DetailAddressView(props) {
                     selectedValue={data.Huyen}
                     mode="dialog"
                     onValueChange={(value) => {
-                      setData({ ...data, Huyen: value });
+                      setData({...data, Huyen: value});
                     }}>
                     {districtData(data.City)}
                   </Picker>
                 ) : (
                   <RNPickerSelect
                     onValueChange={(value) => {
-                      setData({ ...data, Huyen: value });
+                      setData({...data, Huyen: value});
                     }}
                     items={districtData(data.City)}
                     style={styles.picker1}
@@ -196,14 +195,14 @@ function DetailAddressView(props) {
                     selectedValue={data.Xa}
                     mode="dialog"
                     onValueChange={(value) => {
-                      setData({ ...data, Xa: value });
+                      setData({...data, Xa: value});
                     }}>
                     {wardData(data.City, data.Huyen)}
                   </Picker>
                 ) : (
                   <RNPickerSelect
                     onValueChange={(value) => {
-                      setData({ ...data, Xa: value });
+                      setData({...data, Xa: value});
                     }}
                     items={wardData(data.City, data.Huyen)}
                   />
@@ -225,7 +224,6 @@ function DetailAddressView(props) {
             </View>
           </View>
           <View style={styles.divider} />
-
         </ScrollView>
         <TouchableOpacity
           style={styles.btnSubmit}
