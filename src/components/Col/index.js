@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { View } from 'react-native';
@@ -45,7 +46,7 @@ class Col extends Component {
     }
 
     render() {
-        const { children, style, width, height, leftContent, rightContent, centerHorizontal, centerVertical, center, fillParent, shrink } = this.props;
+        const { children, style, width, height, leftContent, rightContent, centerHorizontal, centerVertical, center, fillParent, Component, shrink } = this.props;
         const styles = [
             {
                 ...(leftContent ? { alignItems: 'flex-start' } : {}),

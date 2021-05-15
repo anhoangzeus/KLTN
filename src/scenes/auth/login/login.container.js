@@ -153,6 +153,10 @@ function LoginContainer({ navigation }) {
         }
       });
   };
+  // const GetCurrentDate = () => {
+  //   var date = moment().format('dd--MM-yyyy');
+  //   return date;
+  // };
   // const loginFacebook = async () => {
   //     const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
   //     if (result.isCancelled) {

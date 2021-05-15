@@ -1,10 +1,10 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 
-import React from 'react';
-import RegisterView from './register.view';
-import auth from '@react-native-firebase/auth';
+
 import database from '@react-native-firebase/database';
+import SCENE_NAMES from 'constants/sceneName';
+import React from 'react';
+import NavigationServices from 'utils/navigationServices';
+import RegisterView from './register.view';
 
 const functionsCounter = new Set();
 
@@ -28,15 +28,7 @@ export default function RegisterContainer({ navigation }) {
         textAlert: '',
     });
 
-    const GetCurrentDate = () => {
-        var date = new Date().getDate();
-        var month = new Date().getMonth() + 1;
-        var year = new Date().getFullYear();
-        setData({
-            ...data,
-            CreateDate: date + '/' + month + '/' + year,
-        });
-    };
+
     const textInputChange = (val) => {
         if (val.length !== 0) {
             setData({
@@ -52,8 +44,11 @@ export default function RegisterContainer({ navigation }) {
             });
         }
     };
+    let isEmailAddress = val => {
+        return /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(val) || /w+([-+.]w+)*@w+([-.]w+)*.w+([-.]w+)*/.test(val);
+    };
     const textInputChange1 = (val) => {
-        if (val.length >= 6) {
+        if (val.length >= 6 && isEmailAddress(val)) {
             setData({
                 ...data,
                 username: val,
@@ -98,30 +93,41 @@ export default function RegisterContainer({ navigation }) {
             modalVisible: false,
             modalVisibleWarning: false,
         });
-        const setModalVisible = async (visible, text) => {
-            await (setData({
-                ...data,
-                modalVisible: visible,
-                textAlert: text,
-            }, setTimeout(handleClose, 2000)));
-        };
-        const setModalVisibleWarning = (visible, text) => {
-            setData({
-                ...data,
-                modalVisibleWarning: visible,
-                textAlert: text,
-            }, setTimeout(handleClose, 2000));
-        };
+
     };
-    let isEmailAddress = val => {
-        return /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(val) || /w+([-+.]w+)*@w+([-.]w+)*.w+([-.]w+)*/.test(val);
+    // const setModalVisible = async (visible, text) => {
+    //     await (setData({
+    //         ...data,
+    //         modalVisible: visible,
+    //         textAlert: text,
+    //     }, setTimeout(handleClose, 2000)));
+    // };
+    const setModalVisibleWarning = (visible, text) => {
+        setData({
+            ...data,
+            modalVisibleWarning: visible,
+            textAlert: text,
+        }, setTimeout(handleClose, 2000));
+    };
+
+    const checkUserExist = (email) => {
+        var temp = true;
+        database().ref('Users').once('value').then((snapshot) => {
+            snapshot.forEach((child) => {
+                if (child.val().Email === email) {
+                    temp = false;
+                    if (!temp) { return temp; }
+                }
+            });
+        });
+        return temp;
     };
     const registerHandle = () => {
         if (!isEmailAddress(data.username)) {
             setModalVisibleWarning(true, 'Email sai định dạng');
             return;
         }
-        if (data.fullname.length < 6) {
+        if (data.fullname.length === 0) {
             setModalVisibleWarning(true, 'Quý khách chưa nhập Họ tên');
             return;
         }
@@ -129,32 +135,11 @@ export default function RegisterContainer({ navigation }) {
             setModalVisibleWarning(true, 'Mật khẩu chưa đủ độ dài');
             return;
         }
-        GetCurrentDate();
-        auth()
-            .createUserWithEmailAndPassword(data.username, data.password)
-            .then(() => {
-                database().ref('Users').child(auth().currentUser.uid).set({
-                    FullName: data.fullname,
-                    CreatedDate: data.CreateDate,
-                    CreatedBy: data.Createby,
-                    Status: data.Status,
-                    UserID: auth().currentUser.uid,
-                    Passwords: data.password,
-                    Email: data.username,
-                    Avatar: data.Avatar,
-                    UserName: data.username,
-                });
-                setModalVisible(true, 'Đăng kí thành công');
-            })
-            .catch(error => {
-                if (error.code === 'auth/email-already-in-use') {
-                    setModalVisibleWarning(true, 'Email này đã có người sử dụng');
-                }
-                if (error.code === 'auth/invalid-email') {
-                    setModalVisibleWarning(true, 'Email không đúng định dạng!');
-                }
-                return;
-            });
+        if (checkUserExist(data.username)) {
+            setModalVisibleWarning(true, 'Email này đã có người sử dụng');
+        } else {
+            NavigationServices.navigate(SCENE_NAMES.REGISER_OTP, { codeOTP: 123456, data: data });
+        }
     };
     functionsCounter.add(textInputChange);
     functionsCounter.add(registerHandle);
