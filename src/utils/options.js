@@ -4,14 +4,14 @@ const chooseImageOptions = {
     maxHeight: 1024,
     storageOptions: {
         skipBackup: true,
-        path: 'images'
+        path: 'images',
     },
-    mediaType: "photo",
-    cameraType: "back",
+    mediaType: 'photo',
+    cameraType: 'back',
     allowsEditing: true,
-    includeBase64: false
+    includeBase64: false,
 };
 
 export {
-    chooseImageOptions
-}
+    chooseImageOptions,
+};
