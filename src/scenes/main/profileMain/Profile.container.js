@@ -23,6 +23,7 @@ function ProfileMainContainer({navigation}) {
           setFullName(snapshot.val().FullName);
           setEmail(snapshot.val().Email);
           setAvatar(snapshot.val().Avatar);
+          setMerchant(snapshot.val().Merchant);
         });
     }
   };

@@ -16,10 +16,8 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
   },
   userContainer: {
-    marginTop: 5,
     backgroundColor: '#fff',
     flexDirection: 'row',
-    height: height / 4,
   },
   totalContainer1: {
     marginTop: 5,
@@ -53,12 +51,12 @@ export default StyleSheet.create({
     fontSize: height / 40,
   },
   textContainer: {
-    flex: 1,
+    flex: 2,
     marginLeft: 10,
   },
   welcomeText: {
-    color: 'black',
-    fontSize: height / 40,
+    color: 'gray',
+    fontSize: height / 50,
     marginTop: height / 100,
   },
   divider: {
@@ -88,6 +86,10 @@ export default StyleSheet.create({
     color: 'black',
     fontSize: height / 40,
     marginTop: height / 40,
+  },
+  subText: {
+    fontSize: height / 50,
+    color: '#ededed',
   },
   errtext: {
     color: 'red',

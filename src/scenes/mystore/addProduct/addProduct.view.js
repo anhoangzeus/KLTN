@@ -81,6 +81,7 @@ export default function AddProductView(props) {
                   autoCapitalize="none"
                   placeholder="mô tả sản phẩm ..."
                   style={styles.welcomeText}></TextInput>
+
                 {/* <Animatable.View animation="fadeInLeft" duration={500}>
                     <Text style={styles.errorMsg}>Tên không hợp lệ</Text>
                   </Animatable.View> */}

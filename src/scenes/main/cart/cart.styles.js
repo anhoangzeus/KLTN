@@ -1,6 +1,6 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
-const { width, height } = Dimensions.get('screen');
+const {width, height} = Dimensions.get('screen');
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
@@ -85,11 +85,11 @@ export default StyleSheet.create({
   },
   address: {
     marginTop: 5,
-    fontSize: 17,
+    fontSize: height / 50,
   },
   addresstitle: {
     fontWeight: 'bold',
-    fontSize: 17,
+    fontSize: height / 50,
     color: '#000',
   },
   centeredView: {

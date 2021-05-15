@@ -59,7 +59,7 @@ export default StyleSheet.create({
   },
   address: {
     marginTop: 5,
-    fontSize: 17,
+    fontSize: height / 50,
   },
   addresstitle: {
     fontWeight: 'bold',
