@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import SIZE from 'constants/size';
-import { normalize } from 'react-native-elements';
+import {normalize} from 'react-native-elements';
 
 export default StyleSheet.create({
   screenContainersafe: {

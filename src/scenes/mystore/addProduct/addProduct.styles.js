@@ -57,7 +57,8 @@ export default StyleSheet.create({
   },
   welcomeText: {
     color: 'black',
-    fontSize: height / 40,
+    fontSize: height / 50,
+    marginTop: height / 100,
   },
   divider: {
     height: 2,
@@ -131,12 +132,8 @@ export default StyleSheet.create({
   picker: {
     height: 40,
     width: width,
+    marginLeft: width / 20,
   },
-  picker1: {
-    height: 40,
-    width: width / 2,
-  },
-
   btnSubmit: {
     backgroundColor: '#2B4F8C',
     marginHorizontal: 10,
@@ -154,6 +151,10 @@ export default StyleSheet.create({
     color: '#1e1e1e',
     fontSize: 20,
     flex: 1,
+  },
+  selectText: {
+    color: '#1e1e1e',
+    fontSize: 20,
   },
   cardOption: {
     height: height / 15,

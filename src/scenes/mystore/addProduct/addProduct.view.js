@@ -1,5 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react/self-closing-comp */
 /* eslint-disable no-unused-vars */
 import * as React from 'react';
 import {
@@ -22,17 +20,20 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Header from 'components/Header';
 import {TextInput} from 'react-native-gesture-handler';
 import PopupChooseImage from 'components/PopupChooseImage';
+import RNPickerSelect from 'react-native-picker-select';
 import {set} from 'lodash-es';
+import {ScreenStackHeaderRightView} from 'react-native-screens';
 const {height, width} = Dimensions.get('screen');
-const ProfileItem = ({icon, name, color}) => (
+const ProfileItem = ({icon, name, color, data, isSlect, onChange}) => (
   <View style={styles.itemContainer}>
     <MaterialCommunityIcons name={icon} size={26} color={color} />
     <Text style={styles.itemText}>{name}</Text>
+
     <FontAwesome
       name="angle-right"
       size={26}
       color="#1e1e1e"
-      style={{marginRight: 0}}
+      style={{marginRight: width / 20}}
     />
   </View>
 );
@@ -43,7 +44,18 @@ export default function AddProductView(props) {
     setChooseImage,
     chooseImageLibrary,
     chooseImageTake,
+    onChangeDes,
+    onChangeKeyWord,
+    onChangeName,
+    setCategory,
+    cateName,
+    name,
+    des,
+    keyword,
+    cate,
+    dataCate,
   } = props;
+  console.log('data cua cate: ', dataCate);
   return (
     <SafeAreaView style={styles.screenContainer}>
       <View style={styles.screenContainer2}>
@@ -71,15 +83,37 @@ export default function AddProductView(props) {
               keyboardType="default"
               placeholderTextColor="#666666"
               autoCapitalize="none"
+              onChangeText={(val) => {
+                onChangeName(val);
+              }}
               placeholder="nhập tên sản phẩm"
-              style={styles.welcomeText}></TextInput>
+              style={styles.welcomeText}>
+              {name}
+            </TextInput>
             <Text style={styles.titletext}>Mô tả sản phẩm</Text>
             <TextInput
               keyboardType="default"
               placeholderTextColor="#666666"
               autoCapitalize="none"
               placeholder="mô tả sản phẩm ..."
-              style={styles.welcomeText}></TextInput>
+              onChangeText={(val) => {
+                onChangeDes(val);
+              }}
+              style={styles.welcomeText}>
+              {des}
+            </TextInput>
+            <Text style={styles.titletext}>Từ khoá tìm kiếm</Text>
+            <TextInput
+              keyboardType="default"
+              placeholderTextColor="#666666"
+              autoCapitalize="none"
+              placeholder="Từ khoá tìm kiếm ..."
+              onChangeText={(val) => {
+                onChangeKeyWord(val);
+              }}
+              style={styles.welcomeText}>
+              {keyword}
+            </TextInput>
             {/* <Animatable.View animation="fadeInLeft" duration={500}>
                     <Text style={styles.errorMsg}>Tên không hợp lệ</Text>
                   </Animatable.View> */}
@@ -89,13 +123,30 @@ export default function AddProductView(props) {
           <View style={styles.userContainer}>
             {/* <View style={styles.cardOption}> */}
             <View style={styles.nameView}>
-              <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
-                <ProfileItem
-                  icon="format-list-bulleted"
-                  name="Danh mục"
-                  color="#2B4F8C"
-                />
-              </TouchableOpacity>
+              <View style={styles.cardOption}>
+                <View style={styles.itemContainer}>
+                  <MaterialCommunityIcons
+                    name={'format-list-bulleted'}
+                    size={26}
+                    color={'#2B4F8C'}
+                  />
+                  <Text style={styles.itemText}>Danh mục</Text>
+
+                  <RNPickerSelect
+                    style={styles.picker}
+                    onValueChange={(value, index) => setCategory(value, index)}
+                    items={dataCate}>
+                    <Text style={styles.selectText}>{cateName}</Text>
+                  </RNPickerSelect>
+
+                  <FontAwesome
+                    name="angle-right"
+                    size={26}
+                    color="#1e1e1e"
+                    style={{marginRight: width / 20}}
+                  />
+                </View>
+              </View>
               <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
                 <ProfileItem icon="bookmark-outline" name="Giá" color="gold" />
               </TouchableOpacity>

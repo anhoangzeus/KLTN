@@ -12,6 +12,8 @@ import NavigationServices, {getParams} from 'utils/navigationServices';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {chooseImageOptions} from '../../../utils/options';
 import moment from 'moment';
+import {func} from 'prop-types';
+import {constant} from 'lodash-es';
 const functionsCounter = new Set();
 
 export default function AddProductContainer({navigation}) {
@@ -27,11 +29,14 @@ export default function AddProductContainer({navigation}) {
   });
   const [name, setName] = useState('');
   const [des, setDes] = useState('');
+  const [keyword, setKeyWord] = useState('');
   const [cate, setCate] = useState('');
+  const [cateName, setCateName] = useState('chọn danh mục');
   const [price, setPrice] = useState(0);
   const [ship, setShip] = useState(0);
   const [info, setInfo] = useState('');
   const [sale, setSale] = useState(0);
+  const [dataCate, setDataCate] = useState([]);
   const pairToSubmitImage = (response) => {
     console.log('aaa');
     if (response.didCancel) {
@@ -77,15 +82,70 @@ export default function AddProductContainer({navigation}) {
       pairToSubmitImage(response);
     });
   };
+
+  const getDataCate = async () => {
+    let arr = new Array([]);
+    await database()
+      .ref('Catogorys')
+      .once('value')
+      .then((snapshot) => {
+        snapshot.forEach(function (childSnapshot) {
+          const item = {
+            label: childSnapshot.val().Name,
+            value: childSnapshot.val().CateProductID,
+          };
+          arr.push(item);
+        });
+      });
+    setDataCate(arr);
+    console.log('data cua mang cate: ', dataCate);
+  };
+  const setCategory = ({value, index}) => {
+    setCate(value);
+    //console.log('data của mảng cate: ', dataCate);
+    setCateName(dataCate[index].title);
+  };
+
+  const onChangeName = (text) => {
+    setName(text);
+  };
+  const onChangeDes = (text) => {
+    setDes(text);
+  };
+  const onChangeKeyWord = (text) => {
+    setKeyWord(text);
+  };
+  useEffect(() => {
+    getDataCate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataCate]);
   //functionsCounter.add(setChooseImage);
   functionsCounter.add(chooseImageLibrary);
   functionsCounter.add(chooseImageTake);
+  functionsCounter.add(onChangeName);
+  functionsCounter.add(onChangeDes);
+  functionsCounter.add(onChangeKeyWord);
+  functionsCounter.add(setCategory);
   return (
     <AddProductView
       //chooseImage={chooseImage}
-     // setChooseImage={setChooseImage}
+      // setChooseImage={setChooseImage}
       chooseImageLibrary={chooseImageLibrary}
       chooseImageTake={chooseImageTake}
+      onChangeDes={onChangeDes}
+      onChangeKeyWord={onChangeKeyWord}
+      onChangeName={onChangeName}
+      setCategory={setCategory}
+      name={name}
+      des={des}
+      keyword={keyword}
+      cate={cate}
+      price={price}
+      ship={ship}
+      info={ship}
+      sale={sale}
+      dataCate={dataCate}
+      cateName={cateName}
     />
   );
 }
