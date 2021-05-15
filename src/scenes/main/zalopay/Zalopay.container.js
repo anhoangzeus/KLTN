@@ -13,6 +13,7 @@ import auth from '@react-native-firebase/auth';
 import CryptoJS from 'crypto-js';
 import NavigationServices, {getParams} from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
+
 const {PayZaloBridge} = NativeModules;
 const payZaloBridgeEmitter = new NativeEventEmitter(PayZaloBridge);
 let apptransid;
@@ -75,15 +76,12 @@ export default function ZalopayContainer({navigation, route}) {
   const subscription = payZaloBridgeEmitter.addListener(
     'EventPayZalo',
     (data) => {
-      console.log('thanh toan tra ve ', data.returnCode);
+      console.log('return code : ', data);
       if (data.returnCode == 1 && check === 0) {
-        console.log('thanh cong');
-        // eslint-disable-next-line no-use-before-define
-        thanhToan();
+        //thanhToan();
         setCheck(1);
         //data.returnCode = 0;
       } else if (data.returnCode == 4) {
-        console.log('thanh toan bi huy');
         NavigationServices.navigate(SCENE_NAMES.HOME);
       }
     },
@@ -110,8 +108,6 @@ export default function ZalopayContainer({navigation, route}) {
 
     let appid = 553;
     let amount = routes.amount + routes.shipMoney;
-    console.log('gia tri amount:', routes.amount);
-    console.log('gia tri ship money', routes.shipMoney);
     setamount(amount);
     let appuser = 'TiAn';
     let apptime = new Date().getTime();
@@ -176,7 +172,7 @@ export default function ZalopayContainer({navigation, route}) {
     setmodal(false);
   }
   function thanhToan() {
-    console.log('vao ham thanh toan');
+    console.log('tong cong: ');
     var key = database().ref().child('Orders/').push().key;
     database()
       .ref('Orders/' + key)
@@ -189,7 +185,7 @@ export default function ZalopayContainer({navigation, route}) {
         OrderID: key,
         Payment: '02',
         ShipPayment: routes.shipMonney,
-        Total: route.params.amount + route.params.shipMonney,
+        Total: amountprice,
         CustomerID: auth().currentUser.uid,
         ShipLocation: address.Location,
         TimeLine: {
@@ -228,12 +224,19 @@ export default function ZalopayContainer({navigation, route}) {
             .set({});
         });
       });
-    console.log('thanh toan thanh cong');
+
     setmodal(true);
   }
   useEffect(() => {
     createOrder();
   }, []);
+
+  useEffect(() => {
+    if (check === 1) {
+      thanhToan();
+      setCheck(2);
+    }
+  }, [check]);
   functionsCounter.add(getStatus);
   functionsCounter.add(createOrder);
   functionsCounter.add(payOrder);

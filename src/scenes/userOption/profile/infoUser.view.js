@@ -1,19 +1,28 @@
 import CheckBox from '@react-native-community/checkbox';
 import auth from '@react-native-firebase/auth';
+import Col from 'components/Col';
 import Header from 'components/Header';
+import Loading from 'components/LoadingView';
 import PopupChooseImage from 'components/PopupChooseImage';
 import * as React from 'react';
 import {
-  Alert, Image, KeyboardAvoidingView, Modal,
-  SafeAreaView, ScrollView, StatusBar, Text,
-  TextInput, TouchableOpacity, View
+  Alert,
+  Image,
+  KeyboardAvoidingView,
+  Modal,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import ImageView from 'react-native-image-viewing';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import styles from './infoUser.styles';
-
 
 export default function infoUserView(props) {
   const {
@@ -36,6 +45,7 @@ export default function infoUserView(props) {
     chooseImageLibrary,
     saveChangesHandle,
     textInputNewPass,
+    isloading,
   } = props;
 
   return (
@@ -44,12 +54,21 @@ export default function infoUserView(props) {
       <Header title={'Thông tin tài khoản'} />
       <ScrollView>
         <KeyboardAvoidingView behavior="padding">
-          <TouchableOpacity onPress={() => { setvisibleViewing(true) }} style={styles.avatarContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              setvisibleViewing(true);
+            }}
+            style={styles.avatarContainer}>
             <View style={styles.avatarView}>
               <Image source={{ uri: data.Avatar }} size={80} style={styles.img} />
             </View>
-            <TouchableOpacity onPress={() => setvisibleChooseImage(true)} style={styles.toudhCamera}>
-              <Image source={require('../../../assets/images/camera.png')} style={styles.camera} />
+            <TouchableOpacity
+              onPress={() => setvisibleChooseImage(true)}
+              style={styles.toudhCamera}>
+              <Image
+                source={require('../../../assets/images/camera.png')}
+                style={styles.camera}
+              />
             </TouchableOpacity>
           </TouchableOpacity>
           <View style={styles.userContainer}>
@@ -321,13 +340,21 @@ export default function infoUserView(props) {
         images={[{ uri: data.Avatar }]}
         imageIndex={0}
         visible={visibleViewing}
-        onRequestClose={() => setvisibleViewing(false)} />
+        onRequestClose={() => setvisibleViewing(false)}
+      />
       {/* Popup choose image */}
       <PopupChooseImage
         onChooseTake={chooseImageTake}
         onChooseLibrary={chooseImageLibrary}
         onClosePress={() => setvisibleChooseImage(false)}
-        isVisible={visibleChooseImage} />
-    </SafeAreaView >
+        isVisible={visibleChooseImage}
+      />
+      {isloading &&
+        // eslint-disable-next-line react-native/no-inline-styles
+        <Col center style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+          <Loading />
+        </Col>
+      }
+    </SafeAreaView>
   );
 }

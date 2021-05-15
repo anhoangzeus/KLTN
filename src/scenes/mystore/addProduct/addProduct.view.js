@@ -24,9 +24,9 @@ import {TextInput} from 'react-native-gesture-handler';
 import PopupChooseImage from 'components/PopupChooseImage';
 import {set} from 'lodash-es';
 const {height, width} = Dimensions.get('screen');
-const ProfileItem = ({icon, name}) => (
+const ProfileItem = ({icon, name, color}) => (
   <View style={styles.itemContainer}>
-    <MaterialCommunityIcons name={icon} size={26} color="#1e1e1e" />
+    <MaterialCommunityIcons name={icon} size={26} color={color} />
     <Text style={styles.itemText}>{name}</Text>
     <FontAwesome
       name="angle-right"
@@ -64,51 +64,60 @@ export default function AddProductView(props) {
             </View>
           </TouchableOpacity>
           <View style={styles.divider} />
-          <View style={styles.userContainer}>
-            <View style={styles.textContainer}>
-              <View style={styles.nameView}>
-                <Text style={styles.titletext}>Tên sản phẩm</Text>
-                <TextInput
-                  keyboardType="default"
-                  placeholderTextColor="#666666"
-                  autoCapitalize="none"
-                  placeholder="nhập tên sản phẩm"
-                  style={styles.welcomeText}></TextInput>
-                <Text style={styles.titletext}>Mô tả sản phẩm</Text>
-                <TextInput
-                  keyboardType="default"
-                  placeholderTextColor="#666666"
-                  autoCapitalize="none"
-                  placeholder="mô tả sản phẩm ..."
-                  style={styles.welcomeText}></TextInput>
 
-                {/* <Animatable.View animation="fadeInLeft" duration={500}>
+          <View style={styles.nameView}>
+            <Text style={styles.titletext}>Tên sản phẩm</Text>
+            <TextInput
+              keyboardType="default"
+              placeholderTextColor="#666666"
+              autoCapitalize="none"
+              placeholder="nhập tên sản phẩm"
+              style={styles.welcomeText}></TextInput>
+            <Text style={styles.titletext}>Mô tả sản phẩm</Text>
+            <TextInput
+              keyboardType="default"
+              placeholderTextColor="#666666"
+              autoCapitalize="none"
+              placeholder="mô tả sản phẩm ..."
+              style={styles.welcomeText}></TextInput>
+            {/* <Animatable.View animation="fadeInLeft" duration={500}>
                     <Text style={styles.errorMsg}>Tên không hợp lệ</Text>
                   </Animatable.View> */}
-              </View>
-            </View>
           </View>
+
           <View style={styles.divider} />
           <View style={styles.userContainer}>
             {/* <View style={styles.cardOption}> */}
             <View style={styles.nameView}>
               <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
-                <ProfileItem icon="format-list-bulleted" name="Danh mục" />
+                <ProfileItem
+                  icon="format-list-bulleted"
+                  name="Danh mục"
+                  color="#2B4F8C"
+                />
               </TouchableOpacity>
               <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
-                <ProfileItem icon="bookmark-outline" name="Giá" />
+                <ProfileItem icon="bookmark-outline" name="Giá" color="gold" />
               </TouchableOpacity>
               <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
-                <ProfileItem icon="truck" name="Vận chuyển" />
+                <ProfileItem icon="truck" name="Vận chuyển" color="green" />
               </TouchableOpacity>
               <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
-                <ProfileItem icon="information-variant" name="Tình trạng" />
+                <ProfileItem
+                  icon="information-variant"
+                  name="Tình trạng"
+                  color="black"
+                />
               </TouchableOpacity>
               <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
-                <ProfileItem icon="sale" name="Khuyến Mãi" />
+                <ProfileItem icon="sale" name="Khuyến Mãi" color="red" />
               </TouchableOpacity>
               <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
-                <ProfileItem icon="facebook" name="Chia sẻ lên facebook" />
+                <ProfileItem
+                  icon="facebook"
+                  name="Chia sẻ lên facebook"
+                  color="blue"
+                />
               </TouchableOpacity>
             </View>
             {/* </View> */}

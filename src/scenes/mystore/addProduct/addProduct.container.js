@@ -25,7 +25,13 @@ export default function AddProductContainer({navigation}) {
     info: '',
     sale: '',
   });
-  const [chooseImage, setChooseImage] = useState(false);
+  const [name, setName] = useState('');
+  const [des, setDes] = useState('');
+  const [cate, setCate] = useState('');
+  const [price, setPrice] = useState(0);
+  const [ship, setShip] = useState(0);
+  const [info, setInfo] = useState('');
+  const [sale, setSale] = useState(0);
   const pairToSubmitImage = (response) => {
     console.log('aaa');
     if (response.didCancel) {
@@ -71,13 +77,13 @@ export default function AddProductContainer({navigation}) {
       pairToSubmitImage(response);
     });
   };
-  functionsCounter.add(setChooseImage);
+  //functionsCounter.add(setChooseImage);
   functionsCounter.add(chooseImageLibrary);
   functionsCounter.add(chooseImageTake);
   return (
     <AddProductView
-      chooseImage={chooseImage}
-      setChooseImage={setChooseImage}
+      //chooseImage={chooseImage}
+     // setChooseImage={setChooseImage}
       chooseImageLibrary={chooseImageLibrary}
       chooseImageTake={chooseImageTake}
     />

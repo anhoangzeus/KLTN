@@ -26,7 +26,7 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     width: width,
     height: height * 0.3,
-    marginTop: width / 100,
+    marginTop: height / 15,
   },
   listItem: {
     backgroundColor: '#fff',

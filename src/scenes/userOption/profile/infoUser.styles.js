@@ -211,4 +211,13 @@ export default StyleSheet.create({
   maginIcon: {
     marginLeft: SIZE.DEVICE_WIDTH / 40,
   },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+  },
 });
