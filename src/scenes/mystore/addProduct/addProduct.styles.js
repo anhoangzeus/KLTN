@@ -152,6 +152,11 @@ export default StyleSheet.create({
     fontSize: 20,
     flex: 1,
   },
+  cardText: {
+    marginTop: -height / 25,
+    fontSize: 20,
+    marginRight: width / 10,
+  },
   selectText: {
     color: '#1e1e1e',
     fontSize: 20,
