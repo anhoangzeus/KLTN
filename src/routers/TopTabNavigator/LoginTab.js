@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, Image, StyleSheet, SafeAreaView} from 'react-native';
+import { View, Image, StyleSheet, SafeAreaView } from 'react-native';
 import LoginScreen from 'scenes/auth/login/login.container';
 import RegisterScreen from 'scenes/auth/register/register.container';
-import {HeaderBackButton} from '@react-navigation/stack';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import { HeaderBackButton } from '@react-navigation/stack';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
   containnersafe: {
     flex: 1,
-    backgroundColor: '#2196f3',
+    backgroundColor: '#2B4F8C',
   },
   image: {
     width: '100%',
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const TopStackLogin = ({props}) => {
+const TopStackLogin = ({ props }) => {
   return (
     <SafeAreaView style={styles.containnersafe}>
       <View style={styles.containner}>

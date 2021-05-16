@@ -1,10 +1,10 @@
-import {StyleSheet, Platform} from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import SIZE from 'constants/size';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1ba8ff',
+    backgroundColor: '#2B4F8C',
   },
   header: {
     flex: 1,
@@ -27,7 +27,7 @@ export default StyleSheet.create({
     fontSize: 30,
   },
   text_footer: {
-    color: '#1ba8ff',
+    color: '#2B4F8C',
     fontSize: 18,
   },
   action: {
@@ -48,7 +48,7 @@ export default StyleSheet.create({
     flex: 1,
     marginTop: Platform.OS === 'ios' ? 0 : -12,
     paddingLeft: 10,
-    color: '#1ba8ff',
+    color: '#2B4F8C',
   },
   errorMsg: {
     color: '#FF0000',
