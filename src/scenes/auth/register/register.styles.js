@@ -1,10 +1,10 @@
-import {StyleSheet, Platform} from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import SIZE from 'constants/size';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1ba8ff',
+    backgroundColor: '#2B4F8C',
   },
   header: {
     flex: 1,

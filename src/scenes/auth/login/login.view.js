@@ -1,22 +1,19 @@
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 import {
-  View,
-  Text,
-  StatusBar,
+  ActivityIndicator, Alert,
+
+  Image, Modal, Text,
+
   TextInput,
-  TouchableOpacity,
-  Alert,
-  Modal,
-  Image,
-  ActivityIndicator,
+  TouchableOpacity, View,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useTheme } from 'react-native-paper';
+import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Feather from 'react-native-vector-icons/Feather';
-import {useTheme} from 'react-native-paper';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './login.styles';
 
 const LoginView = (props) => {
@@ -35,14 +32,9 @@ const LoginView = (props) => {
     handleResetPass,
     loading,
   } = props;
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   return (
     <View style={styles.container}>
-      <StatusBar
-        backgroundColor="#1ba8ff"
-        barStyle="light-content"
-        translucent={false}
-      />
       <Animatable.View
         animation="fadeInUpBig"
         style={[
@@ -126,7 +118,7 @@ const LoginView = (props) => {
           </Animatable.View>
         )}
         <TouchableOpacity onPress={() => setModalResetPass(true)}>
-          <Text style={{color: '#009387', marginTop: 15}}>Quên mật khẩu?</Text>
+          <Text style={{ color: '#009387', marginTop: 15 }}>Quên mật khẩu?</Text>
         </TouchableOpacity>
         <View style={styles.button}>
           <TouchableOpacity
@@ -137,7 +129,7 @@ const LoginView = (props) => {
             <Text style={styles.textSign}>Đăng nhập</Text>
           </TouchableOpacity>
         </View>
-        <View style={{marginTop: 10, flexDirection: 'row'}}>
+        <View style={{ marginTop: 10, flexDirection: 'row' }}>
           <TouchableOpacity
             style={{
               ...styles.signIn1,
@@ -148,7 +140,7 @@ const LoginView = (props) => {
               loginFacebook();
             }}>
             <Ionicons name="logo-facebook" size={30} color="#fff" />
-            <Text style={[styles.textSign, {color: '#fff', marginLeft: 5}]}>
+            <Text style={[styles.textSign, { color: '#fff', marginLeft: 5 }]}>
               Facebook
             </Text>
           </TouchableOpacity>
@@ -166,9 +158,9 @@ const LoginView = (props) => {
             }}>
             <Image
               source={require('../../../assets/images/google.png')}
-              style={{width: 30, height: 30, resizeMode: 'center'}}
+              style={{ width: 30, height: 30, resizeMode: 'center' }}
             />
-            <Text style={[styles.textSign, {color: '#000000', marginLeft: 5}]}>
+            <Text style={[styles.textSign, { color: '#000000', marginLeft: 5 }]}>
               Google
             </Text>
           </TouchableOpacity>
@@ -182,17 +174,17 @@ const LoginView = (props) => {
         onRequestClose={() => {
           Alert.alert('Modal has been closed.');
         }}>
-        <View style={{flex: 1, justifyContent: 'center'}}>
+        <View style={{ flex: 1, justifyContent: 'center' }}>
           <View style={styles.modalView1}>
             <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <FontAwesome5
                 name="times-circle"
                 color="#fff"
                 size={20}
-                style={{marginLeft: 10}}
+                style={{ marginLeft: 10 }}
               />
-              <Text style={{color: '#000', textAlign: 'center', fontSize: 17}}>
+              <Text style={{ color: '#000', textAlign: 'center', fontSize: 17 }}>
                 Nhập địa chỉ Email
               </Text>
               <TouchableOpacity
