@@ -32,7 +32,7 @@ export default function AddProductContainer({navigation}) {
   const [keyword, setKeyWord] = useState('');
   const [cate, setCate] = useState('');
   const [cateName, setCateName] = useState('chọn danh mục');
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState('0');
   const [warranty, setWarranty] = useState(0);
   const [count, setCount] = useState(0);
   const [sale, setSale] = useState(0);
@@ -101,6 +101,12 @@ export default function AddProductContainer({navigation}) {
     setDataCate(arr);
     setIsLoading(false);
   };
+  const Submit = async () => {
+    console.log('price: ', price);
+    console.log('warranty: ', warranty);
+    console.log('count: ', count);
+    console.log('sale: ', sale);
+  };
 
   const onChangeName = (text) => {
     setName(text);
@@ -122,6 +128,7 @@ export default function AddProductContainer({navigation}) {
   functionsCounter.add(onChangeKeyWord);
   functionsCounter.add(setCate);
   functionsCounter.add(setCateName);
+  functionsCounter.add(Submit);
   return (
     <AddProductView
       //chooseImage={chooseImage}
@@ -131,6 +138,7 @@ export default function AddProductContainer({navigation}) {
       onChangeDes={onChangeDes}
       onChangeKeyWord={onChangeKeyWord}
       onChangeName={onChangeName}
+      Submit={Submit}
       name={name}
       des={des}
       keyword={keyword}
@@ -144,6 +152,10 @@ export default function AddProductContainer({navigation}) {
       isloading={isloading}
       setCate={setCate}
       setCateName={setCateName}
+      setCount={setCount}
+      setPrice={setPrice}
+      setSale={setSale}
+      setWarranty={setWarranty}
     />
   );
 }

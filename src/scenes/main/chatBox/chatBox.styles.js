@@ -20,7 +20,7 @@ export default StyleSheet.create({
   msgImage: {
     width: width / 2,
     height: height / 2,
-    resizeMode: 'stretch',
+    resizeMode: 'contain',
     borderRadius: 15,
     marginTop: normalize(20),
   },

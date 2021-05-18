@@ -21,43 +21,36 @@ import Header from 'components/Header';
 import {TextInput} from 'react-native-gesture-handler';
 import PopupChooseImage from 'components/PopupChooseImage';
 import RNPickerSelect from 'react-native-picker-select';
-
+import NumberFormat from 'components/NumberFormat';
 import Loading from 'components/LoadingView';
 import Col from 'components/Col';
 const {height, width} = Dimensions.get('screen');
-const ProfileItem = ({icon, name, color, data, isSlect, onChange}) => (
-  <View style={styles.itemContainer}>
-    <MaterialCommunityIcons name={icon} size={26} color={color} />
-    <Text style={styles.itemText}>{name}</Text>
-
-    {/* <FontAwesome
-      name="angle-right"
-      size={26}
-      color="#1e1e1e"
-      style={{marginRight: width / 20}}
-    /> */}
-  </View>
-);
 
 export default function AddProductView(props) {
   const {
     chooseImage,
-    setChooseImage,
     chooseImageLibrary,
     chooseImageTake,
     onChangeDes,
     onChangeKeyWord,
     onChangeName,
-    setCategory,
     setCate,
     setCateName,
     cateName,
     name,
     des,
     keyword,
-    cate,
     dataCate,
     isloading,
+    price,
+    warranty,
+    count,
+    sale,
+    setCount,
+    setPrice,
+    setSale,
+    setWarranty,
+    Submit,
   } = props;
   if (isloading) {
     return (
@@ -84,9 +77,7 @@ export default function AddProductView(props) {
           <View style={styles.divider} />
 
           <ScrollView style={styles.bodyContainer}>
-            <TouchableOpacity
-              style={styles.userContainer}
-              onPress={() => setChooseImage(true)}>
+            <TouchableOpacity style={styles.userContainer}>
               <View style={styles.imgView}>
                 <Image
                   source={require('../../../assets/images/noimage.png')}
@@ -180,41 +171,99 @@ export default function AddProductView(props) {
                     <Text style={styles.itemText}>Giá</Text>
 
                     <TextInput
-                      keyboardType="default"
+                      keyboardType="numeric"
                       placeholderTextColor="#666666"
                       autoCapitalize="none"
                       placeholder="nhập giá."
+                      onFocus={() => setPrice('')}
                       onChangeText={(val) => {
-                        onChangeKeyWord(val);
+                        setPrice(val);
                       }}
                       style={styles.cardText}>
-                      {keyword}
+                      <NumberFormat value={price} />
                     </TextInput>
+                    <Text style={styles.unit}>Vnđ</Text>
                   </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
-                  <ProfileItem
-                    icon="shield-half-full"
-                    name="Bảo hành"
-                    color="green"
-                  />
+                  <View style={styles.itemContainer}>
+                    <MaterialCommunityIcons
+                      name={'shield-half-full'}
+                      size={26}
+                      color={'green'}
+                    />
+                    <Text style={styles.itemText}>Bảo hành</Text>
+
+                    <TextInput
+                      keyboardType="numeric"
+                      placeholderTextColor="#666666"
+                      autoCapitalize="none"
+                      placeholder="nhập giá."
+                      onFocus={() => setPrice(null)}
+                      onChangeText={(val) => {
+                        setWarranty(val);
+                      }}
+                      style={styles.cardText}>
+                      {warranty}
+                    </TextInput>
+                    <Text style={styles.unit}>tháng</Text>
+                  </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
-                  <ProfileItem
-                    icon="information-variant"
-                    name="Số lượng"
-                    color="black"
-                  />
+                  <View style={styles.itemContainer}>
+                    <MaterialCommunityIcons
+                      name={'information-variant'}
+                      size={26}
+                      color={'black'}
+                    />
+                    <Text style={styles.itemText}>Số lượng</Text>
+
+                    <TextInput
+                      keyboardType="numeric"
+                      placeholderTextColor="#666666"
+                      autoCapitalize="none"
+                      placeholder="nhập số lượng"
+                      onChangeText={(val) => {
+                        setCount(val);
+                      }}
+                      style={styles.cardText}>
+                      {count}
+                    </TextInput>
+                    <Text style={styles.unit}> </Text>
+                  </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
-                  <ProfileItem icon="sale" name="Khuyến Mãi" color="red" />
+                  <View style={styles.itemContainer}>
+                    <MaterialCommunityIcons
+                      name={'sale'}
+                      size={26}
+                      color={'red'}
+                    />
+                    <Text style={styles.itemText}>Khuyến Mãi</Text>
+
+                    <TextInput
+                      keyboardType="numeric"
+                      placeholderTextColor="#666666"
+                      autoCapitalize="none"
+                      placeholder="thông tin khuyến mãi"
+                      onChangeText={(val) => {
+                        setSale(val);
+                      }}
+                      style={styles.cardText}>
+                      {sale}
+                    </TextInput>
+                    <Text style={styles.unit}>%</Text>
+                  </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.cardOption} onPress={() => {}}>
-                  <ProfileItem
-                    icon="facebook"
-                    name="Chia sẻ lên facebook"
-                    color="blue"
-                  />
+                  <View style={styles.itemContainer}>
+                    <MaterialCommunityIcons
+                      name={'facebook'}
+                      size={26}
+                      color={'blue'}
+                    />
+                    <Text style={styles.itemText}>Chia sẻ lên facebook</Text>
+                  </View>
                 </TouchableOpacity>
               </View>
               {/* </View> */}
@@ -225,14 +274,14 @@ export default function AddProductView(props) {
 
           <View style={styles.divider} />
 
-          <TouchableOpacity style={styles.btnSubmit}>
+          <TouchableOpacity style={styles.btnSubmit} onPress={() => Submit()}>
             <Text style={styles.subBtnText}>Đăng bán</Text>
           </TouchableOpacity>
         </View>
         <PopupChooseImage
           onChooseTake={chooseImageTake}
           onChooseLibrary={chooseImageLibrary}
-          onClosePress={() => setChooseImage(false)}
+          // onClosePress={() => setChooseImage(false)}
           isVisible={chooseImage}
         />
       </SafeAreaView>
