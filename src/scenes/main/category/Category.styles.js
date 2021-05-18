@@ -1,6 +1,6 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import SIZE from 'constants/size';
-const { width, height } = Dimensions.get('screen');
+const {width, height} = Dimensions.get('screen');
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
@@ -55,7 +55,7 @@ export default StyleSheet.create({
   itemContainer: {
     alignItems: 'center',
     width: width / 2,
-    height: height / 3.62,
+    height: height / 3.5,
     margin: -0.2,
     borderColor: '#2B4F8C',
     borderWidth: 1,
