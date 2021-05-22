@@ -46,6 +46,9 @@ export default function AddProductView(props) {
     warranty,
     count,
     sale,
+    popup,
+    image,
+    setPopup,
     setCount,
     setPrice,
     setSale,
@@ -77,12 +80,11 @@ export default function AddProductView(props) {
           <View style={styles.divider} />
 
           <ScrollView style={styles.bodyContainer}>
-            <TouchableOpacity style={styles.userContainer}>
+            <TouchableOpacity
+              style={styles.userContainer}
+              onPress={() => setPopup(true)}>
               <View style={styles.imgView}>
-                <Image
-                  source={require('../../../assets/images/noimage.png')}
-                  style={styles.imgPro}
-                />
+                <Image source={{uri: image}} style={styles.imgPro} />
                 <Text style={styles.imgText}>Thêm ảnh sản phẩm</Text>
               </View>
             </TouchableOpacity>
@@ -198,8 +200,8 @@ export default function AddProductView(props) {
                       keyboardType="numeric"
                       placeholderTextColor="#666666"
                       autoCapitalize="none"
-                      placeholder="nhập giá."
-                      onFocus={() => setPrice(null)}
+                      placeholder="thời gian bảo hành."
+                      onFocus={() => setWarranty(null)}
                       onChangeText={(val) => {
                         setWarranty(val);
                       }}
@@ -223,6 +225,7 @@ export default function AddProductView(props) {
                       placeholderTextColor="#666666"
                       autoCapitalize="none"
                       placeholder="nhập số lượng"
+                      onFocus={() => setCount(null)}
                       onChangeText={(val) => {
                         setCount(val);
                       }}
@@ -246,6 +249,7 @@ export default function AddProductView(props) {
                       placeholderTextColor="#666666"
                       autoCapitalize="none"
                       placeholder="thông tin khuyến mãi"
+                      onFocus={() => setSale(null)}
                       onChangeText={(val) => {
                         setSale(val);
                       }}
@@ -282,7 +286,7 @@ export default function AddProductView(props) {
           onChooseTake={chooseImageTake}
           onChooseLibrary={chooseImageLibrary}
           // onClosePress={() => setChooseImage(false)}
-          isVisible={chooseImage}
+          isVisible={popup}
         />
       </SafeAreaView>
     );

@@ -8,6 +8,7 @@ import useSelectorShallow, {
 import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
+import storage from '@react-native-firebase/storage';
 import NavigationServices, {getParams} from 'utils/navigationServices';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {chooseImageOptions} from '../../../utils/options';
@@ -27,6 +28,10 @@ export default function AddProductContainer({navigation}) {
     info: '',
     sale: '',
   });
+  const [image, setImage] = useState(
+    'https://thailamlandscape.vn/wp-content/uploads/2017/10/no-image.png',
+  );
+  const [fileName, setFileName] = useState('');
   const [name, setName] = useState('');
   const [des, setDes] = useState('');
   const [keyword, setKeyWord] = useState('');
@@ -38,6 +43,7 @@ export default function AddProductContainer({navigation}) {
   const [sale, setSale] = useState(0);
   const [dataCate, setDataCate] = useState([]);
   const [isloading, setIsLoading] = useState(true);
+  const [popup, setPopup] = useState(false);
   const pairToSubmitImage = (response) => {
     console.log('aaa');
     if (response.didCancel) {
@@ -50,13 +56,13 @@ export default function AddProductContainer({navigation}) {
       if (Platform.OS === 'android') {
         var fileExt = response.uri.split('.');
         var fileName =
-          'avartar' +
+          'product' +
           moment().format('_YYYY_MM_DD_HH_mm_ss.') +
           fileExt[fileExt.length - 1];
       } else {
         var fileExt = response.uri.split('.');
         var fileName =
-          'avartar' +
+          'product' +
           moment().format('_YYYY_MM_DD_HH_mm_ss.') +
           fileExt[fileExt.length - 1];
       }
@@ -69,8 +75,13 @@ export default function AddProductContainer({navigation}) {
             : response.uri.replace('file://', '/private'),
       });
       data1.append('secret', '123456');
+      setImage(response.uri);
+      setFileName(response.filename);
       setData({...data, Avatar: response.uri, filename: fileName});
+
+      setPopup(false);
     }
+    console.log('image được chọn:', image);
   };
   const chooseImageTake = () => {
     launchCamera(chooseImageOptions, (response) => {
@@ -106,6 +117,37 @@ export default function AddProductContainer({navigation}) {
     console.log('warranty: ', warranty);
     console.log('count: ', count);
     console.log('sale: ', sale);
+    console.log('category', cate);
+    const task = storage()
+      .ref('product/' + fileName)
+      .putFile(image);
+    try {
+      await task;
+    } catch (e) {
+      console.error(e);
+    }
+    const url = await storage()
+      .ref('products/' + data.filename)
+      .getDownloadURL();
+
+    console.log(url);
+    var date = moment().subtract(10, 'days').calendar();
+    var useID = auth().currentUser.uid;
+    database()
+      .ref('ProductUser')
+      .child(auth().currentUser.uid)
+      .push({
+        CategoryID: cate,
+        CreatedDate: date,
+        Description: des,
+        Image: url,
+        MetaDescription: keyword,
+        Name: name,
+        Price: price,
+        Status: true,
+        UserID: useID,
+      })
+      .then(console.log('thêm sản phẩm thành công'));
   };
 
   const onChangeName = (text) => {
@@ -150,6 +192,9 @@ export default function AddProductContainer({navigation}) {
       dataCate={dataCate}
       cateName={cateName}
       isloading={isloading}
+      popup={popup}
+      image={image}
+      setPopup={setPopup}
       setCate={setCate}
       setCateName={setCateName}
       setCount={setCount}
