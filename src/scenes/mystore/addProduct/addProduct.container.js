@@ -44,6 +44,7 @@ export default function AddProductContainer({navigation}) {
   const [dataCate, setDataCate] = useState([]);
   const [isloading, setIsLoading] = useState(true);
   const [popup, setPopup] = useState(false);
+  const [isUpload, setIsUpload] = useState(false);
   const pairToSubmitImage = (response) => {
     console.log('aaa');
     if (response.didCancel) {
@@ -113,41 +114,42 @@ export default function AddProductContainer({navigation}) {
     setIsLoading(false);
   };
   const Submit = async () => {
-    console.log('price: ', price);
-    console.log('warranty: ', warranty);
-    console.log('count: ', count);
-    console.log('sale: ', sale);
-    console.log('category', cate);
+    setIsUpload(true);
+    var formprice = price.replace(/\s/g, '');
+    formprice = formprice.replace(',', '');
     const task = storage()
       .ref('product/' + fileName)
       .putFile(image);
     try {
       await task;
     } catch (e) {
-      console.error(e);
+      console.error('erro put ảnh', e);
     }
     const url = await storage()
-      .ref('products/' + data.filename)
+      .ref('product/' + fileName)
       .getDownloadURL();
 
     console.log(url);
     var date = moment().subtract(10, 'days').calendar();
     var useID = auth().currentUser.uid;
+    var keyDetail = database().ref('ProductUser').child(useID).push().key;
+    console.log('key detail', keyDetail);
     database()
-      .ref('ProductUser')
-      .child(auth().currentUser.uid)
-      .push({
+      .ref('ProductUser/' + useID + '/' + keyDetail)
+      .set({
         CategoryID: cate,
         CreatedDate: date,
         Description: des,
         Image: url,
         MetaDescription: keyword,
         Name: name,
-        Price: price,
+        Price: formprice,
+        Count: count,
         Status: true,
         UserID: useID,
       })
       .then(console.log('thêm sản phẩm thành công'));
+    setIsUpload(false);
   };
 
   const onChangeName = (text) => {
@@ -194,6 +196,7 @@ export default function AddProductContainer({navigation}) {
       isloading={isloading}
       popup={popup}
       image={image}
+      isUpload={isUpload}
       setPopup={setPopup}
       setCate={setCate}
       setCateName={setCateName}

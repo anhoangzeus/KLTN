@@ -48,6 +48,7 @@ export default function AddProductView(props) {
     sale,
     popup,
     image,
+    isUpload,
     setPopup,
     setCount,
     setPrice,
@@ -281,6 +282,21 @@ export default function AddProductView(props) {
           <TouchableOpacity style={styles.btnSubmit} onPress={() => Submit()}>
             <Text style={styles.subBtnText}>Đăng bán</Text>
           </TouchableOpacity>
+          {isUpload && (
+            <Col
+              center
+              // eslint-disable-next-line react-native/no-inline-styles
+              style={{
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              }}>
+              <Loading />
+            </Col>
+          )}
         </View>
         <PopupChooseImage
           onChooseTake={chooseImageTake}
