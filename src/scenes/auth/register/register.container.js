@@ -111,16 +111,16 @@ export default function RegisterContainer({ navigation }) {
     };
 
     const checkUserExist = (email) => {
-        var temp = true;
+        var temp = 0;
         database().ref('Users').once('value').then((snapshot) => {
             snapshot.forEach((child) => {
                 if (child.val().Email === email) {
-                    temp = false;
-                    if (!temp) { return temp; }
+                    temp++;
                 }
             });
         });
-        return temp;
+        if (temp === 0) { return false; }
+        else { return true; }
     };
     const registerHandle = () => {
         if (!isEmailAddress(data.username)) {
@@ -138,7 +138,7 @@ export default function RegisterContainer({ navigation }) {
         if (checkUserExist(data.username)) {
             setModalVisibleWarning(true, 'Email này đã có người sử dụng');
         } else {
-            NavigationServices.navigate(SCENE_NAMES.REGISER_OTP, { codeOTP: 123456, data: data });
+            NavigationServices.navigate(SCENE_NAMES.REGISER_OTP, { data: data });
         }
     };
     functionsCounter.add(textInputChange);

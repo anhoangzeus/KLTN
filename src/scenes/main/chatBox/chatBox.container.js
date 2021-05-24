@@ -7,7 +7,6 @@ import auth from '@react-native-firebase/auth';
 import moment from 'moment';
 import NavigationServices, {getParams} from 'utils/navigationServices';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import ImgToBase64 from 'react-native-image-base64';
 import RNFS from 'react-native-fs';
 import {onChange} from 'react-native-reanimated';
 const functionsCounter = new Set();
@@ -88,6 +87,7 @@ export default function ChatBoxContainer({navigation, route}) {
         });
         setListChat(items);
       });
+
     setLoading(false);
   };
 
@@ -152,7 +152,6 @@ export default function ChatBoxContainer({navigation, route}) {
       } else if (response.error) {
         console.log('ImagePickerError: ', response.error);
       } else {
-        console.log('hinh anh nhan duoc tu galary', response.uri);
         RNFS.readFile(response.uri, 'base64').then((res) => {
           let source = 'data:image/png;base64,' + res;
           setImage(source);

@@ -1,19 +1,16 @@
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 import {
-  View,
-  Text,
-  StatusBar,
-  TextInput,
-  TouchableOpacity,
   Alert,
   Modal,
-  ScrollView,
+  ScrollView, Text,
+  TextInput,
+  TouchableOpacity, View,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Feather from 'react-native-vector-icons/Feather';
 import styles from './register.styles';
 
 const RegisterView = (props) => {
@@ -27,11 +24,6 @@ const RegisterView = (props) => {
   } = props;
   return (
     <View style={styles.container}>
-      <StatusBar
-        backgroundColor="#1ba8ff"
-        barStyle="light-content"
-        translucent={false}
-      />
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
         <ScrollView>
           <Text style={styles.text_footer}>Họ tên</Text>
@@ -96,7 +88,7 @@ const RegisterView = (props) => {
                   name="check-circle"
                   color="green"
                   size={20}
-                  style={{marginRight: 5}}
+                  style={{ marginRight: 5 }}
                 />
               </Animatable.View>
             ) : null}

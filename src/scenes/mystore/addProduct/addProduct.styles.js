@@ -133,6 +133,7 @@ export default StyleSheet.create({
     height: 40,
     width: width,
     marginLeft: width / 20,
+    fontSize: 17,
   },
   btnSubmit: {
     backgroundColor: '#2B4F8C',
@@ -149,12 +150,17 @@ export default StyleSheet.create({
   },
   itemText: {
     color: '#1e1e1e',
-    fontSize: 20,
+    fontSize: 17,
     flex: 1,
+  },
+  cardText: {
+    marginTop: -height / 40,
+    fontSize: 17,
+    textAlign: 'right',
   },
   selectText: {
     color: '#1e1e1e',
-    fontSize: 20,
+    fontSize: 17,
   },
   cardOption: {
     height: height / 15,
@@ -165,5 +171,11 @@ export default StyleSheet.create({
   itemContainer: {
     flexDirection: 'row',
     flex: 1,
+  },
+  unit: {
+    marginRight: width / 20,
+    fontSize: 18,
+    //marginTop: -height / 400,
+    color: 'gray',
   },
 });

@@ -34,8 +34,6 @@ class ChatBoxContainer extends React.Component {
   }
 
   chatMessage = ({item}) => {
-    //console.log('gia tri image: ', item.Image);
-
     return item.Type === 'CUS' ? (
       <View style={{flexDirection: 'row'}}>
         {item.Image === '' || item.Image === undefined ? (
@@ -43,9 +41,9 @@ class ChatBoxContainer extends React.Component {
             <Text style={styles.messText}>{item.Text}</Text>
           </View>
         ) : (
-          <TouchableOpacity>
-            <Image source={{uri: item.Image}} style={styles.msgImage} />
-          </TouchableOpacity>
+          //<TouchableOpacity style={styles.messageView}>
+          <Image source={{uri: item.Image}} style={styles.msgImage} />
+          //</TouchableOpacity>
         )}
 
         <Text style={{...styles.messTime, marginLeft: normalize(15)}}>
