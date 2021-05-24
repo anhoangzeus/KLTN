@@ -46,7 +46,7 @@ export default StyleSheet.create({
   text: {
     fontWeight: '500',
     fontSize: 16,
-    color: '#000',
+    color: '#fff',
   },
   textPrice: {
     fontWeight: '500',

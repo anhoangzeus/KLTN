@@ -28,7 +28,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>vn.charmid</string>
+			<string>vn.qtsoftware.nozza.client</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>veganmarket</string>

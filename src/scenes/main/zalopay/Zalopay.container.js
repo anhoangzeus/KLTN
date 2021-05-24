@@ -1,20 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useLayoutEffect, useEffect } from 'react';
+import React, {useLayoutEffect, useEffect} from 'react';
 import ZalopayView from './Zalopay.view';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
-import { NativeModules, NativeEventEmitter } from 'react-native';
-import { NAMESPACE } from './Zalopay.constants';
-import { getString } from 'utils/i18n';
+import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
+import {NativeModules, NativeEventEmitter} from 'react-native';
+import {NAMESPACE} from './Zalopay.constants';
+import {getString} from 'utils/i18n';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import CryptoJS from 'crypto-js';
-import NavigationServices, { getParams } from 'utils/navigationServices';
+import NavigationServices, {getParams} from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 
-const { PayZaloBridge } = NativeModules;
+const {PayZaloBridge} = NativeModules;
 const payZaloBridgeEmitter = new NativeEventEmitter(PayZaloBridge);
 let apptransid;
 const functionsCounter = new Set();
@@ -56,7 +56,7 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 
-export default function ZalopayContainer({ navigation, route }) {
+export default function ZalopayContainer({navigation, route}) {
   const isLoading = useSelectorShallow(loadingSelector);
   const routes = getParams(route);
   useLayoutEffect(() => {
@@ -77,8 +77,10 @@ export default function ZalopayContainer({ navigation, route }) {
     'EventPayZalo',
     (data) => {
       console.log('return code : ', data);
-      if (data.returnCode === 1 && check === 0) {
-        //thanhToan();
+      console.log('return checkeds : ', check);
+      if (data.returnCode == 1 && check == 0) {
+        // eslint-disable-next-line no-use-before-define
+        thanhToan();
         setCheck(1);
         //data.returnCode = 0;
       } else if (data.returnCode === 4) {
@@ -172,7 +174,7 @@ export default function ZalopayContainer({ navigation, route }) {
     setmodal(false);
   }
   function thanhToan() {
-    console.log('tong cong: ');
+    console.log('vao ham thanh toan');
     var key = database().ref().child('Orders/').push().key;
     database()
       .ref('Orders/' + key)

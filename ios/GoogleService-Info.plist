@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>933734030914-e6arerne5rtqjtunbitcvmpor1boo2ih.apps.googleusercontent.com</string>
+	<string>933734030914-tdanu7469c4q0b5p8ee6kr47s6bvee1t.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.933734030914-e6arerne5rtqjtunbitcvmpor1boo2ih</string>
+	<string>com.googleusercontent.apps.933734030914-tdanu7469c4q0b5p8ee6kr47s6bvee1t</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>933734030914-3cmvnkpe45kf5h7eo2lc52vns6utj3ov.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>vn.charmid</string>
+	<string>vn.qtsoftware.nozza.client</string>
 	<key>PROJECT_ID</key>
 	<string>doan-d2374</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:933734030914:ios:de4a76d5b24c2cb3ff17db</string>
+	<string>1:933734030914:ios:4ad6e2b9572aca20ff17db</string>
 	<key>DATABASE_URL</key>
 	<string>https://doan-d2374.firebaseio.com</string>
 </dict>

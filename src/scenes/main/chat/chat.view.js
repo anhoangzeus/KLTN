@@ -67,18 +67,20 @@ class ChatContainer extends React.Component {
   render() {
     const {listChat} = this.props;
     return (
-      <SafeAreaView style={{flex: 1, backgroundColor: '#ffffff'}}>
-        <Header title="Chat" isCart={true} />
-        <TouchableOpacity style={styles.searchView}>
-          <Text style={styles.text}>
-            <Icon name="search1" size={20} color="#000" /> Tìm kiếm
-          </Text>
-        </TouchableOpacity>
-        <FlatList
-          data={listChat}
-          renderItem={({item}) => <this.listChatView item={item} />}
-          keyExtractor={(item) => item.id}
-        />
+      <SafeAreaView style={{flex: 1, backgroundColor: '#2B4F8C'}}>
+        <View style={{flex: 1, backgroundColor: '#fff'}}>
+          <Header title="Chat" isCart={true} />
+          <TouchableOpacity style={styles.searchView}>
+            <Text style={styles.text}>
+              <Icon name="search1" size={20} color="#000" /> Tìm kiếm
+            </Text>
+          </TouchableOpacity>
+          <FlatList
+            data={listChat}
+            renderItem={({item}) => <this.listChatView item={item} />}
+            keyExtractor={(item) => item.id}
+          />
+        </View>
       </SafeAreaView>
     );
   }
