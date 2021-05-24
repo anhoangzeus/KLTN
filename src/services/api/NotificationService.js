@@ -1,8 +1,8 @@
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import messaging from '@react-native-firebase/messaging';
-import { Platform } from 'react-native';
-import PushNotification from 'react-native-push-notification';
-export function displayNotification({ title, body }, data) {
+import {Platform} from 'react-native';
+import PushNotification, {Importance} from 'react-native-push-notification';
+export function displayNotification({title, body}, data) {
   PushNotification.localNotificationSchedule({
     title,
     message: body, // (required)
@@ -11,7 +11,7 @@ export function displayNotification({ title, body }, data) {
   });
 }
 export default class NotificationService {
-  static initPushNotifications = (onNotification = () => { }) => {
+  static initPushNotifications = (onNotification = () => {}) => {
     PushNotification.configure({
       // (optional) Called when Token is generated (iOS and Android)
       onRegister: function (token) {
@@ -29,6 +29,18 @@ export default class NotificationService {
       popInitialNotification: true,
       requestPermissions: true,
     });
+    PushNotification.createChannel(
+      {
+        channelId: 'default', // (required)
+        channelName: 'My channel', // (required)
+        channelDescription: 'A channel to categorise your notifications', // (optional) default: undefined.
+        playSound: false, // (optional) default: true
+        soundName: 'default', // (optional) See `soundName` parameter of `localNotification` function
+        importance: Importance.HIGH, // (optional) default: Importance.HIGH. Int value of the Android notification importance
+        vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
+      },
+      (created) => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+    );
     if (Platform.OS === 'ios') {
       messaging().onMessage(async (remoteMessage) => {
         console.log('>>>>remoteMessage', remoteMessage);
@@ -44,6 +56,20 @@ export default class NotificationService {
         });
       });
     }
+    // else {
+    //   messaging().onMessage(async (remoteMessage) => {
+    //     console.log('>>>>remoteMessage Android', remoteMessage);
+    //     PushNotification.localNotification({
+    //       title: remoteMessage.notification.title,
+    //       message: remoteMessage.notification.body,
+    //       userInfo: remoteMessage.data,
+    //       onlyAlertOnce: true,
+    //       priority: 'high',
+    //       channelId: 'fcm_fallback_notification_channel',
+    //       soundName: 'default',
+    //     });
+    //   });
+    // }
 
     messaging().setBackgroundMessageHandler(async (remoteMessage) => {
       console.log('Message handled in the background!', remoteMessage);
@@ -69,7 +95,7 @@ export default class NotificationService {
     //   });
   };
 
-  static getFcmToken = (callback = () => { }) => {
+  static getFcmToken = (callback = () => {}) => {
     try {
       messaging()
         .getToken()

@@ -7,7 +7,11 @@ import {PersistGate} from 'redux-persist/integration/react';
 import Scenes from 'scenes';
 import configureStore from 'appRedux/store/configureStore';
 import FCMService from './src/services/api/NotificationService';
+import messaging from '@react-native-firebase/messaging';
 import AsyncStorage from '@react-native-community/async-storage';
+import NavigationServices from 'utils/navigationServices';
+import SCENE_NAMES from 'constants/sceneName';
+import PushNotification from 'react-native-push-notification';
 const storeConfig = configureStore();
 
 class App extends PureComponent {
@@ -22,6 +26,9 @@ class App extends PureComponent {
     TextInput.defaultProps.allowFontScaling = false;
     Text.defaultProps.allowFontScaling = false;
   }
+  onActionNotificationListener(notification) {
+    NavigationServices.navigate(SCENE_NAMES.NOTIFY);
+  }
   componentDidMount() {
     FCMService.getFcmToken((token) => {
       AsyncStorage.setItem('token', token);
@@ -35,12 +42,23 @@ class App extends PureComponent {
         // eslint-disable-next-line no-unused-vars
         const {foreground, userInteraction} = notification;
         if (userInteraction) {
-          this.onActionNotificationListener(notification)();
+          this.onActionNotificationListener(notification);
           return;
         }
       });
       await FCMService.subscribeToTopic('alldevices');
     };
+
+    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      console.log('remote messgae foreground', remoteMessage);
+      PushNotification.localNotification({
+        message: 'My Notification Message',
+        title: 'My Notification Title',
+        channelId: 'default',
+      });
+    });
+    //return unsubscribe;
+    unsubscribe();
     init();
   }
 
