@@ -122,7 +122,7 @@ export default StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
     fontSize: 20,
-    color: 'red',
+    color: 'green',
   },
   centeredView: {
     justifyContent: 'center',
@@ -154,9 +154,13 @@ export default StyleSheet.create({
     flex: 1,
   },
   cardText: {
-    marginTop: -height / 40,
+    marginTop: -height / 100,
     fontSize: 17,
     textAlign: 'right',
+    borderColor: '#ededed',
+    width: width / 2,
+
+    height: height / 20,
   },
   selectText: {
     color: '#1e1e1e',

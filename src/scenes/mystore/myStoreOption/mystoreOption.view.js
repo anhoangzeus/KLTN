@@ -26,7 +26,7 @@ const ProfileItem = ({icon, name}) => (
 export default function MyStoreOptionView(props) {
   const {FullName, Avatar} = props;
   return (
-    <SafeAreaView style={styles.screenContainer}>
+    <SafeAreaView style={styles.SafeSreen}>
       <ScrollView style={styles.screenContainer}>
         <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
         <Header title={'Quản lí bán hàng'} />

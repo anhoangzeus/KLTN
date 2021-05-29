@@ -1,9 +1,15 @@
 import size from 'constants/size';
-import {StyleSheet} from 'react-native';
-
+import {StyleSheet, Dimensions} from 'react-native';
+const {height} = Dimensions.get('screen');
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
+    height: height,
+    backgroundColor: '#fff',
+  },
+  SafeSreen: {
+    flex: 1,
+    backgroundColor: '#2B4F8C',
   },
   bodyContainer: {
     flex: 1,

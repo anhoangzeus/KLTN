@@ -22,7 +22,7 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
 
 export default function ProductContainer({navigation, route}) {
   const isLoading = useSelectorShallow(loadingSelector);
-  const {id, BrandID, CategoryID} = getParams(route);
+  const {id, BrandID, CategoryID, userid} = getParams(route);
   const itemRef = database();
 
   const [numcart, setnumcart] = useState(0);
@@ -115,70 +115,135 @@ export default function ProductContainer({navigation, route}) {
   };
   const getData = () => {
     var ImageItems = [];
-    database()
-      .ref('/Products/' + idsanpham)
-      .once('value')
-      .then((snapshot) => {
-        var _sao1 = 0;
-        var _sao2 = 0;
-        var _sao3 = 0;
-        var _sao4 = 0;
-        var _sao5 = 0;
-        var point = 0;
-        var count = 0;
-        var items = [];
-        snapshot.child('Rating').forEach((child) => {
-          if (child.val().Point === '1') {
-            _sao1++;
-          } else if (child.val().Point === '2') {
-            _sao2++;
-          } else if (child.val().Point === '3') {
-            _sao3++;
-          } else if (child.val().Point === '4') {
-            _sao4++;
-          } else if (child.val().Point === '5') {
-            _sao5++;
-          }
-          point += child.val().Point;
-          count++;
-          items.push({
-            Avatar: child.val().Avatar,
-            Comment: child.val().Comment,
-            Date: child.val().Date,
-            Point: child.val().Point,
-            UserName: child.val().UserName,
+    if (!userid) {
+      database()
+        .ref('/Products/' + idsanpham)
+        .once('value')
+        .then((snapshot) => {
+          var _sao1 = 0;
+          var _sao2 = 0;
+          var _sao3 = 0;
+          var _sao4 = 0;
+          var _sao5 = 0;
+          var point = 0;
+          var count = 0;
+          var items = [];
+          snapshot.child('Rating').forEach((child) => {
+            if (child.val().Point === '1') {
+              _sao1++;
+            } else if (child.val().Point === '2') {
+              _sao2++;
+            } else if (child.val().Point === '3') {
+              _sao3++;
+            } else if (child.val().Point === '4') {
+              _sao4++;
+            } else if (child.val().Point === '5') {
+              _sao5++;
+            }
+            point += child.val().Point;
+            count++;
+            items.push({
+              Avatar: child.val().Avatar,
+              Comment: child.val().Comment,
+              Date: child.val().Date,
+              Point: child.val().Point,
+              UserName: child.val().UserName,
+            });
+          });
+          setdecription(snapshot.val().Description);
+          setimage(snapshot.val().Image);
+          setname(snapshot.val().Name);
+          setprice(snapshot.val().Price);
+          setwaranty(snapshot.val().Warranty);
+          setmetadescription(snapshot.val().MetaDescription);
+          setpromotionprice(snapshot.val().PromotionPrice);
+          setrating(point / count);
+          setlistcomment(items);
+          setbough(count);
+          setsao1(_sao1);
+          setsao2(_sao2);
+          setsao3(_sao3);
+          setsao4(_sao4);
+          setsao5(_sao5);
+          ImageItems.push(snapshot.val().Image);
+        });
+      database()
+        .ref('/Products/')
+        .child(id)
+        .child('Images')
+        .once('value')
+        .then((snapshot) => {
+          snapshot.forEach((child) => {
+            ImageItems.push(child.val().Image);
           });
         });
-        setdecription(snapshot.val().Description);
-        setimage(snapshot.val().Image);
-        setname(snapshot.val().Name);
-        setprice(snapshot.val().Price);
-        setwaranty(snapshot.val().Warranty);
-        setmetadescription(snapshot.val().MetaDescription);
-        setpromotionprice(snapshot.val().PromotionPrice);
-        setrating(point / count);
-        setlistcomment(items);
-        setbough(count);
-        setsao1(_sao1);
-        setsao2(_sao2);
-        setsao3(_sao3);
-        setsao4(_sao4);
-        setsao5(_sao5);
-        ImageItems.push(snapshot.val().Image);
-      });
-    database()
-      .ref('/Products/')
-      .child(id)
-      .child('Images')
-      .once('value')
-      .then((snapshot) => {
-        snapshot.forEach((child) => {
-          ImageItems.push(child.val().Image);
+      setlistmoreimage(ImageItems);
+      setisloading(false);
+    } else {
+      database()
+        .ref('/ProductUser/' + idsanpham)
+        .once('value')
+        .then((snapshot) => {
+          var _sao1 = 0;
+          var _sao2 = 0;
+          var _sao3 = 0;
+          var _sao4 = 0;
+          var _sao5 = 0;
+          var point = 0;
+          var count = 0;
+          var items = [];
+          snapshot.child('Rating').forEach((child) => {
+            if (child.val().Point === '1') {
+              _sao1++;
+            } else if (child.val().Point === '2') {
+              _sao2++;
+            } else if (child.val().Point === '3') {
+              _sao3++;
+            } else if (child.val().Point === '4') {
+              _sao4++;
+            } else if (child.val().Point === '5') {
+              _sao5++;
+            }
+            point += child.val().Point;
+            count++;
+            items.push({
+              Avatar: child.val().Avatar,
+              Comment: child.val().Comment,
+              Date: child.val().Date,
+              Point: child.val().Point,
+              UserName: child.val().UserName,
+            });
+          });
+          setdecription(snapshot.val().Description);
+          setimage(snapshot.val().Image);
+          setname(snapshot.val().Name);
+          setprice(snapshot.val().Price);
+          setwaranty(snapshot.val().Warranty);
+          setmetadescription(snapshot.val().MetaDescription);
+          setpromotionprice(snapshot.val().PromotionPrice);
+          setrating(point / count);
+          setlistcomment(items);
+          setbough(count);
+          setsao1(_sao1);
+          setsao2(_sao2);
+          setsao3(_sao3);
+          setsao4(_sao4);
+          setsao5(_sao5);
+          ImageItems.push(snapshot.val().Image);
         });
-      });
-
-    setlistmoreimage(ImageItems);
-    setisloading(false);
+      database()
+        .ref('/Products/')
+        .child(id)
+        .child('Images')
+        .once('value')
+        .then((snapshot) => {
+          snapshot.forEach((child) => {
+            ImageItems.push(child.val().Image);
+          });
+        });
+      setlistmoreimage(ImageItems);
+      setisloading(false);
+    }
   };
 
   const GetCartData = () => {

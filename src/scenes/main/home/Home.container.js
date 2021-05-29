@@ -223,7 +223,7 @@ function HomeContainer({navigation}) {
   };
   const ListenForItems = () => {
     database()
-      .ref('/Products')
+      .ref('/ProductUser')
       .once('value')
       .then((snapshot) => {
         var items = [];
@@ -245,6 +245,9 @@ function HomeContainer({navigation}) {
             BrandID: childSnapshot.val().BrandID,
             CategoryID: childSnapshot.val().CategoryID,
             PromotionPrice: childSnapshot.val().PromotionPrice,
+            UserID: childSnapshot.val().UserID
+              ? childSnapshot.val().UserID
+              : null,
           });
         });
         setListall(items);

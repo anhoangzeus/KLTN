@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import SIZE from 'constants/size';
 
 export default StyleSheet.create({
@@ -21,11 +21,11 @@ export default StyleSheet.create({
     flex: 1,
     marginLeft: 10,
     alignItems: 'center',
-    paddingVertical: SIZE.DEVICE_HEIGHT / 50,
+    //paddingVertical: SIZE.DEVICE_HEIGHT / 50,
     paddingHorizontal: 12,
     borderRadius: 2,
     height: SIZE.DEVICE_HEIGHT / 10,
-    width: SIZE.DEVICE_WIDTH * 0.8,
+    width: SIZE.DEVICE_WIDTH * 0.85,
   },
   inputText: {
     color: '#969696',

@@ -9,6 +9,7 @@ import {
   ScrollView,
   RefreshControl,
   SafeAreaView,
+  Dimensions,
 } from 'react-native';
 import styles from './Home.styles';
 import withLoading from 'components/HOC/withLoading';
@@ -23,7 +24,7 @@ import TopBraner from 'components/Swiper/TopBanner';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 
-console.disableYellowBox = true;
+const {width} = Dimensions.get('screen');
 
 function HomeView(props) {
   const {
@@ -47,9 +48,13 @@ function HomeView(props) {
           translucent={false}
         />
         <View style={styles.headerContainer}>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(SCENE_NAMES.SEARCH);
+              console.log('vao search');
+            }}>
             <View style={styles.inputContainer}>
-              <FontAwesome name="search" size={24} color="#969696" />
+              <FontAwesome name="search" size={width * 0.05} color="#969696" />
               <Text style={styles.inputText}>Bạn tìm gì hôm nay?</Text>
             </View>
           </TouchableOpacity>
@@ -58,7 +63,11 @@ function HomeView(props) {
               onPress={() => {
                 navigation.navigate(SCENE_NAMES.CART_SCREEN);
               }}>
-              <FontAwesome name="shopping-cart" size={24} color="#fff" />
+              <FontAwesome
+                name="shopping-cart"
+                size={width * 0.05}
+                color="#fff"
+              />
               {renderNofiCart()}
             </TouchableOpacity>
           </View>
@@ -73,7 +82,7 @@ function HomeView(props) {
             <View style={styles.proHotContainer}>
               <Text style={{fontSize: 17, color: 'black', marginVertical: 10}}>
                 <Foundation name="burst-new" color="red" size={25} />
-                Cooking-Baking Grocery Supplies
+                Đóng hộp
               </Text>
               <FlatList
                 horizontal={true}
@@ -163,6 +172,10 @@ function HomeView(props) {
                 )}
               />
             </View>
+            <Text style={{fontSize: 17, color: 'black', marginVertical: 10}}>
+              <Foundation name="burst-new" color="red" size={25} />
+              Sản phẩm nhà bán lẻ
+            </Text>
             <View style={{marginTop: 10}}>
               <FlatList
                 initialNumToRender={20}
@@ -176,6 +189,7 @@ function HomeView(props) {
                         id: item.id,
                         CategoryID: item.CategoryID,
                         BrandID: item.BrandID,
+                        userid: item.UserID,
                       });
                     }}>
                     <ProductItem

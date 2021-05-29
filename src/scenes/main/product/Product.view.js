@@ -182,21 +182,16 @@ function ProductView(props) {
                 <Text style={styles.metaView}>{metadescription}</Text>
                 <View style={styles.priceView}>
                   <Text style={styles.priceText}>
-                    <NumberFormat value={price} />{' '}
+                    <NumberFormat value={promotionprice} />{' '}
                   </Text>
                   {price === promotionprice ? null : (
                     // eslint-disable-next-line react-native/no-inline-styles
                     <View style={{flexDirection: 'row'}}>
                       <Text style={styles.promotionText}>
-                        <NumberFormat value={promotionprice} />
+                        <NumberFormat value={price} />
                       </Text>
                       <Text style={styles.valueText}>
-                        -
-                        {(
-                          ((promotionprice - price) / promotionprice) *
-                          100
-                        ).toFixed(0)}
-                        %
+                        {(((price - promotionprice) / price) * 100).toFixed(0)}%
                       </Text>
                     </View>
                   )}

@@ -45,6 +45,7 @@ export default function AddProductContainer({navigation}) {
   const [isloading, setIsLoading] = useState(true);
   const [popup, setPopup] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const pairToSubmitImage = (response) => {
     console.log('aaa');
     if (response.didCancel) {
@@ -128,14 +129,16 @@ export default function AddProductContainer({navigation}) {
     const url = await storage()
       .ref('product/' + fileName)
       .getDownloadURL();
-
-    console.log(url);
+    const x = parseInt(formprice);
+    const y = parseInt(sale);
+    const PromotionPrice = x - (x * y) / 100;
+    console.log('promotion price', PromotionPrice);
     var date = moment().subtract(10, 'days').calendar();
     var useID = auth().currentUser.uid;
     var keyDetail = database().ref('ProductUser').child(useID).push().key;
     console.log('key detail', keyDetail);
     database()
-      .ref('ProductUser/' + useID + '/' + keyDetail)
+      .ref('ProductUser/' + keyDetail)
       .set({
         CategoryID: cate,
         CreatedDate: date,
@@ -147,9 +150,17 @@ export default function AddProductContainer({navigation}) {
         Count: count,
         Status: true,
         UserID: useID,
+        ProductID: keyDetail,
+        Warranty: warranty,
+        PromotionPrice: PromotionPrice.toString(),
       })
-      .then(console.log('thêm sản phẩm thành công'));
+      .then(() => {
+        setIsSuccess(true);
+      });
     setIsUpload(false);
+    setTimeout(() => {
+      setIsSuccess(false);
+    }, 1000);
   };
 
   const onChangeName = (text) => {
@@ -197,6 +208,7 @@ export default function AddProductContainer({navigation}) {
       popup={popup}
       image={image}
       isUpload={isUpload}
+      isSuccess={isSuccess}
       setPopup={setPopup}
       setCate={setCate}
       setCateName={setCateName}
