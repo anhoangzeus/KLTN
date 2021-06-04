@@ -1,18 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import ChatBoxView from './chatBox.view';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import moment from 'moment';
-import NavigationServices, {getParams} from 'utils/navigationServices';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import NavigationServices, { getParams } from 'utils/navigationServices';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import RNFS from 'react-native-fs';
-import {onChange} from 'react-native-reanimated';
+import { onChange } from 'react-native-reanimated';
 const functionsCounter = new Set();
 
-export default function ChatBoxContainer({navigation, route}) {
-  const {id, Name} = getParams(route);
+export default function ChatBoxContainer({ navigation, route }) {
+  const { id, Name } = getParams(route);
   const [listchat, setListChat] = useState([]);
   const [textchat, setTextChat] = useState('');
   const [data, setData] = useState({});
@@ -85,6 +85,7 @@ export default function ChatBoxContainer({navigation, route}) {
             Image: childSnapshot.val().Image,
           });
         });
+        items.reverse()
         setListChat(items);
       });
 

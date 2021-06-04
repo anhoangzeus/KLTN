@@ -12,10 +12,10 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import {normalize} from 'react-native-elements';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { normalize } from 'react-native-elements';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -23,46 +23,46 @@ import NavigationServices from 'utils/navigationServices';
 import styles from './chatBox.styles';
 // import SCENE_NAMES from 'constants/sceneName';
 
-const {width, height} = Dimensions.get('screen');
+const { width, height } = Dimensions.get('screen');
 
 class ChatBoxContainer extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       onInputChat: false,
     };
   }
 
-  chatMessage = ({item}) => {
+  chatMessage = ({ item }) => {
     return item.Type === 'CUS' ? (
-      <View style={{flexDirection: 'row'}}>
+      <View style={{ flexDirection: 'row' }}>
         {item.Image === '' || item.Image === undefined ? (
           <View style={styles.messageView}>
             <Text style={styles.messText}>{item.Text}</Text>
           </View>
         ) : (
           //<TouchableOpacity style={styles.messageView}>
-          <Image source={{uri: item.Image}} style={styles.msgImage} />
+          <Image source={{ uri: item.Image }} style={styles.msgImage} />
           //</TouchableOpacity>
         )}
 
-        <Text style={{...styles.messTime, marginLeft: normalize(15)}}>
+        <Text style={{ ...styles.messTime, marginLeft: normalize(15) }}>
           {moment.unix(item.CreatedTime).format('hh:mm MM-DD-YY')}
         </Text>
       </View>
     ) : (
-      <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-        <Text style={{...styles.messTime, marginRight: normalize(15)}}>
+      <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+        <Text style={{ ...styles.messTime, marginRight: normalize(15) }}>
           {moment.unix(item.CreatedTime).format('hh:mm MM-DD-YY')}
         </Text>
 
         {item.Image === '' || item.Image === undefined ? (
-          <View style={{...styles.messageView, backgroundColor: '#0084ff'}}>
+          <View style={{ ...styles.messageView, backgroundColor: '#0084ff' }}>
             <Text style={styles.text}>{item.Text}</Text>
           </View>
         ) : (
           <TouchableOpacity>
-            <Image source={{uri: item.Image}} style={styles.msgImage} />
+            <Image source={{ uri: item.Image }} style={styles.msgImage} />
           </TouchableOpacity>
         )}
       </View>
@@ -78,72 +78,70 @@ class ChatBoxContainer extends React.Component {
       openGalary,
       //loading,
     } = this.props;
-    const {onInputChat} = this.state;
+    const { onInputChat } = this.state;
 
     return (
-      <SafeAreaView style={{flex: 1, backgroundColor: '#2B4F8C'}}>
-        <KeyboardAvoidingView
-          enabled={Platform.OS === 'ios' ? true : false}
-          style={{height: height * 0.96}}
-          behavior={Platform.OS === 'ios' && 'padding'}>
-          <View style={styles.headerContainer}>
-            <TouchableOpacity
-              onPress={() => {
-                NavigationServices.goBack();
-              }}
-              style={styles.cartContainer}>
-              <FontAwesome
-                name="angle-left"
-                size={30}
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#2B4F8C' }}>
+        <View style={styles.headerContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              NavigationServices.goBack();
+            }}
+            style={styles.cartContainer}>
+            <FontAwesome
+              name="angle-left"
+              size={30}
+              color="#fff"
+              style={styles.maginIcon}
+            />
+          </TouchableOpacity>
+          <Text style={styles.headerText}>{Name}</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <TouchableOpacity>
+              <MaterialIcons
+                name="call"
+                size={25}
                 color="#fff"
-                style={styles.maginIcon}
+                style={styles.iconimg}
               />
             </TouchableOpacity>
-            <Text style={styles.headerText}>{Name}</Text>
-            <View style={{flexDirection: 'row'}}>
-              <TouchableOpacity>
-                <MaterialIcons
-                  name="call"
-                  size={25}
-                  color="#fff"
-                  style={styles.iconimg}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <MaterialIcons
-                  name="videocam"
-                  size={25}
-                  color="#fff"
-                  style={styles.iconimg}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Ionicons
-                  name="md-ellipsis-vertical"
-                  size={25}
-                  color="#fff"
-                  style={styles.iconimg}
-                />
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity>
+              <MaterialIcons
+                name="videocam"
+                size={25}
+                color="#fff"
+                style={styles.iconimg}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Ionicons
+                name="md-ellipsis-vertical"
+                size={25}
+                color="#fff"
+                style={styles.iconimg}
+              />
+            </TouchableOpacity>
           </View>
-          <View style={styles.container}>
-            <FlatList
-              ref="flatList"
-              showsVerticalScrollIndicator={false}
-              data={listchat}
-              renderItem={({item}) => <this.chatMessage item={item} />}
-              keyExtractor={(item) => item.id}
-              ListFooterComponent={<View style={{height: normalize(30)}} />}
-              onContentSizeChange={() => this.refs.flatList.scrollToEnd()}
-            />
-          </View>
+        </View>
+        <View style={styles.container}>
+          <FlatList
+            inverted
+            showsVerticalScrollIndicator={false}
+            data={listchat}
+            renderItem={({ item }) => <this.chatMessage item={item} />}
+            keyExtractor={(item) => item.id}
+            ListHeaderComponent={<View style={{ maxHeight: height * 0.54 }}>
+              <View style={{ height: height * (1 - (listchat.length / (listchat.length + 10))) }} />
+            </View>}
+          />
+        </View>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' && 'padding'}>
           <View
             style={{
               ...styles.containerComposize,
               height: onInputChat ? width * 0.24 : height * 0.07,
             }}>
-            <View style={{flexDirection: 'row'}}>
+            <View style={{ flexDirection: 'row' }}>
               <TouchableOpacity onPress={() => openGalary()}>
                 <Image
                   source={require('../../../assets/images/gallery.png')}
@@ -159,9 +157,6 @@ class ChatBoxContainer extends React.Component {
                 onChangeText={(val) => {
                   onChangeText(val);
                 }}
-                onPressIn={() => {
-                  this.refs.flatList.scrollToEnd();
-                }}
               />
               <TouchableOpacity onPress={() => sentMessage()}>
                 <Image
@@ -174,100 +169,6 @@ class ChatBoxContainer extends React.Component {
         </KeyboardAvoidingView>
       </SafeAreaView>
     );
-    // } else {
-    //   return (
-    //     <SafeAreaView style={{flex: 1, backgroundColor: '#2B4F8C'}}>
-    //       <View style={styles.headerContainer}>
-    //         <TouchableOpacity
-    //           onPress={() => {
-    //             NavigationServices.goBack();
-    //           }}
-    //           style={styles.cartContainer}>
-    //           <FontAwesome
-    //             name="angle-left"
-    //             size={30}
-    //             color="#fff"
-    //             style={styles.maginIcon}
-    //           />
-    //         </TouchableOpacity>
-    //         <Text style={styles.headerText}>{Name}</Text>
-    //         <View style={{flexDirection: 'row'}}>
-    //           <TouchableOpacity>
-    //             <MaterialIcons
-    //               name="call"
-    //               size={25}
-    //               color="#fff"
-    //               style={styles.iconimg}
-    //             />
-    //           </TouchableOpacity>
-    //           <TouchableOpacity>
-    //             <MaterialIcons
-    //               name="videocam"
-    //               size={25}
-    //               color="#fff"
-    //               style={styles.iconimg}
-    //             />
-    //           </TouchableOpacity>
-    //           <TouchableOpacity>
-    //             <Ionicons
-    //               name="md-ellipsis-vertical"
-    //               size={25}
-    //               color="#fff"
-    //               style={styles.iconimg}
-    //             />
-    //           </TouchableOpacity>
-    //         </View>
-    //       </View>
-    //       <View style={styles.container}>
-    //         <FlatList
-    //           ref="flatList"
-    //           showsVerticalScrollIndicator={false}
-    //           data={listchat}
-    //           renderItem={({item}) => <this.chatMessage item={item} />}
-    //           keyExtractor={(item) => item.id}
-    //           ListFooterComponent={<View style={{height: normalize(30)}} />}
-    //           onContentSizeChange={() => this.refs.flatList.scrollToEnd()}
-    //         />
-    //       </View>
-    //       <View
-    //         style={{
-    //           ...styles.containerComposize,
-    //           height: onInputChat ? width * 0.24 : height * 0.07,
-    //         }}>
-    //         <View style={{flexDirection: 'row'}}>
-    //           <TouchableOpacity onPress={() => openGalary()}>
-    //             <Image
-    //               source={require('../../../assets/images/gallery.png')}
-    //               style={styles.iconUp}
-    //             />
-    //           </TouchableOpacity>
-    //           <TextInput
-    //             style={styles.vChat}
-    //             placeholder={'Soạn tin...'}
-    //             placeholderTextColor={'#000'}
-    //             multiline={true}
-    //             value={textchat}
-    //             onChangeText={(val) => {
-    //               onChangeText(val);
-    //             }}
-    //             onFocus={() => {
-    //               this.refs.flatList.scrollToEnd();
-    //             }}
-    //             onBlur={() => {
-    //               this.refs.flatList.scrollToEnd();
-    //             }}
-    //           />
-    //           <TouchableOpacity onPress={() => sentMessage()}>
-    //             <Image
-    //               source={require('../../../assets/images/ic_sendmess.png')}
-    //               style={styles.iconsend}
-    //             />
-    //           </TouchableOpacity>
-    //         </View>
-    //       </View>
-    //     </SafeAreaView>
-    //   );
-    // }
   }
 }
 export default ChatBoxContainer;
