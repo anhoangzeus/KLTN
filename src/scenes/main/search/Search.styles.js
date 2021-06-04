@@ -4,6 +4,7 @@ const {height, width} = Dimensions.get('screen');
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
+    backgroundColor: '#fff',
   },
   screenContainersafe: {
     flex: 1,
@@ -13,7 +14,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     paddingTop: 10,
     paddingBottom: 4,
-    backgroundColor: '#a2459a',
+    backgroundColor: '#2B4F8C',
   },
   inputContainer: {
     backgroundColor: '#fff',
@@ -134,5 +135,27 @@ export default StyleSheet.create({
     width: 100,
     height: height / 11,
     resizeMode: 'center',
+  },
+  viewLoading: {
+    flex: 1,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cartView: {
+    position: 'absolute',
+    borderRadius: 25,
+    backgroundColor: 'red',
+    alignItems: 'center',
+    marginLeft: width / 13,
+    width: width / 20,
+    marginTop: 5,
+  },
+  cartText: {
+    alignSelf: 'center',
+    fontSize: 10,
+    margin: 1,
+    fontWeight: 'bold',
+    color: 'white',
   },
 });

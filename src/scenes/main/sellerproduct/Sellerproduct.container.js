@@ -2,33 +2,34 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useLayoutEffect, useEffect, useState} from 'react';
 import {View, Text, Animated} from 'react-native';
-import ProductView from './Product.view';
+import SellerproductView from './Sellerproduct.view';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
 import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
-import {NAMESPACE} from './Product.constants';
+import {NAMESPACE} from './Sellerproduct.constants';
 import {getString} from 'utils/i18n';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import NavigationServices, {getParams} from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
-import styles from './Product.styles';
-const functionsCounter = new Set();
+import styles from './Sellerproduct.styles';
 
+const functionsCounter = new Set();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 
-export default function ProductContainer({navigation, route}) {
+export default function SellerproductContainer({navigation, route}) {
   const isLoading = useSelectorShallow(loadingSelector);
-  const {id, BrandID, CategoryID} = getParams(route);
+  const {id, BrandID, CategoryID, userid} = getParams(route);
   const itemRef = database();
 
   const [numcart, setnumcart] = useState(0);
   const [decription, setdecription] = useState('');
   const [image, setimage] = useState('');
   const [name, setname] = useState('');
+  const [UserID, setUserID] = useState(userid);
   const [price, setprice] = useState('');
   const [waranty, setwaranty] = useState('');
   const [promotionprice, setpromotionprice] = useState('');
@@ -50,6 +51,8 @@ export default function ProductContainer({navigation, route}) {
   const [sao3, setsao3] = useState(0);
   const [sao4, setsao4] = useState(0);
   const [sao5, setsao5] = useState(0);
+  const [sellerinfo, setSellerInfo] = useState({});
+  const [sellerProd, setSellerProd] = useState([]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -106,6 +109,7 @@ export default function ProductContainer({navigation, route}) {
                 rating: point / count,
                 bough: count,
                 PromotionPrice: child.val().PromotionPrice,
+                UserID: child.val().UserID,
               });
             }
           }
@@ -115,9 +119,8 @@ export default function ProductContainer({navigation, route}) {
   };
   const getData = () => {
     var ImageItems = [];
-
     database()
-      .ref('/Products/' + idsanpham)
+      .ref('/ProductUser/' + idsanpham)
       .once('value')
       .then((snapshot) => {
         var _sao1 = 0;
@@ -154,6 +157,7 @@ export default function ProductContainer({navigation, route}) {
         setimage(snapshot.val().Image);
         setname(snapshot.val().Name);
         setprice(snapshot.val().Price);
+        setUserID(snapshot.val().UserID);
         setwaranty(snapshot.val().Warranty);
         setmetadescription(snapshot.val().MetaDescription);
         setpromotionprice(snapshot.val().PromotionPrice);
@@ -168,7 +172,7 @@ export default function ProductContainer({navigation, route}) {
         ImageItems.push(snapshot.val().Image);
       });
     database()
-      .ref('/Products/')
+      .ref('/ProductUser/')
       .child(id)
       .child('Images')
       .once('value')
@@ -261,9 +265,7 @@ export default function ProductContainer({navigation, route}) {
           .set({
             Id: id,
             CategoryID: CategoryID,
-            BrandID: BrandID,
             CategoryName: categoryname,
-            BrandName: brandname,
             Name: name,
             Picture: image,
             Price: price,
@@ -294,12 +296,52 @@ export default function ProductContainer({navigation, route}) {
     setidsanpham(idpro);
   };
 
+  const getSeller = () => {
+    console.log('user id người bán: ', UserID);
+    database()
+      .ref('/Users/' + UserID)
+      .once('value')
+      .then((snapshot) => {
+        var info = {
+          Avatar: snapshot.val().Avatar,
+          Name: snapshot.val().FullName,
+        };
+        setSellerInfo(info);
+      });
+  };
+  const getSellerProduct = () => {
+    database()
+      .ref('/ProductUser/')
+      .once('value')
+      .then((snapshot) => {
+        let item = [];
+        if (snapshot.val().UserID === UserID) {
+          item.push({
+            title: snapshot.val().Name,
+            price: snapshot.val().Price,
+            image: snapshot.val().Image,
+            id: snapshot.val().ProductID,
+            //rating: snapshot / count,
+            bough: snapshot,
+            PromotionPrice: snapshot.val().PromotionPrice,
+            UserID: snapshot.val().UserID,
+          });
+        }
+        setSellerProd(item);
+      });
+  };
+
   useEffect(() => {
-    getData();
-    getNameBrandCate();
-    getItemRespon();
-    GetCartData();
-    getnumcart();
+    async function get() {
+      await getData();
+      getNameBrandCate();
+      getItemRespon();
+      GetCartData();
+      getnumcart();
+      getSeller();
+      getSellerProduct();
+    }
+    get();
   }, []);
 
   useEffect(() => {
@@ -324,7 +366,7 @@ export default function ProductContainer({navigation, route}) {
   functionsCounter.add(setID);
 
   return (
-    <ProductView
+    <SellerproductView
       isloading={isloading}
       handleClose={handleClose}
       setModalVisible={setModalVisible}
@@ -361,6 +403,8 @@ export default function ProductContainer({navigation, route}) {
       sao3={sao3}
       sao4={sao4}
       sao5={sao5}
+      sellerinfo={sellerinfo}
+      sellerProd={sellerProd}
     />
   );
 }

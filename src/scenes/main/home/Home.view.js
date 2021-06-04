@@ -185,7 +185,7 @@ function HomeView(props) {
                 renderItem={({item}) => (
                   <TouchableOpacity
                     onPress={() => {
-                      NavigationServices.navigate(SCENE_NAMES.PRODUCT, {
+                      NavigationServices.navigate(SCENE_NAMES.SELLERPRODUCT, {
                         id: item.id,
                         CategoryID: item.CategoryID,
                         BrandID: item.BrandID,

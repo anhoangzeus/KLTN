@@ -32,6 +32,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     marginTop: 10,
   },
+  sellerIcon: {},
   settingTouch: {
     width: width / 10,
     height: 30,
@@ -41,6 +42,13 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 10,
+  },
+  avatarContainer: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   textName: {
     paddingBottom: 8,
@@ -83,7 +91,6 @@ export default StyleSheet.create({
   warantyText: {
     marginBottom: 10,
     fontSize: 15,
-    fontWeight: 'bold',
     marginLeft: width / 40,
   },
   relateView: {backgroundColor: '#fff'},
@@ -94,7 +101,7 @@ export default StyleSheet.create({
   },
   quarView: {height: 25},
   relateText: {
-    marginVertical: 10,
+    marginVertical: 0,
     marginLeft: width / 40,
     fontWeight: 'bold',
     color: '#000',
@@ -141,6 +148,12 @@ export default StyleSheet.create({
     marginHorizontal: width / 40,
     color: '#000',
     textAlign: 'justify',
+  },
+  sellertext: {
+    color: '#000',
+    marginTop: 10,
+    marginLeft: 5,
+    fontWeight: 'bold',
   },
   options: {
     position: 'relative',
@@ -232,7 +245,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   rowView: {flexDirection: 'row'},
-  flatstyle: {marginHorizontal: 10},
+  flatstyle: {marginHorizontal: 5},
   ratingView: {
     flexDirection: 'column',
     marginHorizontal: width / 6,
@@ -285,4 +298,5 @@ export default StyleSheet.create({
   addText: {color: '#fff', fontSize: 20},
   valueText: {marginLeft: 5, color: 'red'},
   starratingView: {flexDirection: 'row', marginLeft: 10},
+  sellerView: {flexDirection: 'row', justifyContent: 'space-between'},
 });
