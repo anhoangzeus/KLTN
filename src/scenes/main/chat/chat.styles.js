@@ -55,5 +55,25 @@ export default StyleSheet.create({
         alignItems: 'center',
         position: 'absolute',
     },
-
+    headerContainer: {
+        flexDirection: 'row',
+        paddingTop: 15,
+        backgroundColor: '#2B4F8C',
+        justifyContent: 'space-between',
+        paddingBottom: 12,
+    },
+    cartContainer: {
+        paddingHorizontal: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 75,
+    },
+    cartIcon: {
+        width: 24,
+    },
+    headerText: {
+        color: '#fff',
+        fontSize: 20,
+        fontWeight: '500',
+    },
 });

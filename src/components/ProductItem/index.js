@@ -1,29 +1,29 @@
 import ReactNativeNumberFormat from 'components/NumberFormat';
 import StarRating from 'components/StarRating';
 import React from 'react';
-import {Image, Text, View} from 'react-native';
+import { Image, Text, View } from 'react-native';
 import styles from './styles';
 
-const ProductItem = ({image, name, price, rating, bough, PromotionPrice}) => (
+const Productitem = ({ item }) => (
   <View style={styles.itemContainer}>
-    <Image source={{uri: image}} style={styles.itemImage} />
+    <Image source={{ uri: item?.image }} style={styles.itemImage} />
     <Text style={styles.itemName} numberOfLines={2}>
-      {name}
+      {item?.title}
     </Text>
     <Text style={styles.itemPrice}>
-      <ReactNativeNumberFormat value={price} />
-      {price === PromotionPrice || !PromotionPrice ? null : (
+      <ReactNativeNumberFormat value={item?.price} />
+      {item?.price === item?.PromotionPrice || !item?.PromotionPrice ? null : (
         <Text style={styles.priceColor}>
           {' '}
-          {(((PromotionPrice - price) / PromotionPrice) * 100).toFixed(0)}%
+          {(((item?.PromotionPrice - item?.price) / item?.PromotionPrice) * 100).toFixed(0)}%
         </Text>
       )}
     </Text>
     <View style={styles.starView}>
-      {StarRating(rating)}
-      {bough !== 0 ? <Text style={styles.boughColor}>({bough})</Text> : null}
+      {StarRating(item?.rating)}
+      {item?.bough !== 0 ? <Text style={styles.boughColor}>({item?.bough})</Text> : null}
     </View>
   </View>
 );
 
-export default ProductItem;
+export default Productitem;

@@ -1,32 +1,33 @@
-import React, {useCallback, useState, useEffect} from 'react';
-import HomeView from './Home.view';
+/* eslint-disable react-native/no-inline-styles */
+import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
+import { getUserInfoSubmit } from 'appRedux/actions/authActions';
+import { AUTH } from 'appRedux/actionsType';
+import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
+import withForceUpdate from 'components/HOC/withForceUpdate';
+import { useActions } from 'hooks/useActions';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
-import {AUTH} from 'appRedux/actionsType';
-import {useActions} from 'hooks/useActions';
-import {getUserInfoSubmit} from 'appRedux/actions/authActions';
-import withForceUpdate from 'components/HOC/withForceUpdate';
-import database from '@react-native-firebase/database';
-import auth from '@react-native-firebase/auth';
+import LottieView from 'lottie-react-native';
+import React, { useCallback, useEffect, useState } from 'react';
 // import { set } from 'lodash';
 // import SCENE_NAMES from 'constants/sceneName';
-import {View, Text} from 'react-native';
+import { LogBox, Text, View } from 'react-native';
 // import {NAMESPACE} from './Home.constants';
 import styles from './Home.styles';
-import LottieView from 'lottie-react-native';
+import HomeView from './Home.view';
 const functionsCounter = new Set();
-
+LogBox.ignoreAllLogs();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   AUTH.GET_USER_INFO.HANDLER,
 ]);
 
-function HomeContainer({navigation}) {
-  const actions = useActions({getUserInfoSubmit});
+function HomeContainer({ navigation }) {
+  const actions = useActions({ getUserInfoSubmit });
   const isFetchingTest = useSelectorShallow(loadingSelector);
   const onPressTestApi = useCallback(() => {
-    actions.getUserInfoSubmit({showLoading: false});
+    actions.getUserInfoSubmit({ showLoading: false });
   }, [actions]);
 
   // reference.once('value')
@@ -49,6 +50,7 @@ function HomeContainer({navigation}) {
   const [numcart, setNumcart] = useState(0);
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [numChat, setNumChat] = useState(0);
 
   const getnumcart = () => {
     if (auth().currentUser) {
@@ -62,6 +64,15 @@ function HomeContainer({navigation}) {
           setNumcart(dem);
         });
     }
+  };
+  const getCountChats = () => {
+    database().ref('Chats').child(auth().currentUser.uid).on('value', snapshot => {
+      var count = 0;
+      snapshot.forEach((child) => {
+        count += child.val().Status;
+      });
+      setNumChat(count);
+    });
   };
   const _getListPhoneNew = () => {
     database()
@@ -284,6 +295,7 @@ function HomeContainer({navigation}) {
     _getListDongHoNew();
     _getListPhukienNew();
     getnumcart();
+    getCountChats();
   };
   useEffect(() => {
     _getListPhoneNew();
@@ -294,22 +306,31 @@ function HomeContainer({navigation}) {
     ListenForItems();
     getListBanner();
     getnumcart();
+    getCountChats();
   }, []);
 
   const renderNofiCart = () => {
-    if (numcart === 0) {
-      return null;
-    } else {
+    if (numcart !== 0) {
       return (
-        <View style={styles.cartView}>
+        <View style={{ ...styles.cartView, width: numcart > 99 ? 19 : 12 }}>
           <Text style={styles.cartText} numberOfLines={1}>
-            {numcart}
+            {numcart > 99 ? '99+' : numcart}
           </Text>
         </View>
       );
     }
   };
-
+  const renderNumChat = () => {
+    if (numChat !== 0) {
+      return (
+        <View style={{ ...styles.cartView, width: numChat > 99 ? 19 : 12 }}>
+          <Text style={styles.cartText} numberOfLines={1}>
+            {numChat > 99 ? '99+' : numChat}
+          </Text>
+        </View>
+      );
+    }
+  };
   if (loading) {
     return (
       <View style={styles.screenContainer}>
@@ -325,12 +346,14 @@ function HomeContainer({navigation}) {
   functionsCounter.add(renderNofiCart);
   functionsCounter.add(getnumcart);
   functionsCounter.add(_onRefresh);
+  functionsCounter.add(renderNumChat);
 
   return (
     <HomeView
       isLoading={isFetchingTest}
       onPressTestApi={onPressTestApi}
       renderNofiCart={renderNofiCart}
+      renderNumChat={renderNumChat}
       listpro={listpro}
       listall={listall}
       listcontents={listcontents}
@@ -342,7 +365,6 @@ function HomeContainer({navigation}) {
       loading={loading}
       refreshing={refreshing}
       _onRefresh={_onRefresh}
-      navigation={navigation}
     />
   );
 }

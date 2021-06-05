@@ -1,6 +1,6 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import SIZE from 'constants/size';
-const {width, height} = Dimensions.get('screen');
+const { width, height } = Dimensions.get('screen');
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
@@ -25,11 +25,10 @@ export default StyleSheet.create({
     flex: 1,
     marginLeft: 10,
     alignItems: 'center',
-    paddingVertical: SIZE.DEVICE_HEIGHT / 50,
     paddingHorizontal: 12,
     borderRadius: 2,
-    height: SIZE.DEVICE_HEIGHT / 10,
-    width: SIZE.DEVICE_WIDTH * 0.8,
+    height: SIZE.DEVICE_HEIGHT * 0.05,
+    maxWidth: SIZE.DEVICE_WIDTH * 0.75,
   },
   inputText: {
     color: '#969696',
@@ -40,7 +39,7 @@ export default StyleSheet.create({
   cartContainer: {
     paddingHorizontal: 15,
     justifyContent: 'center',
-    width: 75,
+    width: 25,
     borderRadius: 15,
     paddingTop: 5,
   },
@@ -198,12 +197,13 @@ export default StyleSheet.create({
     borderRadius: 25,
     backgroundColor: 'red',
     alignItems: 'center',
-    marginLeft: width / 30,
-    width: width / 20,
+    marginLeft: SIZE.DEVICE_WIDTH / 25,
+    minWidth: 12,
+    zIndex: 1,
   },
   cartText: {
     alignSelf: 'center',
-    fontSize: 10,
+    fontSize: 8,
     margin: 1,
     fontWeight: 'bold',
     color: 'white',

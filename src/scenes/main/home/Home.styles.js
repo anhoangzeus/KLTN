@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
 import SIZE from 'constants/size';
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   screenContainer: {
@@ -21,11 +21,10 @@ export default StyleSheet.create({
     flex: 1,
     marginLeft: 10,
     alignItems: 'center',
-    //paddingVertical: SIZE.DEVICE_HEIGHT / 50,
     paddingHorizontal: 12,
     borderRadius: 2,
-    height: SIZE.DEVICE_HEIGHT / 10,
-    width: SIZE.DEVICE_WIDTH * 0.85,
+    height: SIZE.DEVICE_HEIGHT * 0.05,
+    maxWidth: SIZE.DEVICE_WIDTH * 0.75,
   },
   inputText: {
     color: '#969696',
@@ -36,7 +35,7 @@ export default StyleSheet.create({
   cartContainer: {
     paddingHorizontal: 15,
     justifyContent: 'center',
-    width: 75,
+    width: 25,
     borderRadius: 15,
     paddingTop: 5,
   },
@@ -44,25 +43,10 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-
   proHotContainer: {
     backgroundColor: '#fff',
     paddingHorizontal: 12,
     height: SIZE.DEVICE_HEIGHT / 2.3,
-  },
-  reviewimg: {
-    height: SIZE.DEVICE_HEIGHT / 50,
-    marginLeft: SIZE.DEVICE_WIDTH / 60,
-  },
-  loadingview: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-  },
-  loadingImage: {
-    width: SIZE.DEVICE_WIDTH,
-    height: SIZE.DEVICE_HEIGHT,
-    resizeMode: 'contain',
   },
   activityView: {
     position: 'absolute',
@@ -73,12 +57,13 @@ export default StyleSheet.create({
     borderRadius: 25,
     backgroundColor: 'red',
     alignItems: 'center',
-    marginLeft: SIZE.DEVICE_WIDTH / 30,
-    width: SIZE.DEVICE_WIDTH / 20,
+    marginLeft: SIZE.DEVICE_WIDTH / 25,
+    minWidth: 12,
+    zIndex: 1,
   },
   cartText: {
     alignSelf: 'center',
-    fontSize: 10,
+    fontSize: 8,
     margin: 1,
     fontWeight: 'bold',
     color: 'white',
