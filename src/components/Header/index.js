@@ -45,7 +45,7 @@ const Header = ({ title, type, isCart }) => {
                 <TouchableOpacity
                     onPress={() => { type ? NavigationServices.navigate(SCENE_NAMES.MAIN) : NavigationServices.goBack(); }}
                     style={styles.cartContainer}>
-                    <FontAwesome name="angle-left" size={30} color="#fff" style={styles.maginIcon} />
+                    <FontAwesome name="angle-left" size={30} color="#fff" />
                 </TouchableOpacity>
             }
 

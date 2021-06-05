@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
-import NotifyView from './notify.view';
-import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
 import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import NotifyView from './notify.view';
 const functionsCounter = new Set();
 
 export default function NotifyContainer({ navigation }) {

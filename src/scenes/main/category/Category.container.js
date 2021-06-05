@@ -1,29 +1,26 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useState, useEffect} from 'react';
-import {
-  TouchableOpacity,
-  View,
-  Text,
-  Image,
-  ImageBackground,
-} from 'react-native';
-import CategoryView from './Category.view';
+import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
+import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
-import database from '@react-native-firebase/database';
-import auth from '@react-native-firebase/auth';
-import styles from './Category.styles';
-//import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
-import NumberFormat from 'react-number-format';
 import LottieView from 'lottie-react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  Image,
+  ImageBackground, Text, TouchableOpacity,
+  View,
+} from 'react-native';
+import styles from './Category.styles';
+import CategoryView from './Category.view';
 const functionsCounter = new Set();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 // const {width} = Dimensions.get('screen');
-export default function CategoryContainer({navigation}) {
+export default function CategoryContainer({ navigation }) {
   const isLoading = useSelectorShallow(loadingSelector);
   const itemRef = database();
 
@@ -33,24 +30,25 @@ export default function CategoryContainer({navigation}) {
   const [listcontent, setListContent] = useState([]);
   const [listproduct, setListProduct] = useState([]);
   const [brandid, setBrandID] = useState('');
+  const [numChat, setNumChat] = useState(0);
   const [categoryid, setCategoryID] = useState(
     'AIzaSyDSWIekvpvwQbRiGh4WF88H91tqFzL6OWI',
   );
   const [loading, setLoading] = useState(true);
   const [refesh, setRefesh] = useState(false);
 
-  const BrandItem = ({image, id}) => {
+  const BrandItem = ({ image, id }) => {
     return (
       <View>
         <TouchableOpacity
           onPress={() => setBrandID(id)}
           style={styles.branditemContainer}>
-          <Image source={{uri: image}} style={styles.cateImage} />
+          <Image source={{ uri: image }} style={styles.cateImage} />
         </TouchableOpacity>
       </View>
     );
   };
-  const CategoryItem = ({name, id, icon}) => {
+  const CategoryItem = ({ name, id, icon }) => {
     const colorText = id === categoryid ? '#6e3b6e' : '#1ba8ff';
     let iconpath = '../../../assets/icons/orther.png';
     switch (icon) {
@@ -91,7 +89,7 @@ export default function CategoryContainer({navigation}) {
         <View style={styles.ViewImage}>
           <ImageBackground
             style={styles.ImageBack}
-            // source={require('../../../assets/images/bg.png')}
+          // source={require('../../../assets/images/bg.png')}
           >
             {/* <Icons
               name={icon}
@@ -99,7 +97,7 @@ export default function CategoryContainer({navigation}) {
               size={width / 12}
               style={styles.cateIcon}
             /> */}
-            <Image style={styles.ImageBack} source={{uri: iconpath}} />
+            <Image style={styles.ImageBack} source={{ uri: iconpath }} />
           </ImageBackground>
         </View>
 
@@ -108,40 +106,15 @@ export default function CategoryContainer({navigation}) {
     );
   };
 
-  const ReactNativeNumberFormat = ({value}) => {
-    return (
-      <NumberFormat
-        value={value}
-        displayType={'text'}
-        thousandSeparator={true}
-        renderText={(formattedValue) => <Text>{formattedValue} đ</Text>}
-      />
-    );
+  const getCountChats = () => {
+    database().ref('Chats').child(auth().currentUser.uid).on('value', snapshot => {
+      var count = 0;
+      snapshot.forEach((child) => {
+        count += child.val().Status;
+      });
+      setNumChat(count);
+    });
   };
-
-  const ProductItem = ({image, name, price, rating, bough, PromotionPrice}) => (
-    <View style={styles.itemContainer}>
-      <Image source={{uri: image}} style={styles.itemImage} />
-      <Text style={styles.itemName} numberOfLines={2}>
-        {name}
-      </Text>
-      <Text style={styles.itemPrice}>
-        <ReactNativeNumberFormat value={price} />
-        {price === PromotionPrice ? null : (
-          // eslint-disable-next-line react-native/no-inline-styles
-          <Text style={{color: 'red'}}>
-            {' '}
-            -{(((PromotionPrice - price) / PromotionPrice) * 100).toFixed(0)}%
-          </Text>
-        )}
-      </Text>
-      <View style={styles.view}>
-        {/* {RatingUI(rating)} */}
-        {bough !== 0 ? <Text style={styles.greenText}>({bough})</Text> : null}
-      </View>
-    </View>
-  );
-
   const getnumcart = () => {
     if (auth().currentUser) {
       itemRef.ref('Cart/' + auth().currentUser.uid).on('value', (snapshot) => {
@@ -312,13 +285,22 @@ export default function CategoryContainer({navigation}) {
       });
   };
   const renderNofiCart = () => {
-    if (numcart === 0) {
-      return null;
-    } else {
+    if (numcart !== 0) {
       return (
         <View style={styles.cartView}>
           <Text style={styles.cartText} numberOfLines={1}>
             {numcart}
+          </Text>
+        </View>
+      );
+    }
+  };
+  const renderNumChat = () => {
+    if (numChat !== 0) {
+      return (
+        <View style={{ ...styles.cartView, width: numChat > 99 ? 19 : 12 }}>
+          <Text style={styles.cartText} numberOfLines={1}>
+            {numChat > 99 ? '99+' : numChat}
           </Text>
         </View>
       );
@@ -334,6 +316,7 @@ export default function CategoryContainer({navigation}) {
     GetAllBrand();
     GetAllCate();
     getnumcart();
+    getCountChats();
   };
   const renderNull = () => {
     return (
@@ -355,6 +338,7 @@ export default function CategoryContainer({navigation}) {
     GetAllCate();
     getListBanner();
     getnumcart();
+    getCountChats();
   }, []);
 
   useEffect(() => {
@@ -383,7 +367,7 @@ export default function CategoryContainer({navigation}) {
   functionsCounter.add(ListenForItemsSamsung);
   functionsCounter.add(renderNofiCart);
   functionsCounter.add(renderNull);
-  functionsCounter.add(ProductItem);
+  functionsCounter.add(renderNumChat);
 
   return (
     <CategoryView
@@ -397,7 +381,7 @@ export default function CategoryContainer({navigation}) {
       ListenForItemsSamsung={ListenForItemsSamsung}
       renderNofiCart={renderNofiCart}
       renderNull={renderNull}
-      ProductItem={ProductItem}
+      renderNumChat={renderNumChat}
       listproduct={listproduct}
       refesh={refesh}
       listcate={listcate}
@@ -405,7 +389,6 @@ export default function CategoryContainer({navigation}) {
       listbrand={listbrand}
       listcontent={listcontent}
       loading={loading}
-      navigation={navigation}
     />
   );
 }

@@ -1,18 +1,16 @@
+/* eslint-disable react-native/no-inline-styles */
+import ProductItem from 'components/ProductItem';
 import SwiperBraner from 'components/Swiper/SwiperBanner';
 import SCENE_NAMES from 'constants/sceneName';
 import * as React from 'react';
 import {
-  FlatList,
-
-  RefreshControl,
-  SafeAreaView, ScrollView,
-  StatusBar,
-  Text,
-  TouchableOpacity, View,
+  FlatList, RefreshControl, SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View, Dimensions,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 import NavigationServices from 'utils/navigationServices';
 import styles from './Category.styles';
+const { width } = Dimensions.get('screen');
 // import {NAMESPACE} from './Category.constants';
 
 function CategoryView(props) {
@@ -21,6 +19,7 @@ function CategoryView(props) {
     CategoryItem,
     _onRefresh,
     renderNofiCart,
+    renderNumChat,
     renderNull,
     refesh,
     listproduct,
@@ -28,7 +27,6 @@ function CategoryView(props) {
     categoryid,
     //listbrand,
     listcontent,
-    ProductItem,
   } = props;
 
   return (
@@ -37,20 +35,22 @@ function CategoryView(props) {
         <View style={styles.screenContainer}>
           <StatusBar barStyle="light-content" translucent={false} />
           <View style={styles.headerContainer}>
-            <TouchableOpacity>
-              <View style={styles.inputContainer}>
-                <FontAwesome name="search" size={24} color="#969696" />
-                <Text style={styles.inputText}>Bạn tìm gì hôm nay?</Text>
-              </View>
+            <TouchableOpacity style={styles.inputContainer} onPress={() => { NavigationServices.navigate(SCENE_NAMES.SEARCH); }}>
+              <FontAwesome name="search" size={width * 0.05} color="#969696" />
+              <Text style={styles.inputText}>Bạn tìm gì hôm nay?</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => { NavigationServices.navigate(SCENE_NAMES.CART_SCREEN); }}
-              style={styles.cartContainer}>
-              <View>
-                <FontAwesome name="shopping-cart" size={24} color="#fff" />
+            <View style={styles.cartContainer}>
+              <TouchableOpacity style={{ width: width * 0.07 }} onPress={() => { NavigationServices.navigate(SCENE_NAMES.CART_SCREEN); }}>
+                <FontAwesome name="shopping-cart" size={width * 0.07} color="#fff" />
                 {renderNofiCart()}
-              </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.cartContainer}>
+              <TouchableOpacity style={{ width: width * 0.07, marginLeft: 5 }} onPress={() => { NavigationServices.navigate(SCENE_NAMES.ChatContainer); }}>
+                <Icon name="chatbubble-ellipses" size={width * 0.06} color="#fff" />
+                {renderNumChat()}
+              </TouchableOpacity>
+            </View>
           </View>
           <View style={styles.bodyContainer}>
             <ScrollView
@@ -75,17 +75,6 @@ function CategoryView(props) {
                   keyExtractor={(item) => item.id}
                   extraData={categoryid}
                 />
-                {/* <FlatList
-                // eslint-disable-next-line react-native/no-inline-styles
-                style={{ marginVertical: 10 }}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={listbrand}
-                renderItem={({ item }) => (
-                  <BrandItem image={item.image} id={item.id} />
-                )}
-                keyExtractor={(item) => item.id}
-              /> */}
                 <View style={styles.space} />
                 <View style={styles.listItemContainer}>
                   <FlatList
@@ -102,14 +91,7 @@ function CategoryView(props) {
                             BrandID: item.BrandID,
                           });
                         }}>
-                        <ProductItem
-                          name={item.title}
-                          image={item.image}
-                          price={item.price}
-                          rating={item.rating}
-                          bough={item.bough}
-                          PromotionPrice={item.PromotionPrice}
-                        />
+                        <ProductItem item={item} />
                       </TouchableOpacity>
                     )}
                     keyExtractor={(item) => item.id}

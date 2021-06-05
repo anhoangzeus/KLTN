@@ -1,28 +1,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useLayoutEffect, useEffect, useState} from 'react';
-import {View, Text, Animated} from 'react-native';
-import ProductView from './Product.view';
+import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
+import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
+import SCENE_NAMES from 'constants/sceneName';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
-import {NAMESPACE} from './Product.constants';
-import {getString} from 'utils/i18n';
-import database from '@react-native-firebase/database';
-import auth from '@react-native-firebase/auth';
-import NavigationServices, {getParams} from 'utils/navigationServices';
-import SCENE_NAMES from 'constants/sceneName';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { Animated, Text, View } from 'react-native';
+import { getString } from 'utils/i18n';
+import NavigationServices, { getParams } from 'utils/navigationServices';
+import { NAMESPACE } from './Product.constants';
 import styles from './Product.styles';
+import ProductView from './Product.view';
 const functionsCounter = new Set();
 
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 
-export default function ProductContainer({navigation, route}) {
+export default function ProductContainer({ navigation, route }) {
   const isLoading = useSelectorShallow(loadingSelector);
-  const {id, BrandID, CategoryID} = getParams(route);
+  const { id, BrandID, CategoryID } = getParams(route);
   const itemRef = database();
 
   const [numcart, setnumcart] = useState(0);
@@ -215,7 +215,7 @@ export default function ProductContainer({navigation, route}) {
     } else {
       return (
         <View style={styles.cartposition}>
-          <Text style={{color: 'white'}}>{numcart}</Text>
+          <Text style={{ color: 'white' }}>{numcart}</Text>
         </View>
       );
     }
