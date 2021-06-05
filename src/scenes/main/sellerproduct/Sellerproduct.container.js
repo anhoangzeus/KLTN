@@ -315,18 +315,22 @@ export default function SellerproductContainer({navigation, route}) {
       .once('value')
       .then((snapshot) => {
         let item = [];
-        if (snapshot.val().UserID === UserID) {
-          item.push({
-            title: snapshot.val().Name,
-            price: snapshot.val().Price,
-            image: snapshot.val().Image,
-            id: snapshot.val().ProductID,
-            //rating: snapshot / count,
-            bough: snapshot,
-            PromotionPrice: snapshot.val().PromotionPrice,
-            UserID: snapshot.val().UserID,
-          });
-        }
+        snapshot.forEach((childSnapshot) => {
+          console.log('item tam', childSnapshot.val().UserID);
+          if (childSnapshot.val().UserID === UserID && item.length < 7) {
+            item.push({
+              title: childSnapshot.val().Name,
+              price: childSnapshot.val().Price,
+              image: childSnapshot.val().Image,
+              id: childSnapshot.val().ProductID,
+              //rating: snapshot / count,
+              bough: childSnapshot.val().Counts,
+              PromotionPrice: childSnapshot.val().PromotionPrice,
+              UserID: childSnapshot.val().UserID,
+            });
+          }
+        });
+
         setSellerProd(item);
       });
   };

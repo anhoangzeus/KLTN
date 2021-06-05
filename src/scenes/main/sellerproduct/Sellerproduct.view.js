@@ -24,6 +24,7 @@ import NumberFormat from 'components/NumberFormat';
 import StarRating from 'components/StarRating';
 import CommentItem from 'components/CommentItem';
 import SmallProductCard from 'components/SmallProductCard';
+import SellerProduct from 'components/SellerProduct';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 // import {NAMESPACE} from './Product.constants';
@@ -58,6 +59,7 @@ function SellerproductView(props) {
     brandname,
     image,
     sellerinfo,
+    sellerProd,
   } = props;
   const scrollY = new Animated.Value(0);
   const HEADER_MAX_HEIGHT = height / 10;
@@ -68,6 +70,7 @@ function SellerproductView(props) {
     outputRange: [HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT],
     extrapolate: 'clamp',
   });
+  console.log('seller Product: ', sellerProd);
   return (
     <SafeAreaView style={styles.safeView}>
       <View style={styles.container}>
@@ -240,7 +243,12 @@ function SellerproductView(props) {
           )}
           <View style={styles.fiveView} />
           <View style={styles.divider} />
-          <View style={styles.whiteView}>
+          <View
+            style={
+              sellerProd.length <= 3
+                ? styles.whiteViewSell
+                : styles.whiteViewSell2
+            }>
             <Text bold size={12} style={styles.desText}>
               Thông tin người bán
             </Text>
@@ -265,11 +273,21 @@ function SellerproductView(props) {
                 style={styles.sellerIcon}
               />
             </TouchableOpacity>
-            <Text muted size={12} style={styles.mainText}>
-              {' '}
-              {decription}
-            </Text>
-            <View style={styles.quarView} />
+            <View style={styles.listSell}>
+              {sellerProd.map((element) => {
+                console.log('element log ', element);
+                return (
+                  <SellerProduct
+                    name={element.title}
+                    image={element.image}
+                    price={element.price}
+                    rating={element.rating}
+                    bough={element.bough}
+                    PromotionPrice={element.PromotionPrice}
+                  />
+                );
+              })}
+            </View>
           </View>
           <View style={styles.divider} />
           <View style={styles.whiteView}>

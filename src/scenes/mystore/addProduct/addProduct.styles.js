@@ -40,7 +40,7 @@ export default StyleSheet.create({
   },
   nameView: {
     //justifyContent: 'space-between',
-    height: height / 3.5,
+    height: height / 2.5,
   },
   imgView: {
     flexDirection: 'row',
@@ -58,7 +58,12 @@ export default StyleSheet.create({
   welcomeText: {
     color: 'black',
     fontSize: height / 50,
-    marginTop: height / 100,
+    marginTop: height / 200,
+  },
+  elementText: {
+    color: 'black',
+    fontSize: height / 50,
+    marginTop: 10,
   },
   divider: {
     height: 2,
@@ -86,7 +91,7 @@ export default StyleSheet.create({
   titletext: {
     color: 'black',
     fontSize: height / 40,
-    marginTop: height / 40,
+    marginTop: height / 150,
   },
   subText: {
     fontSize: height / 50,
@@ -154,13 +159,14 @@ export default StyleSheet.create({
     flex: 1,
   },
   cardText: {
-    marginTop: -height / 100,
-    fontSize: 17,
+    //marginTop: 5,
+    fontSize: height / 40,
     textAlign: 'right',
     borderColor: '#ededed',
     width: width / 2,
-
     height: height / 20,
+    backgroundColor: '#fff',
+    padding: height / 100,
   },
   selectText: {
     color: '#1e1e1e',

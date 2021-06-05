@@ -111,6 +111,10 @@ export default StyleSheet.create({
     marginVertical: 10,
     justifyContent: 'space-between',
   },
+  listSell: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
   clientText: {
     marginLeft: width / 40,
     fontWeight: 'bold',
@@ -128,6 +132,8 @@ export default StyleSheet.create({
     height: 2,
   },
   whiteView: {backgroundColor: '#fff'},
+  whiteViewSell: {backgroundColor: '#fff', height: height / 1.75},
+  whiteViewSell2: {backgroundColor: '#fff', height: height * 1},
   profileImage: {
     width: width,
     height: height / 2,

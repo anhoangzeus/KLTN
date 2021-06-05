@@ -1,4 +1,3 @@
-/* eslint-disable react/no-string-refs */
 /* eslint-disable react-native/no-inline-styles */
 
 import moment from 'moment';
@@ -12,10 +11,10 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
-import { normalize } from 'react-native-elements';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {normalize} from 'react-native-elements';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -23,46 +22,46 @@ import NavigationServices from 'utils/navigationServices';
 import styles from './chatBox.styles';
 // import SCENE_NAMES from 'constants/sceneName';
 
-const { width, height } = Dimensions.get('screen');
+const {width, height} = Dimensions.get('screen');
 
 class ChatBoxContainer extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       onInputChat: false,
     };
   }
 
-  chatMessage = ({ item }) => {
+  chatMessage = ({item}) => {
     return item.Type === 'CUS' ? (
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{flexDirection: 'row'}}>
         {item.Image === '' || item.Image === undefined ? (
           <View style={styles.messageView}>
             <Text style={styles.messText}>{item.Text}</Text>
           </View>
         ) : (
           //<TouchableOpacity style={styles.messageView}>
-          <Image source={{ uri: item.Image }} style={styles.msgImage} />
+          <Image source={{uri: item.Image}} style={styles.msgImage} />
           //</TouchableOpacity>
         )}
 
-        <Text style={{ ...styles.messTime, marginLeft: normalize(15) }}>
+        <Text style={{...styles.messTime, marginLeft: normalize(15)}}>
           {moment.unix(item.CreatedTime).format('hh:mm MM-DD-YY')}
         </Text>
       </View>
     ) : (
-      <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-        <Text style={{ ...styles.messTime, marginRight: normalize(15) }}>
+      <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+        <Text style={{...styles.messTime, marginRight: normalize(15)}}>
           {moment.unix(item.CreatedTime).format('hh:mm MM-DD-YY')}
         </Text>
 
         {item.Image === '' || item.Image === undefined ? (
-          <View style={{ ...styles.messageView, backgroundColor: '#0084ff' }}>
+          <View style={{...styles.messageView, backgroundColor: '#0084ff'}}>
             <Text style={styles.text}>{item.Text}</Text>
           </View>
         ) : (
           <TouchableOpacity>
-            <Image source={{ uri: item.Image }} style={styles.msgImage} />
+            <Image source={{uri: item.Image}} style={styles.msgImage} />
           </TouchableOpacity>
         )}
       </View>
@@ -78,10 +77,10 @@ class ChatBoxContainer extends React.Component {
       openGalary,
       //loading,
     } = this.props;
-    const { onInputChat } = this.state;
+    const {onInputChat} = this.state;
 
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#2B4F8C' }}>
+      <SafeAreaView style={{flex: 1, backgroundColor: '#2B4F8C'}}>
         <View style={styles.headerContainer}>
           <TouchableOpacity
             onPress={() => {
@@ -96,7 +95,7 @@ class ChatBoxContainer extends React.Component {
             />
           </TouchableOpacity>
           <Text style={styles.headerText}>{Name}</Text>
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{flexDirection: 'row'}}>
             <TouchableOpacity>
               <MaterialIcons
                 name="call"
@@ -128,11 +127,19 @@ class ChatBoxContainer extends React.Component {
             inverted
             showsVerticalScrollIndicator={false}
             data={listchat}
-            renderItem={({ item }) => <this.chatMessage item={item} />}
+            renderItem={({item}) => <this.chatMessage item={item} />}
             keyExtractor={(item) => item.id}
-            ListHeaderComponent={<View style={{ maxHeight: height * 0.54 }}>
-              <View style={{ height: height * (1 - (listchat.length / (listchat.length + 10))) }} />
-            </View>}
+            ListHeaderComponent={
+              <View style={{maxHeight: height * 0.54}}>
+                <View
+                  style={{
+                    height:
+                      height *
+                      (1 - (listchat.length * 10) / (listchat.length * 10 + 5)),
+                  }}
+                />
+              </View>
+            }
           />
         </View>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' && 'padding'}>
@@ -141,7 +148,7 @@ class ChatBoxContainer extends React.Component {
               ...styles.containerComposize,
               height: onInputChat ? width * 0.24 : height * 0.07,
             }}>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{flexDirection: 'row'}}>
               <TouchableOpacity onPress={() => openGalary()}>
                 <Image
                   source={require('../../../assets/images/gallery.png')}
