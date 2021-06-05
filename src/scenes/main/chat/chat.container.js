@@ -25,7 +25,6 @@ export default function ChatContainer({navigation}) {
             Name: childSnapshot.val().Name,
             Status: childSnapshot.val().Status,
           });
-          console.log(childSnapshot);
         });
         setListChat(items);
       });

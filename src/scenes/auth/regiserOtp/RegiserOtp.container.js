@@ -6,17 +6,17 @@ import Header from 'components/Header';
 import SCENE_NAMES from 'constants/sceneName';
 import moment from 'moment';
 import React from 'react';
-import { StatusBar, Text, TouchableOpacity, View } from 'react-native';
-import { normalize } from 'react-native-elements';
+import {StatusBar, Text, TouchableOpacity, View} from 'react-native';
+import {normalize} from 'react-native-elements';
 import OTPTextInput from 'react-native-otp-textinput';
-import { Modal } from 'react-native-paper';
+import {Modal} from 'react-native-paper';
 import RNSmtpMailer from 'react-native-smtp-mailer';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import NavigationServices from 'utils/navigationServices';
 import styles from './RegiserOtp.styles';
 
 class RegiserOtpContainer extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       textOPT: '',
@@ -30,29 +30,30 @@ class RegiserOtpContainer extends React.Component {
   }
 
   handleClose = () => {
-    this.setState({ modalVisible: false, modalVisibleWarning: false });
+    this.setState({modalVisible: false, modalVisibleWarning: false});
   };
   setModalVisible = (visible, text) => {
-    this.setState({ modalVisible: visible, textAlert: text });
+    this.setState({modalVisible: visible, textAlert: text});
     setTimeout(this.handleClose, 1500);
   };
   setModalVisibleWarning = (visible, text) => {
-    this.setState({ modalVisibleWarning: visible, textAlert: text });
+    this.setState({modalVisibleWarning: visible, textAlert: text});
     setTimeout(this.handleClose, 1500);
   };
 
   onChangeText = (val) => {
-    this.setState({ textOPT: val });
+    this.setState({textOPT: val});
   };
 
-
   getRandom = (length) => {
-    var num = Math.floor(Math.pow(10, length - 1) + Math.random() * 9 * Math.pow(10, length - 1));
-    this.setState({ numOTP: num });
+    var num = Math.floor(
+      Math.pow(10, length - 1) + Math.random() * 9 * Math.pow(10, length - 1),
+    );
+    this.setState({numOTP: num});
     return num;
   };
   sentOTP = () => {
-    const { data } = this.props.route.params;
+    const {data} = this.props.route.params;
     RNSmtpMailer.sendMail({
       mailhost: 'smtp.gmail.com',
       port: '465',
@@ -62,44 +63,48 @@ class RegiserOtpContainer extends React.Component {
       fromName: 'TiAn Vegan Food Market',
       recipients: data.username,
       subject: 'Mã xác nhận đăng kí Vegan Food Market TiAn',
-      htmlBody: `<h1>Mã xác nhận đăng kí có hiệu lực trong 90s</h1><p>${this.getRandom(6)}</p>`,
+      htmlBody: `<h1>Mã xác nhận đăng kí có hiệu lực trong 90s</h1><p>${this.getRandom(
+        6,
+      )}</p>`,
     })
       .then(() => {
-        this.setState({ timeOut: 60 });
+        this.setState({timeOut: 60});
         this.interval = setInterval(() => {
           if (this.state.timeOut > 0) {
-            this.setState({ timeOut: this.state.timeOut - 1 });
+            this.setState({timeOut: this.state.timeOut - 1});
           } else {
             clearInterval(this.interval);
           }
         }, 1000);
-
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
   register = () => {
-    const { numOTP, textOPT, timeOut } = this.state;
-    console.log(numOTP, textOPT);
-    const { data } = this.props.route.params;
+    const {numOTP, textOPT, timeOut} = this.state;
+    const {data} = this.props.route.params;
     if (typeof (numOTP === textOPT)) {
       if (timeOut > 0) {
-        auth().createUserWithEmailAndPassword(data.username, data.password)
+        auth()
+          .createUserWithEmailAndPassword(data.username, data.password)
           .then(() => {
-            database().ref('Users').child(auth().currentUser.uid).set({
-              FullName: data.fullname,
-              CreatedDate: moment().format('DD/MM/yyyy'),
-              CreatedBy: data.Createby,
-              Status: data.Status,
-              UserID: auth().currentUser.uid,
-              Passwords: data.password,
-              Email: data.username,
-              Avatar: data.Avatar,
-              UserName: data.username,
-            });
+            database()
+              .ref('Users')
+              .child(auth().currentUser.uid)
+              .set({
+                FullName: data.fullname,
+                CreatedDate: moment().format('DD/MM/yyyy'),
+                CreatedBy: data.Createby,
+                Status: data.Status,
+                UserID: auth().currentUser.uid,
+                Passwords: data.password,
+                Email: data.username,
+                Avatar: data.Avatar,
+                UserName: data.username,
+              });
             this.setModalVisible(true, 'Đăng kí thành công');
             setTimeout(NavigationServices.replace(SCENE_NAMES.MAIN), 2000);
           })
-          .catch(error => {
+          .catch((error) => {
             this.setModalVisibleWarning(true, 'Không thể đăng kí!!!');
           });
       } else {
@@ -113,8 +118,7 @@ class RegiserOtpContainer extends React.Component {
     this.sentOTP();
   }
   render() {
-
-    const { modalVisible, modalVisibleWarning, textAlert, timeOut } = this.state;
+    const {modalVisible, modalVisibleWarning, textAlert, timeOut} = this.state;
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="#2B4F8C" />
@@ -125,18 +129,22 @@ class RegiserOtpContainer extends React.Component {
             handleTextChange={(val) => this.onChangeText(val)}
             inputCount={6}
           />
-          <TouchableOpacity style={{ ...styles.btnConfirm, backgroundColor: 'red' }} onPress={() => { this.sentOTP(); }}>
+          <TouchableOpacity
+            style={{...styles.btnConfirm, backgroundColor: 'red'}}
+            onPress={() => {
+              this.sentOTP();
+            }}>
             <Text style={styles.textbtn}>Gửi mã</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{ ...styles.btnConfirm, marginTop: normalize(50) }} onPress={() => { this.register(); }}>
+          <TouchableOpacity
+            style={{...styles.btnConfirm, marginTop: normalize(50)}}
+            onPress={() => {
+              this.register();
+            }}>
             <Text style={styles.textbtn}>Xác nhận</Text>
           </TouchableOpacity>
         </View>
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={modalVisible}
-        >
+        <Modal animationType="fade" transparent={true} visible={modalVisible}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <FontAwesome5 name="grin-beam" size={40} color="#2B4F8C" />
@@ -147,8 +155,7 @@ class RegiserOtpContainer extends React.Component {
         <Modal
           animationType="fade"
           transparent={true}
-          visible={modalVisibleWarning}
-        >
+          visible={modalVisibleWarning}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <FontAwesome5 name="grin-beam-sweat" size={40} color="red" />

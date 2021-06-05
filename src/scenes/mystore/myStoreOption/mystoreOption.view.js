@@ -44,7 +44,13 @@ export default function MyStoreOptionView(props) {
             <ProfileItem icon="format-list-bulleted" name="Đơn hàng" />
           </TouchableOpacity>
           <View style={styles.divider1} />
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity
+            onPress={() => {
+              NavigationServices.navigate(SCENE_NAMES.STORE_PRODUCT, {
+                FullName: FullName,
+                Avatar: Avatar,
+              });
+            }}>
             <ProfileItem icon="eye-outline" name="Sản phẩm của tôi" />
           </TouchableOpacity>
           <TouchableOpacity

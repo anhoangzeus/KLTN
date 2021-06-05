@@ -15,9 +15,6 @@ import {
 import styles from './addProduct.styles';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import * as Animatable from 'react-native-animatable';
-import NavigationServices from 'utils/navigationServices';
-import SCENE_NAMES from 'constants/sceneName';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header from 'components/Header';
 import {TextInput} from 'react-native-gesture-handler';

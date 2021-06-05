@@ -31,7 +31,6 @@ function PaymentMethodView(props) {
     shipMoney,
     prop,
   } = props;
-  console.log('>>> gia tri cua prop>>>>', shipMoney);
   return (
     <SafeAreaView style={styles.screenContainersafe}>
       <View style={styles.screenContainer}>

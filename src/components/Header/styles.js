@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import SIZE from 'constants/size';
 export default StyleSheet.create({
   headerContainer: {
@@ -10,8 +10,8 @@ export default StyleSheet.create({
   },
   cartContainer: {
     paddingHorizontal: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
     width: 75,
   },
   cartIcon: {
