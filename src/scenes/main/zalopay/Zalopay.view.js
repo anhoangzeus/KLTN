@@ -15,6 +15,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import NavigationServices from 'utils/navigationServices';
 import styles from './Zalopay.styles';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 // import {NAMESPACE} from './Zalopay.constants';
 
 function ZalopayView(props) {
@@ -33,27 +35,27 @@ function ZalopayView(props) {
             style={styles.iconback}
           />
         </TouchableOpacity>
-        <Text style={styles.headerText}>Thanh Toán</Text>
+        <Text style={styles.headerText}>{I18n.t(`${NAMESPACE}.payment`)}</Text>
       </View>
       <KeyboardAvoidingView style={styles.container}>
         <Image
           source={require('../../../assets/images/zalopay.png')}
           style={styles.imgZalo}
         />
-        <Text style={styles.welcomeHead}>Thanh toán qua ZaloPay</Text>
+        <Text style={styles.welcomeHead}>{I18n.t(`${NAMESPACE}.zalopay`)}</Text>
         <Text style={styles.welcome}>
-          Tổng hóa đơn: <NumberFormat value={amount} />
+          {I18n.t(`${NAMESPACE}.total`)}: <NumberFormat value={amount} />
         </Text>
         <TouchableOpacity
           style={styles.btnPayment}
           onPress={() => {
             payOrder();
           }}>
-          <Text style={styles.btnOpen}>Mở ZaloPay để thanh toán</Text>
+          <Text style={styles.btnOpen}>{I18n.t(`${NAMESPACE}.openzalo`)}</Text>
         </TouchableOpacity>
         <View>
           <Button
-            title="Về lại trang chủ"
+            title={I18n.t(`${NAMESPACE}.backhome`)}
             type="outline"
             style={styles.btnHome}
             onPress={() => {
@@ -77,8 +79,12 @@ function ZalopayView(props) {
               }}>
               <View style={styles.modalView}>
                 <MaterialIcons name="done" size={55} color="#00cc00" />
-                <Text style={styles.modalText}>Mua thành công!</Text>
-                <Text style={styles.modalText}>Nhấn để về trang chủ</Text>
+                <Text style={styles.modalText}>
+                  {I18n.t(`${NAMESPACE}.paysuccess`)}
+                </Text>
+                <Text style={styles.modalText}>
+                  {I18n.t(`${NAMESPACE}.backhome`)}
+                </Text>
               </View>
             </TouchableOpacity>
           </View>

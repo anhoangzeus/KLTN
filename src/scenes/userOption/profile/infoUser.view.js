@@ -24,7 +24,8 @@ import ImageView from 'react-native-image-viewing';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import styles from './infoUser.styles';
-
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 export default function infoUserView(props) {
   const {
     data,
@@ -60,7 +61,7 @@ export default function infoUserView(props) {
     <SafeAreaView style={styles.screenContainersafe}>
       <View style={styles.screenContainer}>
         <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
-        <Header title={'Thông tin tài khoản'} />
+        <Header title={I18n.t(`${NAMESPACE}.profile`)} />
         <ScrollView>
           <KeyboardAvoidingView behavior="padding">
             <TouchableOpacity
@@ -93,11 +94,13 @@ export default function infoUserView(props) {
                         ? styles.titletext
                         : styles.errtext
                     }>
-                    Họ tên
+                    {I18n.t(`${NAMESPACE}.fullname`)}
                   </Text>
                   {data.check_textInputFullName || (
                     <Animatable.View animation="fadeInLeft" duration={500}>
-                      <Text style={styles.errorMsg}>Vui lòng nhập Họ tên</Text>
+                      <Text style={styles.errorMsg}>
+                        {I18n.t(`${NAMESPACE}.fullname`)}
+                      </Text>
                     </Animatable.View>
                   )}
                 </View>
@@ -125,12 +128,12 @@ export default function infoUserView(props) {
                         ? styles.titletext
                         : styles.errtext
                     }>
-                    Số điện thoại
+                    {I18n.t(`${NAMESPACE}.phone`)}
                   </Text>
                   {data.check_textInputSDT || (
                     <Animatable.View animation="fadeInLeft" duration={500}>
                       <Text style={styles.errorMsg}>
-                        Số điện thoại sai định dạng
+                        {I18n.t(`${NAMESPACE}.wrongphone`)}
                       </Text>
                     </Animatable.View>
                   )}
@@ -149,7 +152,10 @@ export default function infoUserView(props) {
                     onPress={() => {
                       auth().verifyPhoneNumber(data.Phone);
                     }}>
-                    <Text style={styles.txtConfirmPhone}>Gửi mã xác nhận</Text>
+                    <Text style={styles.txtConfirmPhone}>
+                      {' '}
+                      {I18n.t(`${NAMESPACE}.sendcode`)}
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -168,11 +174,13 @@ export default function infoUserView(props) {
                         ? styles.titletext
                         : styles.errtext
                     }>
-                    Căn cước công dân{' '}
+                    {I18n.t(`${NAMESPACE}.ID`)}{' '}
                   </Text>
                   {data.check_textInputCMND ? null : (
                     <Animatable.View animation="fadeInLeft" duration={500}>
-                      <Text style={styles.errorMsg}>CMND sai định dạng</Text>
+                      <Text style={styles.errorMsg}>
+                        {I18n.t(`${NAMESPACE}.wrongid`)}
+                      </Text>
                     </Animatable.View>
                   )}
                 </View>
@@ -209,7 +217,9 @@ export default function infoUserView(props) {
                   style={styles.checkbox}
                 />
                 <View style={styles.magin10}>
-                  <Text style={styles.titletext}>Đổi mật khẩu</Text>
+                  <Text style={styles.titletext}>
+                    {I18n.t(`${NAMESPACE}.changepass`)}
+                  </Text>
                 </View>
               </View>
             </View>
@@ -223,12 +233,14 @@ export default function infoUserView(props) {
                         ? styles.errtext
                         : styles.errtext1
                     }>
-                    Mật khẩu cũ
+                    {I18n.t(`${NAMESPACE}.oldpass`)}
                   </Text>
                   <View style={styles.row}>
                     <TextInput
                       placeholder={
-                        data.check_textInputOldpass ? 'Mật khẩu cũ' : ''
+                        data.check_textInputOldpass
+                          ? I18n.t(`${NAMESPACE}.oldpass`)
+                          : ''
                       }
                       secureTextEntry={data.secureTextOld ? true : false}
                       style={styles.welcomeText}
@@ -245,7 +257,7 @@ export default function infoUserView(props) {
                   {data.check_textInputOldpass ? null : (
                     <Animatable.View animation="fadeInLeft" duration={500}>
                       <Text style={styles.errorMsg}>
-                        Vui lòng nhập mật khẩu
+                        {I18n.t(`${NAMESPACE}.typepass`)}
                       </Text>
                     </Animatable.View>
                   )}
@@ -257,11 +269,11 @@ export default function infoUserView(props) {
                         ? styles.errtext
                         : styles.errtext1
                     }>
-                    Mật khẩu mới
+                    {I18n.t(`${NAMESPACE}.newpass`)}
                   </Text>
                   <View style={styles.row}>
                     <TextInput
-                      placeholder="Mật khẩu mới"
+                      placeholder={I18n.t(`${NAMESPACE}.newpass`)}
                       secureTextEntry={data.secureTextNew ? true : false}
                       style={styles.welcomeText}
                       onChangeText={(val) => textInputNewPass(val)}
@@ -277,7 +289,7 @@ export default function infoUserView(props) {
                   {data.check_textInputNewpass ? null : (
                     <Animatable.View animation="fadeInLeft" duration={500}>
                       <Text style={styles.errorMsg}>
-                        Vui lòng nhập mật khẩu ít nhất 6 kí tự
+                        {I18n.t(`${NAMESPACE}.min`)}
                       </Text>
                     </Animatable.View>
                   )}
@@ -289,11 +301,11 @@ export default function infoUserView(props) {
                         ? styles.errtext
                         : styles.errtext1
                     }>
-                    Xác nhận mật khẩu mới
+                    {I18n.t(`${NAMESPACE}.confirmnewpass`)}
                   </Text>
                   <View style={styles.row}>
                     <TextInput
-                      placeholder="Xác nhận mật khẩu mới"
+                      placeholder={I18n.t(`${NAMESPACE}.confirmnewpass`)}
                       secureTextEntry={data.secureTextConfirm ? true : false}
                       style={styles.welcomeText}
                       onChangeText={(val) => textInputConfirm(val)}
@@ -309,7 +321,7 @@ export default function infoUserView(props) {
                   {data.check_textInputComfim ? null : (
                     <Animatable.View animation="fadeInLeft" duration={500}>
                       <Text style={styles.errorMsg}>
-                        Mật khẩu xác nhận chưa đúng
+                        {I18n.t(`${NAMESPACE}.confirmpasswrong`)}
                       </Text>
                     </Animatable.View>
                   )}
@@ -324,7 +336,10 @@ export default function infoUserView(props) {
             onPress={() => {
               saveChangesHandle();
             }}>
-            <Text style={styles.txtSave}>Lưu Thay Đổi</Text>
+            <Text style={styles.txtSave}>
+              {' '}
+              {I18n.t(`${NAMESPACE}.savechange`)}
+            </Text>
           </TouchableOpacity>
         </View>
         <Modal

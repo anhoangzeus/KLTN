@@ -1,44 +1,55 @@
 import auth from '@react-native-firebase/auth';
 import Header from 'components/Header';
-import { COLOR_BLACK, COLOR_BLUEAIR } from 'constants/colors';
+import {COLOR_BLACK, COLOR_BLUEAIR} from 'constants/colors';
 import SCENE_NAMES from 'constants/sceneName';
 import * as React from 'react';
 import {
-  ActivityIndicator, FlatList,
+  ActivityIndicator,
+  FlatList,
   RefreshControl,
-
-  SafeAreaView, Text,
-  TouchableOpacity, View,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './notify.styles';
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 const renderTrangThai = (Status) => {
   if (Status === 1) {
     return (
       <View>
-        <Text style={styles.textSuccess}>Đơn hàng đang chờ xác nhận</Text>
+        <Text style={styles.textSuccess}>
+          {' '}
+          {I18n.t(`${NAMESPACE}.orderwait`)}
+        </Text>
       </View>
     );
   } else if (Status === 2) {
     return (
       <View>
-        <Text style={styles.textSuccess}>Đơn hàng đang chờ lấy hàng</Text>
+        <Text style={styles.textSuccess}>
+          {I18n.t(`${NAMESPACE}.orderwaitpickup`)}
+        </Text>
       </View>
     );
   } else if (Status === 3) {
     return (
       <View>
-        <Text style={styles.textSuccess}>Đơn hàng đang giao hàng</Text>
+        <Text style={styles.textSuccess}>
+          {I18n.t(`${NAMESPACE}.orderdelivery`)}
+        </Text>
       </View>
     );
   } else if (Status === 4) {
     return (
       <View>
         <Text style={styles.textSuccess}>
-          Đơn hàng đã giao thành công.
+          {I18n.t(`${NAMESPACE}.ordersuccess`)}
           <Text style={styles.textSuccess}>
             {' '}
-            Bạn hãy đánh giá để giúp người dùng khác hiểu hơn về sản phẩm.
+            {I18n.t(`${NAMESPACE}.pleasereview`)}
           </Text>
         </Text>
       </View>
@@ -46,13 +57,17 @@ const renderTrangThai = (Status) => {
   } else if (Status === 5) {
     return (
       <View>
-        <Text style={styles.textSuccess}>Đơn hàng đã bị huỷ</Text>
+        <Text style={styles.textSuccess}>
+          {I18n.t(`${NAMESPACE}.ordercancel`)}
+        </Text>
       </View>
     );
   } else {
     return (
       <View>
-        <Text style={styles.textSuccess}>Đơn hàng bị trả</Text>
+        <Text style={styles.textSuccess}>
+          {I18n.t(`${NAMESPACE}.orderreturn`)}
+        </Text>
       </View>
     );
   }
@@ -63,13 +78,15 @@ const renderTimeLine = (name, item) => {
       <View style={styles.lineView} />
       <View style={styles.lineHolder}>
         <Text>{name}</Text>
-        <Text>Ngày {item}</Text>
+        <Text>
+          {I18n.t(`${NAMESPACE}.date`)} {item}
+        </Text>
       </View>
     </View>
   );
 };
-const OrderItem = ({ item, props }) => {
-  const { isdropdownid, navigation, setIsdropdownid } = props;
+const OrderItem = ({item, props}) => {
+  const {isdropdownid, navigation, setIsdropdownid} = props;
   return (
     <View style={styles.jContent}>
       <View style={styles.itemsContainer}>
@@ -78,18 +95,20 @@ const OrderItem = ({ item, props }) => {
             item.Status === 4
               ? navigation.navigate(SCENE_NAMES.TopStackOrder)
               : navigation.navigate(SCENE_NAMES.DetailOrderContainer, {
-                id: item.orderId,
-              });
+                  id: item.orderId,
+                });
           }}
           style={styles.orderWidth}>
-          <Text style={{ color: COLOR_BLUEAIR }}>Mã đơn hàng {item.orderId}</Text>
-          <Text style={{ color: COLOR_BLACK }}>
+          <Text style={{color: COLOR_BLUEAIR}}>
+            {I18n.t(`${NAMESPACE}.orderid`)} {item.orderId}
+          </Text>
+          <Text style={{color: COLOR_BLACK}}>
             {item.payment === '01'
-              ? 'Thanh toán khi nhận hàng'
-              : 'Đã thanh toán trực tuyến'}
+              ? I18n.t(`${NAMESPACE}.cash`)
+              : I18n.t(`${NAMESPACE}.onlpay`)}
           </Text>
           {renderTrangThai(item.Status)}
-          <Text style={{ color: COLOR_BLACK }}>
+          <Text style={{color: COLOR_BLACK}}>
             <MaterialCommunityIcons name="clock" size={13} /> {item.createdated}
           </Text>
         </TouchableOpacity>
@@ -120,44 +139,53 @@ const OrderItem = ({ item, props }) => {
           {item.TimeLine.ChoXacNhan === ''
             ? null
             : renderTimeLine(
-              'Xác nhận đã nhận đơn hàng',
-              item.TimeLine.ChoXacNhan,
-            )}
+                I18n.t(`${NAMESPACE}.comfirmgetorder`),
+                item.TimeLine.ChoXacNhan,
+              )}
           {item.TimeLine.ChoLayHang === ''
             ? null
             : renderTimeLine(
-              'Nhận kiện hàng thành công',
-              item.TimeLine.ChoLayHang,
-            )}
+                I18n.t(`${NAMESPACE}.getsuccess`),
+                item.TimeLine.ChoLayHang,
+              )}
           {item.TimeLine.DangVanChuyen === ''
             ? null
-            : renderTimeLine('Đang vận chuyển', item.TimeLine.DangVanChuyen)}
+            : renderTimeLine(
+                I18n.t(`${NAMESPACE}.delivering`),
+                item.TimeLine.DangVanChuyen,
+              )}
           {item.TimeLine.DaGiaoHang === ''
             ? null
             : renderTimeLine(
-              'Đã giao hàng thành công',
-              item.TimeLine.DaGiaoHang,
-            )}
+                I18n.t(`${NAMESPACE}.deliverysuccess`),
+                item.TimeLine.DaGiaoHang,
+              )}
           {item.TimeLine.DaHuy === ''
             ? null
-            : renderTimeLine('Xác nhận huỷ đơn hàng', item.TimeLine.DaHuy)}
+            : renderTimeLine(
+                I18n.t(`${NAMESPACE}.confirmcancel`),
+                item.TimeLine.DaHuy,
+              )}
           {item.TimeLine.TraHang === ''
             ? null
-            : renderTimeLine('Xác nhận trả hàng', item.TimeLine.TraHang)}
+            : renderTimeLine(
+                I18n.t(`${NAMESPACE}.confirmreturn`),
+                item.TimeLine.TraHang,
+              )}
         </View>
       ) : null}
     </View>
   );
 };
 export default function NotifyView(props) {
-  const NotificationItem = ({ item }) => {
-    const { setStateNotigication, navigation } = props;
+  const NotificationItem = ({item}) => {
+    const {setStateNotigication, navigation} = props;
     return (
       <TouchableOpacity
         style={styles.itemContainer}
         onPress={() => {
           setStateNotigication(item.Id);
-          navigation.navigate(SCENE_NAMES.Route_Contents, { id: item.Url });
+          navigation.navigate(SCENE_NAMES.Route_Contents, {id: item.Url});
         }}>
         <View style={styles.itemTopContainer}>
           <View
@@ -210,7 +238,7 @@ export default function NotifyView(props) {
     <SafeAreaView style={styles.screenContainer}>
       <View style={styles.screenContainer}>
         {/* <StatusBar barStyle="light-content" /> */}
-        <Header title="Thông báo" isCart={true} />
+        <Header title={I18n.t(`${NAMESPACE}.notification`)} isCart={true} />
         <View style={styles.bodyContainer}>
           <View>
             <TouchableOpacity
@@ -270,7 +298,8 @@ export default function NotifyView(props) {
             {auth().currentUser ? (
               <TouchableOpacity
                 onPress={() => {
-                  getlistOrder(); setIschoose(4);
+                  getlistOrder();
+                  setIschoose(4);
                 }}
                 style={
                   ischoose === 4
@@ -306,7 +335,7 @@ export default function NotifyView(props) {
                   />
                 }
                 data={listOrder}
-                renderItem={({ item }) => <OrderItem item={item} props={props} />}
+                renderItem={({item}) => <OrderItem item={item} props={props} />}
                 keyExtractor={(item) => item.Id}
               />
             </View>
@@ -320,7 +349,7 @@ export default function NotifyView(props) {
                   />
                 }
                 data={listThongBao}
-                renderItem={({ item }) => <NotificationItem item={item} />}
+                renderItem={({item}) => <NotificationItem item={item} />}
                 keyExtractor={(item) => item.orderId}
               />
             </View>

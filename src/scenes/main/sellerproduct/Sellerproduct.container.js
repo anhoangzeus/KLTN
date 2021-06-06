@@ -297,7 +297,6 @@ export default function SellerproductContainer({navigation, route}) {
   };
 
   const getSeller = () => {
-    console.log('user id người bán: ', UserID);
     database()
       .ref('/Users/' + UserID)
       .once('value')
@@ -316,7 +315,6 @@ export default function SellerproductContainer({navigation, route}) {
       .then((snapshot) => {
         let item = [];
         snapshot.forEach((childSnapshot) => {
-          console.log('item tam', childSnapshot.val().UserID);
           if (childSnapshot.val().UserID === UserID && item.length < 7) {
             item.push({
               title: childSnapshot.val().Name,

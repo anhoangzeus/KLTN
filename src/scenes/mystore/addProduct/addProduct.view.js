@@ -24,6 +24,8 @@ import NumberFormat from 'components/NumberFormat';
 import Loading from 'components/LoadingView';
 import Col from 'components/Col';
 import {KeyboardAvoidingView} from 'react-native';
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 const {height, width} = Dimensions.get('screen');
 
 export default function AddProductView(props) {
@@ -81,7 +83,7 @@ export default function AddProductView(props) {
           style={styles.screenContainer2}>
           <View style={styles.screenContainer2}>
             <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
-            <Header title={'Thêm sản phẩm'} />
+            <Header title={I18n.t(`${NAMESPACE}.addproduct`)} />
             <View style={styles.divider} />
 
             <ScrollView style={styles.bodyContainer}>
@@ -90,13 +92,18 @@ export default function AddProductView(props) {
                 onPress={() => setPopup(true)}>
                 <View style={styles.imgView}>
                   <Image source={{uri: image}} style={styles.imgPro} />
-                  <Text style={styles.imgText}>Thêm ảnh sản phẩm</Text>
+                  <Text style={styles.imgText}>
+                    {I18n.t(`${NAMESPACE}.defaultTitle`)}
+                  </Text>
                 </View>
               </TouchableOpacity>
               <View style={styles.divider} />
 
               <View style={styles.nameView}>
-                <Text style={styles.titletext}>Tên sản phẩm</Text>
+                <Text style={styles.titletext}>
+                  {' '}
+                  {I18n.t(`${NAMESPACE}.proname`)}
+                </Text>
                 <TextInput
                   keyboardType="default"
                   placeholderTextColor="#666666"
@@ -104,28 +111,32 @@ export default function AddProductView(props) {
                   onChangeText={(val) => {
                     onChangeName(val);
                   }}
-                  placeholder="nhập tên sản phẩm"
+                  placeholder={'Nhập ' + I18n.t(`${NAMESPACE}.proname`)}
                   style={styles.welcomeText}>
                   {name}
                 </TextInput>
-                <Text style={styles.titletext}>Mô tả sản phẩm</Text>
+                <Text style={styles.titletext}>
+                  {I18n.t(`${NAMESPACE}.prodes`)}
+                </Text>
                 <TextInput
                   keyboardType="default"
                   placeholderTextColor="#666666"
                   autoCapitalize="none"
-                  placeholder="mô tả sản phẩm ..."
+                  placeholder={I18n.t(`${NAMESPACE}.prodes`) + '...'}
                   onChangeText={(val) => {
                     onChangeDes(val);
                   }}
                   style={styles.welcomeText}>
                   {des}
                 </TextInput>
-                <Text style={styles.titletext}>Từ khoá tìm kiếm</Text>
+                <Text style={styles.titletext}>
+                  {I18n.t(`${NAMESPACE}.prokey`)}
+                </Text>
                 <TextInput
                   keyboardType="default"
                   placeholderTextColor="#666666"
                   autoCapitalize="none"
-                  placeholder="Từ khoá tìm kiếm ..."
+                  placeholder={I18n.t(`${NAMESPACE}.prokey`) + '...'}
                   onChangeText={(val) => {
                     onChangeKeyWord(val);
                   }}
@@ -148,7 +159,10 @@ export default function AddProductView(props) {
                         size={26}
                         color={'#2B4F8C'}
                       />
-                      <Text style={styles.itemText}>Danh mục</Text>
+                      <Text style={styles.itemText}>
+                        {' '}
+                        {I18n.t(`${NAMESPACE}.category`)}
+                      </Text>
 
                       <RNPickerSelect
                         style={styles.picker}
@@ -175,13 +189,16 @@ export default function AddProductView(props) {
                         size={26}
                         color={'gold'}
                       />
-                      <Text style={styles.itemText}>Giá</Text>
+                      <Text style={styles.itemText}>
+                        {' '}
+                        {I18n.t(`${NAMESPACE}.price`)}
+                      </Text>
 
                       <TextInput
                         keyboardType="numeric"
                         placeholderTextColor="#666666"
                         autoCapitalize="none"
-                        placeholder="nhập giá."
+                        placeholder={'Nhập ' + I18n.t(`${NAMESPACE}.prokey`)}
                         onFocus={() => setPrice('')}
                         onChangeText={(val) => {
                           setPrice(val);
@@ -199,13 +216,16 @@ export default function AddProductView(props) {
                         size={26}
                         color={'green'}
                       />
-                      <Text style={styles.itemText}>Bảo hành</Text>
+                      <Text style={styles.itemText}>
+                        {' '}
+                        {I18n.t(`${NAMESPACE}.waranty`)}
+                      </Text>
 
                       <TextInput
                         keyboardType="numeric"
                         placeholderTextColor="#666666"
                         autoCapitalize="none"
-                        placeholder="thời gian bảo hành."
+                        placeholder={I18n.t(`${NAMESPACE}.waranty`)}
                         onFocus={() => setWarranty(null)}
                         onChangeText={(val) => {
                           setWarranty(val);
@@ -213,7 +233,9 @@ export default function AddProductView(props) {
                         style={styles.cardText}>
                         {warranty}
                       </TextInput>
-                      <Text style={styles.unit}>tháng</Text>
+                      <Text style={styles.unit}>
+                        {I18n.t(`${NAMESPACE}.month`)}
+                      </Text>
                     </View>
                   </View>
                   <View style={styles.cardOption} onPress={() => {}}>
@@ -223,13 +245,15 @@ export default function AddProductView(props) {
                         size={26}
                         color={'black'}
                       />
-                      <Text style={styles.itemText}>Số lượng</Text>
+                      <Text style={styles.itemText}>
+                        {I18n.t(`${NAMESPACE}.count`)}
+                      </Text>
 
                       <TextInput
                         keyboardType="numeric"
                         placeholderTextColor="#666666"
                         autoCapitalize="none"
-                        placeholder="nhập số lượng"
+                        placeholder={'Nhập ' + I18n.t(`${NAMESPACE}.count`)}
                         onFocus={() => setCount(null)}
                         onChangeText={(val) => {
                           setCount(val);
@@ -247,13 +271,15 @@ export default function AddProductView(props) {
                         size={26}
                         color={'red'}
                       />
-                      <Text style={styles.itemText}>Khuyến Mãi</Text>
+                      <Text style={styles.itemText}>
+                        {I18n.t(`${NAMESPACE}.sale`)}
+                      </Text>
 
                       <TextInput
                         keyboardType="numeric"
                         placeholderTextColor="#666666"
                         autoCapitalize="none"
-                        placeholder="thông tin khuyến mãi"
+                        placeholder={I18n.t(`${NAMESPACE}.sale`)}
                         onFocus={() => setSale(null)}
                         onChangeText={(val) => {
                           setSale(val);
@@ -264,7 +290,7 @@ export default function AddProductView(props) {
                       <Text style={styles.unit}>%</Text>
                     </View>
                   </View>
-                  <View style={styles.cardOption} onPress={() => {}}>
+                  {/* <View style={styles.cardOption} onPress={() => {}}>
                     <View style={styles.itemContainer}>
                       <MaterialCommunityIcons
                         name={'facebook'}
@@ -273,7 +299,7 @@ export default function AddProductView(props) {
                       />
                       <Text style={styles.itemText}>Chia sẻ lên facebook</Text>
                     </View>
-                  </View>
+                  </View> */}
                 </View>
                 {/* </View> */}
               </View>
@@ -284,7 +310,9 @@ export default function AddProductView(props) {
             <View style={styles.divider} />
 
             <TouchableOpacity style={styles.btnSubmit} onPress={() => Submit()}>
-              <Text style={styles.subBtnText}>Đăng bán</Text>
+              <Text style={styles.subBtnText}>
+                {I18n.t(`${NAMESPACE}.upstore`)}
+              </Text>
             </TouchableOpacity>
             {isUpload && (
               <Col
@@ -316,7 +344,9 @@ export default function AddProductView(props) {
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
                 <FontAwesome5 name="check-double" size={40} color="green" />
-                <Text style={styles.modalText1}>thêm sản phẩm thành công</Text>
+                <Text style={styles.modalText1}>
+                  {I18n.t(`${NAMESPACE}.addsuccess`)}
+                </Text>
               </View>
             </View>
           </Modal>

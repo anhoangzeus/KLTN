@@ -2,25 +2,29 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
-import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
+import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
 import LottieView from 'lottie-react-native';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
-  ImageBackground, Text, TouchableOpacity,
+  ImageBackground,
+  Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import styles from './Category.styles';
 import CategoryView from './Category.view';
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 const functionsCounter = new Set();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 // const {width} = Dimensions.get('screen');
-export default function CategoryContainer({ navigation }) {
+export default function CategoryContainer({navigation}) {
   const isLoading = useSelectorShallow(loadingSelector);
   const itemRef = database();
 
@@ -37,18 +41,18 @@ export default function CategoryContainer({ navigation }) {
   const [loading, setLoading] = useState(true);
   const [refesh, setRefesh] = useState(false);
 
-  const BrandItem = ({ image, id }) => {
+  const BrandItem = ({image, id}) => {
     return (
       <View>
         <TouchableOpacity
           onPress={() => setBrandID(id)}
           style={styles.branditemContainer}>
-          <Image source={{ uri: image }} style={styles.cateImage} />
+          <Image source={{uri: image}} style={styles.cateImage} />
         </TouchableOpacity>
       </View>
     );
   };
-  const CategoryItem = ({ name, id, icon }) => {
+  const CategoryItem = ({name, id, icon}) => {
     const colorText = id === categoryid ? '#6e3b6e' : '#1ba8ff';
     let iconpath = '../../../assets/icons/orther.png';
     switch (icon) {
@@ -89,7 +93,7 @@ export default function CategoryContainer({ navigation }) {
         <View style={styles.ViewImage}>
           <ImageBackground
             style={styles.ImageBack}
-          // source={require('../../../assets/images/bg.png')}
+            // source={require('../../../assets/images/bg.png')}
           >
             {/* <Icons
               name={icon}
@@ -97,7 +101,7 @@ export default function CategoryContainer({ navigation }) {
               size={width / 12}
               style={styles.cateIcon}
             /> */}
-            <Image style={styles.ImageBack} source={{ uri: iconpath }} />
+            <Image style={styles.ImageBack} source={{uri: iconpath}} />
           </ImageBackground>
         </View>
 
@@ -107,13 +111,18 @@ export default function CategoryContainer({ navigation }) {
   };
 
   const getCountChats = () => {
-    database().ref('Chats').child(auth().currentUser.uid).on('value', snapshot => {
-      var count = 0;
-      snapshot.forEach((child) => {
-        count += child.val().Status;
-      });
-      setNumChat(count);
-    });
+    if (auth().currentUser) {
+      database()
+        .ref('Chats')
+        .child(auth().currentUser.uid)
+        .on('value', (snapshot) => {
+          var count = 0;
+          snapshot.forEach((child) => {
+            count += child.val().Status;
+          });
+          setNumChat(count);
+        });
+    }
   };
   const getnumcart = () => {
     if (auth().currentUser) {
@@ -298,7 +307,7 @@ export default function CategoryContainer({ navigation }) {
   const renderNumChat = () => {
     if (numChat !== 0) {
       return (
-        <View style={{ ...styles.cartView, width: numChat > 99 ? 19 : 12 }}>
+        <View style={{...styles.cartView, width: numChat > 99 ? 19 : 12}}>
           <Text style={styles.cartText} numberOfLines={1}>
             {numChat > 99 ? '99+' : numChat}
           </Text>
@@ -326,7 +335,7 @@ export default function CategoryContainer({ navigation }) {
           _onRefresh();
         }}>
         <Image source={''} style={styles.squareImage} />
-        <Text style={styles.productNull}>Không có sản phẩm</Text>
+        <Text style={styles.productNull}> {I18n.t(`${NAMESPACE}.null`)}</Text>
       </TouchableOpacity>
     );
   };

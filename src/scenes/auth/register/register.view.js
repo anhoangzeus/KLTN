@@ -3,16 +3,19 @@ import * as React from 'react';
 import {
   Alert,
   Modal,
-  ScrollView, Text,
+  ScrollView,
+  Text,
   TextInput,
-  TouchableOpacity, View,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import styles from './register.styles';
-
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 const RegisterView = (props) => {
   const {
     textInputChange,
@@ -26,11 +29,13 @@ const RegisterView = (props) => {
     <View style={styles.container}>
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
         <ScrollView>
-          <Text style={styles.text_footer}>Họ tên</Text>
+          <Text style={styles.text_footer}>
+            {I18n.t(`${NAMESPACE}.fullname`)}
+          </Text>
           <View style={styles.action}>
             <FontAwesome name="user-o" color="#05375a" size={20} />
             <TextInput
-              placeholder="Họ tên"
+              placeholder={I18n.t(`${NAMESPACE}.fullname`)}
               style={styles.textInput}
               autoCapitalize="none"
               onChangeText={(val) => textInputChange(val)}
@@ -53,7 +58,7 @@ const RegisterView = (props) => {
           <View style={styles.action}>
             <FontAwesome name="user-o" color="#05375a" size={20} />
             <TextInput
-              placeholder="Tài khoản"
+              placeholder={I18n.t(`${NAMESPACE}.account`)}
               style={styles.textInput}
               autoCapitalize="none"
               onChangeText={(val) => textInputChange1(val)}
@@ -71,12 +76,12 @@ const RegisterView = (props) => {
                 marginTop: 10,
               },
             ]}>
-            Mật khẩu
+            {I18n.t(`${NAMESPACE}.password`)}
           </Text>
           <View style={styles.action}>
             <Feather name="lock" color="#05375a" size={20} />
             <TextInput
-              placeholder="Mật khẩu"
+              placeholder={I18n.t(`${NAMESPACE}.password`)}
               secureTextEntry={data.secureTextEntry ? true : false}
               style={styles.textInput}
               autoCapitalize="none"
@@ -88,7 +93,7 @@ const RegisterView = (props) => {
                   name="check-circle"
                   color="green"
                   size={20}
-                  style={{ marginRight: 5 }}
+                  style={{marginRight: 5}}
                 />
               </Animatable.View>
             ) : null}
@@ -102,7 +107,7 @@ const RegisterView = (props) => {
           </View>
           {data.isValidPassword ? null : (
             <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={styles.errorMsg}>Mật khẩu ít nhất 6 kí tự</Text>
+              <Text style={styles.errorMsg}> {I18n.t(`${NAMESPACE}.min`)}</Text>
             </Animatable.View>
           )}
 
@@ -112,7 +117,10 @@ const RegisterView = (props) => {
               onPress={() => {
                 registerHandle();
               }}>
-              <Text style={styles.textSign}>Đăng kí</Text>
+              <Text style={styles.textSign}>
+                {' '}
+                {I18n.t(`${NAMESPACE}.signUp`)}
+              </Text>
             </TouchableOpacity>
           </View>
         </ScrollView>

@@ -21,8 +21,10 @@ import ReactNativeNumberFormat from 'components/NumberFormat/index';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 import Header from 'components/Header';
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 //import {NAMESPACE} from '../detailAddress/DetailAddress.constants';
-const { width } = Dimensions.get('screen');
+const {width} = Dimensions.get('screen');
 
 export default function CartView(props) {
   const {
@@ -43,7 +45,7 @@ export default function CartView(props) {
     _xoaGioHang,
   } = props;
 
-  const CartItemContainer = ({ item }) => {
+  const CartItemContainer = ({item}) => {
     return (
       <View style={styles.itemcard}>
         <View style={styles.cartItem}>
@@ -68,10 +70,10 @@ export default function CartView(props) {
             size={24}
             style={styles.itemGift}
           />
-          <Text style={styles.txtReceice}>Nhận một phần quà may mắn</Text>
+          {/* <Text style={styles.txtReceice}>Nhận một phần quà may mắn</Text> */}
         </View>
         <View style={styles.itemInfo}>
-          <Image style={styles.itemImage} source={{ uri: item.Picture }} />
+          <Image style={styles.itemImage} source={{uri: item.Picture}} />
           <View style={styles.itemDec}>
             <Text style={styles.txtPrice}>
               <ReactNativeNumberFormat value={item.Price} />
@@ -105,9 +107,9 @@ export default function CartView(props) {
               Alert.alert('Modal has been closed.');
             }}>
             <View style={styles.centeredView}>
-              <View style={{ ...styles.modalView, padding: width / 15 }}>
+              <View style={{...styles.modalView, padding: width / 15}}>
                 <Text style={styles.modalText}>
-                  Bạn có chắc bỏ sản phẩm này khỏi giỏ hàng?
+                  {I18n.t(`${NAMESPACE}.confirmdeletecart`)}
                 </Text>
                 <View style={styles.flexRow}>
                   <TouchableOpacity
@@ -115,14 +117,18 @@ export default function CartView(props) {
                     onPress={() => {
                       setModalVisible(false);
                     }}>
-                    <Text style={styles.textStyle}>Giữ lại</Text>
+                    <Text style={styles.textStyle}>
+                      {I18n.t(`${NAMESPACE}.keep`)}
+                    </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={styles.openButtonDelete}
                     onPress={() => {
                       _xoaGioHang();
                     }}>
-                    <Text style={styles.textStyle}>Xác nhận</Text>
+                    <Text style={styles.textStyle}>
+                      I18n.t(`${NAMESPACE}.confirm`)
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -156,17 +162,19 @@ export default function CartView(props) {
           backgroundColor="#2B4F8C"
           translucent={false}
         />
-        <Header title={'Giỏ hàng'} />
+        <Header title={I18n.t(`${NAMESPACE}.cart`)} />
         <ScrollView>
           {hasAddress ? (
             <View style={styles.listItem}>
-              <View style={{ flex: 1, margin: 10 }}>
+              <View style={{flex: 1, margin: 10}}>
                 <View
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                   }}>
-                  <Text style={styles.addresstitle}>Địa chỉ nhận hàng</Text>
+                  <Text style={styles.addresstitle}>
+                    {I18n.t(`${NAMESPACE}.addressdelivery`)}
+                  </Text>
                   <TouchableOpacity
                     onPress={() => {
                       NavigationServices.navigate(SCENE_NAMES.DETAIL_ADDRESS, {
@@ -174,8 +182,8 @@ export default function CartView(props) {
                       });
                     }}>
                     <Text
-                      style={{ color: 'green', marginRight: 5, fontSize: 17 }}>
-                      Thay đổi
+                      style={{color: 'green', marginRight: 5, fontSize: 17}}>
+                      {I18n.t(`${NAMESPACE}.change`)}
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -204,10 +212,10 @@ export default function CartView(props) {
                     id: '',
                   });
                 }}
-                style={{ flex: 1, margin: 10, flexDirection: 'row' }}>
+                style={{flex: 1, margin: 10, flexDirection: 'row'}}>
                 <FontAwesome name="plus" color="green" size={25} />
-                <Text style={{ color: 'green', fontSize: 20, marginLeft: 10 }}>
-                  Thêm địa chỉ nhận hàng
+                <Text style={{color: 'green', fontSize: 20, marginLeft: 10}}>
+                  {I18n.t(`${NAMESPACE}.addAddress`)}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -228,7 +236,9 @@ export default function CartView(props) {
                     alignItems: 'center',
                   }}>
                   <Entypo name="emoji-flirt" size={40} color="#2B4F8C" />
-                  <Text style={styles.modalText1}>Mua sắm ngay nào!!!</Text>
+                  <Text style={styles.modalText1}>
+                    {I18n.t(`${NAMESPACE}.shopping`)}
+                  </Text>
                 </View>
               </View>
             </Modal>
@@ -240,25 +250,29 @@ export default function CartView(props) {
                 style={styles.img}
               />
               <Text style={styles.txtEmpty}>
-                Chưa có sản phẩm nào trong giỏ
+                {I18n.t(`${NAMESPACE}.cartnull`)}
               </Text>
               <TouchableOpacity
                 style={styles.btnBackHome}
                 onPress={() => navigation.navigate(SCENE_NAMES.MAIN)}>
-                <Text style={styles.txtBuy}>Tiếp tục mua sắm</Text>
+                <Text style={styles.txtBuy}>
+                  {I18n.t(`${NAMESPACE}.continueshopping`)}
+                </Text>
               </TouchableOpacity>
             </View>
           ) : null}
           <FlatList
             data={CartItem}
-            renderItem={({ item }) => <CartItemContainer item={item} />}
+            renderItem={({item}) => <CartItemContainer item={item} />}
             extraData={refesh}
             keyExtractor={(item) => item.Id}
           />
         </ScrollView>
         <View style={styles.TotalContainer}>
           <View flexDirection="row" justifyContent="space-between">
-            <Text style={styles.txtMoneyTotal}>Thành tiền: </Text>
+            <Text style={styles.txtMoneyTotal}>
+              {I18n.t(`${NAMESPACE}.total`)}:{' '}
+            </Text>
             <Text color="red" style={styles.txtPromotion}>
               <ReactNativeNumberFormat value={amount} />
             </Text>
@@ -268,7 +282,9 @@ export default function CartView(props) {
             onPress={() => {
               _checkGioHang();
             }}>
-            <Text style={styles.txtCreatOrder}>Tiến hành đặt hàng</Text>
+            <Text style={styles.txtCreatOrder}>
+              {I18n.t(`${NAMESPACE}.purchase`)}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

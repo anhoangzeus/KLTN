@@ -16,6 +16,8 @@ import SCENE_NAMES from 'constants/sceneName';
 import Header from 'components/Header';
 import Col from 'components/Col';
 import Loading from 'components/LoadingView';
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 function StoreProductView(props) {
   const {FullName, Avatar, listItems, loading} = props;
   console.log('list item props:', listItems);
@@ -38,7 +40,7 @@ function StoreProductView(props) {
       <SafeAreaView style={styles.SafeSreen}>
         <ScrollView style={styles.screenContainer}>
           <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
-          <Header title={'Quản lí bán hàng'} />
+          <Header title={I18n.t(`${NAMESPACE}.manasell`)} />
           <View style={styles.bodyContainer}>
             <TouchableOpacity
               onPress={() => {

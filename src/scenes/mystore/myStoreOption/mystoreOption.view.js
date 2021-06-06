@@ -15,7 +15,8 @@ import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header from 'components/Header';
-
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 const ProfileItem = ({icon, name}) => (
   <View style={styles.itemContainer}>
     <MaterialCommunityIcons name={icon} size={26} color="#1e1e1e" />
@@ -29,7 +30,7 @@ export default function MyStoreOptionView(props) {
     <SafeAreaView style={styles.SafeSreen}>
       <ScrollView style={styles.screenContainer}>
         <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
-        <Header title={'Quản lí bán hàng'} />
+        <Header title={I18n.t(`${NAMESPACE}.manasell`)} />
         <View style={styles.bodyContainer}>
           <TouchableOpacity
             onPress={() => {
@@ -41,7 +42,10 @@ export default function MyStoreOptionView(props) {
           </TouchableOpacity>
           <View style={styles.divider} />
           <TouchableOpacity onPress={() => {}}>
-            <ProfileItem icon="format-list-bulleted" name="Đơn hàng" />
+            <ProfileItem
+              icon="format-list-bulleted"
+              name={I18n.t(`${NAMESPACE}.order`)}
+            />
           </TouchableOpacity>
           <View style={styles.divider1} />
           <TouchableOpacity
@@ -51,28 +55,43 @@ export default function MyStoreOptionView(props) {
                 Avatar: Avatar,
               });
             }}>
-            <ProfileItem icon="eye-outline" name="Sản phẩm của tôi" />
+            <ProfileItem
+              icon="eye-outline"
+              name={I18n.t(`${NAMESPACE}.myproduce`)}
+            />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               NavigationServices.navigate(SCENE_NAMES.AddProductContainer);
             }}>
-            <ProfileItem icon="plus-circle" name="Thêm sản phẩm" />
+            <ProfileItem
+              icon="plus-circle"
+              name={I18n.t(`${NAMESPACE}.addproduce`)}
+            />
           </TouchableOpacity>
           <View style={styles.divider} />
           <TouchableOpacity onPress={() => {}}>
-            <ProfileItem icon="heart-outline" name="Doanh thu" />
+            <ProfileItem
+              icon="heart-outline"
+              name={I18n.t(`${NAMESPACE}.revenue`)}
+            />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => {}}>
-            <ProfileItem icon="bookmark-outline" name="Đánh giá Shop" />
+            <ProfileItem
+              icon="bookmark-outline"
+              name={I18n.t(`${NAMESPACE}.review`)}
+            />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => {}}>
-            <ProfileItem icon="star" name="Sản phẩm được đánh giá" />
+            <ProfileItem
+              icon="star"
+              name={I18n.t(`${NAMESPACE}.productReview`)}
+            />
           </TouchableOpacity>
           <View style={styles.divider} />
-          <ProfileItem name="Xem Shop của tôi" />
+          <ProfileItem name={I18n.t(`${NAMESPACE}.mystore`)} />
           <View style={styles.divider1} />
-          <ProfileItem icon="headphones" name="Hỗ trợ" />
+          <ProfileItem icon="headphones" name={I18n.t(`${NAMESPACE}.suport`)} />
         </View>
       </ScrollView>
     </SafeAreaView>

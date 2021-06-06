@@ -8,7 +8,8 @@ import {Platform} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {chooseImageOptions} from '../../../utils/options';
 import UserView from './infoUser.view';
-
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 const functionsCounter = new Set();
 export default function infoUserContainer({navigation}) {
   const [isSelected, setSelection] = useState(false);
@@ -234,7 +235,7 @@ export default function infoUserContainer({navigation}) {
     var date = moment().subtract(10, 'days').calendar();
     if (isSelected === false) {
       if (data.FullName.length <= 1 || data.Phone.length <= 1) {
-        setModalVisibleWarning(true, 'Bạn chưa điền đầy đủ thông tin');
+        setModalVisibleWarning(true, I18n.t(`${NAMESPACE}.missinfo`));
         return;
       }
       if (auth().currentUser.uid != null) {
@@ -255,7 +256,7 @@ export default function infoUserContainer({navigation}) {
           )
           .catch();
       } else {
-        setModalVisibleWarning(true, 'Xin quý khách kiểm tra lại Internet');
+        setModalVisibleWarning(true, I18n.t(`${NAMESPACE}.checkinternet`));
       }
     } else {
       if (
@@ -265,7 +266,7 @@ export default function infoUserContainer({navigation}) {
         data.password.length <= 1 ||
         data.comfirm_pass.length <= 1
       ) {
-        setModalVisibleWarning(true, 'Bạn chưa điền đầy đủ thông tin');
+        setModalVisibleWarning(true, I18n.t(`${NAMESPACE}.missinfo`));
         return;
       }
       if (auth().currentUser.uid != null) {
@@ -287,16 +288,16 @@ export default function infoUserContainer({navigation}) {
                 Password: data.password,
                 Avatar: url,
               })
-              .then(setModalVisible(true, 'Thay đổi thành công'))
+              .then(setModalVisible(true, I18n.t(`${NAMESPACE}.changesuccess`)))
               .catch();
             auth().signOut();
           }
         } else {
-          setModalVisibleWarning(true, 'Mật khẩu cũ không chính xác');
+          setModalVisibleWarning(true, I18n.t(`${NAMESPACE}.oldpasswrong`));
           setSelection(false);
         }
       } else {
-        setModalVisibleWarning(true, 'Xin quý khách kiểm tra lại Internet');
+        setModalVisibleWarning(true, I18n.t(`${NAMESPACE}.missinfo`));
       }
     }
   };

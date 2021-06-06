@@ -27,6 +27,8 @@ import SmallProductCard from 'components/SmallProductCard';
 import SellerProduct from 'components/SellerProduct';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 // import {NAMESPACE} from './Product.constants';
 
 const {height, width} = Dimensions.get('screen');
@@ -56,7 +58,6 @@ function SellerproductView(props) {
     sao5,
     listcomment,
     modalvisible,
-    brandname,
     image,
     sellerinfo,
     sellerProd,
@@ -176,12 +177,15 @@ function SellerproductView(props) {
                         });
                       }}>
                       <Text style={styles.textGreen}>
-                        (Xem {bough} đánh giá)
+                        ({I18n.t(`${NAMESPACE}.see`)} {bough}{' '}
+                        {I18n.t(`${NAMESPACE}.rv`)} )
                       </Text>
                     </TouchableOpacity>
                   </View>
                 ) : (
-                  <Text style={styles.textGreen2}>Chưa có đánh giá</Text>
+                  <Text style={styles.textGreen2}>
+                    {I18n.t(`${NAMESPACE}.notreview`)}
+                  </Text>
                 )}
 
                 <Text style={styles.metaView}>{metadescription}</Text>
@@ -203,7 +207,7 @@ function SellerproductView(props) {
                 </View>
                 <View>
                   <Text style={styles.warantyText}>
-                    {waranty} tháng bảo hành
+                    {waranty} {I18n.t(`${NAMESPACE}.mwaranty`)}
                   </Text>
                 </View>
               </View>
@@ -215,7 +219,7 @@ function SellerproductView(props) {
           {listproductlienquan.length === 0 ? null : (
             <View style={styles.relateView}>
               <Text bold size={12} style={styles.relateText}>
-                Sản Phẩm Tương Tự
+                {I18n.t(`${NAMESPACE}.relatepro`)}
               </Text>
               <FlatList
                 horizontal
@@ -250,7 +254,7 @@ function SellerproductView(props) {
                 : styles.whiteViewSell2
             }>
             <Text bold size={12} style={styles.desText}>
-              Thông tin người bán
+              {I18n.t(`${NAMESPACE}.sellerprofile`)}
             </Text>
             <TouchableOpacity style={styles.sellerView}>
               <View style={styles.rowView}>
@@ -292,7 +296,7 @@ function SellerproductView(props) {
           <View style={styles.divider} />
           <View style={styles.whiteView}>
             <Text bold size={12} style={styles.desText}>
-              Mô Tả Sản Phẩm
+              {I18n.t(`${NAMESPACE}.prodes`)}
             </Text>
             <Text muted size={12} style={styles.mainText}>
               {' '}
@@ -305,7 +309,7 @@ function SellerproductView(props) {
             <View style={styles.relateView}>
               <View style={styles.clientView}>
                 <Text bold size={12} style={styles.clientText}>
-                  Khách Hàng Nhận Xét{' '}
+                  {I18n.t(`${NAMESPACE}.guestreview`)}{' '}
                 </Text>
                 <TouchableOpacity
                   onPress={() => {
@@ -313,7 +317,9 @@ function SellerproductView(props) {
                       id: idsanpham,
                     });
                   }}>
-                  <Text style={styles.viewAll}>XEM TẤT CẢ</Text>
+                  <Text style={styles.viewAll}>
+                    {I18n.t(`${NAMESPACE}.seeAll`)}
+                  </Text>
                 </TouchableOpacity>
               </View>
 
@@ -321,7 +327,9 @@ function SellerproductView(props) {
                 <View style={styles.ratingView}>
                   {/* <Text style={styles.ratingText}>{rating.toFixed(1)}</Text> */}
                   <StarRating rating={rating} size={10} />
-                  <Text style={styles.commentText}>{bough} nhận xét</Text>
+                  <Text style={styles.commentText}>
+                    {bough} {I18n.t(`${NAMESPACE}.review`)}
+                  </Text>
                 </View>
                 <View style={styles.startView} />
                 <View style={styles.marginView}>
@@ -370,8 +378,8 @@ function SellerproductView(props) {
               <View style={styles.modalView}>
                 <View style={styles.rowView}>
                   <Text style={styles.textGreen2}>
-                    <Feather name="check-circle" color="green" size={18} /> Sản
-                    phẩm đã được thêm vào giỏ hàng{' '}
+                    <Feather name="check-circle" color="green" size={18} />{' '}
+                    {I18n.t(`${NAMESPACE}.addcartsuccess`)}{' '}
                   </Text>
                   <TouchableOpacity
                     style={styles.modalButton}
@@ -388,9 +396,6 @@ function SellerproductView(props) {
                     <Text numberOfLines={1} style={styles.modalnameText}>
                       {name}
                     </Text>
-                    <Text numberOfLines={1} style={styles.byText}>
-                      Cung cấp bởi {brandname}
-                    </Text>
                     <Text>
                       <NumberFormat value={price} />
                     </Text>
@@ -401,7 +406,9 @@ function SellerproductView(props) {
                   onPress={() =>
                     NavigationServices.navigate(SCENE_NAMES.CART_SCREEN)
                   }>
-                  <Text style={styles.cartView}>Xem giỏ hàng</Text>
+                  <Text style={styles.cartView}>
+                    {I18n.t(`${NAMESPACE}.viewCart`)}
+                  </Text>
                 </TouchableHighlight>
               </View>
             </View>
@@ -410,7 +417,7 @@ function SellerproductView(props) {
         <View style={styles.devide} />
         <View style={styles.buyView}>
           <TouchableOpacity style={styles.btnmua} onPress={() => addCart()}>
-            <Text style={styles.addText}>Thêm vào giỏ hàng</Text>
+            <Text style={styles.addText}>{I18n.t(`${NAMESPACE}.addCart`)}</Text>
           </TouchableOpacity>
         </View>
       </View>

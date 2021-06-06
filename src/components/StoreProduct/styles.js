@@ -9,6 +9,7 @@ export default StyleSheet.create({
     borderColor: '#E5E5E5',
     borderWidth: 2,
     padding: normalize(5),
+    backgroundColor: '#fff',
     flexDirection: 'row',
   },
   itemImage: {
@@ -31,6 +32,7 @@ export default StyleSheet.create({
   },
   priceColor: {
     color: 'red',
+    marginHorizontal: 10,
   },
   starView: {
     flexDirection: 'row',
@@ -41,8 +43,10 @@ export default StyleSheet.create({
   },
   desColor: {
     color: '#2B4F8C',
+    marginHorizontal: 10,
   },
   desText: {
     width: SIZE.DEVICE_WIDTH / 2.5,
+    marginHorizontal: 10,
   },
 });

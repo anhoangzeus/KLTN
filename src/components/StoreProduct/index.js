@@ -19,8 +19,10 @@ function StoreProduct({item}) {
         <View style={styles.starView}>
           {StarRating(item.item?.rating)}
           {item.item?.bough !== 0 ? (
-            <Text style={styles.boughColor}>({item.item?.bough})</Text>
-          ) : null}
+            <Text style={styles.boughColor}>({item.item?.bough}) đánh giá</Text>
+          ) : (
+            <Text style={styles.boughColor}>(chưa có đánh giá)</Text>
+          )}
         </View>
         <Text style={styles.desColor} numberOfLines={2}>
           {' '}

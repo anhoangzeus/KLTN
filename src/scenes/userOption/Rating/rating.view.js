@@ -14,23 +14,27 @@ import {
   SafeAreaView,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { Rating } from 'react-native-ratings';
+import {Rating} from 'react-native-ratings';
 import NumberFormat from 'components/NumberFormat';
 import styles from './rating.styles';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
-
-export const ProductItem = ({ item }) => (
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
+export const ProductItem = ({item}) => (
   <View style={styles.itemContainer1}>
-    <Text style={styles.txtCodeName}>Mã đơn hàng:{item.OrderID}</Text>
+    <Text style={styles.txtCodeName}>
+      {' '}
+      {I18n.t(`${NAMESPACE}.orderid`)}:{item.OrderID}
+    </Text>
     <View style={styles.row}>
-      <Image source={{ uri: item.Picture }} style={styles.itemImage} />
-      <View style={{ marginLeft: 20 }}>
+      <Image source={{uri: item.Picture}} style={styles.itemImage} />
+      <View style={{marginLeft: 20}}>
         <Text style={styles.txtPrice}>{item.CreatedDate}</Text>
         <Text style={styles.txtPrice}>
           {item.Payment === '01'
-            ? 'Thanh toán khi nhận hàng'
-            : 'Thanh toán trực tuyến'}
+            ? I18n.t(`${NAMESPACE}.COD`)
+            : I18n.t(`${NAMESPACE}.onlpay`)}
         </Text>
         <Text style={styles.itemName} numberOfLines={2}>
           {item.Name}
@@ -69,13 +73,13 @@ const RatingView = (props) => {
       <TouchableOpacity
         style={styles.loadContainer}
         onPress={() => getListOrder()}>
-        <Text style={styles.txttitle}>
-          Bạn nhớ quay lại đánh giá sản phẩm khi hoàn thành đơn hàng nhé
-        </Text>
+        <Text style={styles.txttitle}>{I18n.t(`${NAMESPACE}.ofreview`)}</Text>
         <TouchableOpacity
           style={styles.btnBuyNow}
           onPress={() => NavigationServices.navigate(SCENE_NAMES.MAIN)}>
-          <Text style={{ ...styles.txttitle, color: '#fff' }}>Mua Sắm Ngay</Text>
+          <Text style={{...styles.txttitle, color: '#fff'}}>
+            {I18n.t(`${NAMESPACE}.shopping`)}
+          </Text>
         </TouchableOpacity>
       </TouchableOpacity>
     );
@@ -90,7 +94,7 @@ const RatingView = (props) => {
           numberOfLines={2}
           showsVerticalScrollIndicator={false}
           data={ListProduct}
-          renderItem={({ item }) => (
+          renderItem={({item}) => (
             <TouchableOpacity
               onPress={() => {
                 setModalVisible(true);
@@ -111,7 +115,10 @@ const RatingView = (props) => {
             <View style={styles.modalView}>
               <View style={styles.modal}>
                 <FontAwesome name="times-circle" size={30} color="#fff" />
-                <Text style={styles.modalText}>Đánh Giá Sản Phẩm</Text>
+                <Text style={styles.modalText}>
+                  {' '}
+                  {I18n.t(`${NAMESPACE}.productReview`)}
+                </Text>
                 <TouchableOpacity
                   style={styles.btnRating}
                   onPress={() => {
@@ -126,12 +133,12 @@ const RatingView = (props) => {
                   imageSize={40}
                   showRating
                   onFinishRating={this.ratingCompleted}
-                  style={{ marginBottom: 5 }}
+                  style={{marginBottom: 5}}
                 />
                 <TextInput
                   textAlignVertical="top"
                   multiline={true}
-                  placeholder="Bình luận sản phẩm..."
+                  placeholder={I18n.t(`${NAMESPACE}.productReview`)}
                   placeholderTextColor="#2B4F8C"
                   autoCapitalize="none"
                   onChangeText={(val) => handleChange(val)}
@@ -142,7 +149,9 @@ const RatingView = (props) => {
                   onPress={() => {
                     votedProduct();
                   }}>
-                  <Text style={styles.txtSent}>Gửi đánh giá</Text>
+                  <Text style={styles.txtSent}>
+                    {I18n.t(`${NAMESPACE}.sendreview`)}
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -157,9 +166,12 @@ const RatingView = (props) => {
           }}>
           <View style={styles.centeredView}>
             <View style={styles.modalView1}>
-              <Text style={styles.modalText}>Gửi thành công</Text>
               <Text style={styles.modalText}>
-                Cảm ơn quý khách đã cho chúng tôi biết cảm nhận về sản phẩm!{' '}
+                {' '}
+                {I18n.t(`${NAMESPACE}.senddone`)}
+              </Text>
+              <Text style={styles.modalText}>
+                {I18n.t(`${NAMESPACE}.thanks`)}!{' '}
               </Text>
             </View>
           </View>

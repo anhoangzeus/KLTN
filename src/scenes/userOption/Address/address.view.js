@@ -17,7 +17,8 @@ import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 import styles from './address.styles';
 import Header from 'components/Header';
-
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 export default function AddressView(props) {
   const {
     status,
@@ -55,7 +56,7 @@ export default function AddressView(props) {
         <View style={styles.listView}>
           {Main ? (
             <Text style={{marginLeft: 10, color: '#FFCC00'}}>
-              Địa chỉ mặc định
+              {I18n.t(`${NAMESPACE}.defaulAdd`)}
             </Text>
           ) : (
             <Text />
@@ -69,7 +70,10 @@ export default function AddressView(props) {
                   set_idCanXoa(id);
                   setIsMain(Main);
                 }}>
-                <Text style={styles.btnDel}>Xoá địa chỉ</Text>
+                <Text style={styles.btnDel}>
+                  {' '}
+                  {I18n.t(`${NAMESPACE}.deladd`)}
+                </Text>
               </TouchableOpacity>
             )}
           </View>
@@ -80,7 +84,10 @@ export default function AddressView(props) {
   const RenderNull = () => {
     return (
       <View style={styles.nullContainer}>
-        <Text style={styles.txtAddnew1}>Thêm địa chỉ nhận hàng ngay nào!</Text>
+        <Text style={styles.txtAddnew1}>
+          {' '}
+          {I18n.t(`${NAMESPACE}.addAddress`)}
+        </Text>
         <TouchableOpacity
           onPress={() => {
             NavigationServices.navigate(SCENE_NAMES.DETAIL_ADDRESS, {
@@ -89,7 +96,9 @@ export default function AddressView(props) {
           }}
           style={styles.userContainer}>
           <View style={styles.textContainer}>
-            <Text style={styles.txtAddnew}>Thêm địa chỉ mới</Text>
+            <Text style={styles.txtAddnew}>
+              {I18n.t(`${NAMESPACE}.addnewadd`)}
+            </Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -106,7 +115,7 @@ export default function AddressView(props) {
     <SafeAreaView style={styles.screenContainer}>
       <View style={styles.screenContainer}>
         <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
-        <Header title={'Thông tin địa chỉ'} />
+        <Header title={I18n.t(`${NAMESPACE}.address`)} />
         {status === false ? (
           <RenderNull />
         ) : (
@@ -145,7 +154,9 @@ export default function AddressView(props) {
                     color="green"
                     size={28}
                   />
-                  <Text style={styles.titletext}>Thêm địa chỉ mới</Text>
+                  <Text style={styles.titletext}>
+                    {I18n.t(`${NAMESPACE}.addnewadd`)}
+                  </Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -161,7 +172,7 @@ export default function AddressView(props) {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}>
-                Bạn có chắc xoá địa chỉ này ?
+                {I18n.t(`${NAMESPACE}.comfirmdeladd`)}
               </Text>
               <View style={styles.row}>
                 <TouchableOpacity
@@ -169,14 +180,18 @@ export default function AddressView(props) {
                   onPress={() => {
                     _deleteAddress();
                   }}>
-                  <Text style={styles.textStyle}>Xác nhận</Text>
+                  <Text style={styles.textStyle}>
+                    {I18n.t(`${NAMESPACE}.confirm`)}
+                  </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.openButtonLeft}
                   onPress={() => {
                     setModalVisible(false);
                   }}>
-                  <Text style={styles.textStyle}>Giữ lại</Text>
+                  <Text style={styles.textStyle}>
+                    {I18n.t(`${NAMESPACE}.keep`)}
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>

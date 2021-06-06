@@ -14,7 +14,8 @@ import RNSmtpMailer from 'react-native-smtp-mailer';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import NavigationServices from 'utils/navigationServices';
 import styles from './RegiserOtp.styles';
-
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 class RegiserOtpContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -62,10 +63,10 @@ class RegiserOtpContainer extends React.Component {
       password: 'tienanh0144',
       fromName: 'TiAn Vegan Food Market',
       recipients: data.username,
-      subject: 'Mã xác nhận đăng kí Vegan Food Market TiAn',
-      htmlBody: `<h1>Mã xác nhận đăng kí có hiệu lực trong 90s</h1><p>${this.getRandom(
-        6,
-      )}</p>`,
+      subject: I18n.t(`${NAMESPACE}.otpcode`),
+      htmlBody: `<h1>${I18n.t(
+        `${NAMESPACE}.otptime`,
+      )} 90s</h1><p>${this.getRandom(6)}</p>`,
     })
       .then(() => {
         this.setState({timeOut: 60});
@@ -101,17 +102,20 @@ class RegiserOtpContainer extends React.Component {
                 Avatar: data.Avatar,
                 UserName: data.username,
               });
-            this.setModalVisible(true, 'Đăng kí thành công');
+            this.setModalVisible(true, I18n.t(`${NAMESPACE}.success`));
             setTimeout(NavigationServices.replace(SCENE_NAMES.MAIN), 2000);
           })
           .catch((error) => {
-            this.setModalVisibleWarning(true, 'Không thể đăng kí!!!');
+            this.setModalVisibleWarning(
+              true,
+              I18n.t(`${NAMESPACE}.signupfail`),
+            );
           });
       } else {
-        this.setModalVisibleWarning(true, 'Mã OPT hết hiệu lực');
+        this.setModalVisibleWarning(true, I18n.t(`${NAMESPACE}.otpexpired`));
       }
     } else {
-      this.setModalVisibleWarning(true, 'Mã OPT không chính xác');
+      this.setModalVisibleWarning(true, I18n.t(`${NAMESPACE}.otpincorrect`));
     }
   };
   componentDidMount() {
@@ -122,9 +126,11 @@ class RegiserOtpContainer extends React.Component {
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="#2B4F8C" />
-        <Header title={'Xác nhận OTP'} />
+        <Header title={I18n.t(`${NAMESPACE}.otpconfirm`)} />
         <View style={styles.bodyContainer}>
-          <Text style={styles.text}>Mã OTP có hiệu lực còn {timeOut}</Text>
+          <Text style={styles.text}>
+            {I18n.t(`${NAMESPACE}.otptime`)} {timeOut}
+          </Text>
           <OTPTextInput
             handleTextChange={(val) => this.onChangeText(val)}
             inputCount={6}
@@ -134,14 +140,16 @@ class RegiserOtpContainer extends React.Component {
             onPress={() => {
               this.sentOTP();
             }}>
-            <Text style={styles.textbtn}>Gửi mã</Text>
+            <Text style={styles.textbtn}>
+              {I18n.t(`${NAMESPACE}.sendcode`)}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={{...styles.btnConfirm, marginTop: normalize(50)}}
             onPress={() => {
               this.register();
             }}>
-            <Text style={styles.textbtn}>Xác nhận</Text>
+            <Text style={styles.textbtn}>{I18n.t(`${NAMESPACE}.confirm`)}</Text>
           </TouchableOpacity>
         </View>
         <Modal animationType="fade" transparent={true} visible={modalVisible}>

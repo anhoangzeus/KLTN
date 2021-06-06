@@ -15,7 +15,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import NavigationServices from 'utils/navigationServices';
 import styles from './Profile.styles';
-
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 const ProfileItem = ({icon, name}) => (
   <View style={styles.itemContainer}>
     <MaterialCommunityIcons name={icon} size={26} color="#1e1e1e" />
@@ -29,7 +30,7 @@ const ProfileMainView = (props) => {
   return (
     <SafeAreaView style={styles.screenContainer}>
       <View style={styles.screenContainer}>
-        <Header title="Cá nhân" isCart={true} />
+        <Header title={I18n.t(`${NAMESPACE}.profile`)} isCart={true} />
         <ScrollView>
           <View style={styles.bodyContainer}>
             <TouchableOpacity
@@ -48,7 +49,7 @@ const ProfileMainView = (props) => {
                   <Text style={styles.welcomeText}>{FullName}</Text>
                   <Text style={styles.authText}>{Email}</Text>
                   <Text style={styles.authText}>
-                    Thành viên từ {CreatedDate}
+                    {I18n.t(`${NAMESPACE}.menberfrom`)} {CreatedDate}
                   </Text>
                 </View>
                 <FontAwesome name="angle-right" size={26} color="#2B4F8C" />
@@ -63,7 +64,10 @@ const ProfileMainView = (props) => {
                 );
               }}>
               {Merchant ? (
-                <ProfileItem icon="storefront" name="Cửa hàng của tôi" />
+                <ProfileItem
+                  icon="storefront"
+                  name={I18n.t(`${NAMESPACE}.mystore`)}
+                />
               ) : null}
             </TouchableOpacity>
             <View style={styles.divider} />
@@ -75,7 +79,10 @@ const ProfileMainView = (props) => {
               onPress={() => {
                 NavigationServices.navigate(SCENE_NAMES.TopRatingScreen);
               }}>
-              <ProfileItem icon="star-outline" name="Đánh giá sản phẩm" />
+              <ProfileItem
+                icon="star-outline"
+                name={I18n.t(`${NAMESPACE}.productReview`)}
+              />
             </TouchableOpacity>
             <View style={styles.divider} />
             <TouchableOpacity
@@ -84,7 +91,7 @@ const ProfileMainView = (props) => {
               }}>
               <ProfileItem
                 icon="format-list-bulleted"
-                name="Quản lí đơn hàng"
+                name={I18n.t(`${NAMESPACE}.orderManager`)}
               />
             </TouchableOpacity>
             <View style={styles.divider1} />
@@ -94,7 +101,7 @@ const ProfileMainView = (props) => {
                   screen: SCENE_NAMES.OrderXuli,
                 });
               }}>
-              <ProfileItem name="Đơn hàng đang chờ xác nhận" />
+              <ProfileItem name={I18n.t(`${NAMESPACE}.orderwait`)} />
             </TouchableOpacity>
             <View style={styles.divider1} />
             <TouchableOpacity
@@ -103,7 +110,7 @@ const ProfileMainView = (props) => {
                   screen: SCENE_NAMES.Order_LayHangScreen,
                 });
               }}>
-              <ProfileItem name="Đơn hàng đang chờ lấy hàng" />
+              <ProfileItem name={I18n.t(`${NAMESPACE}.orderwaitpickup`)} />
             </TouchableOpacity>
             <View style={styles.divider1} />
             <TouchableOpacity
@@ -112,7 +119,7 @@ const ProfileMainView = (props) => {
                   screen: SCENE_NAMES.Order_DangVanChuyen,
                 });
               }}>
-              <ProfileItem name="Đơn hàng đang vận chuyển" />
+              <ProfileItem name={I18n.t(`${NAMESPACE}.orderdelivery`)} />
             </TouchableOpacity>
             <View style={styles.divider1} />
             <TouchableOpacity
@@ -121,7 +128,7 @@ const ProfileMainView = (props) => {
                   screen: SCENE_NAMES.Order_DaGiao,
                 });
               }}>
-              <ProfileItem name="Đơn hàng thành công" />
+              <ProfileItem name={I18n.t(`${NAMESPACE}.ordersuccess`)} />
             </TouchableOpacity>
             <View style={styles.divider1} />
             <TouchableOpacity
@@ -130,7 +137,7 @@ const ProfileMainView = (props) => {
                   screen: SCENE_NAMES.Order_DaHuy,
                 });
               }}>
-              <ProfileItem name="Đơn hàng đã huỷ" />
+              <ProfileItem name={I18n.t(`${NAMESPACE}.ordercancel`)} />
             </TouchableOpacity>
             <View style={styles.divider1} />
             <TouchableOpacity
@@ -139,14 +146,17 @@ const ProfileMainView = (props) => {
                   screen: SCENE_NAMES.Order_TraHang,
                 });
               }}>
-              <ProfileItem name="Đơn hàng trả lại" />
+              <ProfileItem name={I18n.t(`${NAMESPACE}.orderreturn`)} />
             </TouchableOpacity>
             <View style={styles.divider} />
             <TouchableOpacity
               onPress={() => {
                 NavigationServices.navigate(SCENE_NAMES.AddRessScreen);
               }}>
-              <ProfileItem icon="map-marker-outline" name="Số địa chỉ" />
+              <ProfileItem
+                icon="map-marker-outline"
+                name={I18n.t(`${NAMESPACE}.address`)}
+              />
             </TouchableOpacity>
             <View style={styles.divider1} />
             <TouchableOpacity>
@@ -173,11 +183,14 @@ const ProfileMainView = (props) => {
             </TouchableOpacity>
             <View style={styles.divider1} />
             <TouchableOpacity>
-              <ProfileItem name="Cài đặt" />
+              <ProfileItem name={I18n.t(`${NAMESPACE}.setting`)} />
             </TouchableOpacity>
             <View style={styles.divider} />
             <TouchableOpacity>
-              <ProfileItem icon="headphones" name="Hỗ trợ" />
+              <ProfileItem
+                icon="headphones"
+                name={I18n.t(`${NAMESPACE}.suport`)}
+              />
             </TouchableOpacity>
             <View style={styles.divider} />
             <View style={styles.divider} />
@@ -190,7 +203,9 @@ const ProfileMainView = (props) => {
                   name: SCENE_NAMES.HOME,
                 });
               }}>
-              <Text style={styles.textSign}>Đăng xuất</Text>
+              <Text style={styles.textSign}>
+                {I18n.t(`${NAMESPACE}.logout`)}
+              </Text>
             </TouchableOpacity>
             <View style={styles.divider} />
           </View>

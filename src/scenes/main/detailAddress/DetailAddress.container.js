@@ -1,26 +1,26 @@
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
-import { Picker } from '@react-native-picker/picker';
-import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
+import {Picker} from '@react-native-picker/picker';
+import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
 import SCENE_NAMES from 'constants/sceneName';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import React, { useLayoutEffect, useState } from 'react';
-import { Platform, View } from 'react-native';
-import { getString } from 'utils/i18n';
-import NavigationServices, { getParams } from 'utils/navigationServices';
+import React, {useState} from 'react';
+import {Platform, View} from 'react-native';
+import NavigationServices, {getParams} from 'utils/navigationServices';
 import vn from '../../../../vn.json';
-import { NAMESPACE } from './DetailAddress.constants';
 import DetailAddressView from './DetailAddress.view';
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 const functionsCounter = new Set();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 
-export default function DetailAddressContainer({ navigation, route }) {
+export default function DetailAddressContainer({navigation, route}) {
   const isLoading = useSelectorShallow(loadingSelector);
-  const { content } = getParams(route);
+  const {content} = getParams(route);
   const [data, setData] = React.useState({
     ListID: '',
     ShipName: '',
@@ -36,11 +36,11 @@ export default function DetailAddressContainer({ navigation, route }) {
     modalVisibleWarning: false,
   });
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      title: getString(`${NAMESPACE}.title`),
-    });
-  }, [navigation]);
+  // useLayoutEffect(() => {
+  //   navigation.setOptions({
+  //     title: getString(`${NAMESPACE}.title`),
+  //   });
+  // }, [navigation]);
 
   const CheckBoxChange = (val) => {
     if (data.Main === false) {
@@ -137,14 +137,14 @@ export default function DetailAddressContainer({ navigation, route }) {
       data.ShipName.length === 0 ||
       data.ShipPhone.length === 0 ||
       data.NumberAddress.length === 0 ||
-      data.City === 'Chọn tỉnh/thành phố' ||
-      data.Huyen === 'Chọn quận/huyện' ||
-      data.Xa === 'Chọn xã/phường' ||
+      data.City === I18n.t(`${NAMESPACE}.choosecity`) ||
+      data.Huyen === I18n.t(`${NAMESPACE}.choosedistrict`) ||
+      data.Xa === I18n.t(`${NAMESPACE}.chooseprov`) ||
       data.City === '' ||
       data.Huyen === '' ||
       data.Xa === ''
     ) {
-      setModalVisibleWarning(true, 'Bạn chưa điền đầy đủ thông tin');
+      setModalVisibleWarning(true, I18n.t(`${NAMESPACE}.missinfo`));
       return;
     }
     if (auth().currentUser.uid !== null) {
@@ -158,7 +158,7 @@ export default function DetailAddressContainer({ navigation, route }) {
             .then((snapshot) => {
               snapshot.forEach(function (child) {
                 if (child !== data.ListID) {
-                  child.ref.update({ Main: false });
+                  child.ref.update({Main: false});
                 }
               });
             });
@@ -224,7 +224,7 @@ export default function DetailAddressContainer({ navigation, route }) {
             .then((snapshot) => {
               snapshot.forEach(function (child) {
                 if (child !== data.ListID) {
-                  child.ref.update({ Main: false });
+                  child.ref.update({Main: false});
                 }
               });
             });
@@ -273,7 +273,7 @@ export default function DetailAddressContainer({ navigation, route }) {
   };
   //Lấy dữ liệu tỉnh/tp từ all.json
   const provinceData = () => {
-    var items = [{ id: 0, name: 'Chọn tỉnh/thành phố' }, ...vn];
+    var items = [{id: 0, name: I18n.t(`${NAMESPACE}.choosecity`)}, ...vn];
     var itemIOS = [];
     if (Platform.OS === 'ios') {
       items.map((item, i) => {
@@ -287,15 +287,15 @@ export default function DetailAddressContainer({ navigation, route }) {
     return items.map((item, i) => {
       <View
         // eslint-disable-next-line react-native/no-inline-styles
-        style={{ backgroundColor: '#fff', justifyContent: 'center', flex: 1 }}
+        style={{backgroundColor: '#fff', justifyContent: 'center', flex: 1}}
       />;
       return <Picker.Item label={item.name} key={i} value={item.name} />;
     });
   };
   //Lấy dữ liệu quận từ all.json
   const districtData = (pname) => {
-    var items = [{ id: 0, name: 'Chọn quận/huyện' }];
-    if (pname !== 'Chọn tỉnh/thành phố') {
+    var items = [{id: 0, name: I18n.t(`${NAMESPACE}.choosedistrict`)}];
+    if (pname !== I18n.t(`${NAMESPACE}.choosecity`)) {
       for (let i = 0; i < vn.length; i++) {
         if (vn[i].name === pname) {
           items = [...items, ...vn[i].huyen];
@@ -319,8 +319,11 @@ export default function DetailAddressContainer({ navigation, route }) {
   };
   //Lấy dữ liệu phường từ all.json
   const wardData = (pname, dname) => {
-    var items = [{ id: 0, name: 'Chọn xã/phường' }];
-    if (pname !== 'Chọn tỉnh/thành phố' && dname !== 'Chọn quận/huyện') {
+    var items = [{id: 0, name: I18n.t(`${NAMESPACE}.chooseprov`)}];
+    if (
+      pname !== I18n.t(`${NAMESPACE}.choosecity`) &&
+      dname !== I18n.t(`${NAMESPACE}.choosedistrict`)
+    ) {
       for (let i = 0; i < vn.length; i++) {
         if (vn[i].name === pname) {
           for (let j = 0; j < vn[i].huyen.length; j++) {

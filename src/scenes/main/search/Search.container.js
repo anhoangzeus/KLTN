@@ -1,15 +1,15 @@
-import React, {useLayoutEffect, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import SearchView from './Search.view';
 import {View, Text} from 'react-native';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
 import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
-import {NAMESPACE} from './Search.constants';
-import {getString} from 'utils/i18n';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import styles from './Search.styles';
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 const functionsCounter = new Set();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
@@ -26,14 +26,7 @@ export default function SearchContainer({navigation}) {
   const [loading, setLoading] = useState(false);
   const [textNoti, settextNoti] = useState('');
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      title: getString(`${NAMESPACE}.title`),
-    });
-  }, [navigation]);
-
   const bodau = (str) => {
-    console.log('vao hàm bỏ dấu');
     str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
     str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, 'e');
     str = str.replace(/ì|í|ị|ỉ|ĩ/g, 'i');
@@ -63,7 +56,6 @@ export default function SearchContainer({navigation}) {
       /!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g,
       ' ',
     );
-    console.log('text sau khi bỏ dấu', str);
     return str;
   };
 
@@ -104,7 +96,7 @@ export default function SearchContainer({navigation}) {
         setListStore(items);
         setRefeshing(false);
         setLoading(false);
-        settextNoti('không tìm thấy sản phẩm');
+        settextNoti(I18n.t(`${NAMESPACE}.noresult`));
       });
     database()
       .ref('/ProductUser')
@@ -140,7 +132,7 @@ export default function SearchContainer({navigation}) {
         setListSeller(items);
         setRefeshing(false);
         setLoading(false);
-        settextNoti('không tìm thấy sản phẩm');
+        settextNoti(I18n.t(`${NAMESPACE}.noresult`));
       });
   };
   const _onRefresh = () => {

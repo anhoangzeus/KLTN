@@ -14,7 +14,8 @@ import NavigationServices from 'utils/navigationServices';
 import ReactNativeNumberFormat from 'components/NumberFormat';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import SCENE_NAMES from 'constants/sceneName';
-
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 const OrderView = (props) => {
   const {loading, _onRefresh, refreshing, listOrder} = props;
   const RenderList = ({
@@ -32,7 +33,10 @@ const OrderView = (props) => {
         NavigationServices.navigate(SCENE_NAMES.DetailOrderContainer, {id: id});
       }}>
       <View style={{flex: 1, margin: 10}}>
-        <Text style={{color: '#2B4F8C'}}>Mã đơn hàng: {id}</Text>
+        <Text style={{color: '#2B4F8C'}}>
+          {' '}
+          {I18n.t(`${NAMESPACE}.orderid`)}: {id}
+        </Text>
         {orderDetail.map((data) => {
           return (
             <View>
@@ -58,10 +62,14 @@ const OrderView = (props) => {
           </Text>
         </View>
         <Text style={{fontSize: 20, fontWeight: 'bold', color: '#000'}}>
-          Tổng tiền: <ReactNativeNumberFormat value={ToTalPrice} />
+          {I18n.t(`${NAMESPACE}.total`)}:{' '}
+          <ReactNativeNumberFormat value={ToTalPrice} />
         </Text>
       </View>
-      <Text style={{color: 'white', textAlign: 'center'}}>Xem</Text>
+      <Text style={{color: 'white', textAlign: 'center'}}>
+        {' '}
+        {I18n.t(`${NAMESPACE}.view`)}
+      </Text>
     </TouchableOpacity>
   );
   const renderNull = () => {
@@ -75,7 +83,7 @@ const OrderView = (props) => {
           source={require('../../../../assets/images/process3.jpg')}
           style={styles.img}
         />
-        <Text style={styles.txtEmpty}>Chưa có đơn hàng</Text>
+        <Text style={styles.txtEmpty}> {I18n.t(`${NAMESPACE}.noorder`)}</Text>
       </TouchableOpacity>
     );
   };

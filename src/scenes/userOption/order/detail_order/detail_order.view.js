@@ -18,7 +18,8 @@ import ReactNativeNumberFormat from 'components/NumberFormat';
 import SCENE_NAMES from 'constants/sceneName';
 import SIZE from 'constants/size';
 import Header from 'components/Header';
-
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 const RenderList = ({
   ProductName,
   BrandName,
@@ -36,9 +37,8 @@ const RenderList = ({
         {ProductName}
       </Text>
       <Text numberOfLines={3} style={styles.welcomeText}>
-        Sản phẩm: {cate_Name}
+        {I18n.t(`${NAMESPACE}.product`)}: {cate_Name}
       </Text>
-      <Text style={styles.welcomeText}>Nhà cung cấp: {BrandName}</Text>
       <Text
         style={{
           color: '#1e88e5',
@@ -74,16 +74,20 @@ const DetailOrderView = (props) => {
   return (
     <View style={styles.screenContainer}>
       <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
-      <Header title={'Chi tiết đơn hàng'} />
+      <Header title={I18n.t(`${NAMESPACE}.orderdetail`)} />
       <ScrollView>
         <View style={styles.bodyContainer}>
           <View style={styles.userContainer}>
             <View style={styles.textContainer}>
-              <Text style={styles.titletext}>Mã đơn hàng: {OrderID}</Text>
+              <Text style={styles.titletext}>
+                {I18n.t(`${NAMESPACE}.orderid`)}: {OrderID}
+              </Text>
               <Text style={styles.welcomeText}>
                 Ngày đặt hàng: {CreatedDate}
               </Text>
-              <Text style={styles.welcomeText}>Trạng thái: {Status}</Text>
+              <Text style={styles.welcomeText}>
+                {I18n.t(`${NAMESPACE}.status`)}: {Status}
+              </Text>
             </View>
           </View>
           <View style={styles.divider} />
@@ -91,27 +95,37 @@ const DetailOrderView = (props) => {
             <View style={styles.textContainer}>
               <View
                 style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={styles.titletext}>Địa chỉ người nhận</Text>
+                <Text style={styles.titletext}>
+                  {I18n.t(`${NAMESPACE}.addressdelivery`)}
+                </Text>
                 {Status === 'Chờ xác nhận' ? (
                   <TouchableOpacity
                     onPress={() => {
                       NavigationServices.navigate(SCENE_NAMES.AddRessScreen);
                     }}>
-                    <Text style={{color: 'green', fontSize: 20}}>Sửa</Text>
+                    <Text style={{color: 'green', fontSize: 20}}>
+                      {I18n.t(`${NAMESPACE}.change`)}
+                    </Text>
                   </TouchableOpacity>
                 ) : null}
               </View>
-              <Text style={styles.welcomeText}>Họ tên: {ShipName}</Text>
               <Text style={styles.welcomeText}>
-                Số điện thoại: {ShipMoblie}
+                {I18n.t(`${NAMESPACE}.fullname`)}: {ShipName}
               </Text>
-              <Text style={styles.welcomeText}>Địa chỉ: {ShipAddress}</Text>
+              <Text style={styles.welcomeText}>
+                {I18n.t(`${NAMESPACE}.phone`)}: {ShipMoblie}
+              </Text>
+              <Text style={styles.welcomeText}>
+                {I18n.t(`${NAMESPACE}.address`)}: {ShipAddress}
+              </Text>
             </View>
           </View>
           <View style={styles.divider} />
           <View style={styles.userContainer}>
             <View style={styles.textContainer}>
-              <Text style={styles.titletext}>Hình thức thanh toán</Text>
+              <Text style={styles.titletext}>
+                {I18n.t(`${NAMESPACE}.paymethod`)}
+              </Text>
               <Text style={styles.welcomeText}>{Payment}</Text>
             </View>
           </View>
@@ -124,8 +138,12 @@ const DetailOrderView = (props) => {
               flexDirection: 'row',
               justifyContent: 'space-between',
             }}>
-            <Text style={styles.textorder}>Thông tin đơn hàng</Text>
-            <Text style={styles.textorder}>{ListProduct.length} Loại</Text>
+            <Text style={styles.textorder}>
+              {I18n.t(`${NAMESPACE}.orderinfo`)}
+            </Text>
+            <Text style={styles.textorder}>
+              {ListProduct.length} {I18n.t(`${NAMESPACE}.type`)}
+            </Text>
           </View>
           <View
             style={{
@@ -161,10 +179,12 @@ const DetailOrderView = (props) => {
           <Text style={styles.textorder}>Thông tin thanh toán</Text>
           <View style={{height: 2, backgroundColor: '#1e88e5', marginTop: 2}} />
           <Text style={{margin: 10, fontSize: 20, color: '#000'}}>
-            Phí vận chuyển: <ReactNativeNumberFormat value={ShipPayment} />
+            {I18n.t(`${NAMESPACE}.deliveryprice`)}:{' '}
+            <ReactNativeNumberFormat value={ShipPayment} />
           </Text>
           <Text style={{marginHorizontal: 10, fontSize: 20, color: '#000'}}>
-            Tổng tiền: <ReactNativeNumberFormat value={Total} />
+            {I18n.t(`${NAMESPACE}.total`)}:{' '}
+            <ReactNativeNumberFormat value={Total} />
           </Text>
         </View>
         {Status === 'Chờ xác nhận' ? (
@@ -173,7 +193,9 @@ const DetailOrderView = (props) => {
             onPress={() => {
               setModalVisible(true);
             }}>
-            <Text style={styles.titletext2}>Huỷ đơn hàng</Text>
+            <Text style={styles.titletext2}>
+              {I18n.t(`${NAMESPACE}.cancelorder`)}
+            </Text>
           </TouchableOpacity>
         ) : Status === 'Chờ lấy hàng' ? (
           <View
@@ -181,7 +203,10 @@ const DetailOrderView = (props) => {
             onPress={() => {
               setModalVisible(true);
             }}>
-            <Text style={styles.titletext2}>Huỷ đơn hàng</Text>
+            <Text style={styles.titletext2}>
+              {' '}
+              {I18n.t(`${NAMESPACE}.cancelorder`)}
+            </Text>
           </View>
         ) : null}
       </ScrollView>
@@ -194,7 +219,10 @@ const DetailOrderView = (props) => {
         }}>
         <View style={styles.centeredView}>
           <View style={{...styles.modalView, padding: SIZE.DEVICE_WIDTH / 15}}>
-            <Text style={styles.modalText}>Bạn có chắc huỷ đơn hàng?</Text>
+            <Text style={styles.modalText}>
+              {' '}
+              {I18n.t(`${NAMESPACE}.confirmcancel`)} ?
+            </Text>
             <View style={{flexDirection: 'row'}}>
               <TouchableOpacity
                 style={{
@@ -205,7 +233,10 @@ const DetailOrderView = (props) => {
                 onPress={() => {
                   setModal(false);
                 }}>
-                <Text style={styles.textStyle}>Giữ lại</Text>
+                <Text style={styles.textStyle}>
+                  {' '}
+                  {I18n.t(`${NAMESPACE}.keep`)}
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={{
@@ -217,7 +248,10 @@ const DetailOrderView = (props) => {
                 onPress={() => {
                   huy_Order();
                 }}>
-                <Text style={styles.textStyle}>Xác nhận</Text>
+                <Text style={styles.textStyle}>
+                  {' '}
+                  {I18n.t(`${NAMESPACE}.confirm`)}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -233,9 +267,12 @@ const DetailOrderView = (props) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView1}>
             <FontAwesome5 name="grin-beam-sweat" size={40} color="#2B4F8C" />
-            <Text style={styles.modalText1}>Huỷ thành công</Text>
             <Text style={styles.modalText1}>
-              Hãy kiểm tra lại trạng thái đơn hàng!
+              {' '}
+              {I18n.t(`${NAMESPACE}.cancelsuccess`)}
+            </Text>
+            <Text style={styles.modalText1}>
+              {I18n.t(`${NAMESPACE}.recheck`)}
             </Text>
           </View>
         </View>

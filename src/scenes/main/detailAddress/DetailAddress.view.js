@@ -18,6 +18,8 @@ import {Picker} from '@react-native-picker/picker';
 import RNPickerSelect from 'react-native-picker-select';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Header from 'components/Header';
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 
 function DetailAddressView(props) {
   const {
@@ -36,7 +38,7 @@ function DetailAddressView(props) {
     <SafeAreaView style={styles.screenContainer}>
       <View style={styles.screenContainer2}>
         <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
-        <Header title={'Cập nhật địa chỉ'} />
+        <Header title={I18n.t(`${NAMESPACE}.updateaddress`)} />
         <View style={styles.divider} />
         <ScrollView>
           <View style={styles.bodyContainer}>
@@ -49,11 +51,13 @@ function DetailAddressView(props) {
                         ? styles.titletext
                         : styles.errtext
                     }>
-                    Họ tên
+                    {I18n.t(`${NAMESPACE}.fullname`)}
                   </Text>
                   {data.check_textInputFullName ? null : (
                     <Animatable.View animation="fadeInLeft" duration={500}>
-                      <Text style={styles.errorMsg}>Vui lòng kiểm tra lại</Text>
+                      <Text style={styles.errorMsg}>
+                        {I18n.t(`${NAMESPACE}.recheck`)}
+                      </Text>
                     </Animatable.View>
                   )}
                 </View>
@@ -82,11 +86,13 @@ function DetailAddressView(props) {
                         ? styles.titletext
                         : styles.errtext
                     }>
-                    Số điện thoại
+                    {I18n.t(`${NAMESPACE}.phone`)}
                   </Text>
                   {data.check_textInputSDT ? null : (
                     <Animatable.View animation="fadeInLeft" duration={500}>
-                      <Text style={styles.errorMsg}>Vui lòng kiểm tra lại</Text>
+                      <Text style={styles.errorMsg}>
+                        {I18n.t(`${NAMESPACE}.recheck`)}
+                      </Text>
                     </Animatable.View>
                   )}
                 </View>
@@ -115,11 +121,13 @@ function DetailAddressView(props) {
                         ? styles.titletext
                         : styles.errtext
                     }>
-                    Địa chỉ
+                    {I18n.t(`${NAMESPACE}.address`)}
                   </Text>
                   {data.check_textInputaddress ? null : (
                     <Animatable.View animation="fadeInLeft" duration={500}>
-                      <Text style={styles.errorMsg}>Vui lòng kiểm tra lại</Text>
+                      <Text style={styles.errorMsg}>
+                        {I18n.t(`${NAMESPACE}.recheck`)}
+                      </Text>
                     </Animatable.View>
                   )}
                 </View>
@@ -141,7 +149,9 @@ function DetailAddressView(props) {
             <View style={styles.divider} />
             <View style={styles.userContainer}>
               <View style={styles.textContainer}>
-                <Text style={styles.whiteText}>Tỉnh/Thành phố</Text>
+                <Text style={styles.whiteText}>
+                  {I18n.t(`${NAMESPACE}.city`)}
+                </Text>
                 {Platform.OS === 'android' ? (
                   <Picker
                     style={styles.picker}
@@ -166,7 +176,9 @@ function DetailAddressView(props) {
             <View style={styles.divider} />
             <View style={styles.userContainer}>
               <View style={styles.textContainer}>
-                <Text style={styles.whiteText}>Quận/Huyện</Text>
+                <Text style={styles.whiteText}>
+                  {I18n.t(`${NAMESPACE}.district`)}
+                </Text>
                 {Platform.OS === 'android' ? (
                   <Picker
                     style={styles.picker1}
@@ -188,7 +200,9 @@ function DetailAddressView(props) {
                 )}
               </View>
               <View style={styles.textContainer}>
-                <Text style={styles.whiteText}>Phường/Xã</Text>
+                <Text style={styles.whiteText}>
+                  {I18n.t(`${NAMESPACE}.prov`)}
+                </Text>
                 {Platform.OS === 'android' ? (
                   <Picker
                     style={styles.picker1}
@@ -218,7 +232,9 @@ function DetailAddressView(props) {
                   style={styles.marTen}
                 />
                 <View style={styles.marHori}>
-                  <Text style={styles.greenText}>Địa chỉ mặc định</Text>
+                  <Text style={styles.greenText}>
+                    {I18n.t(`${NAMESPACE}.defaulAdd`)}
+                  </Text>
                 </View>
               </View>
             </View>
@@ -230,7 +246,9 @@ function DetailAddressView(props) {
           onPress={() => {
             saveChangesHandle();
           }}>
-          <Text style={styles.subBtnText}>Lưu địa chỉ</Text>
+          <Text style={styles.subBtnText}>
+            {I18n.t(`${NAMESPACE}.saveAdd`)}
+          </Text>
         </TouchableOpacity>
         <Modal
           animationType="fade"

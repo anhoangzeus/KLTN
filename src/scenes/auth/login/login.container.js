@@ -4,11 +4,13 @@ import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 // import { LoginManager, AccessToken } from 'react-native-fbsdk';
 // import { GoogleSignin } from '@react-native-community/google-signin';
 const functionsCounter = new Set();
 
-function LoginContainer({ navigation }) {
+function LoginContainer({navigation}) {
   const [data, setData] = React.useState({
     username: '',
     password: '',
@@ -115,7 +117,7 @@ function LoginContainer({ navigation }) {
     console.log('go');
     console.log(data.username, data.password);
     if (data.username.length < 6 || data.password.length < 6) {
-      setModalVisibleWarning(true, 'Quý khách chưa nhập đầy đủ thông tin');
+      setModalVisibleWarning(true, I18n.t(`${NAMESPACE}.missinfo`));
       return;
     }
     database()
@@ -142,14 +144,17 @@ function LoginContainer({ navigation }) {
                   return;
                 });
             } else {
-              setModalVisibleWarning(true, 'Mật khẩu không chính xác');
+              setModalVisibleWarning(
+                true,
+                I18n.t(`${NAMESPACE}.equalPassword`),
+              );
             }
             setloading(false);
           }
           setloading(false);
         });
         if (temp === false) {
-          setModalVisibleWarning(true, 'Tài khoản không tồn tại');
+          setModalVisibleWarning(true, I18n.t(`${NAMESPACE}.equalPassword`));
         }
       });
   };
@@ -215,21 +220,21 @@ function LoginContainer({ navigation }) {
   // };
   const sentPass = () => {
     if (data.textChangPass === '') {
-      setModalVisibleWarning(true, 'Bạn chưa nhập Email');
+      setModalVisibleWarning(true, I18n.t(`${NAMESPACE}.missEmail`));
     } else {
       try {
         auth()
           .sendPasswordResetEmail(data.textChangPass)
           .then(() => {
-            setModalVisibleWarning(true, 'Kiểm tra tài khoản Email của bạn');
+            setModalVisibleWarning(true, I18n.t(`${NAMESPACE}.checkEmail`));
             handleResetPass();
           })
           // eslint-disable-next-line handle-callback-err
           .catch((err) => {
             handleResetPass();
-            setModalVisibleWarning(true, 'Email chưa được đăng kí');
+            setModalVisibleWarning(true, I18n.t(`${NAMESPACE}.emailfail`));
           });
-      } catch { }
+      } catch {}
     }
   };
   functionsCounter.add(textInputChange);

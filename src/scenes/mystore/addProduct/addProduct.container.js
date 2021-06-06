@@ -83,7 +83,6 @@ export default function AddProductContainer({navigation}) {
 
       setPopup(false);
     }
-    console.log('image được chọn:', image);
   };
   const chooseImageTake = () => {
     launchCamera(chooseImageOptions, (response) => {
@@ -132,11 +131,9 @@ export default function AddProductContainer({navigation}) {
     const x = parseInt(formprice);
     const y = parseInt(sale);
     const PromotionPrice = x - (x * y) / 100;
-    console.log('promotion price', PromotionPrice);
     var date = moment().subtract(10, 'days').calendar();
     var useID = auth().currentUser.uid;
     var keyDetail = database().ref('ProductUser').child(useID).push().key;
-    console.log('key detail', keyDetail);
     database()
       .ref('ProductUser/' + keyDetail)
       .set({

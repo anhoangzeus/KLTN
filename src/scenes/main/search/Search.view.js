@@ -17,6 +17,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import NavigationServices from 'utils/navigationServices';
 import styles from './Search.styles';
 import {ScrollView} from 'react-native-gesture-handler';
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 const {width, height} = Dimensions.get('screen');
 // import {NAMESPACE} from './Search.constants';
 
@@ -55,7 +57,7 @@ function SearchView(props) {
             <FontAwesome name="search" size={24} color="#969696" />
             <TextInput
               style={styles.inputText}
-              placeholder="Bạn tìm gì hôm nay?"
+              placeholder={I18n.t(`${NAMESPACE}.search`)}
               autoFocus={true}
               onChangeText={(text) => {
                 setSearchText(text);
@@ -74,7 +76,9 @@ function SearchView(props) {
         <ScrollView>
           <View style={styles.bodyContainer}>
             <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Kết quả tìm kiếm</Text>
+              <Text style={styles.sectionTitle}>
+                {I18n.t(`${NAMESPACE}.result`)}
+              </Text>
 
               <View style={styles.listItemContainer}>
                 {listStore[0] == null ? (
