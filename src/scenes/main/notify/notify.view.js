@@ -6,44 +6,44 @@ import * as React from 'react';
 import {
   ActivityIndicator, FlatList,
   RefreshControl,
-
   SafeAreaView, Text,
   TouchableOpacity, View,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import NavigationServices from 'utils/navigationServices';
 import styles from './notify.styles';
 const renderTrangThai = (Status) => {
-  if (Status === 1) {
+  if (Status === '1') {
     return (
       <View>
         <Text style={styles.textSuccess}>Đơn hàng đang chờ xác nhận</Text>
       </View>
     );
-  } else if (Status === 2) {
+  } else if (Status === '2') {
     return (
       <View>
         <Text style={styles.textSuccess}>Đơn hàng đang chờ lấy hàng</Text>
       </View>
     );
-  } else if (Status === 3) {
+  } else if (Status === '3') {
     return (
       <View>
         <Text style={styles.textSuccess}>Đơn hàng đang giao hàng</Text>
       </View>
     );
-  } else if (Status === 4) {
+  } else if (Status === '4') {
     return (
       <View>
         <Text style={styles.textSuccess}>
           Đơn hàng đã giao thành công.
           <Text style={styles.textSuccess}>
             {' '}
-            Bạn hãy đánh giá để giúp người dùng khác hiểu hơn về sản phẩm.
+            Đánh giá để nhận thêm xu.
           </Text>
         </Text>
       </View>
     );
-  } else if (Status === 5) {
+  } else if (Status === '5') {
     return (
       <View>
         <Text style={styles.textSuccess}>Đơn hàng đã bị huỷ</Text>
@@ -57,32 +57,20 @@ const renderTrangThai = (Status) => {
     );
   }
 };
-const renderTimeLine = (name, item) => {
-  return (
-    <View style={styles.lineContainer}>
-      <View style={styles.lineView} />
-      <View style={styles.lineHolder}>
-        <Text>{name}</Text>
-        <Text>Ngày {item}</Text>
-      </View>
-    </View>
-  );
-};
 const OrderItem = ({ item, props }) => {
-  const { isdropdownid, navigation, setIsdropdownid } = props;
   return (
     <View style={styles.jContent}>
       <View style={styles.itemsContainer}>
         <TouchableOpacity
           onPress={() => {
-            item.Status === 4
-              ? navigation.navigate(SCENE_NAMES.TopStackOrder)
-              : navigation.navigate(SCENE_NAMES.DetailOrderContainer, {
-                id: item.orderId,
+            item.Status === '4'
+              ? NavigationServices.navigate(SCENE_NAMES.TopRatingScreen)
+              : NavigationServices.navigate(SCENE_NAMES.DetailOrderContainer, {
+                id: item.OrderID,
               });
           }}
           style={styles.orderWidth}>
-          <Text style={{ color: COLOR_BLUEAIR }}>Mã đơn hàng {item.orderId}</Text>
+          <Text style={{ color: COLOR_BLUEAIR }}>Mã đơn hàng {item.OrderID}</Text>
           <Text style={{ color: COLOR_BLACK }}>
             {item.payment === '01'
               ? 'Thanh toán khi nhận hàng'
@@ -90,62 +78,10 @@ const OrderItem = ({ item, props }) => {
           </Text>
           {renderTrangThai(item.Status)}
           <Text style={{ color: COLOR_BLACK }}>
-            <MaterialCommunityIcons name="clock" size={13} /> {item.createdated}
+            <MaterialCommunityIcons name="clock" size={13} /> {item.CreatedDate}
           </Text>
         </TouchableOpacity>
-        {isdropdownid === item.orderId ? (
-          <TouchableOpacity
-            onPress={() => setIsdropdownid('')}
-            style={styles.btnDropDown}>
-            <MaterialCommunityIcons
-              name="apple-keyboard-control"
-              size={25}
-              color="#000"
-            />
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            onPress={() => setIsdropdownid(item.orderId)}
-            style={styles.btnDropDown}>
-            <MaterialCommunityIcons
-              name="chevron-down"
-              size={25}
-              color="#000"
-            />
-          </TouchableOpacity>
-        )}
       </View>
-      {isdropdownid === item.orderId ? (
-        <View style={styles.dropContainer}>
-          {item.TimeLine.ChoXacNhan === ''
-            ? null
-            : renderTimeLine(
-              'Xác nhận đã nhận đơn hàng',
-              item.TimeLine.ChoXacNhan,
-            )}
-          {item.TimeLine.ChoLayHang === ''
-            ? null
-            : renderTimeLine(
-              'Nhận kiện hàng thành công',
-              item.TimeLine.ChoLayHang,
-            )}
-          {item.TimeLine.DangVanChuyen === ''
-            ? null
-            : renderTimeLine('Đang vận chuyển', item.TimeLine.DangVanChuyen)}
-          {item.TimeLine.DaGiaoHang === ''
-            ? null
-            : renderTimeLine(
-              'Đã giao hàng thành công',
-              item.TimeLine.DaGiaoHang,
-            )}
-          {item.TimeLine.DaHuy === ''
-            ? null
-            : renderTimeLine('Xác nhận huỷ đơn hàng', item.TimeLine.DaHuy)}
-          {item.TimeLine.TraHang === ''
-            ? null
-            : renderTimeLine('Xác nhận trả hàng', item.TimeLine.TraHang)}
-        </View>
-      ) : null}
     </View>
   );
 };
@@ -178,11 +114,11 @@ export default function NotifyView(props) {
             <Text style={styles.itemName}>{item.Title}</Text>
             <View style={styles.flexTitle}>
               <Text style={styles.itemDate}>{item.CreatedDate}</Text>
-              {item.isShow === false ? (
+              {item.isShow === false &&
                 <View style={styles.showdone}>
                   <Text style={styles.shownew}>New</Text>
                 </View>
-              ) : null}
+              }
             </View>
           </View>
           <View />
@@ -321,7 +257,7 @@ export default function NotifyView(props) {
                 }
                 data={listThongBao}
                 renderItem={({ item }) => <NotificationItem item={item} />}
-                keyExtractor={(item) => item.orderId}
+                keyExtractor={(item, index) => index}
               />
             </View>
           )}

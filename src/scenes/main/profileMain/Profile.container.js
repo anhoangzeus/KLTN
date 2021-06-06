@@ -1,16 +1,15 @@
-import React, {useState, useEffect} from 'react';
-import ProfileMainView from './Profile.view';
-import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
+import React, { useEffect, useState } from 'react';
+import ProfileMainView from './Profile.view';
 
-function ProfileMainContainer({navigation}) {
+function ProfileMainContainer({ navigation }) {
   const [FullName, setFullName] = useState('username');
   const [Email, setEmail] = useState('name@gmail.com');
   const [CreatedDate, setCreatedDate] = useState('dd/mm/yy hh:mm AM');
   const [Avatar, setAvatar] = useState(
     'https://i.ibb.co/HDzz1rC/avartarnone.png',
   );
-  // eslint-disable-next-line no-unused-vars
   const [Merchant, setMerchant] = useState(false);
 
   const getData = () => {

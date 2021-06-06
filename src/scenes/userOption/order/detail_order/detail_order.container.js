@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import DetailOrderView from './detail_order.view';
-import NavigationServices, { getParams } from 'utils/navigationServices';
-import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import NavigationServices, { getParams } from 'utils/navigationServices';
+import DetailOrderView from './detail_order.view';
 
 const functionsCounter = new Set();
 
@@ -88,18 +89,9 @@ const DetailOrderContainer = ({ navigation, route }) => {
                 setListProduct(item);
             });
     };
-    const GetCurrentDate = () => {
-        var date = new Date().getDate();
-        var month = new Date().getMonth() + 1;
-        var year = new Date().getFullYear();
-        var gio = new Date().getHours();
-        var phut = new Date().getMinutes();
-        var giay = new Date().getSeconds();
-        return date + '/' + month + '/' + year + ' ' + gio + ':' + phut + ':' + giay;
-    };
     const huy_Order = () => {
         database().ref('Orders').child(id).child('TimeLine').update({
-            DaHuy: GetCurrentDate(),
+            DaHuy: moment().format('dd--MM-yyyy hh:mm:ss'),
         });
         database().ref('Orders').child(id).update({
             Status: 5,

@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import auth from '@react-native-firebase/auth';
 import Header from 'components/Header';
+import OrderStatus from 'components/Order';
 import SCENE_NAMES from 'constants/sceneName';
 import * as React from 'react';
 import {
@@ -16,15 +17,15 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import NavigationServices from 'utils/navigationServices';
 import styles from './Profile.styles';
 
-const ProfileItem = ({icon, name}) => (
+const ProfileItem = ({ icon, name }) => (
   <View style={styles.itemContainer}>
     <MaterialCommunityIcons name={icon} size={26} color="#1e1e1e" />
-    <Text style={[styles.itemText, {marginLeft: icon ? 20 : 0}]}>{name}</Text>
+    <Text style={[styles.itemText, { marginLeft: icon ? 20 : 0 }]}>{name}</Text>
     <FontAwesome name="angle-right" size={15} color="#1e1e1e" />
   </View>
 );
 const ProfileMainView = (props) => {
-  const {Avatar, FullName, Email, CreatedDate, Merchant} = props;
+  const { Avatar, FullName, Email, CreatedDate, Merchant } = props;
   console.log('merchant: ', Merchant);
   return (
     <SafeAreaView style={styles.screenContainer}>
@@ -39,7 +40,7 @@ const ProfileMainView = (props) => {
               <View style={styles.userContainer}>
                 <View style={styles.avatarContainer}>
                   <Image
-                    source={{uri: Avatar}}
+                    source={{ uri: Avatar }}
                     size={80}
                     style={styles.avatarContainer}
                   />
@@ -47,9 +48,7 @@ const ProfileMainView = (props) => {
                 <View style={styles.textContainer}>
                   <Text style={styles.welcomeText}>{FullName}</Text>
                   <Text style={styles.authText}>{Email}</Text>
-                  <Text style={styles.authText}>
-                    Thành viên từ {CreatedDate}
-                  </Text>
+                  <Text style={styles.authText}>Thành viên từ {CreatedDate}</Text>
                 </View>
                 <FontAwesome name="angle-right" size={26} color="#2B4F8C" />
               </View>
@@ -59,7 +58,7 @@ const ProfileMainView = (props) => {
               onPress={() => {
                 NavigationServices.navigate(
                   SCENE_NAMES.MyStoreOptionContainer,
-                  {FullName: FullName, Avatar: Avatar},
+                  { FullName: FullName, Avatar: Avatar },
                 );
               }}>
               {Merchant ? (
@@ -71,12 +70,7 @@ const ProfileMainView = (props) => {
               <ProfileItem icon="facebook" name="Kết nối mạng xã hội" />
             </TouchableOpacity>
             <View style={styles.divider} />
-            <TouchableOpacity
-              onPress={() => {
-                NavigationServices.navigate(SCENE_NAMES.TopRatingScreen);
-              }}>
-              <ProfileItem icon="star-outline" name="Đánh giá sản phẩm" />
-            </TouchableOpacity>
+            <OrderStatus />
             <View style={styles.divider} />
             <TouchableOpacity
               onPress={() => {

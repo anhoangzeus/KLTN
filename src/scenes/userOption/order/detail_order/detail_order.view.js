@@ -1,23 +1,16 @@
 /* eslint-disable react-native/no-inline-styles */
-import * as React from 'react';
-import {
-  View,
-  Text,
-  StatusBar,
-  ScrollView,
-  TouchableOpacity,
-  FlatList,
-  Modal,
-  Alert,
-  Image,
-} from 'react-native';
-import styles from './detail_order.styles';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import NavigationServices from 'utils/navigationServices';
+import Header from 'components/Header';
 import ReactNativeNumberFormat from 'components/NumberFormat';
 import SCENE_NAMES from 'constants/sceneName';
 import SIZE from 'constants/size';
-import Header from 'components/Header';
+import * as React from 'react';
+import {
+  FlatList, Image, Modal, ScrollView, StatusBar, Text,
+  TouchableOpacity, View,
+} from 'react-native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import NavigationServices from 'utils/navigationServices';
+import styles from './detail_order.styles';
 
 const RenderList = ({
   ProductName,
@@ -29,10 +22,10 @@ const RenderList = ({
 }) => (
   <View style={styles.userContainer}>
     <View>
-      <Image source={{uri: ProductImage}} style={styles.sectionImage} />
+      <Image source={{ uri: ProductImage }} style={styles.sectionImage} />
     </View>
-    <View style={{marginHorizontal: 10}}>
-      <Text style={{...styles.titletext, marginRight: SIZE.DEVICE_WIDTH / 4}}>
+    <View style={{ marginHorizontal: 10 }}>
+      <Text style={{ ...styles.titletext, marginRight: SIZE.DEVICE_WIDTH / 4 }}>
         {ProductName}
       </Text>
       <Text numberOfLines={3} style={styles.welcomeText}>
@@ -47,7 +40,7 @@ const RenderList = ({
           marginTop: 10,
         }}>
         <ReactNativeNumberFormat value={Price} />
-        <Text style={{fontSize: 15, color: 'black'}}> x {Quantity}</Text>
+        <Text style={{ fontSize: 15, color: 'black' }}> x {Quantity}</Text>
       </Text>
     </View>
   </View>
@@ -90,14 +83,14 @@ const DetailOrderView = (props) => {
           <View style={styles.userContainer}>
             <View style={styles.textContainer}>
               <View
-                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Text style={styles.titletext}>Địa chỉ người nhận</Text>
                 {Status === 'Chờ xác nhận' ? (
                   <TouchableOpacity
                     onPress={() => {
                       NavigationServices.navigate(SCENE_NAMES.AddRessScreen);
                     }}>
-                    <Text style={{color: 'green', fontSize: 20}}>Sửa</Text>
+                    <Text style={{ color: 'green', fontSize: 20 }}>Sửa</Text>
                   </TouchableOpacity>
                 ) : null}
               </View>
@@ -138,7 +131,7 @@ const DetailOrderView = (props) => {
           <FlatList
             pagingEnabled={false}
             data={ListProduct}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <RenderList
                 ProductName={item.ProductName}
                 BrandName={item.Brand_Product}
@@ -159,11 +152,11 @@ const DetailOrderView = (props) => {
             paddingHorizontal: 10,
           }}>
           <Text style={styles.textorder}>Thông tin thanh toán</Text>
-          <View style={{height: 2, backgroundColor: '#1e88e5', marginTop: 2}} />
-          <Text style={{margin: 10, fontSize: 20, color: '#000'}}>
+          <View style={{ height: 2, backgroundColor: '#1e88e5', marginTop: 2 }} />
+          <Text style={{ margin: 10, fontSize: 20, color: '#000' }}>
             Phí vận chuyển: <ReactNativeNumberFormat value={ShipPayment} />
           </Text>
-          <Text style={{marginHorizontal: 10, fontSize: 20, color: '#000'}}>
+          <Text style={{ marginHorizontal: 10, fontSize: 20, color: '#000' }}>
             Tổng tiền: <ReactNativeNumberFormat value={Total} />
           </Text>
         </View>
@@ -189,13 +182,11 @@ const DetailOrderView = (props) => {
         animationType="fade"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}>
+        onRequestClose={() => { setModal(false); }}>
         <View style={styles.centeredView}>
-          <View style={{...styles.modalView, padding: SIZE.DEVICE_WIDTH / 15}}>
+          <View style={{ ...styles.modalView, padding: SIZE.DEVICE_WIDTH / 15 }}>
             <Text style={styles.modalText}>Bạn có chắc huỷ đơn hàng?</Text>
-            <View style={{flexDirection: 'row'}}>
+            <View style={{ flexDirection: 'row' }}>
               <TouchableOpacity
                 style={{
                   ...styles.openButton,
@@ -226,10 +217,7 @@ const DetailOrderView = (props) => {
       <Modal
         animationType="fade"
         transparent={true}
-        visible={modalVisibleWarning}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}>
+        visible={modalVisibleWarning}>
         <View style={styles.centeredView}>
           <View style={styles.modalView1}>
             <FontAwesome5 name="grin-beam-sweat" size={40} color="#2B4F8C" />

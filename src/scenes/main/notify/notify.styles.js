@@ -10,7 +10,7 @@ export default StyleSheet.create({
     backgroundColor: '#2B4F8C',
   },
   orderWidth: {
-    width: SIZE.DEVICE_WIDTH / 1.5,
+    width: SIZE.DEVICE_WIDTH / 1.3,
   },
   bodyContainer: {
     flex: 1,
@@ -123,7 +123,7 @@ export default StyleSheet.create({
     width: SIZE.DEVICE_WIDTH / 12,
   },
   dropContainer: {
-    backgroundColor: '#dddddd',
+    backgroundColor: '#ffff',
     paddingHorizontal: 10,
   },
   jContent: {
@@ -143,6 +143,7 @@ export default StyleSheet.create({
   flexTitle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    width: '90%',
   },
   redPoint: {
     backgroundColor: 'red',
