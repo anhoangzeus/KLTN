@@ -4,15 +4,20 @@ import {normalize} from 'react-native-elements';
 
 export default StyleSheet.create({
   itemContainer: {
+    borderColor: '#ededed',
+    borderWidth: 2,
+    padding: normalize(5),
+    flexDirection: 'row',
+    borderRadius: 10,
+    flex: 1,
+  },
+  imgBackground: {
     width: SIZE.DEVICE_WIDTH * 0.95,
     marginLeft: SIZE.DEVICE_WIDTH * 0.025,
     height: SIZE.DEVICE_HEIGHT / 3.5,
-    borderColor: 'gray',
-    borderWidth: 2,
-    padding: normalize(5),
-    backgroundColor: '#fff',
+    resizeMode: 'stretch',
     flexDirection: 'row',
-    borderRadius: 10,
+    justifyContent: 'space-between',
   },
   itemImage: {
     width: SIZE.DEVICE_WIDTH / 2.5,
@@ -20,11 +25,16 @@ export default StyleSheet.create({
     resizeMode: 'contain',
     alignSelf: 'center',
   },
+  del: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginRight: 10,
+  },
   itemName: {
-    fontSize: 14,
+    fontSize: SIZE.DEVICE_HEIGHT / 40,
     color: 'black',
     marginHorizontal: 10,
-    fontWeight: '100',
+    fontWeight: '200',
   },
   itemPrice: {
     fontSize: 16,

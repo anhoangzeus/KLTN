@@ -44,7 +44,7 @@ export default StyleSheet.create({
   },
   textName: {
     paddingBottom: 8,
-    fontWeight: 'normal',
+    fontWeight: '400',
     fontSize: height / 35,
     marginLeft: width / 40,
     color: 'black',
@@ -83,7 +83,8 @@ export default StyleSheet.create({
   warantyText: {
     marginBottom: 10,
     fontSize: 15,
-    fontWeight: 'bold',
+    color: 'black',
+    fontWeight: '500',
     marginLeft: width / 40,
   },
   relateView: {backgroundColor: '#fff'},

@@ -1,6 +1,6 @@
 import CommentItem from 'components/CommentItem';
 import NumberFormat from 'components/NumberFormat';
-import ProductItem from 'components/ProductItem';
+import SellerProduct from 'components/ProductItem';
 import StarRating from 'components/StarRating';
 import SCENE_NAMES from 'constants/sceneName';
 import * as React from 'react';
@@ -172,12 +172,16 @@ function ProductView(props) {
                         });
                       }}>
                       <Text style={styles.textGreen}>
-                        (Xem {bough} đánh giá)
+                        ( ({I18n.t(`${NAMESPACE}.see`)} {bough} (
+                        {I18n.t(`${NAMESPACE}.review`)})
                       </Text>
                     </TouchableOpacity>
                   </View>
                 ) : (
-                  <Text style={styles.textGreen2}>Chưa có đánh giá</Text>
+                  <Text style={styles.textGreen2}>
+                    {' '}
+                    ({I18n.t(`${NAMESPACE}.notreview`)})
+                  </Text>
                 )}
 
                 <Text style={styles.metaView}>{metadescription}</Text>
@@ -199,7 +203,7 @@ function ProductView(props) {
                 </View>
                 <View>
                   <Text style={styles.warantyText}>
-                    {waranty} tháng bảo hành
+                    {waranty} {I18n.t(`${NAMESPACE}.mwaranty`)}
                   </Text>
                 </View>
               </View>
@@ -210,7 +214,7 @@ function ProductView(props) {
           {listproductlienquan.length === 0 ? null : (
             <View style={styles.relateView}>
               <Text bold size={12} style={styles.relateText}>
-                Sản Phẩm Tương Tự
+                ({I18n.t(`${NAMESPACE}.relatepro`)})
               </Text>
               <FlatList
                 horizontal
@@ -222,13 +226,14 @@ function ProductView(props) {
                     onPress={() => {
                       setID(item.proid);
                     }}>
-                    <ProductItem
-                      name={item.title}
-                      image={item.image}
-                      price={item.price}
-                      rating={item.rating}
-                      bough={item.bough}
-                      PromotionPrice={item.PromotionPrice}
+                    <SellerProduct
+                      item={item}
+                      // name={item.title}
+                      // image={item.image}
+                      // price={item.price}
+                      // rating={item.rating}
+                      // bough={item.bough}
+                      // PromotionPrice={item.PromotionPrice}
                     />
                   </TouchableOpacity>
                 )}
@@ -240,7 +245,7 @@ function ProductView(props) {
           <View style={styles.divider} />
           <View style={styles.whiteView}>
             <Text bold size={12} style={styles.desText}>
-              Mô Tả Sản Phẩm
+              ({I18n.t(`${NAMESPACE}.prodes`)})
             </Text>
             <Text muted size={12} style={styles.mainText}>
               {' '}
@@ -253,7 +258,7 @@ function ProductView(props) {
             <View style={styles.relateView}>
               <View style={styles.clientView}>
                 <Text bold size={12} style={styles.clientText}>
-                  Khách Hàng Nhận Xét{' '}
+                  ({I18n.t(`${NAMESPACE}.guestreview`)}{' '}
                 </Text>
                 <TouchableOpacity
                   onPress={() => {
@@ -261,7 +266,10 @@ function ProductView(props) {
                       id: idsanpham,
                     });
                   }}>
-                  <Text style={styles.viewAll}>XEM TẤT CẢ</Text>
+                  <Text style={styles.viewAll}>
+                    {' '}
+                    ({I18n.t(`${NAMESPACE}.viewall`)}
+                  </Text>
                 </TouchableOpacity>
               </View>
 

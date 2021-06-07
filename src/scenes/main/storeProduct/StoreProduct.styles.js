@@ -5,7 +5,7 @@ export default StyleSheet.create({
   screenContainer: {
     flex: 1,
     height: height,
-    backgroundColor: '#fff',
+    backgroundColor: '#ededed',
   },
   SafeSreen: {
     flex: 1,
@@ -13,7 +13,7 @@ export default StyleSheet.create({
   },
   bodyContainer: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#ededed',
   },
   headerContainer: {
     flexDirection: 'row',

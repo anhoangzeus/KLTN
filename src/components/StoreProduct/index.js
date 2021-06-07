@@ -2,34 +2,57 @@ import React from 'react';
 import styles from './styles';
 import ReactNativeNumberFormat from 'components/NumberFormat';
 import StarRating from 'components/StarRating';
-import {Image, Text, View} from 'react-native';
-
-function StoreProduct({item}) {
+import {Image, Text, View, ImageBackground} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import I18n from 'utils/i18n';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+//import database from '@react-native-firebase/database';
+const NAMESPACE = 'common';
+function StoreProduct({item, del}) {
   console.log('item>>>>>>>>', item.item);
+  // const del = () => {
+  //   database()
+  //     .ref('ProductUser/' + item.item.ProductID)
+  //     .remove()
+  //     .then(console.log('xoá thành công'));
+  // };
   return (
     <View style={styles.itemContainer}>
-      <Image source={{uri: item.item?.Image}} style={styles.itemImage} />
-      <View>
-        <Text style={styles.itemName} numberOfLines={2}>
-          {item.item?.Name}
-        </Text>
+      <ImageBackground
+        source={require('../../assets/images/Frame1.png')}
+        style={styles.imgBackground}>
+        <Image source={{uri: item.item?.Image}} style={styles.itemImage} />
+        <View>
+          <TouchableOpacity style={styles.del} onPress={() => del(item)}>
+            <Icon name="close-outline" size={30} color="red" />
+          </TouchableOpacity>
+          <Text style={styles.itemName} numberOfLines={2}>
+            {item.item?.Name}
+          </Text>
 
-        <Text style={styles.itemPrice}>
-          <ReactNativeNumberFormat value={item.item?.PromotionPrice} />đ
-        </Text>
-        <View style={styles.starView}>
-          {StarRating(item.item?.rating)}
-          {item.item?.bough !== 0 ? (
-            <Text style={styles.boughColor}>({item.item?.bough}) đánh giá</Text>
-          ) : (
-            <Text style={styles.boughColor}>(chưa có đánh giá)</Text>
-          )}
+          <Text style={styles.itemPrice}>
+            <ReactNativeNumberFormat value={item.item?.PromotionPrice} />đ
+          </Text>
+          <View style={styles.starView}>
+            {StarRating(item.item?.rating)}
+            {item.item?.bough !== 0 ? (
+              <Text style={styles.boughColor}>
+                ({item.item?.bough}) {I18n.t(`${NAMESPACE}.review`)}
+              </Text>
+            ) : (
+              <Text style={styles.boughColor}>
+                ({I18n.t(`${NAMESPACE}.notreview`)})
+              </Text>
+            )}
+          </View>
+          <Text style={styles.desColor} numberOfLines={2}>
+            {item.item?.Description}
+          </Text>
+          <Text style={styles.priceColor}>
+            {I18n.t(`${NAMESPACE}.count`)} {item.item?.Count}
+          </Text>
         </View>
-        <Text style={styles.desColor} numberOfLines={2}>
-          {item.item?.Description}
-        </Text>
-        <Text style={styles.priceColor}>Số lượng {item.item?.Count}</Text>
-      </View>
+      </ImageBackground>
     </View>
   );
 }

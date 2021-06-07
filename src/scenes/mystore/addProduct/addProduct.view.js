@@ -111,7 +111,7 @@ export default function AddProductView(props) {
                   onChangeText={(val) => {
                     onChangeName(val);
                   }}
-                  placeholder={'Nhập ' + I18n.t(`${NAMESPACE}.proname`)}
+                  placeholder={I18n.t(`${NAMESPACE}.proname`)}
                   style={styles.welcomeText}>
                   {name}
                 </TextInput>
@@ -198,7 +198,7 @@ export default function AddProductView(props) {
                         keyboardType="numeric"
                         placeholderTextColor="#666666"
                         autoCapitalize="none"
-                        placeholder={'Nhập ' + I18n.t(`${NAMESPACE}.prokey`)}
+                        placeholder={I18n.t(`${NAMESPACE}.price`)}
                         onFocus={() => setPrice('')}
                         onChangeText={(val) => {
                           setPrice(val);

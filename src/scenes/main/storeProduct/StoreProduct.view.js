@@ -15,11 +15,20 @@ import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 import Header from 'components/Header';
 import Col from 'components/Col';
+import database from '@react-native-firebase/database';
 import Loading from 'components/LoadingView';
 import I18n from 'utils/i18n';
 const NAMESPACE = 'common';
 function StoreProductView(props) {
-  const {FullName, Avatar, listItems, loading} = props;
+  const {FullName, Avatar, listItems, loading, getlistProduct} = props;
+  const del = async (item) => {
+    await database()
+      .ref('ProductUser/' + item.item.ProductID)
+      .remove()
+      .then(console.log('xoá thành công'));
+    getlistProduct();
+  };
+
   console.log('list item props:', listItems);
   if (loading) {
     <Col
@@ -67,7 +76,7 @@ function StoreProductView(props) {
                   //       userid: item.UserID,
                   //     });
                   //   }}>
-                  <StoreProduct item={item} />
+                  <StoreProduct item={item} del={() => del(item)} />
                   // </TouchableOpacity>
                 );
               }}

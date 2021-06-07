@@ -13,8 +13,8 @@ import NavigationServices, {getParams} from 'utils/navigationServices';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {chooseImageOptions} from '../../../utils/options';
 import moment from 'moment';
-import {func} from 'prop-types';
-import {constant} from 'lodash-es';
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 const functionsCounter = new Set();
 
 export default function AddProductContainer({navigation}) {
@@ -36,7 +36,7 @@ export default function AddProductContainer({navigation}) {
   const [des, setDes] = useState('');
   const [keyword, setKeyWord] = useState('');
   const [cate, setCate] = useState('');
-  const [cateName, setCateName] = useState('chọn danh mục');
+  const [cateName, setCateName] = useState(I18n.t(`${NAMESPACE}.chooseCate`));
   const [price, setPrice] = useState('0');
   const [warranty, setWarranty] = useState(0);
   const [count, setCount] = useState(0);

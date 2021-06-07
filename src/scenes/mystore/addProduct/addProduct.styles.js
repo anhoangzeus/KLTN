@@ -40,7 +40,7 @@ export default StyleSheet.create({
   },
   nameView: {
     //justifyContent: 'space-between',
-    height: height / 2.5,
+    //height: height / 2.5,
   },
   imgView: {
     flexDirection: 'row',
@@ -48,7 +48,7 @@ export default StyleSheet.create({
     height: height / 5,
   },
   whiteText: {
-    color: '#000',
+    color: '#2B4F8C',
     fontSize: height / 40,
   },
   textContainer: {
@@ -57,8 +57,10 @@ export default StyleSheet.create({
   },
   welcomeText: {
     color: 'black',
-    fontSize: height / 50,
-    marginTop: height / 200,
+    fontSize: height / 40,
+    height: height / 20,
+    marginTop: height / 100,
+    marginLeft: 5,
   },
   elementText: {
     color: 'black',
@@ -89,9 +91,10 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
   titletext: {
-    color: 'black',
+    color: '#2B4F8C',
     fontSize: height / 40,
     marginTop: height / 150,
+    marginLeft: 5,
   },
   subText: {
     fontSize: height / 50,
@@ -166,7 +169,7 @@ export default StyleSheet.create({
     width: width / 2,
     height: height / 20,
     backgroundColor: '#fff',
-    padding: height / 100,
+    padding: height / 200,
   },
   selectText: {
     color: '#1e1e1e',

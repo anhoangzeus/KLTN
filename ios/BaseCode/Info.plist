@@ -28,11 +28,17 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>vn.qtsoftware.nozza.client</string>
+			<string>com.pixa.VNRiddles</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>veganmarket</string>
 			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.pixa.VNRiddles</string>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
@@ -43,9 +49,9 @@
 	<string>blackmockup</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>zalopay</string>
-		<string>zalo.api.v2</string>
 		<string>zalo</string>
+		<string>zalopay</string>
+		<string>zalopay.api.v2</string>
 		<string>telprompt</string>
 		<string>mailto</string>
 	</array>

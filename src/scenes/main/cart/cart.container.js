@@ -14,7 +14,7 @@ const CartContainer = ({navigation}) => {
   const [hasAddress, setHasAddress] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalPayment, setmodalPayment] = useState(false);
-  const [refesh, setRefesh] = useState(true);
+  // const [refesh, setRefesh] = useState(true);
   const [_idCanXoa, set_idCanXoa] = useState('');
 
   const handleClosemodalPayment = (visible) => {
@@ -115,7 +115,7 @@ const CartContainer = ({navigation}) => {
       }
     });
     setAmount(Number(amount + Number(item.Price)));
-    setRefesh(!refesh);
+    //setRefesh(!refesh);
   };
   const _giamSoLuong = (item) => {
     if (item.Quantity > 1) {
@@ -130,7 +130,7 @@ const CartContainer = ({navigation}) => {
         }
       });
       setAmount(Number(amount - Number(item.Price)));
-      setRefesh(!refesh);
+      //setRefesh(!refesh);
     } else {
       setModalVisible(true);
       set_idCanXoa(item.Id);
@@ -143,7 +143,7 @@ const CartContainer = ({navigation}) => {
       .remove();
     ListenCart();
     setModalVisible(false);
-    setRefesh(!refesh);
+    //setRefesh(!refesh);
   };
   useEffect(() => {
     ListenCart();
@@ -168,7 +168,7 @@ const CartContainer = ({navigation}) => {
       modalVisible={modalVisible}
       modalPayment={modalPayment}
       loading={loading}
-      refesh={refesh}
+      //refesh={refesh}
       set_idCanXoa={set_idCanXoa}
       setModalVisible={setModalVisible}
       hasAddress={hasAddress}

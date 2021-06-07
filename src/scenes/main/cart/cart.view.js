@@ -33,7 +33,6 @@ export default function CartView(props) {
     amount,
     CartItem,
     loading,
-    refesh,
     modalVisible,
     _giamSoLuong,
     _tangSoLuong,
@@ -264,7 +263,7 @@ export default function CartView(props) {
           <FlatList
             data={CartItem}
             renderItem={({item}) => <CartItemContainer item={item} />}
-            extraData={refesh}
+            //extraData={refesh}
             keyExtractor={(item) => item.Id}
           />
         </ScrollView>

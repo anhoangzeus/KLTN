@@ -7,8 +7,8 @@ import vi from '../locales/vi';
 const locales = RNLocalize.getLocales();
 
 if (Array.isArray(locales)) {
-  // I18n.locale = locales[0].languageCode;
-  I18n.locale = 'vi';
+  I18n.locale = locales[0].languageCode;
+  //I18n.locale = 'vi';
 }
 
 I18n.fallbacks = true;
