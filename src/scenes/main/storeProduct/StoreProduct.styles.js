@@ -13,7 +13,7 @@ export default StyleSheet.create({
   },
   bodyContainer: {
     flex: 1,
-    backgroundColor: '#ededed',
+    backgroundColor: '#fff',
   },
   headerContainer: {
     flexDirection: 'row',

@@ -66,7 +66,7 @@ export default function MyStoreOptionView(props) {
             }}>
             <ProfileItem
               icon="plus-circle"
-              name={I18n.t(`${NAMESPACE}.addproduce`)}
+              name={I18n.t(`${NAMESPACE}.addproduct`)}
             />
           </TouchableOpacity>
           <View style={styles.divider} />

@@ -127,7 +127,7 @@ export default function CartView(props) {
                       _xoaGioHang();
                     }}>
                     <Text style={styles.textStyle}>
-                      I18n.t(`${NAMESPACE}.confirm`)
+                      {I18n.t(`${NAMESPACE}.confirm`)}
                     </Text>
                   </TouchableOpacity>
                 </View>

@@ -13,6 +13,7 @@ function StoreProduct({item}) {
         <Text style={styles.itemName} numberOfLines={2}>
           {item.item?.Name}
         </Text>
+
         <Text style={styles.itemPrice}>
           <ReactNativeNumberFormat value={item.item?.PromotionPrice} />đ
         </Text>
@@ -25,10 +26,9 @@ function StoreProduct({item}) {
           )}
         </View>
         <Text style={styles.desColor} numberOfLines={2}>
-          {' '}
           {item.item?.Description}
         </Text>
-        <Text style={styles.priceColor}>còn lại {item.item?.Count}</Text>
+        <Text style={styles.priceColor}>Số lượng {item.item?.Count}</Text>
       </View>
     </View>
   );
