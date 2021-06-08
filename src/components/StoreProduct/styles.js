@@ -61,4 +61,53 @@ export default StyleSheet.create({
     width: SIZE.DEVICE_WIDTH / 2.5,
     marginHorizontal: 10,
   },
+  modalView: {
+    margin: 20,
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    justifyContent: 'center',
+    width: SIZE.DEVICE_WIDTH * 0.9,
+  },
+  modalText: {
+    marginBottom: 15,
+    fontSize: 20,
+    color: '#2196F3',
+  },
+  flexRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  openButtonKeep: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    backgroundColor: '#2196F3',
+    width: SIZE.DEVICE_WIDTH / 2.5,
+  },
+  openButtonDelete: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    width: SIZE.DEVICE_WIDTH / 2.5,
+    backgroundColor: 'red',
+    marginLeft: 5,
+  },
+  centeredView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
 });

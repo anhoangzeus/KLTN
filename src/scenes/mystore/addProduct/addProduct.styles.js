@@ -61,6 +61,7 @@ export default StyleSheet.create({
     height: height / 20,
     marginTop: height / 100,
     marginLeft: 5,
+    padding: height / 100,
   },
   elementText: {
     color: 'black',

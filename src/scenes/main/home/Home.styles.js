@@ -1,5 +1,5 @@
 import SIZE from 'constants/size';
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   screenContainer: {
@@ -46,7 +46,7 @@ export default StyleSheet.create({
   proHotContainer: {
     backgroundColor: '#fff',
     paddingHorizontal: 12,
-    height: SIZE.DEVICE_HEIGHT / 2.3,
+    height: SIZE.DEVICE_HEIGHT * 0.5,
   },
   activityView: {
     position: 'absolute',

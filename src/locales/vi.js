@@ -195,6 +195,7 @@ export default {
     nocomment: 'Chưa có bình luận...',
     view: 'Xem',
     noorder: 'Chưa có đơn hàng',
+    delpro: 'Bạn có chắc muốn xóa sản phẩm?',
   },
   message: {
     ERROR_OCCURRED: 'An error occurred, please try again.',

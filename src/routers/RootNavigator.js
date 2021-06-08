@@ -21,6 +21,7 @@ import ProfileScreen from 'scenes/main/profile/Profile.container';
 import ProfileMainScreen from 'scenes/main/profileMain/Profile.container';
 import SearchContainer from 'scenes/main/search/Search.container';
 // Screen Import
+import DetailStoreProductContainer from 'scenes/main/detailStoreProduct/DetailStoreProduct.container';
 import StoreProductContainer from 'scenes/main/storeProduct/StoreProduct.container';
 import SellerproductContainer from 'scenes/main/sellerproduct/Sellerproduct.container';
 import ZalopayContainer from 'scenes/main/zalopay/Zalopay.container';
@@ -58,6 +59,7 @@ function RootNavigator({onNavigationStateChange}) {
           <Stack.Screen name={SCENE_NAMES.DUMMY} component={DummyScreen} />
         )}
         {/* Plop screen */}
+				<Stack.Screen name={ SCENE_NAMES.DETAIL_STORE_PRODUCT } component={ DetailStoreProductContainer } />
         <Stack.Screen
           options={{headerShown: false}}
           name={SCENE_NAMES.STORE_PRODUCT}

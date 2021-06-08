@@ -196,6 +196,7 @@ export default {
     nocomment: 'No comments yet...',
     view: 'View',
     noorder: 'No orders yet',
+    delpro: 'Are you sure you want to delete the product?',
   },
   message: {
     ERROR_OCCURRED: 'An error occurred, please try again.',
