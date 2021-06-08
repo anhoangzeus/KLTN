@@ -1,6 +1,6 @@
-import {StyleSheet, Dimensions} from 'react-native';
-import {normalize} from 'react-native-elements';
-const {width, height} = Dimensions.get('screen');
+import { StyleSheet, Dimensions } from 'react-native';
+import { normalize } from 'react-native-elements';
+const { width, height } = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -17,12 +17,34 @@ export default StyleSheet.create({
     minWidth: width * 0.15,
     marginTop: normalize(20),
   },
+  imgView: {
+    resizeMode: 'cover',
+    maxWidth: width * 0.624,
+    maxHeight: height * 0.3,
+    borderRadius: 15,
+  },
+  btnImgView: {
+    marginTop: normalize(20),
+    alignSelf: 'flex-end',
+    maxWidth: width * 0.624,
+    maxHeight: height * 0.3,
+  },
   msgImage: {
     width: width / 2,
     height: height / 2,
     resizeMode: 'contain',
     borderRadius: 15,
     marginTop: normalize(20),
+  },
+  buttonCancel: {
+    backgroundColor: '#fff',
+    height: height * 0.07,
+    width: width * 0.946,
+    borderRadius: 10,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 0.5,
   },
   messageViewUser: {
     backgroundColor: '#fff',
@@ -121,5 +143,26 @@ export default StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     fontWeight: '500',
+  },
+  buttonReport: {
+    backgroundColor: '#F4F5F7',
+    height: height * 0.07,
+    width: width * 0.946,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonChat: {
+    backgroundColor: '#F4F5F7',
+    height: height * 0.07,
+    width: width * 0.946,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 0.5,
   },
 });

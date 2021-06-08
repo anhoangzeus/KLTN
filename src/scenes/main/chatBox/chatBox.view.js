@@ -1,6 +1,8 @@
-/* eslint-disable react/no-string-refs */
+
 /* eslint-disable react-native/no-inline-styles */
 
+import Popup1Button from 'components/Popup1Button';
+import SCENE_NAMES from 'constants/sceneName';
 import moment from 'moment';
 import * as React from 'react';
 import {
@@ -12,13 +14,16 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import { normalize } from 'react-native-elements';
+import ImageView from 'react-native-image-viewing';
+import Modal from 'react-native-modal';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { MessType } from 'utils/appContants';
 import NavigationServices from 'utils/navigationServices';
 import styles from './chatBox.styles';
 // import SCENE_NAMES from 'constants/sceneName';
@@ -32,20 +37,32 @@ class ChatBoxContainer extends React.Component {
       onInputChat: false,
     };
   }
-
+  renderContent = (item) => {
+    const { setviewImagesPop, setvisibleViewing } = this.props;
+    if (item.messages_type === MessType.Image) {
+      return (
+        <TouchableOpacity style={styles.btnImgView} onPress={() => { setviewImagesPop(item.Text); setvisibleViewing(true); }}>
+          <Image source={{ uri: item.Text }} style={{ ...styles.imgView, width: item.imgWidth || 170, height: item.imgHeight || 170 }} />
+        </TouchableOpacity >
+      );
+    } else if (item.messages_type === MessType.MoreImages) {
+      return (
+        <View style={styles.messageView}>
+          <Text style={styles.messText}>{item.Text}</Text>
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.messageView}>
+          <Text style={styles.messText}>{item.Text}</Text>
+        </View>
+      );
+    }
+  }
   chatMessage = ({ item }) => {
     return item.Type === 'CUS' ? (
       <View style={{ flexDirection: 'row' }}>
-        {item.Image === '' || item.Image === undefined ? (
-          <View style={styles.messageView}>
-            <Text style={styles.messText}>{item.Text}</Text>
-          </View>
-        ) : (
-          //<TouchableOpacity style={styles.messageView}>
-          <Image source={{ uri: item.Image }} style={styles.msgImage} />
-          //</TouchableOpacity>
-        )}
-
+        {this.renderContent(item)}
         <Text style={{ ...styles.messTime, marginLeft: normalize(15) }}>
           {moment.unix(item.CreatedTime).format('hh:mm MM-DD-YY')}
         </Text>
@@ -55,19 +72,35 @@ class ChatBoxContainer extends React.Component {
         <Text style={{ ...styles.messTime, marginRight: normalize(15) }}>
           {moment.unix(item.CreatedTime).format('hh:mm MM-DD-YY')}
         </Text>
-
-        {item.Image === '' || item.Image === undefined ? (
-          <View style={{ ...styles.messageView, backgroundColor: '#0084ff' }}>
-            <Text style={styles.text}>{item.Text}</Text>
-          </View>
-        ) : (
-          <TouchableOpacity>
-            <Image source={{ uri: item.Image }} style={styles.msgImage} />
-          </TouchableOpacity>
-        )}
+        {this.renderContent(item)}
       </View>
     );
   };
+  // modal cancel
+  popupActionCancel = () => {
+    const { isVisiblePopupCancel, setisVisiblePopupCancel } = this.props;
+    return (
+      <Modal isVisible={isVisiblePopupCancel} style={{ justifyContent: 'flex-end' }}
+        onBackdropPress={() => this.setState({ isVisiblePopupCancel: false })}>
+        <TouchableOpacity
+          //report screen
+          onPress={() => { setisVisiblePopupCancel(false); }}
+          style={styles.buttonReport}>
+          <Text style={{ ...styles.textPrice, fontSize: 18 }}>Report</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => { setisVisiblePopupCancel(false); NavigationServices.navigate(SCENE_NAMES.MAIN); }}
+          style={styles.buttonChat}>
+          <Text style={{ ...styles.textPrice, fontSize: 18, color: 'red' }}>Trang chủ</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => { setisVisiblePopupCancel(false); }}
+          style={styles.buttonCancel}>
+          <Text style={{ ...styles.textPrice, fontSize: 18, fontWeight: '700' }}>Huỷ bỏ</Text>
+        </TouchableOpacity>
+      </Modal>
+    );
+  }
   render() {
     const {
       Name,
@@ -76,50 +109,36 @@ class ChatBoxContainer extends React.Component {
       onChangeText,
       sentMessage,
       openGalary,
-      //loading,
+      viewImagesPop,
+      visibleViewing,
+      setvisibleViewing,
+      onFocus,
+      setonFocus,
+      isVisibleModalCall,
+      setisVisibleModalCall,
+      phone_no,
+      onCallPhone,
+      setisVisiblePopupCancel,
     } = this.props;
     const { onInputChat } = this.state;
 
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: '#2B4F8C' }}>
         <View style={styles.headerContainer}>
-          <TouchableOpacity
-            onPress={() => {
-              NavigationServices.goBack();
-            }}
+          <TouchableOpacity onPress={() => { NavigationServices.goBack(); }}
             style={styles.cartContainer}>
-            <FontAwesome
-              name="angle-left"
-              size={30}
-              color="#fff"
-              style={styles.maginIcon}
-            />
+            <FontAwesome name="angle-left" size={30} color="#fff" style={styles.maginIcon} />
           </TouchableOpacity>
           <Text style={styles.headerText}>{Name}</Text>
           <View style={{ flexDirection: 'row' }}>
-            <TouchableOpacity>
-              <MaterialIcons
-                name="call"
-                size={25}
-                color="#fff"
-                style={styles.iconimg}
-              />
+            <TouchableOpacity onPress={() => setisVisibleModalCall(true)}>
+              <MaterialIcons name="call" size={25} color="#fff" style={styles.iconimg} />
             </TouchableOpacity>
             <TouchableOpacity>
-              <MaterialIcons
-                name="videocam"
-                size={25}
-                color="#fff"
-                style={styles.iconimg}
-              />
+              <MaterialIcons name="videocam" size={25} color="#fff" style={styles.iconimg} />
             </TouchableOpacity>
-            <TouchableOpacity>
-              <Ionicons
-                name="md-ellipsis-vertical"
-                size={25}
-                color="#fff"
-                style={styles.iconimg}
-              />
+            <TouchableOpacity onPress={() => setisVisiblePopupCancel(true)}>
+              <Ionicons name="md-ellipsis-vertical" size={25} color="#fff" style={styles.iconimg} />
             </TouchableOpacity>
           </View>
         </View>
@@ -130,8 +149,8 @@ class ChatBoxContainer extends React.Component {
             data={listchat}
             renderItem={({ item }) => <this.chatMessage item={item} />}
             keyExtractor={(item) => item.id}
-            ListHeaderComponent={<View style={{ maxHeight: height * 0.54 }}>
-              <View style={{ height: height * (1 - (listchat.length / (listchat.length + 10))) }} />
+            ListHeaderComponent={<View style={{ maxHeight: height * 0.65 }}>
+              <View style={{ height: onFocus ? height * 0.08 : height * (1 - (listchat.length / (listchat.length + 1.8))) }} />
             </View>}
           />
         </View>
@@ -152,21 +171,29 @@ class ChatBoxContainer extends React.Component {
                 style={styles.vChat}
                 placeholder={'Soạn tin...'}
                 placeholderTextColor={'#000'}
+                onFocus={() => setonFocus(true)}
+                onBlur={() => setonFocus(false)}
                 multiline={true}
                 value={textchat}
-                onChangeText={(val) => {
-                  onChangeText(val);
-                }}
+                onChangeText={(val) => { onChangeText(val); }}
               />
-              <TouchableOpacity onPress={() => sentMessage()}>
-                <Image
-                  source={require('../../../assets/images/ic_sendmess.png')}
-                  style={styles.iconsend}
-                />
+              <TouchableOpacity onPress={() => sentMessage(MessType.Text, textchat)}>
+                <Image source={require('../../../assets/images/ic_sendmess.png')} style={styles.iconsend} />
               </TouchableOpacity>
             </View>
           </View>
         </KeyboardAvoidingView>
+        <ImageView images={[{ uri: viewImagesPop }]} imageIndex={0}
+          visible={visibleViewing}
+          onRequestClose={() => setvisibleViewing(false)} />
+        <Popup1Button
+          onClosePress={() => setisVisibleModalCall(false)}
+          onConfirm={onCallPhone}
+          title={'Gọi ngay'}
+          content={'Kết nối cuộc gọi'}
+          numberPhone={phone_no}
+          isVisible={isVisibleModalCall} />
+        <this.popupActionCancel />
       </SafeAreaView>
     );
   }
