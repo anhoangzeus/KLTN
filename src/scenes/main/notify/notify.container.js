@@ -12,7 +12,6 @@ export default function NotifyContainer({ navigation }) {
     const [listOrder, setlistOrder] = useState([]);
     const [loading, isLoading] = useState(false);
     const [ischoose, setIschoose] = useState(1);
-    const [isdropdownid, setIsdropdownid] = useState('');
     const [refreshing, isRefreshing] = useState(false);
     const [redPoint1, isredPoint1] = useState(false);
     const [redPoint2, isredPoint2] = useState(false);
@@ -27,33 +26,9 @@ export default function NotifyContainer({ navigation }) {
         database().ref('Orders').once('value').then((snapshot) => {
             var items = [];
             snapshot.forEach((child) => {
-                var order = {
-                    orderId: '',
-                    createdated: '',
-                    payment: '',
-                    Status: '',
-                    TimeLine: {
-                        ChoXacNhan: '',
-                        ChoLayHang: '',
-                        DangVanChuyen: '',
-                        DaGiaoHang: '',
-                        DaHuy: '',
-                        TraHang: '',
-                    },
-                };
                 if (auth().currentUser) {
                     if (child.val().CustomerID === auth().currentUser.uid) {
-                        order.orderId = child.val().OrderID;
-                        order.createdated = child.val().CreatedDate;
-                        order.payment = child.val().Payment;
-                        order.Status = child.val().Status;
-                        order.TimeLine.ChoXacNhan = child.child('TimeLine').val().ChoXacNhan;
-                        order.TimeLine.ChoLayHang = child.child('TimeLine').val().ChoLayHang;
-                        order.TimeLine.DangVanChuyen = child.child('TimeLine').val().DangVanChuyen;
-                        order.TimeLine.DaGiaoHang = child.child('TimeLine').val().DaGiaoHang;
-                        order.TimeLine.DaHuy = child.child('TimeLine').val().DaHuy;
-                        order.TimeLine.TraHang = child.child('TimeLine').val().TraHang;
-                        items.push(order);
+                        items.push(child.val());
                     }
                 }
             });
@@ -154,10 +129,7 @@ export default function NotifyContainer({ navigation }) {
     useEffect(() => {
         getlistOrder();
         getThongBao();
-    }, [
-        ischoose,
-    ]);
-    functionsCounter.add(setIsdropdownid);
+    }, [ischoose]);
     functionsCounter.add(setStateNotigication);
     functionsCounter.add(setIschoose);
     functionsCounter.add(_onRefresh);
@@ -168,7 +140,6 @@ export default function NotifyContainer({ navigation }) {
             listOrder={listOrder}
             loading={loading}
             ischoose={ischoose}
-            isdropdownid={isdropdownid}
             refreshing={refreshing}
             redPoint1={redPoint1}
             redPoint2={redPoint2}
@@ -176,7 +147,6 @@ export default function NotifyContainer({ navigation }) {
             setStateNotigication={setStateNotigication}
             _onRefresh={_onRefresh}
             setIschoose={setIschoose}
-            setIsdropdownid={setIsdropdownid}
             navigation={navigation}
             getlistOrder={getlistOrder}
         />

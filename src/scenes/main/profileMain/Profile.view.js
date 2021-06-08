@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import auth from '@react-native-firebase/auth';
 import Header from 'components/Header';
+import OrderStatus from 'components/Order';
 import SCENE_NAMES from 'constants/sceneName';
 import * as React from 'react';
 import {
@@ -84,6 +85,7 @@ const ProfileMainView = (props) => {
                 name={I18n.t(`${NAMESPACE}.productReview`)}
               />
             </TouchableOpacity>
+            <OrderStatus />
             <View style={styles.divider} />
             <TouchableOpacity
               onPress={() => {

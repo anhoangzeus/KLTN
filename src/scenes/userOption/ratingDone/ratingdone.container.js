@@ -21,7 +21,7 @@ const RatingDoneContainer = () => {
         });
     };
     const getListOrder = () => {
-        database().ref('Orders').once('value').then((snapshot) => {
+        database().ref('Orders').on('value', snapshot => {
             var items = [];
             snapshot.forEach((childSnapshot) => {
                 if (childSnapshot.val().CustomerID === auth().currentUser.uid

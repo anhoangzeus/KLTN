@@ -12,7 +12,7 @@ import DummyScreen from 'scenes/dummy';
 import GetStartContainer from 'scenes/getStart/GetStart.container';
 import CartScreen from 'scenes/main/cart/cart.container';
 import CategoryContainer from 'scenes/main/category/Category.container';
-import ChatContainer from 'scenes/main/chat/chat.view';
+import ChatContainer from 'scenes/main/chat/chat.container';
 import ChatBoxContainer from 'scenes/main/chatBox/chatBox.container';
 import DetailAddressContainer from 'scenes/main/detailAddress/DetailAddress.container';
 import PaymentMethodContainer from 'scenes/main/paymentMethod/PaymentMethod.container';

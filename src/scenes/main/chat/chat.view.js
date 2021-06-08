@@ -27,10 +27,7 @@ class ChatContainer extends React.Component {
     return (
       <TouchableOpacity
         onPress={() => {
-          NavigationServices.navigate(SCENE_NAMES.ChatBoxContainer, {
-            id: item.id,
-            Name: item.Name,
-          });
+          NavigationServices.navigate(SCENE_NAMES.ChatBoxContainer, { id: item.id, Name: item.Name });
         }}
         style={styles.itemMessView}>
         <View>

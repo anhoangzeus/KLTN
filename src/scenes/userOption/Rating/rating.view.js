@@ -59,6 +59,7 @@ const RatingView = (props) => {
     refreshing,
     loading,
     votedProduct,
+    ratingCompleted,
   } = props;
 
   if (loading) {
@@ -132,7 +133,7 @@ const RatingView = (props) => {
                   ratingCount={5}
                   imageSize={40}
                   showRating
-                  onFinishRating={this.ratingCompleted}
+                  onFinishRating={(rating) => ratingCompleted(rating)}
                   style={{marginBottom: 5}}
                 />
                 <TextInput
@@ -160,10 +161,7 @@ const RatingView = (props) => {
         <Modal
           animationType="fade"
           transparent={true}
-          visible={modalVisibleSuccess}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-          }}>
+          visible={modalVisibleSuccess}>
           <View style={styles.centeredView}>
             <View style={styles.modalView1}>
               <Text style={styles.modalText}>

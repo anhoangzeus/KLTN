@@ -25,13 +25,14 @@ export default function ChatContainer({navigation}) {
             Name: childSnapshot.val().Name,
             Status: childSnapshot.val().Status,
           });
+          console.log(childSnapshot);
         });
         setListChat(items);
       });
   };
   useEffect(() => {
+    getListChat();
     if (auth().currentUser) {
-      getListChat();
     } else {
       NavigationServices.resetActionTo(SCENE_NAMES.TopStackLogin);
     }

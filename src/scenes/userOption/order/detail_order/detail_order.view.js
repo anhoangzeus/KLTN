@@ -1,23 +1,22 @@
 /* eslint-disable react-native/no-inline-styles */
-import * as React from 'react';
-import {
-  View,
-  Text,
-  StatusBar,
-  ScrollView,
-  TouchableOpacity,
-  FlatList,
-  Modal,
-  Alert,
-  Image,
-} from 'react-native';
-import styles from './detail_order.styles';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import NavigationServices from 'utils/navigationServices';
+import Header from 'components/Header';
 import ReactNativeNumberFormat from 'components/NumberFormat';
 import SCENE_NAMES from 'constants/sceneName';
 import SIZE from 'constants/size';
-import Header from 'components/Header';
+import * as React from 'react';
+import {
+  FlatList,
+  Image,
+  Modal,
+  ScrollView,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import NavigationServices from 'utils/navigationServices';
+import styles from './detail_order.styles';
 import I18n from 'utils/i18n';
 const NAMESPACE = 'common';
 const RenderList = ({
@@ -215,7 +214,7 @@ const DetailOrderView = (props) => {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
+          setModal(false);
         }}>
         <View style={styles.centeredView}>
           <View style={{...styles.modalView, padding: SIZE.DEVICE_WIDTH / 15}}>
@@ -260,10 +259,7 @@ const DetailOrderView = (props) => {
       <Modal
         animationType="fade"
         transparent={true}
-        visible={modalVisibleWarning}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}>
+        visible={modalVisibleWarning}>
         <View style={styles.centeredView}>
           <View style={styles.modalView1}>
             <FontAwesome5 name="grin-beam-sweat" size={40} color="#2B4F8C" />
