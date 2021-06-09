@@ -1,4 +1,4 @@
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 
 export default {
   common: {
@@ -174,6 +174,7 @@ export default {
     orderinfo: 'Order information',
     type: 'Type',
     cancelorder: 'Cancel order',
+    view_profileSeller: 'View shop',
     cancelsuccess: 'Cancel succeed',
     changesuccess: 'Change succeed',
     checkinternet: 'Check internet !',
@@ -197,6 +198,7 @@ export default {
     view: 'View',
     noorder: 'No orders yet',
     delpro: 'Are you sure you want to delete the product?',
+    chatHeader: 'Chat content is confidential guaranteed by TiAn \nIf chat content violates your personal behavior, you can report it to be handled.',
   },
   message: {
     ERROR_OCCURRED: 'An error occurred, please try again.',

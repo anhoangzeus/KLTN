@@ -5,7 +5,7 @@ import storage from '@react-native-firebase/storage';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { Platform, Linking } from 'react-native';
-import { launchImageLibrary } from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { chooseImageOptions, MessType } from 'utils/appContants';
 import { getParams } from 'utils/navigationServices';
 import ChatBoxView from './chatBox.view';
@@ -17,14 +17,14 @@ export default function ChatBoxContainer({ navigation, route }) {
   const [listchat, setListChat] = useState([]);
   const [textchat, setTextChat] = useState('');
   const [data, setData] = useState({});
-  const [onFocus, setonFocus] = useState(false);
   const [visibleViewing, setvisibleViewing] = useState(false);
   const [isVisibleModalCall, setisVisibleModalCall] = useState(false);
   const [isVisiblePopupCancel, setisVisiblePopupCancel] = useState(false);
+  const [visibleChooseImage, setvisibleChooseImage] = useState(false);
   const [viewImagesPop, setviewImagesPop] = useState('');
   const [imgHeight, setimgHeight] = useState(170);
   const [imgWidth, setimgWidth] = useState(170);
-  const [phone_no, setphone_no] = useState(0);
+  const [dataSeller, setdataSeller] = useState(0);
 
 
   const getDataUser = () => {
@@ -64,7 +64,7 @@ export default function ChatBoxContainer({ navigation, route }) {
   };
   const getListChat = () => {
     database().ref('Users').child(id).once('value').then(snapshot => {
-      setphone_no(snapshot.val().Phone);
+      setdataSeller(snapshot.val());
     });
     database().ref('Messages').child(auth().currentUser.uid).child(id).orderByChild('CreatedTime', 'desc')
       .on('value', (snapshot) => {
@@ -150,6 +150,8 @@ export default function ChatBoxContainer({ navigation, route }) {
         uri: Platform.OS === 'android' ? response.uri : response.uri.replace('file://', '/private'),
       });
       data1.append('secret', '123456');
+      setimgHeight(response.height);
+      setimgWidth(response.width);
       // Up image to server
       const task = storage().ref('chats/' + fileName).putFile(response.uri);
       try {
@@ -158,17 +160,20 @@ export default function ChatBoxContainer({ navigation, route }) {
         console.error(e);
       }
       const url = await storage().ref('chats/' + fileName).getDownloadURL();
-      setimgHeight(response.height);
-      setimgWidth(response.width);
       sentMessage(MessType.Image, url);
     }
   };
   const onCallPhone = () => {
     setisVisibleModalCall(false);
-    Linking.openURL(`tel:${phone_no}`);
+    Linking.openURL(`tel:${dataSeller?.Phone}`);
   };
   const openGalary = () => {
     launchImageLibrary(chooseImageOptions, (response) => {
+      pairToSubmitImage(response);
+    });
+  };
+  const chooseImageTake = () => {
+    launchCamera(chooseImageOptions, (response) => {
       pairToSubmitImage(response);
     });
   };
@@ -176,6 +181,7 @@ export default function ChatBoxContainer({ navigation, route }) {
   functionsCounter.add(sentMessage);
   functionsCounter.add(openGalary);
   functionsCounter.add(onCallPhone);
+  functionsCounter.add(chooseImageTake);
 
   useEffect(() => {
     getListChat();
@@ -194,14 +200,15 @@ export default function ChatBoxContainer({ navigation, route }) {
       setviewImagesPop={setviewImagesPop}
       visibleViewing={visibleViewing}
       setvisibleViewing={setvisibleViewing}
-      onFocus={onFocus}
-      setonFocus={setonFocus}
       isVisibleModalCall={isVisibleModalCall}
       setisVisibleModalCall={setisVisibleModalCall}
       onCallPhone={onCallPhone}
-      phone_no={phone_no}
+      dataSeller={dataSeller}
       isVisiblePopupCancel={isVisiblePopupCancel}
       setisVisiblePopupCancel={setisVisiblePopupCancel}
+      visibleChooseImage={visibleChooseImage}
+      setvisibleChooseImage={setvisibleChooseImage}
+      chooseImageTake={chooseImageTake}
     />
   );
 }

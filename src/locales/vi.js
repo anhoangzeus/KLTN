@@ -1,4 +1,4 @@
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 
 export default {
   common: {
@@ -156,6 +156,7 @@ export default {
     noresult: 'Không tìm thấy kết quả',
     result: 'Kết quả tìm kiếm',
     see: 'xem',
+    view_profileSeller: 'Xem cửa hàng',
     rv: 'đánh giá',
     mwaranty: 'Tháng bảo hành',
     relatepro: 'Sản phẩm tương tự',
@@ -196,6 +197,7 @@ export default {
     view: 'Xem',
     noorder: 'Chưa có đơn hàng',
     delpro: 'Bạn có chắc muốn xóa sản phẩm?',
+    chatHeader: 'Nội dung chat là bí mật được bảo đảm bởi TiAn \nNếu nội dung chat vi phạm hành vi cá nhân bạn có thể tố cáo để được xử lí.',
   },
   message: {
     ERROR_OCCURRED: 'An error occurred, please try again.',

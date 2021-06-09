@@ -165,4 +165,42 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginTop: 0.5,
   },
+  messHeaderContaner: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: height * 0.48,
+  },
+  avatar: {
+    height: 80,
+    width: 80,
+    borderRadius: 80,
+    borderWidth: 1,
+    borderColor: '#fff',
+  },
+  avatarView: {
+    height: 82,
+    width: 82,
+    borderRadius: 82,
+    borderWidth: 1,
+    borderColor: '#2B4F8C',
+  },
+  textName: {
+    marginTop: 10,
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  textHint: {
+    paddingHorizontal: normalize(20),
+    textAlign: 'center',
+    fontSize: 12,
+    marginVertical: 10,
+  },
+  btnViewProfile: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+    width: width * 0.4,
+    height: height * 0.05,
+    borderWidth: 1,
+  },
 });
