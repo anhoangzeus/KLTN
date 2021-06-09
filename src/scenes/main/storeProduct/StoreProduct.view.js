@@ -1,11 +1,9 @@
 import * as React from 'react';
 import {
   View,
-  StatusBar,
   Text,
   TouchableOpacity,
   ScrollView,
-  SafeAreaView,
   Image,
   FlatList,
 } from 'react-native';
@@ -13,12 +11,13 @@ import styles from './StoreProduct.styles';
 import StoreProduct from 'components/StoreProduct';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
-import Header from 'components/Header';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Col from 'components/Col';
 import database from '@react-native-firebase/database';
 import Loading from 'components/LoadingView';
-import I18n from 'utils/i18n';
-const NAMESPACE = 'common';
+//import I18n from 'utils/i18n';
+import {BackgroundImage} from 'react-native-elements/dist/config';
+//const NAMESPACE = 'common';
 function StoreProductView(props) {
   const {FullName, Avatar, listItems, loading, getlistProduct} = props;
   const del = async (item) => {
@@ -46,18 +45,23 @@ function StoreProductView(props) {
     </Col>;
   } else {
     return (
-      <SafeAreaView style={styles.SafeSreen}>
-        <ScrollView style={styles.screenContainer}>
-          <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
-          <Header title={I18n.t(`${NAMESPACE}.manasell`)} />
-          <View style={styles.bodyContainer}>
+      <ScrollView style={styles.screenContainer}>
+        {/* <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
+          <Header title={I18n.t(`${NAMESPACE}.manasell`)} /> */}
+        <View style={styles.bodyContainer}>
+          <BackgroundImage
+            source={require('../../../assets/images/storeback.png')}
+            style={styles.imgBackground}>
+            <TouchableOpacity>
+              <FontAwesome name="chevron-left" size={25} color="white" />
+            </TouchableOpacity>
             <TouchableOpacity
+              style={styles.avatarContainer}
               onPress={() => {
                 NavigationServices.navigate(SCENE_NAMES.InfoUser);
-              }}
-              style={styles.avatarContainer}>
+              }}>
+              <Text style={styles.nameText}>{FullName}</Text>
               <Image source={{uri: Avatar}} size={80} style={styles.img} />
-              <Text>{FullName}</Text>
             </TouchableOpacity>
             <View style={styles.divider} />
             <FlatList
@@ -81,9 +85,9 @@ function StoreProductView(props) {
                 );
               }}
             />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+          </BackgroundImage>
+        </View>
+      </ScrollView>
     );
   }
 }

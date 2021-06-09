@@ -14,7 +14,7 @@ export default StyleSheet.create({
   imgBackground: {
     width: SIZE.DEVICE_WIDTH * 0.95,
     marginLeft: SIZE.DEVICE_WIDTH * 0.025,
-    height: SIZE.DEVICE_HEIGHT / 3.5,
+    height: SIZE.DEVICE_HEIGHT / 3.2,
     resizeMode: 'stretch',
     flexDirection: 'row',
     justifyContent: 'space-between',

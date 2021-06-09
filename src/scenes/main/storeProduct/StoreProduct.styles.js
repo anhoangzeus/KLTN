@@ -1,15 +1,19 @@
 import size from 'constants/size';
 import {StyleSheet, Dimensions} from 'react-native';
-const {height} = Dimensions.get('screen');
+const {height, width} = Dimensions.get('screen');
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
     height: height,
     backgroundColor: '#ededed',
   },
+  imgBackground: {
+    width: width,
+    height: height,
+    justifyContent: 'space-around',
+  },
   SafeSreen: {
     flex: 1,
-    backgroundColor: '#2B4F8C',
   },
   bodyContainer: {
     flex: 1,
@@ -18,14 +22,18 @@ export default StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     paddingTop: 15,
-    backgroundColor: '#2B4F8C',
     paddingBottom: 12,
   },
   avatarContainer: {
-    backgroundColor: 'white',
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     height: size.DEVICE_HEIGHT / 7,
+  },
+  nameText: {
+    color: '#fff',
+    fontSize: height / 40,
+    fontWeight: 'bold',
   },
   img: {
     width: 80,
@@ -33,7 +41,6 @@ export default StyleSheet.create({
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: '#2B4F8C',
     borderWidth: 1,
   },
   cartContainer: {
