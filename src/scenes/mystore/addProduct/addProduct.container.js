@@ -1,15 +1,11 @@
 /* eslint-disable no-unused-vars */
-import React, {useCallback, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Platform} from 'react-native';
 import AddProductView from './addProduct.view';
-import useSelectorShallow, {
-  selectorWithProps,
-} from 'hooks/useSelectorShallowEqual';
-import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
-import NavigationServices, {getParams} from 'utils/navigationServices';
+import ImagePicker from 'react-native-image-crop-picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {chooseImageOptions} from '../../../utils/options';
 import moment from 'moment';
@@ -47,7 +43,6 @@ export default function AddProductContainer({navigation}) {
   const [isUpload, setIsUpload] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const pairToSubmitImage = (response) => {
-    console.log('aaa');
     if (response.didCancel) {
       console.log('ImagePicker', 'cancel');
     } else if (response.error) {
@@ -94,6 +89,11 @@ export default function AddProductContainer({navigation}) {
     launchImageLibrary(chooseImageOptions, (response) => {
       pairToSubmitImage(response);
     });
+    // ImagePicker.openPicker({
+    //   multiple: true,
+    // }).then((images) => {
+    //   pairToSubmitImage(images);
+    // });
   };
 
   const getDataCate = async () => {
