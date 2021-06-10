@@ -9,6 +9,7 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { chooseImageOptions, MessType } from 'utils/appContants';
 import { getParams } from 'utils/navigationServices';
 import ChatBoxView from './chatBox.view';
+import ImageCropPicker from 'react-native-image-crop-picker';
 
 const functionsCounter = new Set();
 
@@ -25,7 +26,6 @@ export default function ChatBoxContainer({ navigation, route }) {
   const [imgHeight, setimgHeight] = useState(170);
   const [imgWidth, setimgWidth] = useState(170);
   const [dataSeller, setdataSeller] = useState(0);
-
 
   const getDataUser = () => {
     var user = {
@@ -129,13 +129,31 @@ export default function ChatBoxContainer({ navigation, route }) {
     }
   };
 
+  const chooseMultiImageLibrary = () => {
+    ImageCropPicker.openPicker({ multiple: true, mediaType: 'photo' })
+      .then(images => {
+        var list_photo_string = '';
+        var list_photo = [];
+        Promise.all(images.map(async (response, index) => {
+          var fileExt = response.path.split('.');
+          var fileName = id + moment().format('_YYYY_MM_DD_HH_mm_ss') + `_${index}.` + fileExt[fileExt.length - 1];
+          list_photo.push(fileName);
+          // Up image to server
+          await storage().ref('chats/' + fileName).putFile(response.path);
+          const url = await storage().ref('chats/' + fileName).getDownloadURL();
+          list_photo_string += url + '$';
+          console.log('1', url);
+        })).then(() => {
+          sentMessage(MessType.MoreImages, list_photo_string);
+        });
+      });
+  };
   const pairToSubmitImage = async (response) => {
     if (response.didCancel) {
       console.log('ImagePicker', 'cancel');
     } else if (response.error) {
       console.log('ImagePickerError: ', response.error);
     } else {
-      const data1 = new FormData();
       var fileName = '';
       if (Platform.OS === 'android') {
         var fileExt = response.uri.split('.');
@@ -144,12 +162,6 @@ export default function ChatBoxContainer({ navigation, route }) {
         var fileExt = response.uri.split('.');
         var fileName = id + moment().format('_YYYY_MM_DD_HH_mm_ss.') + fileExt[fileExt.length - 1];
       }
-      data1.append('files', {
-        name: fileName,
-        type: response.type,
-        uri: Platform.OS === 'android' ? response.uri : response.uri.replace('file://', '/private'),
-      });
-      data1.append('secret', '123456');
       setimgHeight(response.height);
       setimgWidth(response.width);
       // Up image to server
@@ -182,6 +194,7 @@ export default function ChatBoxContainer({ navigation, route }) {
   functionsCounter.add(openGalary);
   functionsCounter.add(onCallPhone);
   functionsCounter.add(chooseImageTake);
+  functionsCounter.add(chooseMultiImageLibrary);
 
   useEffect(() => {
     getListChat();
@@ -209,6 +222,7 @@ export default function ChatBoxContainer({ navigation, route }) {
       visibleChooseImage={visibleChooseImage}
       setvisibleChooseImage={setvisibleChooseImage}
       chooseImageTake={chooseImageTake}
+      chooseMultiImageLibrary={chooseMultiImageLibrary}
     />
   );
 }

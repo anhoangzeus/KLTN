@@ -17,6 +17,12 @@ export default StyleSheet.create({
     minWidth: width * 0.15,
     marginTop: normalize(20),
   },
+  btnChoose: {
+    width: '100%',
+    paddingVertical: 10,
+    borderBottomColor: '#DADADA',
+    borderBottomWidth: 1,
+  },
   imgView: {
     resizeMode: 'cover',
     maxWidth: width * 0.624,
@@ -188,6 +194,12 @@ export default StyleSheet.create({
     marginTop: 10,
     fontWeight: 'bold',
     fontSize: 20,
+  },
+  moreImg: {
+    height: 80,
+    width: 80,
+    borderRadius: 10,
+    resizeMode: 'cover',
   },
   textHint: {
     paddingHorizontal: normalize(20),

@@ -199,6 +199,9 @@ export default {
     noorder: 'No orders yet',
     delpro: 'Are you sure you want to delete the product?',
     chatHeader: 'Chat content is confidential guaranteed by TiAn \nIf chat content violates your personal behavior, you can report it to be handled.',
+    moreImage: 'Choose multiple images...',
+    oneImage: 'Choose image...',
+    takephoto: 'Take a photo...',
   },
   message: {
     ERROR_OCCURRED: 'An error occurred, please try again.',

@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import ChatView from './chat.view';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 const functionsCounter = new Set();
 
-export default function ChatContainer({navigation}) {
+export default function ChatContainer({ navigation }) {
   const [listchat, setListChat] = useState([]);
 
   const getListChat = () => {
@@ -31,8 +31,8 @@ export default function ChatContainer({navigation}) {
       });
   };
   useEffect(() => {
-    getListChat();
     if (auth().currentUser) {
+      getListChat();
     } else {
       NavigationServices.resetActionTo(SCENE_NAMES.TopStackLogin);
     }
