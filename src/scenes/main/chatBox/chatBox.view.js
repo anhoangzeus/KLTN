@@ -27,6 +27,8 @@ import { MessType } from 'utils/appContants';
 import I18n from 'utils/i18n';
 import NavigationServices from 'utils/navigationServices';
 import styles from './chatBox.styles';
+import CameraRoll from '@react-native-community/cameraroll';
+import RNFetchBlob from 'rn-fetch-blob';
 // import SCENE_NAMES from 'constants/sceneName';
 const NAMESPACE = 'common';
 const { width, height } = Dimensions.get('screen');
@@ -38,36 +40,90 @@ class ChatBoxContainer extends React.Component {
       onInputChat: false,
     };
   }
-  renderContent = (item) => {
+  downloadImg = (url) => {
+    // Linking.openURL(url);
+    let newImgUri = url.lastIndexOf('/');
+    let imageName = url.substring(newImgUri);
+    let dirs = RNFetchBlob.fs.dirs;
+    let path = Platform.OS === 'ios' ? dirs.MainBundleDir + imageName : dirs.PictureDir + imageName;
+    if (Platform.OS === 'android') {
+
+      RNFetchBlob.config({
+        fileCache: true,
+        appendExt: 'png',
+        indicator: true,
+        IOSBackgroundTask: true,
+        path: path,
+        addAndroidDownloads: {
+          useDownloadManager: true,
+          notification: true,
+          path: path,
+          description: 'Image',
+        },
+
+      }).fetch('GET', url).then(res => {
+        console.log(res, 'end downloaded');
+      });
+    } else {
+      CameraRoll.saveToCameraRoll(url);
+    }
+  }
+  dataArray = (listItem) => {
+    var array = [];
+    // var list = [];
+    array = listItem.split('$');
+    // array.map((item, index) => {
+    //   list.push({ uri: item });
+    // });
+    return array;
+  }
+  renderContent = (itemText) => {
     const { setviewImagesPop, setvisibleViewing } = this.props;
-    if (item.messages_type === MessType.Image) {
+    if (itemText.messages_type === MessType.Image) {
       return (
         <TouchableOpacity
           style={styles.btnImgView}
+          onLongPress={() => { this.downloadImg(itemText.Text); }}
           onPress={() => {
-            setviewImagesPop(item.Text);
+            setviewImagesPop(itemText.Text);
             setvisibleViewing(true);
           }}>
           <Image
-            source={{ uri: item.Text }}
+            source={{ uri: itemText.Text }}
             style={{
               ...styles.imgView,
-              width: item.imgWidth || 170,
-              height: item.imgHeight || 170,
+              width: itemText.imgWidth || 170,
+              height: itemText.imgHeight || 170,
             }}
           />
         </TouchableOpacity>
       );
-    } else if (item.messages_type === MessType.MoreImages) {
+    } else if (itemText.messages_type === MessType.MoreImages) {
+      var listData = [];
+      listData = this.dataArray(itemText.Text);
       return (
-        <View style={styles.messageView}>
-          <Text style={styles.messText}>{item.Text}</Text>
-        </View>
+        <FlatList
+          data={listData} numColumns={3} showsVerticalScrollIndicator={false}
+          keyExtractor={(item, i) => i} scrollEnabled={false}
+          renderItem={({ item, index }) => {
+            return (
+              <TouchableOpacity
+                style={styles.btnImgView}
+                onLongPress={() => { this.downloadImg(item); }}
+                onPress={() => {
+                  setviewImagesPop(item);
+                  setvisibleViewing(true);
+                }}>
+                <Image source={{ uri: item }} style={styles.moreImg} />
+              </TouchableOpacity>
+            );
+          }}
+        />
       );
     } else {
       return (
         <View style={styles.messageView}>
-          <Text style={styles.messText}>{item.Text}</Text>
+          <Text style={styles.messText}>{itemText.Text}</Text>
         </View>
       );
     }
@@ -146,6 +202,7 @@ class ChatBoxContainer extends React.Component {
       visibleChooseImage,
       setvisibleChooseImage,
       chooseImageTake,
+      chooseMultiImageLibrary,
     } = this.props;
     const { onInputChat } = this.state;
 
@@ -270,6 +327,14 @@ class ChatBoxContainer extends React.Component {
           onChooseLibrary={openGalary}
           onClosePress={() => setvisibleChooseImage(false)}
           isVisible={visibleChooseImage}
+          children={
+            <TouchableOpacity onPress={() => {
+              setvisibleChooseImage(false);
+              setTimeout(() => chooseMultiImageLibrary(), 200);
+            }} style={styles.btnChoose}>
+              <Text>{I18n.t(`${NAMESPACE}.moreImage`)}</Text>
+            </TouchableOpacity>
+          }
         />
         <this.popupActionCancel />
       </SafeAreaView>

@@ -1,23 +1,23 @@
 /* eslint-disable no-unused-vars */
-import React, {useCallback, useState, useEffect} from 'react';
-import {Platform} from 'react-native';
+import React, { useCallback, useState, useEffect } from 'react';
+import { Platform } from 'react-native';
 import AddProductView from './addProduct.view';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
+import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
-import NavigationServices, {getParams} from 'utils/navigationServices';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {chooseImageOptions} from '../../../utils/options';
+import NavigationServices, { getParams } from 'utils/navigationServices';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { chooseImageOptions } from '../../../utils/options';
 import moment from 'moment';
 import I18n from 'utils/i18n';
 const NAMESPACE = 'common';
 const functionsCounter = new Set();
 
-export default function AddProductContainer({navigation}) {
+export default function AddProductContainer({ navigation }) {
   const [data, setData] = useState({
     image: '',
     name: '',
@@ -79,7 +79,7 @@ export default function AddProductContainer({navigation}) {
       data1.append('secret', '123456');
       setImage(response.uri);
       setFileName(response.filename);
-      setData({...data, Avatar: response.uri, filename: fileName});
+      setData({ ...data, Avatar: response.uri, filename: fileName });
 
       setPopup(false);
     }
