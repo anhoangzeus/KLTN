@@ -36,7 +36,6 @@ function ProductView(props) {
     addCart,
     handleClose,
     renderNofiCart,
-    setID,
     listproductlienquan,
     listmoreimage,
     bough,
@@ -224,7 +223,9 @@ function ProductView(props) {
                 renderItem={({item}) => (
                   <TouchableOpacity
                     onPress={() => {
-                      setID(item.proid);
+                      NavigationServices.push(SCENE_NAMES.PRODUCT, {
+                        item: item,
+                      });
                     }}>
                     <SellerProduct
                       item={item}

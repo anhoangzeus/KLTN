@@ -91,7 +91,12 @@ function DetailStoreProductView(props) {
                 style={styles.userContainer}
                 onPress={() => setPopup(true)}>
                 <View style={styles.imgView}>
-                  <Image source={{uri: image}} style={styles.imgPro} />
+                  {image.map((element) => {
+                    return (
+                      <Image source={{uri: element}} style={styles.imgPro} />
+                    );
+                  })}
+                  {/* <Image source={{uri: image[0]}} style={styles.imgPro} /> */}
                   <Text style={styles.imgText}>
                     {I18n.t(`${NAMESPACE}.defaultTitle`)}
                   </Text>
@@ -168,7 +173,9 @@ function DetailStoreProductView(props) {
                         style={styles.picker}
                         onValueChange={(value, index) => {
                           setCate(value);
-                          setCateName(dataCate[index - 1].label);
+                          if (dataCate[index - 1]) {
+                            setCateName(dataCate[index - 1].label);
+                          }
                         }}
                         items={dataCate}>
                         <Text style={styles.selectText}>{cateName}</Text>
@@ -333,7 +340,7 @@ function DetailStoreProductView(props) {
           <PopupChooseImage
             onChooseTake={chooseImageTake}
             onChooseLibrary={chooseImageLibrary}
-            // onClosePress={() => setChooseImage(false)}
+            onClosePress={() => setPopup(false)}
             isVisible={popup}
           />
           <Modal

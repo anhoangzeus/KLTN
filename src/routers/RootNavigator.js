@@ -59,7 +59,11 @@ function RootNavigator({onNavigationStateChange}) {
           <Stack.Screen name={SCENE_NAMES.DUMMY} component={DummyScreen} />
         )}
         {/* Plop screen */}
-				<Stack.Screen name={ SCENE_NAMES.DETAIL_STORE_PRODUCT } component={ DetailStoreProductContainer } />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name={SCENE_NAMES.DETAIL_STORE_PRODUCT}
+          component={DetailStoreProductContainer}
+        />
         <Stack.Screen
           options={{headerShown: false}}
           name={SCENE_NAMES.STORE_PRODUCT}

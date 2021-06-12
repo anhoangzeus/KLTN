@@ -5,7 +5,7 @@ import AddProductView from './addProduct.view';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
-import ImagePicker from 'react-native-image-crop-picker';
+import ImageCropPicker from 'react-native-image-crop-picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {chooseImageOptions} from '../../../utils/options';
 import moment from 'moment';
@@ -24,9 +24,9 @@ export default function AddProductContainer({navigation}) {
     info: '',
     sale: '',
   });
-  const [image, setImage] = useState(
+  const [image, setImage] = useState([
     'https://thailamlandscape.vn/wp-content/uploads/2017/10/no-image.png',
-  );
+  ]);
   const [fileName, setFileName] = useState('');
   const [name, setName] = useState('');
   const [des, setDes] = useState('');
@@ -86,14 +86,24 @@ export default function AddProductContainer({navigation}) {
   };
 
   const chooseImageLibrary = () => {
-    launchImageLibrary(chooseImageOptions, (response) => {
-      pairToSubmitImage(response);
-    });
-    // ImagePicker.openPicker({
-    //   multiple: true,
-    // }).then((images) => {
-    //   pairToSubmitImage(images);
+    // launchImageLibrary(chooseImageOptions, (response) => {
+    //   pairToSubmitImage(response);
     // });
+    ImageCropPicker.openPicker({
+      height: 50,
+      width: 50,
+      multiple: true,
+      mediaType: 'photo',
+    }).then((images) => {
+      let arr = [];
+      Promise.all(
+        images.map((response, index) => {
+          arr.push(response.path);
+        }),
+      );
+      setPopup(false);
+      setImage(arr);
+    });
   };
 
   const getDataCate = async () => {
@@ -117,30 +127,41 @@ export default function AddProductContainer({navigation}) {
     setIsUpload(true);
     var formprice = price.replace(/\s/g, '');
     formprice = formprice.replace(',', '');
-    const task = storage()
-      .ref('product/' + fileName)
-      .putFile(image);
-    try {
-      await task;
-    } catch (e) {
-      console.error('erro put ảnh', e);
-    }
-    const url = await storage()
-      .ref('product/' + fileName)
-      .getDownloadURL();
+    let imgTemp = [];
+    let moreimage = '';
+    await Promise.all(
+      image.map(async (response, index) => {
+        var fileExt = response.split('.');
+        var fileNames =
+          moment().format('_YYYY_MM_DD_HH_mm_ss') +
+          `_${index}.` +
+          fileExt[fileExt.length - 1];
+        await storage()
+          .ref('product/' + fileNames)
+          .putFile(response);
+        const url = await storage()
+          .ref('product/' + fileNames)
+          .getDownloadURL();
+        imgTemp.push(url);
+        moreimage += url + '|';
+      }),
+    );
+    console.log('list image push database', imgTemp);
+
     const x = parseInt(formprice);
     const y = parseInt(sale);
     const PromotionPrice = x - (x * y) / 100;
     var date = moment().subtract(10, 'days').calendar();
     var useID = auth().currentUser.uid;
     var keyDetail = database().ref('ProductUser').child(useID).push().key;
-    database()
+    await database()
       .ref('ProductUser/' + keyDetail)
       .set({
         CategoryID: cate,
         CreatedDate: date,
         Description: des,
-        Image: url,
+        Image: imgTemp[0],
+        MoreImage: moreimage,
         MetaDescription: keyword,
         Name: name,
         Price: formprice,

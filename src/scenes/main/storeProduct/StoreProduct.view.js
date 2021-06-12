@@ -52,7 +52,7 @@ function StoreProductView(props) {
           <BackgroundImage
             source={require('../../../assets/images/storeback.png')}
             style={styles.imgBackground}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => NavigationServices.goBack()}>
               <FontAwesome name="chevron-left" size={25} color="white" />
             </TouchableOpacity>
             <TouchableOpacity
@@ -71,17 +71,17 @@ function StoreProductView(props) {
               data={listItems}
               renderItem={(item) => {
                 return (
-                  // <TouchableOpacity
-                  //   onPress={() => {
-                  //     NavigationServices.navigate(SCENE_NAMES.SELLERPRODUCT, {
-                  //       id: item.id,
-                  //       CategoryID: item.CategoryID,
-                  //       BrandID: item.BrandID,
-                  //       userid: item.UserID,
-                  //     });
-                  //   }}>
-                  <StoreProduct item={item} del={() => del(item)} />
-                  // </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      NavigationServices.navigate(
+                        SCENE_NAMES.DETAIL_STORE_PRODUCT,
+                        {
+                          item: item,
+                        },
+                      );
+                    }}>
+                    <StoreProduct item={item} del={() => del(item)} />
+                  </TouchableOpacity>
                 );
               }}
             />

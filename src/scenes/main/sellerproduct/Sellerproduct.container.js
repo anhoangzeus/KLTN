@@ -22,14 +22,15 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
 
 export default function SellerproductContainer({navigation, route}) {
   const isLoading = useSelectorShallow(loadingSelector);
-  const {id, BrandID, CategoryID, userid} = getParams(route);
+  const {item} = getParams(route);
+  console.log('item naviagte: ', item);
   const itemRef = database();
 
   const [numcart, setnumcart] = useState(0);
   const [decription, setdecription] = useState('');
   const [image, setimage] = useState('');
   const [name, setname] = useState('');
-  const [UserID, setUserID] = useState(userid);
+  const [UserID, setUserID] = useState(item.UserID);
   const [price, setprice] = useState('');
   const [waranty, setwaranty] = useState('');
   const [promotionprice, setpromotionprice] = useState('');
@@ -37,12 +38,11 @@ export default function SellerproductContainer({navigation, route}) {
   const [listproductlienquan, setlistproductlienquan] = useState([]);
   const [listmoreimage, setlistmoreimage] = useState([]);
   const [listcomment, setlistcomment] = useState([]);
-  const [idsanpham, setidsanpham] = useState(id);
+  const [idsanpham, setidsanpham] = useState(item.id);
   const [listcart, setlistcart] = useState([]);
   const [modalvisible, setmodalvisible] = useState(false);
   const [scrollY] = useState(new Animated.Value(0));
   const [isloading, setisloading] = useState(false);
-  const [brandname, setbrandname] = useState('');
   const [categoryname, setcategoryname] = useState('');
   const [rating, setrating] = useState(0);
   const [bough, setbough] = useState(0);
@@ -62,16 +62,10 @@ export default function SellerproductContainer({navigation, route}) {
 
   const getNameBrandCate = () => {
     itemRef
-      .ref('/Catogorys/' + CategoryID)
+      .ref('/Catogorys/' + item.CategoryID)
       .once('value')
       .then((snapshot) => {
         setcategoryname(snapshot.val().Name);
-      });
-    database()
-      .ref('/Brands/' + BrandID)
-      .once('value')
-      .then((snapshot) => {
-        setbrandname(snapshot.val().Name);
       });
   };
 
@@ -89,7 +83,7 @@ export default function SellerproductContainer({navigation, route}) {
     }
   };
   const getItemRespon = () => {
-    var Category_ID = CategoryID;
+    var Category_ID = item.CategoryID;
     var ProductID = idsanpham;
     database()
       .ref('/Products')
@@ -117,7 +111,7 @@ export default function SellerproductContainer({navigation, route}) {
         setlistproductlienquan(items);
       });
   };
-  const getData = () => {
+  const getData = async () => {
     var ImageItems = [];
     database()
       .ref('/ProductUser/' + idsanpham)
@@ -169,18 +163,18 @@ export default function SellerproductContainer({navigation, route}) {
         setsao3(_sao3);
         setsao4(_sao4);
         setsao5(_sao5);
-        ImageItems.push(snapshot.val().Image);
+        //ImageItems.push(snapshot.val().Image);
       });
-    database()
-      .ref('/ProductUser/')
-      .child(id)
-      .child('Images')
+    await database()
+      .ref('/ProductUser/' + idsanpham)
       .once('value')
       .then((snapshot) => {
-        snapshot.forEach((child) => {
-          ImageItems.push(child.val().Image);
-        });
+        //console.log('plit list image: ', snapshot.val().MoreImage);
+        snapshot.val().MoreImage
+          ? (ImageItems = snapshot.val().MoreImage.split('|'))
+          : ImageItems.push(snapshot.val().Image);
       });
+    console.log('list more image: ', ImageItems);
     setlistmoreimage(ImageItems);
     setisloading(false);
   };
@@ -261,10 +255,10 @@ export default function SellerproductContainer({navigation, route}) {
       if (temp === 0) {
         database()
           .ref('/Cart/' + auth().currentUser.uid)
-          .child(id)
+          .child(item.ProductID)
           .set({
-            Id: id,
-            CategoryID: CategoryID,
+            Id: item.ProductID,
+            CategoryID: item.CategoryID,
             CategoryName: categoryname,
             Name: name,
             Picture: image,
@@ -276,10 +270,8 @@ export default function SellerproductContainer({navigation, route}) {
           .ref('/Cart/' + auth().currentUser.uid + '/' + key)
           .set({
             Id: product.ProductID,
-            CategoryID: CategoryID,
-            BrandID: BrandID,
+            CategoryID: item.CategoryID,
             CategoryName: categoryname,
-            BrandName: brandname,
             Name: product.Name,
             Picture: product.image,
             Price: product.Price,
@@ -336,25 +328,20 @@ export default function SellerproductContainer({navigation, route}) {
   useEffect(() => {
     async function get() {
       await getData();
-      getNameBrandCate();
-      getItemRespon();
-      GetCartData();
-      getnumcart();
-      getSeller();
-      getSellerProduct();
+      await getNameBrandCate();
+      await getItemRespon();
+      await GetCartData();
+      await getnumcart();
+      await getSeller();
+      await getSellerProduct();
     }
     get();
   }, []);
 
-  useEffect(() => {
-    getData();
-    getItemRespon();
-  }, [idsanpham]);
-
-  useEffect(() => {
-    getData();
-    getItemRespon();
-  }, [idsanpham]);
+  // useEffect(() => {
+  //   getData();
+  //   getItemRespon();
+  // }, [idsanpham]);
 
   functionsCounter.add(handleClose);
   functionsCounter.add(setModalVisible);
@@ -396,7 +383,6 @@ export default function SellerproductContainer({navigation, route}) {
       modalvisible={modalvisible}
       scrollY={scrollY}
       isloaing={isLoading}
-      brandname={brandname}
       categoryname={categoryname}
       rating={rating}
       bough={bough}

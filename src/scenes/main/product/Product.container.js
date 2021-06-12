@@ -22,7 +22,8 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
 
 export default function ProductContainer({navigation, route}) {
   const isLoading = useSelectorShallow(loadingSelector);
-  const {id, BrandID, CategoryID} = getParams(route);
+  const {item} = getParams(route);
+  console.log('item navigation: ', item);
   const itemRef = database();
 
   const [numcart, setnumcart] = useState(0);
@@ -36,12 +37,11 @@ export default function ProductContainer({navigation, route}) {
   const [listproductlienquan, setlistproductlienquan] = useState([]);
   const [listmoreimage, setlistmoreimage] = useState([]);
   const [listcomment, setlistcomment] = useState([]);
-  const [idsanpham, setidsanpham] = useState(id);
+  const [idsanpham, setidsanpham] = useState(item.id);
   const [listcart, setlistcart] = useState([]);
   const [modalvisible, setmodalvisible] = useState(false);
   const [scrollY] = useState(new Animated.Value(0));
   const [isloading, setisloading] = useState(false);
-  const [brandname, setbrandname] = useState('');
   const [categoryname, setcategoryname] = useState('');
   const [rating, setrating] = useState(0);
   const [bough, setbough] = useState(0);
@@ -59,16 +59,10 @@ export default function ProductContainer({navigation, route}) {
 
   const getNameBrandCate = () => {
     itemRef
-      .ref('/Catogorys/' + CategoryID)
+      .ref('/Catogorys/' + item.CategoryID)
       .once('value')
       .then((snapshot) => {
         setcategoryname(snapshot.val().Name);
-      });
-    database()
-      .ref('/Brands/' + BrandID)
-      .once('value')
-      .then((snapshot) => {
-        setbrandname(snapshot.val().Name);
       });
   };
 
@@ -86,7 +80,7 @@ export default function ProductContainer({navigation, route}) {
     }
   };
   const getItemRespon = () => {
-    var Category_ID = CategoryID;
+    var Category_ID = item.CategoryID;
     var ProductID = idsanpham;
     database()
       .ref('/Products')
@@ -116,9 +110,10 @@ export default function ProductContainer({navigation, route}) {
   };
   const getData = () => {
     var ImageItems = [];
-
+    console.log('id san pham: ', item.id);
     database()
-      .ref('/Products/' + idsanpham)
+      .ref('/Products')
+      .child(item.id)
       .once('value')
       .then((snapshot) => {
         var _sao1 = 0;
@@ -170,7 +165,7 @@ export default function ProductContainer({navigation, route}) {
       });
     database()
       .ref('/Products/')
-      .child(id)
+      .child(item.id)
       .child('Images')
       .once('value')
       .then((snapshot) => {
@@ -258,13 +253,12 @@ export default function ProductContainer({navigation, route}) {
       if (temp === 0) {
         database()
           .ref('/Cart/' + auth().currentUser.uid)
-          .child(id)
+          .child(item.ProductID)
           .set({
-            Id: id,
-            CategoryID: CategoryID,
-            BrandID: BrandID,
+            Id: item.ProductID,
+            CategoryID: item.CategoryID,
             CategoryName: categoryname,
-            BrandName: brandname,
+
             Name: name,
             Picture: image,
             Price: price,
@@ -275,10 +269,9 @@ export default function ProductContainer({navigation, route}) {
           .ref('/Cart/' + auth().currentUser.uid + '/' + key)
           .set({
             Id: product.ProductID,
-            CategoryID: CategoryID,
-            BrandID: BrandID,
+            CategoryID: item.CategoryID,
             CategoryName: categoryname,
-            BrandName: brandname,
+
             Name: product.Name,
             Picture: product.image,
             Price: product.Price,
@@ -353,7 +346,6 @@ export default function ProductContainer({navigation, route}) {
       modalvisible={modalvisible}
       scrollY={scrollY}
       isloaing={isLoading}
-      brandname={brandname}
       categoryname={categoryname}
       rating={rating}
       bough={bough}

@@ -305,4 +305,10 @@ export default StyleSheet.create({
   valueText: {marginLeft: 5, color: 'red'},
   starratingView: {flexDirection: 'row', marginLeft: 10},
   sellerView: {flexDirection: 'row', justifyContent: 'space-between'},
+  paginationContainer: {
+    top: 0,
+  },
+  pagination: {
+    borderRadius: 2,
+  },
 });

@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import {
   ScrollView,
   Image,
@@ -18,7 +19,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Swiper from 'react-native-swiper';
-
 import styles from './Sellerproduct.styles';
 import NumberFormat from 'components/NumberFormat';
 import StarRating from 'components/StarRating';
@@ -31,7 +31,7 @@ import I18n from 'utils/i18n';
 const NAMESPACE = 'common';
 // import {NAMESPACE} from './Product.constants';
 
-const {height, width} = Dimensions.get('screen');
+const {height} = Dimensions.get('screen');
 // import {NAMESPACE} from './Sellerproduct.constants';
 
 function SellerproductView(props) {
@@ -39,7 +39,6 @@ function SellerproductView(props) {
     addCart,
     handleClose,
     renderNofiCart,
-    setID,
     listproductlienquan,
     listmoreimage,
     bough,
@@ -71,7 +70,6 @@ function SellerproductView(props) {
     outputRange: [HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT],
     extrapolate: 'clamp',
   });
-  console.log('seller Product: ', sellerProd);
   return (
     <SafeAreaView style={styles.safeView}>
       <View style={styles.container}>
@@ -121,13 +119,17 @@ function SellerproductView(props) {
             loop={true}
             showsPagination={true}
             index={0}
-            width={width}
             height={height / 2}>
-            {listmoreimage.map((item) => (
-              <View backgroundColor="white" style={styles.profileContainer}>
-                <Image source={{uri: item}} style={styles.profileImage} />
-              </View>
-            ))}
+            {listmoreimage.map((item) => {
+              if (item !== '') {
+                console.log('item im view', item);
+                return (
+                  <View backgroundColor="white" style={styles.profileContainer}>
+                    <Image source={{uri: item}} style={styles.profileImage} />
+                  </View>
+                );
+              }
+            })}
           </Swiper>
           <View style={styles.headerFont}>
             <TouchableOpacity
@@ -229,7 +231,9 @@ function SellerproductView(props) {
                 renderItem={({item}) => (
                   <TouchableOpacity
                     onPress={() => {
-                      setID(item.proid);
+                      NavigationServices.push(SCENE_NAMES.PRODUCT, {
+                        item: item,
+                      });
                     }}>
                     <SmallProductCard
                       name={item.title}
@@ -279,7 +283,6 @@ function SellerproductView(props) {
             </TouchableOpacity>
             <View style={styles.listSell}>
               {sellerProd.map((element) => {
-                console.log('element log ', element);
                 return (
                   <SellerProduct
                     name={element.title}

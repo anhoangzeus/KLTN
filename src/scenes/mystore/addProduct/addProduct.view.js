@@ -91,7 +91,12 @@ export default function AddProductView(props) {
                 style={styles.userContainer}
                 onPress={() => setPopup(true)}>
                 <View style={styles.imgView}>
-                  <Image source={{uri: image}} style={styles.imgPro} />
+                  {image.map((element) => {
+                    return (
+                      <Image source={{uri: element}} style={styles.imgPro} />
+                    );
+                  })}
+                  {/* <Image source={{uri: image}} style={styles.imgPro} /> */}
                   <Text style={styles.imgText}>
                     {I18n.t(`${NAMESPACE}.defaultTitle`)}
                   </Text>
@@ -333,7 +338,7 @@ export default function AddProductView(props) {
           <PopupChooseImage
             onChooseTake={chooseImageTake}
             onChooseLibrary={chooseImageLibrary}
-            // onClosePress={() => setChooseImage(false)}
+            onClosePress={() => setPopup(false)}
             isVisible={popup}
           />
           <Modal

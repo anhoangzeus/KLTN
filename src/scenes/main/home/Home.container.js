@@ -301,6 +301,10 @@ function HomeContainer({navigation}) {
     _getListPhukienNew();
     getnumcart();
     getCountChats();
+    setTimeout(() => {
+      setRefreshing(false);
+      setLoading(false);
+    }, 10000);
   };
   useEffect(() => {
     _getListPhoneNew();
@@ -312,6 +316,10 @@ function HomeContainer({navigation}) {
     getListBanner();
     getnumcart();
     getCountChats();
+    setTimeout(() => {
+      setRefreshing(false);
+      setLoading(false);
+    }, 15000);
   }, []);
 
   const renderNofiCart = () => {
