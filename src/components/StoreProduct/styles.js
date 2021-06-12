@@ -4,8 +4,6 @@ import {normalize} from 'react-native-elements';
 
 export default StyleSheet.create({
   itemContainer: {
-    borderColor: '#ededed',
-    borderWidth: 2,
     padding: normalize(5),
     flexDirection: 'row',
     borderRadius: 10,
@@ -13,7 +11,7 @@ export default StyleSheet.create({
   },
   imgBackground: {
     width: SIZE.DEVICE_WIDTH * 0.95,
-    marginLeft: SIZE.DEVICE_WIDTH * 0.025,
+    alignSelf: 'center',
     height: SIZE.DEVICE_HEIGHT / 3.2,
     resizeMode: 'stretch',
     flexDirection: 'row',
@@ -38,7 +36,7 @@ export default StyleSheet.create({
   },
   itemPrice: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '700',
     color: 'black',
     marginHorizontal: 10,
   },

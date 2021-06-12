@@ -99,11 +99,13 @@ export default function SellerproductContainer({navigation, route}) {
                 title: child.val().Name,
                 price: child.val().Price,
                 image: child.val().Image,
+                metades: child.val().MetaDescription,
                 id: child.val().ProductID,
                 rating: point / count,
                 bough: count,
+                BrandID: child.val().BrandID,
+                CategoryID: child.val().CategoryID,
                 PromotionPrice: child.val().PromotionPrice,
-                UserID: child.val().UserID,
               });
             }
           }

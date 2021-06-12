@@ -260,7 +260,13 @@ function SellerproductView(props) {
             <Text bold size={12} style={styles.desText}>
               {I18n.t(`${NAMESPACE}.sellerprofile`)}
             </Text>
-            <TouchableOpacity style={styles.sellerView}>
+            <TouchableOpacity
+              style={styles.sellerView}
+              onPress={() =>
+                NavigationServices.navigate(SCENE_NAMES.STORE_PROFILE, {
+                  info: sellerinfo,
+                })
+              }>
               <View style={styles.rowView}>
                 <View style={styles.avatarContainer}>
                   <Image

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
-import styles from './StoreProduct.styles';
+import styles from './StoreProfile.styles';
 import StoreProduct from 'components/StoreProduct';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
@@ -10,9 +10,9 @@ import database from '@react-native-firebase/database';
 import Loading from 'components/LoadingView';
 //import I18n from 'utils/i18n';
 import {BackgroundImage} from 'react-native-elements/dist/config';
-//const NAMESPACE = 'common';
-function StoreProductView(props) {
-  const {FullName, Avatar, listItems, loading, getlistProduct} = props;
+
+function StoreProfileView(props) {
+  const {info, listItems, loading, getlistProduct} = props;
   const del = async (item) => {
     await database()
       .ref('ProductUser/' + item.item.ProductID)
@@ -59,11 +59,11 @@ function StoreProductView(props) {
                 NavigationServices.navigate(SCENE_NAMES.InfoUser);
               }}>
               <View>
-                <Text style={styles.nameText}>{FullName}</Text>
+                <Text style={styles.nameText}>{info.FullName}</Text>
                 <Text style={styles.nameText}>TienAnh Shop</Text>
               </View>
 
-              <Image source={{uri: Avatar}} size={80} style={styles.img} />
+              <Image source={{uri: info.Avatar}} size={80} style={styles.img} />
             </TouchableOpacity>
             <View style={styles.flexRow}>
               <View style={styles.Tag}>
@@ -116,4 +116,4 @@ function StoreProductView(props) {
   }
 }
 
-export default React.memo(StoreProductView);
+export default React.memo(StoreProfileView);
