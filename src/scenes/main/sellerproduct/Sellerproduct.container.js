@@ -298,6 +298,7 @@ export default function SellerproductContainer({navigation, route}) {
         var info = {
           Avatar: snapshot.val().Avatar,
           Name: snapshot.val().FullName,
+          ID: snapshot.val().UserID,
         };
         setSellerInfo(info);
       });

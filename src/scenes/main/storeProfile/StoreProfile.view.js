@@ -12,7 +12,15 @@ import Loading from 'components/LoadingView';
 import {BackgroundImage} from 'react-native-elements/dist/config';
 
 function StoreProfileView(props) {
-  const {info, listItems, loading, getlistProduct} = props;
+  const {
+    info,
+    listItems,
+    loading,
+    choose,
+    setChoose,
+    getlistProduct,
+    getListChat,
+  } = props;
   const del = async (item) => {
     await database()
       .ref('ProductUser/' + item.item.ProductID)
@@ -43,7 +51,7 @@ function StoreProfileView(props) {
           <Header title={I18n.t(`${NAMESPACE}.manasell`)} /> */}
         <View style={styles.bodyContainer}>
           <BackgroundImage
-            source={require('../../../assets/images/storeback.png')}
+            source={require('../../../assets/images/backsell.png')}
             style={styles.imgBackground}>
             <TouchableOpacity onPress={() => NavigationServices.goBack()}>
               <FontAwesome
@@ -53,62 +61,90 @@ function StoreProfileView(props) {
                 style={styles.back}
               />
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.avatarContainer}
-              onPress={() => {
-                NavigationServices.navigate(SCENE_NAMES.InfoUser);
-              }}>
-              <View>
-                <Text style={styles.nameText}>{info.FullName}</Text>
-                <Text style={styles.nameText}>TienAnh Shop</Text>
-              </View>
-
+            <View style={styles.avatarContainer}>
               <Image source={{uri: info.Avatar}} size={80} style={styles.img} />
-            </TouchableOpacity>
-            <View style={styles.flexRow}>
-              <View style={styles.Tag}>
-                <Image
-                  source={require('../../../assets/images/sl.png')}
-                  style={styles.tagImg}
-                />
-                <View>
-                  <Text>{listItems.length}</Text>
-                  <Text>Sản phẩm</Text>
-                </View>
-              </View>
-              <View style={styles.Tag}>
-                <Image
-                  source={require('../../../assets/images/tim.png')}
-                  style={styles.tagImg}
-                />
-                <View>
-                  <Text>{listItems.length}</Text>
-                  <Text>Người theo dõi</Text>
+              <View>
+                {/* <Text style={styles.nameText}>{info.Name}</Text> */}
+                <Text style={styles.nameText}>TienAnh Shop</Text>
+                <View style={styles.flexRow}>
+                  <TouchableOpacity
+                    style={styles.Tag}
+                    onPress={() => getListChat()}>
+                    <Image
+                      source={require('../../../assets/images/chat.png')}
+                      style={styles.tagImg}
+                    />
+                    <View>
+                      <Text style={styles.tagText}>Chat</Text>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.Tag}>
+                    <Image
+                      source={require('../../../assets/images/tim.png')}
+                      style={styles.tagImg}
+                    />
+                    <View>
+                      <Text style={styles.tagText}>Theo dõi</Text>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.Tag}>
+                    <Image
+                      source={require('../../../assets/images/report.png')}
+                      style={styles.tagImg}
+                    />
+                    <View>
+                      <Text style={styles.tagText}>Báo cáo</Text>
+                    </View>
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>
+            <View style={styles.flexRow2}>
+              <TouchableOpacity
+                onPress={() => setChoose(0)}
+                style={styles.lineTab}>
+                <Text style={styles.tabText}>sản phẩm</Text>
+                {choose === 0 ? (
+                  <Image source={require('../../../assets/images/line.png')} />
+                ) : null}
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => setChoose(1)}
+                style={styles.lineTab}>
+                <Text style={styles.tabText}>Hồ sơ cửa hàng</Text>
+                {choose === 1 ? (
+                  <Image source={require('../../../assets/images/line.png')} />
+                ) : null}
+              </TouchableOpacity>
+            </View>
             <View style={styles.divider} />
-            <FlatList
-              initialNumToRender={20}
-              showsVerticalScrollIndicator={false}
-              //numColumns={2}
-              data={listItems}
-              renderItem={(item) => {
-                return (
-                  <TouchableOpacity
-                    onPress={() => {
-                      NavigationServices.navigate(
-                        SCENE_NAMES.DETAIL_STORE_PRODUCT,
-                        {
-                          item: item,
-                        },
-                      );
-                    }}>
-                    <StoreProduct item={item} del={() => del(item)} />
-                  </TouchableOpacity>
-                );
-              }}
-            />
+            {choose === 0 ? (
+              <FlatList
+                initialNumToRender={20}
+                showsVerticalScrollIndicator={false}
+                //numColumns={2}
+                data={listItems}
+                renderItem={(item) => {
+                  return (
+                    <TouchableOpacity
+                      onPress={() => {
+                        NavigationServices.navigate(
+                          SCENE_NAMES.DETAIL_STORE_PRODUCT,
+                          {
+                            item: item,
+                          },
+                        );
+                      }}>
+                      <StoreProduct item={item} del={() => del(item)} />
+                    </TouchableOpacity>
+                  );
+                }}
+              />
+            ) : (
+              <View style={styles.storeProfile}>
+                <Text>hồ sơ cửa hàng</Text>
+              </View>
+            )}
           </BackgroundImage>
         </View>
       </View>

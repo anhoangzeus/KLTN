@@ -10,6 +10,7 @@ export default StyleSheet.create({
   back: {marginTop: height / 50},
   imgBackground: {
     width: width,
+    resizeMode: 'contain',
     //height: height,
     justifyContent: 'space-around',
   },
@@ -17,23 +18,35 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
   },
-  flexRow: {flexDirection: 'row', justifyContent: 'space-evenly'},
+  flexRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: height / 50,
+  },
+  flexRow2: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: height / 15,
+    //height: height / 10,
+  },
   Tag: {
     borderRadius: height / 100,
     shadowColor: 'black',
     shadowOffset: {width: 5, height: 5},
-    height: height / 12,
-    width: width * 0.45,
+    height: height / 20,
+    width: width * 0.2,
     backgroundColor: '#fff',
+    marginLeft: width / 20,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
   },
   tagImg: {
-    height: height / 20,
-    width: height / 20,
+    height: height / 25,
+    width: height / 25,
     borderRadius: height / 100,
   },
+  tagText: {fontSize: height / 60},
   bodyContainer: {
     flex: 1,
     backgroundColor: '#ededed',
@@ -48,11 +61,17 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     height: size.DEVICE_HEIGHT / 7,
+    marginTop: height / 50,
   },
   nameText: {
     color: '#fff',
     fontSize: height / 40,
     fontWeight: 'bold',
+  },
+  tabText: {
+    color: '#fff',
+    fontSize: height / 40,
+    fontWeight: '600',
   },
   img: {
     width: 80,
@@ -86,5 +105,15 @@ export default StyleSheet.create({
   },
   divider1: {
     height: 1,
+  },
+  storeProfile: {
+    width: width,
+    height: height * 0.625,
+    backgroundColor: '#fff',
+  },
+  lineTab: {
+    justifyContent: 'center',
+
+    alignItems: 'center',
   },
 });
