@@ -53,7 +53,9 @@ function StoreProfileView(props) {
           <BackgroundImage
             source={require('../../../assets/images/backsell.png')}
             style={styles.imgBackground}>
-            <TouchableOpacity onPress={() => NavigationServices.goBack()}>
+            <TouchableOpacity
+              onPress={() => NavigationServices.goBack()}
+              style={styles.back}>
               <FontAwesome
                 name="chevron-left"
                 size={25}

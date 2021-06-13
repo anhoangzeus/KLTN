@@ -9,9 +9,11 @@ export default StyleSheet.create({
   },
   back: {marginTop: height / 50},
   imgBackground: {
-    width: width,
+    // width: width,
     //height: height,
-    justifyContent: 'space-around',
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
   },
   SafeSreen: {
     flex: 1,

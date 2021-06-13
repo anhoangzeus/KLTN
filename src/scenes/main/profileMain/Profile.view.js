@@ -57,20 +57,35 @@ const ProfileMainView = (props) => {
               </View>
             </TouchableOpacity>
             <View style={styles.divider} />
-            <TouchableOpacity
-              onPress={() => {
-                NavigationServices.navigate(
-                  SCENE_NAMES.MyStoreOptionContainer,
-                  {FullName: FullName, Avatar: Avatar},
-                );
-              }}>
-              {Merchant ? (
+
+            {Merchant ? (
+              <TouchableOpacity
+                onPress={() => {
+                  NavigationServices.navigate(
+                    SCENE_NAMES.MyStoreOptionContainer,
+                    {FullName: FullName, Avatar: Avatar},
+                  );
+                }}>
                 <ProfileItem
                   icon="storefront"
                   name={I18n.t(`${NAMESPACE}.mystore`)}
                 />
-              ) : null}
-            </TouchableOpacity>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={() => {
+                  NavigationServices.navigate(SCENE_NAMES.REGISTER_STORE, {
+                    FullName: FullName,
+                    Avatar: Avatar,
+                  });
+                }}>
+                <ProfileItem
+                  icon="storefront"
+                  name={I18n.t(`${NAMESPACE}.registerStore`)}
+                />
+              </TouchableOpacity>
+            )}
+
             <View style={styles.divider} />
             <TouchableOpacity>
               <ProfileItem icon="facebook" name="Kết nối mạng xã hội" />

@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import {Platform} from 'react-native';
 
 export default {
   common: {
@@ -197,10 +197,12 @@ export default {
     view: 'Xem',
     noorder: 'Chưa có đơn hàng',
     delpro: 'Bạn có chắc muốn xóa sản phẩm?',
-    chatHeader: 'Nội dung chat là bí mật được bảo đảm bởi TiAn \nNếu nội dung chat vi phạm hành vi cá nhân bạn có thể tố cáo để được xử lí.',
+    chatHeader:
+      'Nội dung chat là bí mật được bảo đảm bởi TiAn \nNếu nội dung chat vi phạm hành vi cá nhân bạn có thể tố cáo để được xử lí.',
     moreImage: 'Chọn nhiều hình...',
     oneImage: 'Chọn 1 hình...',
     takephoto: 'Chụp hình...',
+    registerStore: 'Đăng ký mở gian hàng',
   },
   message: {
     ERROR_OCCURRED: 'An error occurred, please try again.',

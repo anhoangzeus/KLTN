@@ -7,12 +7,11 @@ export default StyleSheet.create({
     height: height,
     backgroundColor: '#ededed',
   },
-  back: {marginTop: height / 50},
+  back: {marginTop: height / 40},
   imgBackground: {
-    width: width,
-    resizeMode: 'contain',
-    //height: height,
-    justifyContent: 'space-around',
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
   },
   SafeSreen: {
     flex: 1,

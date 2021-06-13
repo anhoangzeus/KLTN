@@ -45,7 +45,9 @@ function StoreProductView(props) {
           <BackgroundImage
             source={require('../../../assets/images/storeback.png')}
             style={styles.imgBackground}>
-            <TouchableOpacity onPress={() => NavigationServices.goBack()}>
+            <TouchableOpacity
+              onPress={() => NavigationServices.goBack()}
+              style={styles.back}>
               <FontAwesome
                 name="chevron-left"
                 size={25}
