@@ -18,15 +18,15 @@ import NavigationServices from 'utils/navigationServices';
 import styles from './Profile.styles';
 import I18n from 'utils/i18n';
 const NAMESPACE = 'common';
-const ProfileItem = ({icon, name}) => (
+const ProfileItem = ({ icon, name }) => (
   <View style={styles.itemContainer}>
     <MaterialCommunityIcons name={icon} size={26} color="#1e1e1e" />
-    <Text style={[styles.itemText, {marginLeft: icon ? 20 : 0}]}>{name}</Text>
+    <Text style={[styles.itemText, { marginLeft: icon ? 20 : 0 }]}>{name}</Text>
     <FontAwesome name="angle-right" size={15} color="#1e1e1e" />
   </View>
 );
 const ProfileMainView = (props) => {
-  const {Avatar, FullName, Email, CreatedDate, Merchant} = props;
+  const { Avatar, FullName, Email, CreatedDate, Merchant } = props;
   console.log('merchant: ', Merchant);
   return (
     <SafeAreaView style={styles.screenContainer}>
@@ -41,7 +41,7 @@ const ProfileMainView = (props) => {
               <View style={styles.userContainer}>
                 <View style={styles.avatarContainer}>
                   <Image
-                    source={{uri: Avatar}}
+                    source={{ uri: Avatar }}
                     size={80}
                     style={styles.avatarContainer}
                   />
@@ -63,7 +63,7 @@ const ProfileMainView = (props) => {
                 onPress={() => {
                   NavigationServices.navigate(
                     SCENE_NAMES.MyStoreOptionContainer,
-                    {FullName: FullName, Avatar: Avatar},
+                    { FullName: FullName, Avatar: Avatar },
                   );
                 }}>
                 <ProfileItem

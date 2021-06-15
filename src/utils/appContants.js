@@ -16,4 +16,7 @@ export const chooseImageOptions = {
     allowsEditing: true,
     includeBase64: false,
 };
+export const NotificationConstants = {
+    fcmToken: '',
+}
 

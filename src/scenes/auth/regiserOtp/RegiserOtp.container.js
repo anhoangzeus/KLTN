@@ -76,7 +76,7 @@ class RegiserOtpContainer extends React.Component {
           }
         }, 1000);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => { this.setModalVisibleWarning(true, I18n.t(`${NAMESPACE}.otpexpired`)); });
   };
   register = () => {
     const { numOTP, textOPT, timeOut } = this.state;
