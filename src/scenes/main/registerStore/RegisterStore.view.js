@@ -21,6 +21,7 @@ import RNPickerSelect from 'react-native-picker-select';
 import Header from 'components/Header';
 import styles from './RegisterStore.styles';
 import I18n from 'utils/i18n';
+import CheckBox from '@react-native-community/checkbox';
 const NAMESPACE = 'common';
 
 // import {NAMESPACE} from './RegisterStore.constants';
@@ -32,6 +33,7 @@ function RegisterStoreView(props) {
     address,
     name,
     des,
+    check,
     frontID,
     backID,
     setVisible,
@@ -39,6 +41,7 @@ function RegisterStoreView(props) {
     setName,
     setDes,
     setData,
+    setCheck,
     textInputAddress,
     wardData,
     provinceData,
@@ -188,6 +191,13 @@ function RegisterStoreView(props) {
               source={require('../../../assets/images/step4.png')}
               style={styles.stepImg}
             />
+            <View style={styles.ChangeStatus}>
+              <CheckBox
+                value={check}
+                onValueChange={(newValue) => setCheck(newValue)}
+              />
+              <Text>Tôi đồng ý với các điều khoản bên trên</Text>
+            </View>
             <View style={styles.ChangeStatus}>
               <TouchableOpacity style={styles.pre} onPress={() => setStep(3)} />
             </View>

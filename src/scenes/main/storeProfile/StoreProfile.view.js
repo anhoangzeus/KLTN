@@ -1,33 +1,17 @@
 import * as React from 'react';
 import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
 import styles from './StoreProfile.styles';
-import StoreProduct from 'components/StoreProduct';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Col from 'components/Col';
-import database from '@react-native-firebase/database';
 import Loading from 'components/LoadingView';
+import ProductItem from 'components/ProductItem';
 //import I18n from 'utils/i18n';
 import {BackgroundImage} from 'react-native-elements/dist/config';
 
 function StoreProfileView(props) {
-  const {
-    info,
-    listItems,
-    loading,
-    choose,
-    setChoose,
-    getlistProduct,
-    getListChat,
-  } = props;
-  const del = async (item) => {
-    await database()
-      .ref('ProductUser/' + item.item.ProductID)
-      .remove()
-      .then(console.log('xoá thành công'));
-    getlistProduct();
-  };
+  const {info, listItems, loading, choose, setChoose, getListChat} = props;
 
   console.log('list item props:', listItems);
   if (loading) {
@@ -127,6 +111,7 @@ function StoreProfileView(props) {
                 //numColumns={2}
                 data={listItems}
                 renderItem={(item) => {
+                  console.log('tem flatlisst', item.item);
                   return (
                     <TouchableOpacity
                       onPress={() => {
@@ -137,7 +122,7 @@ function StoreProfileView(props) {
                           },
                         );
                       }}>
-                      <StoreProduct item={item} del={() => del(item)} />
+                      <ProductItem item={item.item} />
                     </TouchableOpacity>
                   );
                 }}

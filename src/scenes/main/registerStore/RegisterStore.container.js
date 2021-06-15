@@ -42,6 +42,7 @@ export default function RegisterStoreContainer({navigation}) {
     'https://cdn.pixabay.com/photo/2016/10/08/18/34/camera-1724286_1280.png',
   );
   const [visible, setVisible] = useState(false);
+  const [check, setCheck] = useState(false);
 
   const handleClose = () => {
     setData({
@@ -367,10 +368,12 @@ export default function RegisterStoreContainer({navigation}) {
       frontID={frontID}
       backID={backId}
       visible={visible}
+      check={check}
       setVisible={setVisible}
       setData={setData}
       setName={setName}
       setDes={setDes}
+      setCheck={setCheck}
       textInputAddress={textInputAddress}
       wardData={wardData}
       provinceData={provinceData}
