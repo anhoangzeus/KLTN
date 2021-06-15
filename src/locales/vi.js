@@ -203,6 +203,8 @@ export default {
     oneImage: 'Chọn 1 hình...',
     takephoto: 'Chụp hình...',
     registerStore: 'Đăng ký mở gian hàng',
+    submit: 'Submit',
+    next: 'tiếp theo',
   },
   message: {
     ERROR_OCCURRED: 'An error occurred, please try again.',

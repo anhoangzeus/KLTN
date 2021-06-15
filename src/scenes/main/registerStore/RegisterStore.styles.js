@@ -1,8 +1,185 @@
-import {StyleSheet} from 'react-native';
-
+import {StyleSheet, Dimensions} from 'react-native';
+const {height, width} = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#2B4F8C',
+    backgroundColor: '#fff',
+  },
+  resView: {
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  stepImg: {
+    height: height / 15,
+    width: width / 2,
+    resizeMode: 'stretch',
+  },
+  infoView: {
+    width: width,
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  ChangeStatus: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  nameText: {marginLeft: width * 0.05, fontSize: height / 50},
+  nameInput: {
+    borderLeftWidth: 1,
+    borderTopWidth: 1,
+    borderRightWidth: 1,
+    borderBottomWidth: 1,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: 10,
+    width: width * 0.9,
+    borderColor: '#6Ec0B6',
+    marginLeft: width * 0.05,
+  },
+  btnthem: {
+    alignSelf: 'flex-end',
+    backgroundColor: '#6Ec0B6',
+    height: height / 20,
+    width: width / 4,
+    borderRadius: height / 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  themAdd: {
+    color: '#fff',
+  },
+  pre: {
+    height: height / 20,
+    width: width / 4,
+    backgroundColor: '#6Ec0B6',
+    marginBottom: height / 50,
+    borderRadius: height / 50,
+  },
+  next: {
+    height: height / 20,
+    width: width / 4,
+    backgroundColor: '#6Ec0B6',
+    marginBottom: height / 50,
+    borderRadius: height / 50,
+    marginLeft: width / 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  userContainer: {
+    marginTop: 5,
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+  },
+  totalContainer1: {
+    marginTop: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  nameView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  whiteText: {
+    color: '#000',
+    fontSize: height / 40,
+  },
+  totalContainer: {
+    flexDirection: 'row',
+    paddingHorizontal: 10,
+    backgroundColor: '#EEEEEE',
+  },
+  textContainer: {
+    flex: 1,
+    marginLeft: 10,
+  },
+  welcomeText: {
+    color: 'black',
+    fontSize: height / 40,
+  },
+  divider: {
+    height: 2,
+  },
+  errorMsg: {
+    color: '#FF0000',
+    fontSize: 15,
+  },
+  errtext: {
+    color: 'red',
+    fontSize: height / 40,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'red',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    justifyContent: 'center',
+  },
+  ModalContainer: {
+    height: height / 2,
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+    fontSize: 20,
+    color: '#2B4F8C',
+  },
+  modalText1: {
+    marginBottom: 15,
+    textAlign: 'center',
+    fontSize: 20,
+    color: '#6Ec0B6',
+  },
+  centeredView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+  picker: {
+    height: 40,
+    width: width,
+  },
+  picker1: {
+    height: 40,
+    width: width / 2,
+  },
+  marTen: {marginLeft: 10},
+  marHori: {marginHorizontal: 10},
+  greenText: {color: '#6Ec0B6', fontSize: 20},
+  btnSubmit: {
+    backgroundColor: '#6Ec0B6',
+    marginHorizontal: 10,
+    marginVertical: 10,
+    height: height / 20,
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  subBtnText: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: 'white',
+    marginTop: 5,
+  },
+  listItem: {
+    backgroundColor: '#fff',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    borderRadius: 5,
+    width: width,
+    height: height / 7,
+  },
+  address: {
+    width: width * 0.8,
   },
 });

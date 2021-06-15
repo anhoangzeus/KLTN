@@ -204,6 +204,8 @@ export default {
     oneImage: 'Choose image...',
     takephoto: 'Take a photo...',
     registerStore: 'Register to open store',
+    submit: 'Submit',
+    next: 'next',
   },
   message: {
     ERROR_OCCURRED: 'An error occurred, please try again.',
