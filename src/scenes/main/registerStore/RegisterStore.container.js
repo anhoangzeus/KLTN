@@ -8,7 +8,8 @@ import useSelectorShallow, {
 import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
-import {launchCamera} from 'react-native-image-picker';
+// import {launchCamera} from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 import vn from '../../../../vn.json';
 import I18n from 'utils/i18n';
 const NAMESPACE = 'common';
@@ -35,10 +36,10 @@ export default function RegisterStoreContainer({navigation}) {
   const [des, setDes] = useState('');
   const [address, setAddress] = useState([]);
   const [frontID, setFrontID] = useState(
-    'https://thailamlandscape.vn/wp-content/uploads/2017/10/no-image.png',
+    'https://cdn.pixabay.com/photo/2016/10/08/18/34/camera-1724286_1280.png',
   );
-  const [backId] = useState(
-    'https://thailamlandscape.vn/wp-content/uploads/2017/10/no-image.png',
+  const [backId, setBackID] = useState(
+    'https://cdn.pixabay.com/photo/2016/10/08/18/34/camera-1724286_1280.png',
   );
   const [visible, setVisible] = useState(false);
 
@@ -49,10 +50,17 @@ export default function RegisterStoreContainer({navigation}) {
     });
   };
   const newAdd = () => {
-    let arr = address;
-    arr.push(data);
-    setAddress(arr);
-    setVisible(false);
+    if (
+      data.City !== '' &&
+      data.Huyen !== '' &&
+      data.Xa &&
+      data.NumberAddress !== ''
+    ) {
+      let arr = address;
+      arr.push(data);
+      setAddress(arr);
+      setVisible(false);
+    }
   };
   const setModalVisibleWarning = (visible, text) => {
     setData(
@@ -305,23 +313,41 @@ export default function RegisterStoreContainer({navigation}) {
   };
 
   const takeFrontID = () => {
-    launchCamera(
-      {
-        quality: 1.0,
-        maxWidth: 1024,
-        maxHeight: 650,
-        storageOptions: {
-          skipBackup: true,
-          path: 'images',
-        },
-        mediaType: 'photo',
-        cameraType: 'back',
-        includeBase64: false,
-      },
-      (response) => {
-        setFrontID(response.uri);
-      },
-    );
+    // launchCamera(
+    //   {
+    //     quality: 1.0,
+    //     maxWidth: 1024,
+    //     maxHeight: 650,
+    //     storageOptions: {
+    //       skipBackup: true,
+    //       path: 'images',
+    //     },
+    //     mediaType: 'photo',
+    //     cameraType: 'back',
+    //     includeBase64: false,
+    //   },
+    //   (response) => {
+    //     setFrontID(response.uri);
+    //   },
+    // );
+    ImagePicker.openCamera({
+      width: 400,
+      height: 300,
+      cropping: true,
+    }).then((image) => {
+      console.log(image);
+      setFrontID(image.path);
+    });
+  };
+  const takeBackID = () => {
+    ImagePicker.openCamera({
+      width: 400,
+      height: 300,
+      cropping: true,
+    }).then((image) => {
+      console.log(image);
+      setBackID(image.path);
+    });
   };
   functionsCounter.add(wardData);
   functionsCounter.add(districtData);
@@ -329,6 +355,7 @@ export default function RegisterStoreContainer({navigation}) {
   functionsCounter.add(textInputAddress);
   functionsCounter.add(newAdd);
   functionsCounter.add(takeFrontID);
+  functionsCounter.add(takeBackID);
   return (
     <RegisterStoreView
       isLoading={isLoading}
@@ -352,6 +379,7 @@ export default function RegisterStoreContainer({navigation}) {
       setStep={setStep}
       newAdd={newAdd}
       takeFrontID={takeFrontID}
+      takeBackID={takeBackID}
     />
   );
 }

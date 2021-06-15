@@ -300,6 +300,7 @@ export default function infoUserContainer({navigation}) {
         setModalVisibleWarning(true, I18n.t(`${NAMESPACE}.missinfo`));
       }
     }
+    setIsloading(false);
   };
 
   const pairToSubmitImage = (response) => {

@@ -3,6 +3,10 @@ const {height, width} = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#2B4F8C',
+  },
+  subcontainer: {
+    flex: 1,
     backgroundColor: '#fff',
   },
   resView: {
@@ -35,6 +39,7 @@ export default StyleSheet.create({
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
     width: width * 0.9,
+    height: height / 20,
     borderColor: '#6Ec0B6',
     marginLeft: width * 0.05,
   },
@@ -97,6 +102,9 @@ export default StyleSheet.create({
   welcomeText: {
     color: 'black',
     fontSize: height / 40,
+    width: width,
+    borderBottomWidth: 2,
+    borderBottomColor: '#6Ec0B6',
   },
   divider: {
     height: 2,
@@ -149,8 +157,15 @@ export default StyleSheet.create({
     height: 40,
     width: width,
   },
+  pickerView: {
+    height: height / 20,
+    justifyContent: 'center',
+    borderColor: '#6Ec0B6',
+    borderWidth: 2,
+    borderRadius: height / 50,
+  },
   picker1: {
-    height: 40,
+    height: height / 20,
     width: width / 2,
   },
   marTen: {marginLeft: 10},
