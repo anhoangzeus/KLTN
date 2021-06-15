@@ -6,10 +6,10 @@ import Header from 'components/Header';
 import SCENE_NAMES from 'constants/sceneName';
 import moment from 'moment';
 import React from 'react';
-import {StatusBar, Text, TouchableOpacity, View} from 'react-native';
-import {normalize} from 'react-native-elements';
+import { StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { normalize } from 'react-native-elements';
 import OTPTextInput from 'react-native-otp-textinput';
-import {Modal} from 'react-native-paper';
+import { Modal } from 'react-native-paper';
 import RNSmtpMailer from 'react-native-smtp-mailer';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import NavigationServices from 'utils/navigationServices';
@@ -17,11 +17,11 @@ import styles from './RegiserOtp.styles';
 import I18n from 'utils/i18n';
 const NAMESPACE = 'common';
 class RegiserOtpContainer extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       textOPT: '',
-      numOTP: 123456,
+      numOTP: '000000',
       timeOut: 60,
       modalVisible: false,
       modalVisibleWarning: false,
@@ -31,30 +31,28 @@ class RegiserOtpContainer extends React.Component {
   }
 
   handleClose = () => {
-    this.setState({modalVisible: false, modalVisibleWarning: false});
+    this.setState({ modalVisible: false, modalVisibleWarning: false });
   };
   setModalVisible = (visible, text) => {
-    this.setState({modalVisible: visible, textAlert: text});
+    this.setState({ modalVisible: visible, textAlert: text });
     setTimeout(this.handleClose, 1500);
   };
   setModalVisibleWarning = (visible, text) => {
-    this.setState({modalVisibleWarning: visible, textAlert: text});
+    this.setState({ modalVisibleWarning: visible, textAlert: text });
     setTimeout(this.handleClose, 1500);
   };
 
   onChangeText = (val) => {
-    this.setState({textOPT: val});
+    this.setState({ textOPT: val });
   };
 
   getRandom = (length) => {
-    var num = Math.floor(
-      Math.pow(10, length - 1) + Math.random() * 9 * Math.pow(10, length - 1),
-    );
-    this.setState({numOTP: num});
+    var num = Math.floor(Math.pow(10, length - 1) + Math.random() * 9 * Math.pow(10, length - 1)).toString();
+    this.setState({ numOTP: num });
     return num;
   };
   sentOTP = () => {
-    const {data} = this.props.route.params;
+    const { data } = this.props.route.params;
     RNSmtpMailer.sendMail({
       mailhost: 'smtp.gmail.com',
       port: '465',
@@ -69,10 +67,10 @@ class RegiserOtpContainer extends React.Component {
       )} 90s</h1><p>${this.getRandom(6)}</p>`,
     })
       .then(() => {
-        this.setState({timeOut: 60});
+        this.setState({ timeOut: 60 });
         this.interval = setInterval(() => {
           if (this.state.timeOut > 0) {
-            this.setState({timeOut: this.state.timeOut - 1});
+            this.setState({ timeOut: this.state.timeOut - 1 });
           } else {
             clearInterval(this.interval);
           }
@@ -81,9 +79,9 @@ class RegiserOtpContainer extends React.Component {
       .catch((err) => console.log(err));
   };
   register = () => {
-    const {numOTP, textOPT, timeOut} = this.state;
-    const {data} = this.props.route.params;
-    if (typeof (numOTP === textOPT)) {
+    const { numOTP, textOPT, timeOut } = this.state;
+    const { data } = this.props.route.params;
+    if (numOTP === textOPT) {
       if (timeOut > 0) {
         auth()
           .createUserWithEmailAndPassword(data.username, data.password)
@@ -122,7 +120,7 @@ class RegiserOtpContainer extends React.Component {
     this.sentOTP();
   }
   render() {
-    const {modalVisible, modalVisibleWarning, textAlert, timeOut} = this.state;
+    const { modalVisible, modalVisibleWarning, textAlert, timeOut } = this.state;
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="#2B4F8C" />
@@ -136,7 +134,7 @@ class RegiserOtpContainer extends React.Component {
             inputCount={6}
           />
           <TouchableOpacity
-            style={{...styles.btnConfirm, backgroundColor: 'red'}}
+            style={{ ...styles.btnConfirm, backgroundColor: 'red' }}
             onPress={() => {
               this.sentOTP();
             }}>
@@ -145,7 +143,7 @@ class RegiserOtpContainer extends React.Component {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{...styles.btnConfirm, marginTop: normalize(50)}}
+            style={{ ...styles.btnConfirm, marginTop: normalize(50) }}
             onPress={() => {
               this.register();
             }}>
