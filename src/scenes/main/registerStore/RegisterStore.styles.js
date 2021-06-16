@@ -19,6 +19,11 @@ export default StyleSheet.create({
     width: width / 2,
     resizeMode: 'stretch',
   },
+  logoimg: {
+    height: height / 3,
+    width: width / 1.5,
+    resizeMode: 'stretch',
+  },
   infoView: {
     width: width,
     justifyContent: 'space-between',
@@ -67,6 +72,8 @@ export default StyleSheet.create({
     backgroundColor: '#2B4F8C',
     marginBottom: height / 50,
     borderRadius: height / 50,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   next: {
     height: height / 20,
@@ -204,4 +211,5 @@ export default StyleSheet.create({
   address: {
     width: width * 0.8,
   },
+  legacy: {width: width * 0.8, marginLeft: width * 0.1},
 });

@@ -22,6 +22,8 @@ import Header from 'components/Header';
 import styles from './RegisterStore.styles';
 import I18n from 'utils/i18n';
 import CheckBox from '@react-native-community/checkbox';
+import Loading from 'components/LoadingView';
+import Col from 'components/Col';
 const NAMESPACE = 'common';
 
 // import {NAMESPACE} from './RegisterStore.constants';
@@ -36,6 +38,7 @@ function RegisterStoreView(props) {
     check,
     frontID,
     backID,
+    loading,
     setVisible,
     setStep,
     setName,
@@ -50,6 +53,7 @@ function RegisterStoreView(props) {
     newAdd,
     takeFrontID,
     takeBackID,
+    submit,
   } = props;
   return (
     <SafeAreaView style={styles.container}>
@@ -191,15 +195,27 @@ function RegisterStoreView(props) {
               source={require('../../../assets/images/step4.png')}
               style={styles.stepImg}
             />
+            <Image
+              source={require('../../../assets/images/logoAn-02.png')}
+              style={styles.logoimg}
+            />
+            <Text styles={styles.legacy}>
+              {I18n.t(`${NAMESPACE}.legacy1`)}{' '}
+            </Text>
+            <Text>{I18n.t(`${NAMESPACE}.legacy2`)} </Text>
             <View style={styles.ChangeStatus}>
               <CheckBox
                 value={check}
                 onValueChange={(newValue) => setCheck(newValue)}
               />
-              <Text>Tôi đồng ý với các điều khoản bên trên</Text>
+              <Text>{I18n.t(`${NAMESPACE}.argree`)}</Text>
             </View>
             <View style={styles.ChangeStatus}>
-              <TouchableOpacity style={styles.pre} onPress={() => setStep(3)} />
+              <TouchableOpacity style={styles.pre} onPress={() => submit()}>
+                <Text style={styles.themAdd}>
+                  {I18n.t(`${NAMESPACE}.submit`)}
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         ) : null}
@@ -331,6 +347,21 @@ function RegisterStoreView(props) {
             </TouchableOpacity>
           </SafeAreaView>
         </Modal>
+        {loading && (
+          <Col
+            center
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              position: 'absolute',
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            }}>
+            <Loading />
+          </Col>
+        )}
       </View>
     </SafeAreaView>
   );
