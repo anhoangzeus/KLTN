@@ -204,7 +204,12 @@ export default {
     takephoto: 'Chụp hình...',
     registerStore: 'Đăng ký mở gian hàng',
     submit: 'Submit',
-    next: 'tiếp theo',
+    next: 'Tiếp theo',
+    legacy1:
+      'Khi khách hàng kinh doanh trên app của TiAN, TiAN sẽ lấy phí 5% trên mỗi đơn hàng.',
+    legacy2:
+      'Các sản phẩm được bày bán phải là san phẩm chay và có nguồn gốc rõ ràng, nếu phát hiện có hành vi không tuân thủ quy đinh TiAn có quyền đơn phương huỷ tư cách kinh doanh của bạn.',
+    argree: 'Tôi đồng ý với cách điều khoản trên',
   },
   message: {
     ERROR_OCCURRED: 'An error occurred, please try again.',
