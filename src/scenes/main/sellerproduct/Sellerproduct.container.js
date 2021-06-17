@@ -27,18 +27,20 @@ export default function SellerproductContainer({navigation, route}) {
   const itemRef = database();
 
   const [numcart, setnumcart] = useState(0);
-  const [decription, setdecription] = useState('');
-  const [image, setimage] = useState('');
-  const [name, setname] = useState('');
+  const [decription, setdecription] = useState(item.MetaDescription);
+  const [image, setimage] = useState(item.Image);
+  const [name, setname] = useState(item.Name);
   const [UserID, setUserID] = useState(item.UserID);
-  const [price, setprice] = useState('');
-  const [waranty, setwaranty] = useState('');
-  const [promotionprice, setpromotionprice] = useState('');
-  const [metadescription, setmetadescription] = useState('');
+  const [price, setprice] = useState(item.Price);
+  const [waranty, setwaranty] = useState(item.Warranty);
+  const [promotionprice, setpromotionprice] = useState(item.PromotionPrice);
+  const [metadescription, setmetadescription] = useState(item.MetaDescription);
   const [listproductlienquan, setlistproductlienquan] = useState([]);
-  const [listmoreimage, setlistmoreimage] = useState([]);
+  const [listmoreimage, setlistmoreimage] = useState(
+    item.Iamges ? item.Images : [],
+  );
   const [listcomment, setlistcomment] = useState([]);
-  const [idsanpham, setidsanpham] = useState(item.id);
+  const [idsanpham, setidsanpham] = useState(item.ProductID);
   const [listcart, setlistcart] = useState([]);
   const [modalvisible, setmodalvisible] = useState(false);
   const [scrollY] = useState(new Animated.Value(0));

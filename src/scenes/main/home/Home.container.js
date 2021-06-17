@@ -244,27 +244,31 @@ function HomeContainer({navigation}) {
       .then((snapshot) => {
         var items = [];
         snapshot.forEach(function (childSnapshot) {
-          var point = 0;
-          var count = 0;
-          childSnapshot.child('Rating').forEach((child) => {
-            point += child.val().Point;
-            count++;
-          });
-          items.push({
-            Name: childSnapshot.val().Name,
-            Price: childSnapshot.val().Price,
-            Image: childSnapshot.val().Image,
-            MetaDescription: childSnapshot.val().MetaDescription,
-            ProductID: childSnapshot.val().ProductID,
-            rating: point / count,
-            count: count,
-            BrandID: childSnapshot.val().BrandID,
-            CategoryID: childSnapshot.val().CategoryID,
-            PromotionPrice: childSnapshot.val().PromotionPrice,
-            UserID: childSnapshot.val().UserID
-              ? childSnapshot.val().UserID
-              : null,
-          });
+          if (childSnapshot.val().Status === true) {
+            var point = 0;
+            var count = 0;
+            childSnapshot.child('Rating').forEach((child) => {
+              point += child.val().Point;
+              count++;
+            });
+            items.push({
+              Name: childSnapshot.val().Name,
+              Price: childSnapshot.val().Price,
+              Image: childSnapshot.val().Image,
+              MetaDescription: childSnapshot.val().MetaDescription,
+              Description: childSnapshot.val().Description,
+              Warranty: childSnapshot.val().Warranty,
+              ProductID: childSnapshot.val().ProductID,
+              rating: point / count,
+              count: count,
+              BrandID: childSnapshot.val().BrandID,
+              CategoryID: childSnapshot.val().CategoryID,
+              PromotionPrice: childSnapshot.val().PromotionPrice,
+              UserID: childSnapshot.val().UserID
+                ? childSnapshot.val().UserID
+                : null,
+            });
+          }
         });
         setListall(items);
       });
