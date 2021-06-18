@@ -132,13 +132,13 @@ export default function SellerproductContainer({navigation, route}) {
         snapshot.child('Rating').forEach((child) => {
           if (child.val().Point === '1') {
             _sao1++;
-          } else if (child.val().Point === '2') {
+          } else if (child.val().Point === 2) {
             _sao2++;
-          } else if (child.val().Point === '3') {
+          } else if (child.val().Point === 3) {
             _sao3++;
-          } else if (child.val().Point === '4') {
+          } else if (child.val().Point === 4) {
             _sao4++;
-          } else if (child.val().Point === '5') {
+          } else if (child.val().Point === 5) {
             _sao5++;
           }
           point += child.val().Point;

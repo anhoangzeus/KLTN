@@ -42,7 +42,6 @@ function ProductView(props) {
     name,
     rating,
     idsanpham,
-    metadescription,
     price,
     promotionprice,
     waranty,
@@ -171,8 +170,8 @@ function ProductView(props) {
                         });
                       }}>
                       <Text style={styles.textGreen}>
-                        ( ({I18n.t(`${NAMESPACE}.see`)} {bough} (
-                        {I18n.t(`${NAMESPACE}.review`)})
+                        ({I18n.t(`${NAMESPACE}.see`)} {bough}{' '}
+                        {I18n.t(`${NAMESPACE}.rv`)} )
                       </Text>
                     </TouchableOpacity>
                   </View>
@@ -183,7 +182,6 @@ function ProductView(props) {
                   </Text>
                 )}
 
-                <Text style={styles.metaView}>{metadescription}</Text>
                 <View style={styles.priceView}>
                   <Text style={styles.priceText}>
                     <NumberFormat value={promotionprice} />{' '}
@@ -259,7 +257,7 @@ function ProductView(props) {
             <View style={styles.relateView}>
               <View style={styles.clientView}>
                 <Text bold size={12} style={styles.clientText}>
-                  ({I18n.t(`${NAMESPACE}.guestreview`)}{' '}
+                  ({I18n.t(`${NAMESPACE}.guestreview`)} )
                 </Text>
                 <TouchableOpacity
                   onPress={() => {
@@ -269,7 +267,7 @@ function ProductView(props) {
                   }}>
                   <Text style={styles.viewAll}>
                     {' '}
-                    ({I18n.t(`${NAMESPACE}.viewall`)}
+                    ({I18n.t(`${NAMESPACE}.seeAll`)}
                   </Text>
                 </TouchableOpacity>
               </View>

@@ -99,7 +99,12 @@ const RatingView = (props) => {
             <TouchableOpacity
               onPress={() => {
                 setModalVisible(true);
-                getRatingPoint(item.ProductId, item.OrderID, item.id);
+                getRatingPoint(
+                  item.ProductId,
+                  item.OrderID,
+                  item.id,
+                  item.UserProduct,
+                );
               }}>
               <ProductItem item={item} />
             </TouchableOpacity>

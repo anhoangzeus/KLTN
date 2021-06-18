@@ -1,22 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useLayoutEffect, useState, useEffect } from 'react';
+import React, {useLayoutEffect, useState, useEffect} from 'react';
 import PaymentMethodView from './PaymentMethod.view';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
-import { NAMESPACE } from './PaymentMethod.constants';
-import { getString } from 'utils/i18n';
+import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
+import {NAMESPACE} from './PaymentMethod.constants';
+import {getString} from 'utils/i18n';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
-import NavigationServices, { getParams } from 'utils/navigationServices';
+import NavigationServices, {getParams} from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 const functionsCounter = new Set();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 
-export default function PaymentMethodContainer({ navigation, route }) {
+export default function PaymentMethodContainer({navigation, route}) {
   const [checked, setchecked] = useState('first');
   const [loading] = useState(false);
   const [modalVisible, setmodalVisible] = useState(false);
@@ -173,6 +173,10 @@ export default function PaymentMethodContainer({ navigation, route }) {
                 Picture: childSnapshot.val().Picture,
                 BrandName: childSnapshot.val().BrandName,
                 CategoryName: childSnapshot.val().CategoryName,
+                UserID: childSnapshot.val().UserID
+                  ? childSnapshot.val().UserID
+                  : null,
+                UserProduct: childSnapshot.val().UserID ? true : false,
                 Status: false,
               });
             database()
