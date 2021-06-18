@@ -37,7 +37,7 @@ export default function ProductContainer({navigation, route}) {
   const [listproductlienquan, setlistproductlienquan] = useState([]);
   const [listmoreimage, setlistmoreimage] = useState([]);
   const [listcomment, setlistcomment] = useState([]);
-  const [idsanpham, setidsanpham] = useState(item.id);
+  const [idsanpham, setidsanpham] = useState(item.ProductID);
   const [listcart, setlistcart] = useState([]);
   const [modalvisible, setmodalvisible] = useState(false);
   const [scrollY] = useState(new Animated.Value(0));
@@ -93,11 +93,11 @@ export default function ProductContainer({navigation, route}) {
               var point = 0;
               var count = 0;
               items.push({
-                title: child.val().Name,
-                price: child.val().Price,
-                image: child.val().Image,
-                metades: child.val().MetaDescription,
-                id: child.val().ProductID,
+                Name: child.val().Name,
+                Price: child.val().Price,
+                Image: child.val().Image,
+                MetaDescription: child.val().MetaDescription,
+                ProductID: child.val().ProductID,
                 rating: point / count,
                 bough: count,
                 BrandID: child.val().BrandID,
@@ -113,10 +113,10 @@ export default function ProductContainer({navigation, route}) {
   };
   const getData = () => {
     var ImageItems = [];
-    console.log('id san pham: ', item.id);
+    console.log('id san pham: ', item.ProductID);
     database()
       .ref('/Products')
-      .child(item.id)
+      .child(item.ProductID)
       .once('value')
       .then((snapshot) => {
         var _sao1 = 0;
@@ -168,7 +168,7 @@ export default function ProductContainer({navigation, route}) {
       });
     database()
       .ref('/Products/')
-      .child(item.id)
+      .child(item.ProductID)
       .child('Images')
       .once('value')
       .then((snapshot) => {

@@ -239,6 +239,7 @@ export default function SellerproductContainer({navigation, route}) {
       Price: '',
       ProductID: '',
       Quantity: 0,
+      uid: '',
     };
     var temp = 0;
     listcart.forEach(function (element) {
@@ -251,6 +252,7 @@ export default function SellerproductContainer({navigation, route}) {
         product.Price = element.Price;
         product.ProductID = element.Id;
         product.Quantity = element.Quantity;
+        product.UserID = element.UserID;
       }
     });
     if (auth().currentUser !== null) {
@@ -266,6 +268,7 @@ export default function SellerproductContainer({navigation, route}) {
             Picture: image,
             Price: price,
             Quantity: 1,
+            UserID: item.UserID,
           });
       } else {
         database()
@@ -278,6 +281,7 @@ export default function SellerproductContainer({navigation, route}) {
             Picture: product.image,
             Price: product.Price,
             Quantity: product.Quantity,
+            UserID: item.UserID,
           });
       }
       GetCartData();
