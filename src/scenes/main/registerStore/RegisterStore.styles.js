@@ -86,9 +86,9 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   userContainer: {
-    marginTop: 5,
     backgroundColor: '#fff',
     flexDirection: 'row',
+    borderTopColor: '#ededed',
   },
   totalContainer1: {
     marginTop: 5,
@@ -109,7 +109,6 @@ export default StyleSheet.create({
     backgroundColor: '#EEEEEE',
   },
   textContainer: {
-    flex: 1,
     marginLeft: 10,
   },
   welcomeText: {
@@ -132,7 +131,6 @@ export default StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    backgroundColor: 'red',
     borderRadius: 20,
     padding: 35,
     alignItems: 'center',
@@ -148,6 +146,13 @@ export default StyleSheet.create({
   },
   ModalContainer: {
     height: height / 2,
+    marginTop: height / 2,
+    width: width,
+    borderColor: '#000',
+    marginLeft: -width / 20,
+    borderWidth: 1,
+    flex: 1,
+    borderRadius: 15,
   },
   modalText: {
     marginBottom: 15,

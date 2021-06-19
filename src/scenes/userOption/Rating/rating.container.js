@@ -72,8 +72,6 @@ export default function Rating({navigation}) {
         username = snapshot.val().FullName;
         Avatar = snapshot.val().Avatar;
       });
-    console.log('kiem tra id san pham duoc vote: ', idvoted);
-    console.log('kiem tra id cua order duoc vote: ', orderdetailid);
     if (UserProduct === false) {
       console.log('vao ham kiem tra rating main: ', UserProduct);
       database()
@@ -107,7 +105,8 @@ export default function Rating({navigation}) {
       .update({
         Status: true,
       })
-      .then(setmodalVisibleSuccess(true));
+      .then(setmodalVisibleSuccess(true))
+      .then(setModalVisible(false));
   };
   const handleChange = (val) => {
     settextCmt(val);

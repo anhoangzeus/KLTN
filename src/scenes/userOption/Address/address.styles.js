@@ -49,7 +49,7 @@ export default StyleSheet.create({
   },
   address: {
     marginLeft: 10,
-    fontSize: 25,
+    fontSize: SIZE.DEVICE_HEIGHT / 35,
     color: '#000',
   },
   buttonXem: {
@@ -148,15 +148,15 @@ export default StyleSheet.create({
     marginTop: 10,
   },
   btnAdd: {
-    height: SIZE.DEVICE_WIDTH / 10,
-    width: SIZE.DEVICE_WIDTH / 3.3,
-    backgroundColor: 'red',
+    height: SIZE.DEVICE_WIDTH / 15,
+    width: SIZE.DEVICE_WIDTH / 3.5,
+    backgroundColor: '#FF6666',
     justifyContent: 'center',
     borderRadius: 15,
   },
   btnDel: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 15,
     textAlign: 'center',
   },
   marginHeader: {

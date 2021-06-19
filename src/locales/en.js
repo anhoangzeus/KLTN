@@ -137,7 +137,9 @@ export default {
     city: 'Province/City',
     district: 'District',
     prov: 'Wards',
-    defaulAdd: 'Default address',
+    defaulAdd: 'Set as delivery address',
+    mainAdd: 'Current delivery address',
+
     saveAdd: 'Save address',
     date: 'Date',
     orderid: 'Order ID',

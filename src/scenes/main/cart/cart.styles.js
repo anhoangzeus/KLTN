@@ -150,6 +150,7 @@ export default StyleSheet.create({
   },
   flexRow: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
   txtCreatOrder: {
     color: 'white',

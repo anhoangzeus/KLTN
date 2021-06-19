@@ -92,22 +92,31 @@ export default function SellerproductContainer({navigation, route}) {
       .once('value')
       .then((snapshot) => {
         var items = [];
-        snapshot.forEach(function (child) {
-          if (child.val().ProductID !== ProductID) {
-            if (child.val().CategoryID === Category_ID) {
+        snapshot.forEach(function (childSnapshot) {
+          if (childSnapshot.val().ProductID !== ProductID) {
+            if (childSnapshot.val().CategoryID === Category_ID) {
               var point = 0;
               var count = 0;
+              childSnapshot.child('Rating').forEach((child) => {
+                point += child.val().Point;
+                count++;
+              });
               items.push({
-                title: child.val().Name,
-                price: child.val().Price,
-                image: child.val().Image,
-                metades: child.val().MetaDescription,
-                id: child.val().ProductID,
+                Name: childSnapshot.val().Name,
+                Price: childSnapshot.val().Price,
+                Image: childSnapshot.val().Image,
+                MetaDescription: childSnapshot.val().MetaDescription,
+                Description: childSnapshot.val().Description,
+                Warranty: childSnapshot.val().Warranty,
+                ProductID: childSnapshot.val().ProductID,
                 rating: point / count,
-                bough: count,
-                BrandID: child.val().BrandID,
-                CategoryID: child.val().CategoryID,
-                PromotionPrice: child.val().PromotionPrice,
+                count: count,
+                BrandID: childSnapshot.val().BrandID,
+                CategoryID: childSnapshot.val().CategoryID,
+                PromotionPrice: childSnapshot.val().PromotionPrice,
+                UserID: childSnapshot.val().UserID
+                  ? childSnapshot.val().UserID
+                  : null,
               });
             }
           }
@@ -314,18 +323,30 @@ export default function SellerproductContainer({navigation, route}) {
       .ref('/ProductUser/')
       .once('value')
       .then((snapshot) => {
-        let item = [];
         snapshot.forEach((childSnapshot) => {
           if (childSnapshot.val().UserID === UserID && item.length < 7) {
+            let point = 0;
+            let count = 0;
+            snapshot.child('Rating').forEach((child) => {
+              point += child.val().Point;
+              count++;
+            });
             item.push({
-              title: childSnapshot.val().Name,
-              price: childSnapshot.val().Price,
-              image: childSnapshot.val().Image,
-              id: childSnapshot.val().ProductID,
-              //rating: snapshot / count,
-              bough: childSnapshot.val().Counts,
+              Name: childSnapshot.val().Name,
+              Price: childSnapshot.val().Price,
+              Image: childSnapshot.val().Image,
+              MetaDescription: childSnapshot.val().MetaDescription,
+              Description: childSnapshot.val().Description,
+              Warranty: childSnapshot.val().Warranty,
+              ProductID: childSnapshot.val().ProductID,
+              rating: point / count,
+              count: count,
+              BrandID: childSnapshot.val().BrandID,
+              CategoryID: childSnapshot.val().CategoryID,
               PromotionPrice: childSnapshot.val().PromotionPrice,
-              UserID: childSnapshot.val().UserID,
+              UserID: childSnapshot.val().UserID
+                ? childSnapshot.val().UserID
+                : null,
             });
           }
         });

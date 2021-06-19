@@ -1,5 +1,5 @@
-import { StyleSheet, Dimensions } from 'react-native';
-const { width, height } = Dimensions.get('screen');
+import {StyleSheet, Dimensions} from 'react-native';
+const {width, height} = Dimensions.get('screen');
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
@@ -42,7 +42,20 @@ export default StyleSheet.create({
   },
   welcomeText: {
     color: 'black',
+    width: width * 0.95,
     fontSize: height / 40,
+    borderBottomColor: '#009966',
+    borderBottomWidth: 1,
+    borderLeftColor: '#009966',
+    borderLeftWidth: 1,
+    borderRightColor: '#009966',
+    borderRightWidth: 1,
+    borderTopColor: '#009966',
+    borderTopWidth: 1,
+    borderTopLeftRadius: height / 100,
+    borderBottomLeftRadius: height / 100,
+    borderBottomRightRadius: height / 100,
+    borderTopRightRadius: height / 100,
   },
   divider: {
     height: 2,
@@ -110,16 +123,20 @@ export default StyleSheet.create({
   picker: {
     height: 40,
     width: width,
+    borderColor: '#009966',
+    borderWidth: 1,
   },
   picker1: {
     height: 40,
     width: width / 2,
   },
-  marTen: { marginLeft: 10 },
-  marHori: { marginHorizontal: 10 },
-  greenText: { color: 'green', fontSize: 20 },
+  marTen: {marginLeft: 10},
+  marHori: {marginHorizontal: 10},
+  greenText: {color: 'green', fontSize: 20},
   btnSubmit: {
     backgroundColor: '#FF3333',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginHorizontal: 10,
     marginVertical: 10,
     height: height / 20,
@@ -129,6 +146,5 @@ export default StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     color: 'white',
-    marginTop: 5,
   },
 });

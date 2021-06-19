@@ -87,22 +87,31 @@ export default function ProductContainer({navigation, route}) {
       .once('value')
       .then((snapshot) => {
         var items = [];
-        snapshot.forEach(function (child) {
-          if (child.val().ProductID !== ProductID) {
-            if (child.val().CategoryID === Category_ID) {
+        snapshot.forEach(function (childSnapshot) {
+          if (childSnapshot.val().ProductID !== ProductID) {
+            if (childSnapshot.val().CategoryID === Category_ID) {
               var point = 0;
               var count = 0;
+              snapshot.child('Rating').forEach((child) => {
+                point += child.val().Point;
+                count++;
+              });
               items.push({
-                Name: child.val().Name,
-                Price: child.val().Price,
-                Image: child.val().Image,
-                MetaDescription: child.val().MetaDescription,
-                ProductID: child.val().ProductID,
+                Name: childSnapshot.val().Name,
+                Price: childSnapshot.val().Price,
+                Image: childSnapshot.val().Image,
+                MetaDescription: childSnapshot.val().MetaDescription,
+                Description: childSnapshot.val().Description,
+                Warranty: childSnapshot.val().Warranty,
+                ProductID: childSnapshot.val().ProductID,
                 rating: point / count,
-                bough: count,
-                BrandID: child.val().BrandID,
-                CategoryID: child.val().CategoryID,
-                PromotionPrice: child.val().PromotionPrice,
+                count: count,
+                BrandID: childSnapshot.val().BrandID,
+                CategoryID: childSnapshot.val().CategoryID,
+                PromotionPrice: childSnapshot.val().PromotionPrice,
+                UserID: childSnapshot.val().UserID
+                  ? childSnapshot.val().UserID
+                  : null,
               });
             }
           }

@@ -55,7 +55,6 @@ function ProductView(props) {
     modalvisible,
     image,
   } = props;
-  console.log('list moreimage:', image);
   const scrollY = new Animated.Value(0);
   const HEADER_MAX_HEIGHT = height / 10;
   const HEADER_MIN_HEIGHT = height / 30;
@@ -65,6 +64,7 @@ function ProductView(props) {
     outputRange: [HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT],
     extrapolate: 'clamp',
   });
+  console.log('element product: ', listproductlienquan);
   return (
     <SafeAreaView style={styles.safeView}>
       <View style={styles.container}>
@@ -225,15 +225,7 @@ function ProductView(props) {
                         item: item,
                       });
                     }}>
-                    <SellerProduct
-                      item={item}
-                      // name={item.title}
-                      // image={item.image}
-                      // price={item.price}
-                      // rating={item.rating}
-                      // bough={item.bough}
-                      // PromotionPrice={item.PromotionPrice}
-                    />
+                    <SellerProduct item={item} />
                   </TouchableOpacity>
                 )}
                 keyExtractor={(item) => item.proid}
@@ -275,7 +267,7 @@ function ProductView(props) {
               <View style={styles.rowView}>
                 <View style={styles.ratingView}>
                   {/* <Text style={styles.ratingText}>{rating.toFixed(1)}</Text> */}
-                  <StarRating rating={rating} size={10} />
+                  <StarRating rating={rating} size={15} />
                   <Text style={styles.commentText}>
                     {bough} {I18n.t(`${NAMESPACE}.review`)}
                   </Text>

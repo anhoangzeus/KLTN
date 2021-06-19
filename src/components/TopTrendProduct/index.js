@@ -25,7 +25,7 @@ const NewProductItem = ({item}) => (
       )}
     </Text>
     <View style={styles.starView}>
-      {StarRating(item?.rating)}
+      <StarRating rating={item?.rating} size={15} />
       {item?.bough !== 0 ? (
         <Text style={styles.boughColor}>({item?.bough})</Text>
       ) : null}

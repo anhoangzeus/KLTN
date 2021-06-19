@@ -7,7 +7,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 const StarRating = (rating) => {
   // This array will contain our star tags. We will include this
   // array between the view tag.
-  console.log('rating index: ', rating);
   let stars = [];
 
   // Loop 5 times

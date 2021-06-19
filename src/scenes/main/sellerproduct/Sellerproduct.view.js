@@ -235,14 +235,7 @@ function SellerproductView(props) {
                         item: item,
                       });
                     }}>
-                    <SmallProductCard
-                      name={item.title}
-                      image={item.image}
-                      price={item.price}
-                      rating={item.rating}
-                      bough={item.bough}
-                      PromotionPrice={item.PromotionPrice}
-                    />
+                    <SmallProductCard item={item} />
                   </TouchableOpacity>
                 )}
                 keyExtractor={(item) => item.proid}
@@ -289,16 +282,7 @@ function SellerproductView(props) {
             </TouchableOpacity>
             <View style={styles.listSell}>
               {sellerProd.map((element) => {
-                return (
-                  <SellerProduct
-                    name={element.title}
-                    image={element.image}
-                    price={element.price}
-                    rating={element.rating}
-                    bough={element.bough}
-                    PromotionPrice={element.PromotionPrice}
-                  />
-                );
+                return <SellerProduct item={element} />;
               })}
             </View>
           </View>
@@ -335,7 +319,7 @@ function SellerproductView(props) {
               <View style={styles.rowView}>
                 <View style={styles.ratingView}>
                   {/* <Text style={styles.ratingText}>{rating.toFixed(1)}</Text> */}
-                  <StarRating rating={rating} size={10} />
+                  <StarRating rating={rating} size={17} />
                   <Text style={styles.commentText}>
                     {bough} {I18n.t(`${NAMESPACE}.review`)}
                   </Text>
