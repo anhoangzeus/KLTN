@@ -31,7 +31,7 @@ export default {
     vacuum: 'Chân không',
     orther: 'khác',
     mystore: 'Cửa hàng của tôi',
-    productReview: 'đánh giá sản phẩm',
+    productReview: 'Đánh giá sản phẩm',
     orderManager: 'Quản lý đơn hàng',
     orderwait: 'Đơn hàng đang chờ xác nhận',
     orderwaitpickup: 'Đơn hàng chờ lấy hàng',
@@ -138,7 +138,8 @@ export default {
     city: 'Tỉnh/Thành phố',
     district: 'Quận/Huyện',
     prov: 'Xã/Phường',
-    defaulAdd: 'Địa chỉ mặc định',
+    defaulAdd: 'Đặt làm địa chỉ nhận hàng',
+    mainAdd: 'Địa chỉ nhận hàng hiện tại',
     saveAdd: 'Lưu địa chỉ',
     date: 'Ngày',
     orderid: 'Mã đơn hàng',
@@ -200,11 +201,16 @@ export default {
     chatHeader:
       'Nội dung chat là bí mật được bảo đảm bởi TiAn \nNếu nội dung chat vi phạm hành vi cá nhân bạn có thể tố cáo để được xử lí.',
     moreImage: 'Chọn nhiều hình...',
-    oneImage: 'Chọn 1 hình...',
+    oneImage: 'Chọn hình từ thư viện...',
     takephoto: 'Chụp hình...',
     registerStore: 'Đăng ký mở gian hàng',
     submit: 'Submit',
-    next: 'tiếp theo',
+    next: 'Tiếp theo',
+    legacy1:
+      'Khi khách hàng kinh doanh trên app của TiAN, TiAN sẽ lấy phí 5% trên mỗi đơn hàng.',
+    legacy2:
+      'Các sản phẩm được bày bán phải là san phẩm chay và có nguồn gốc rõ ràng, nếu phát hiện có hành vi không tuân thủ quy đinh TiAn có quyền đơn phương huỷ tư cách kinh doanh của bạn.',
+    argree: 'Tôi đồng ý với cách điều khoản trên',
   },
   message: {
     ERROR_OCCURRED: 'An error occurred, please try again.',

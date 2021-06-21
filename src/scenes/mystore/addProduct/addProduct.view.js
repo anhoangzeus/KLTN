@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import * as React from 'react';
+import {useRef} from 'react';
 import {
   View,
   StatusBar,
@@ -25,6 +26,7 @@ import Loading from 'components/LoadingView';
 import Col from 'components/Col';
 import {KeyboardAvoidingView} from 'react-native';
 import I18n from 'utils/i18n';
+import RBSheet from 'react-native-raw-bottom-sheet';
 const NAMESPACE = 'common';
 const {height, width} = Dimensions.get('screen');
 
@@ -59,6 +61,7 @@ export default function AddProductView(props) {
     Submit,
     isSuccess,
   } = props;
+  const refRBSheet = useRef();
   if (isloading) {
     return (
       <Col
@@ -89,7 +92,7 @@ export default function AddProductView(props) {
             <ScrollView style={styles.bodyContainer}>
               <TouchableOpacity
                 style={styles.userContainer}
-                onPress={() => setPopup(true)}>
+                onPress={() => refRBSheet.current.open()}>
                 <View style={styles.imgView}>
                   {image.map((element) => {
                     return (
@@ -335,12 +338,23 @@ export default function AddProductView(props) {
               </Col>
             )}
           </View>
-          <PopupChooseImage
-            onChooseTake={chooseImageTake}
-            onChooseLibrary={chooseImageLibrary}
-            onClosePress={() => setPopup(false)}
-            isVisible={popup}
-          />
+          <RBSheet
+            ref={refRBSheet}
+            height={height / 4}
+            openDuration={250}
+            customStyles={{
+              container: {
+                justifyContent: 'center',
+                alignItems: 'center',
+              },
+            }}>
+            <PopupChooseImage
+              onChooseTake={chooseImageTake}
+              onChooseLibrary={chooseImageLibrary}
+              onClosePress={() => setPopup(false)}
+              isVisible={popup}
+            />
+          </RBSheet>
           <Modal
             animationType="fade"
             transparent={true}

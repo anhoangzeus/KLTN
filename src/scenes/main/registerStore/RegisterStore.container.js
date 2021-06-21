@@ -8,10 +8,12 @@ import useSelectorShallow, {
 import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
+import storage from '@react-native-firebase/storage';
 // import {launchCamera} from 'react-native-image-picker';
 import ImagePicker from 'react-native-image-crop-picker';
 import vn from '../../../../vn.json';
 import I18n from 'utils/i18n';
+import moment from 'moment';
 const NAMESPACE = 'common';
 const functionsCounter = new Set();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
@@ -42,7 +44,8 @@ export default function RegisterStoreContainer({navigation}) {
     'https://cdn.pixabay.com/photo/2016/10/08/18/34/camera-1724286_1280.png',
   );
   const [visible, setVisible] = useState(false);
-
+  const [check, setCheck] = useState(false);
+  const [loading, setLoading] = useState(false);
   const handleClose = () => {
     setData({
       ...data,
@@ -88,7 +91,6 @@ export default function RegisterStoreContainer({navigation}) {
     }
   };
   const saveChangesHandle = async () => {
-    var location = '';
     //Lấy tọa độ của xã phường
     for (let i = 0; i < vn.length; i++) {
       if (vn[i].name === data.City) {
@@ -119,117 +121,6 @@ export default function RegisterStoreContainer({navigation}) {
     ) {
       setModalVisibleWarning(true, I18n.t(`${NAMESPACE}.missinfo`));
       return;
-    }
-    if (auth().currentUser.uid !== null) {
-      if (data.ListID === '') {
-        if (data.Main === true) {
-          await database()
-            .ref('ListAddress')
-            .child(auth().currentUser.uid)
-            .orderByChild('Main')
-            .once('value')
-            .then((snapshot) => {
-              snapshot.forEach(function (child) {
-                if (child !== data.ListID) {
-                  child.ref.update({Main: false});
-                }
-              });
-            });
-          var newPostKey = database()
-            .ref()
-            .child('ListAddress')
-            .child(auth().currentUser.uid)
-            .push().key;
-          database()
-            .ref('ListAddress')
-            .child(auth().currentUser.uid)
-            .child(newPostKey)
-            .set({
-              ListID: newPostKey,
-              ShipName: data.ShipName,
-              ShipPhone: data.ShipPhone,
-              City: data.City,
-              Huyen: data.Huyen,
-              Xa: data.Xa,
-              NumberAddress: data.NumberAddress,
-              Main: true,
-              Location: location,
-            })
-            .then()
-            .catch();
-        } else {
-          var newPostKey = database()
-            .ref()
-            .child('ListAddress')
-            .child(auth().currentUser.uid)
-            .push().key;
-          database()
-            .ref('ListAddress')
-            .child(auth().currentUser.uid)
-            .child(newPostKey)
-            .set({
-              ListID: newPostKey,
-              ShipName: data.ShipName,
-              ShipPhone: data.ShipPhone,
-              City: data.City,
-              Huyen: data.Huyen,
-              Xa: data.Xa,
-              NumberAddress: data.NumberAddress,
-              Main: false,
-              Location: location,
-            })
-            .then()
-            .catch();
-        }
-      } else {
-        if (data.Main === true) {
-          await database()
-            .ref('ListAddress')
-            .child(auth().currentUser.uid)
-            .orderByChild('Main')
-            .once('value')
-            .then((snapshot) => {
-              snapshot.forEach(function (child) {
-                if (child !== data.ListID) {
-                  child.ref.update({Main: false});
-                }
-              });
-            });
-          database()
-            .ref('ListAddress')
-            .child(auth().currentUser.uid)
-            .child(data.ListID)
-            .update({
-              ShipName: data.ShipName,
-              ShipPhone: data.ShipPhone,
-              City: data.City,
-              Huyen: data.Huyen,
-              Xa: data.Xa,
-              NumberAddress: data.NumberAddress,
-              Main: true,
-              Location: location,
-            })
-            .then()
-            .catch();
-        } else {
-          database()
-            .ref('ListAddress')
-            .child(auth().currentUser.uid)
-            .child(data.ListID)
-            .update({
-              ShipName: data.ShipName,
-              ShipPhone: data.ShipPhone,
-              City: data.City,
-              Huyen: data.Huyen,
-              Xa: data.Xa,
-              NumberAddress: data.NumberAddress,
-              Main: data.Main,
-              Location: location,
-            })
-            .then()
-            .catch();
-        }
-      }
     }
   };
   //Lấy dữ liệu tỉnh/tp từ all.json
@@ -349,6 +240,57 @@ export default function RegisterStoreContainer({navigation}) {
       setBackID(image.path);
     });
   };
+  const submit = async () => {
+    setLoading(true);
+    var fontimg = moment().format('_YYYY_MM_DD_HH_mm_ss') + frontID.split('.');
+    await storage()
+      .ref('ID/' + fontimg)
+      .putFile(frontID);
+    const frontURL = await storage()
+      .ref('ID/' + fontimg)
+      .getDownloadURL();
+
+    var backimg =
+      moment().format('_YYYY_MM_DD_HH_mm_ss') + auth().currentUser.uid;
+    await storage()
+      .ref('ID/' + backimg)
+      .putFile(frontID);
+    const backURL = await storage()
+      .ref('ID/' + fontimg)
+      .getDownloadURL();
+    console.log('front id img url', frontURL);
+    await database()
+      .ref('Brief/' + auth().currentUser.uid)
+      .update({
+        BackID: backURL,
+        FrontID: frontURL,
+        Description: des,
+        StoreName: name,
+        StoreID: auth().currentUser.uid,
+        Status: 1,
+        CreateAt: moment().unix(),
+        ModifyAt: moment().unix(),
+      });
+
+    await address.forEach((element) => {
+      const key = database()
+        .ref('Brief/' + auth().currentUser.uid)
+        .child('Address')
+        .push().key;
+      database()
+        .ref('Brief/' + auth().currentUser.uid + '/Address')
+        .child(key)
+        .update({
+          City: element.City,
+          Huyen: element.Huyen,
+          Main: false,
+          NumberAddress: element.NumberAddress,
+          Xa: element.Xa,
+          Location: element.Location,
+        });
+    });
+    setLoading(false);
+  };
   functionsCounter.add(wardData);
   functionsCounter.add(districtData);
   functionsCounter.add(provinceData);
@@ -356,6 +298,7 @@ export default function RegisterStoreContainer({navigation}) {
   functionsCounter.add(newAdd);
   functionsCounter.add(takeFrontID);
   functionsCounter.add(takeBackID);
+  functionsCounter.add(submit);
   return (
     <RegisterStoreView
       isLoading={isLoading}
@@ -367,10 +310,13 @@ export default function RegisterStoreContainer({navigation}) {
       frontID={frontID}
       backID={backId}
       visible={visible}
+      check={check}
+      loading={loading}
       setVisible={setVisible}
       setData={setData}
       setName={setName}
       setDes={setDes}
+      setCheck={setCheck}
       textInputAddress={textInputAddress}
       wardData={wardData}
       provinceData={provinceData}
@@ -380,6 +326,7 @@ export default function RegisterStoreContainer({navigation}) {
       newAdd={newAdd}
       takeFrontID={takeFrontID}
       takeBackID={takeBackID}
+      submit={submit}
     />
   );
 }

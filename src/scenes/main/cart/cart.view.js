@@ -176,9 +176,7 @@ export default function CartView(props) {
                   </Text>
                   <TouchableOpacity
                     onPress={() => {
-                      NavigationServices.navigate(SCENE_NAMES.DETAIL_ADDRESS, {
-                        content: Address.Id,
-                      });
+                      NavigationServices.navigate(SCENE_NAMES.AddRessScreen);
                     }}>
                     <Text
                       style={{color: 'green', marginRight: 5, fontSize: 17}}>
@@ -207,7 +205,7 @@ export default function CartView(props) {
             <View style={styles.listItem}>
               <TouchableOpacity
                 onPress={() => {
-                  NavigationServices.navigate(SCENE_NAMES.DETAIL_ADDRESS, {
+                  NavigationServices.navigate(SCENE_NAMES.AddRessScreen, {
                     id: '',
                   });
                 }}

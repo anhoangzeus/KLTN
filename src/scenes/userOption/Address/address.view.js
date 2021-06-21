@@ -56,7 +56,7 @@ export default function AddressView(props) {
         <View style={styles.listView}>
           {Main ? (
             <Text style={{marginLeft: 10, color: '#FFCC00'}}>
-              {I18n.t(`${NAMESPACE}.defaulAdd`)}
+              {I18n.t(`${NAMESPACE}.mainAdd`)}
             </Text>
           ) : (
             <Text />

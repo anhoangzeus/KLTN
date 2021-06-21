@@ -6,18 +6,18 @@ import styles from './styles';
 
 const NewProductItem = ({item}) => (
   <View style={styles.itemContainer1}>
-    <Image source={{uri: item?.image}} style={styles.itemImage} />
+    <Image source={{uri: item?.Image}} style={styles.itemImage} />
     <Text style={styles.itemName} numberOfLines={2}>
-      {item?.title}
+      {item?.Name}
     </Text>
     <Text style={styles.itemPrice}>
-      <ReactNativeNumberFormat value={item?.price} />đ
-      {item?.price === item?.PromotionPrice ? null : (
+      <ReactNativeNumberFormat value={item?.Price} />đ
+      {item?.Price === item?.PromotionPrice ? null : (
         <Text style={styles.priceColor}>
           {' '}
           -
           {(
-            ((item?.PromotionPrice - item?.price) / item?.PromotionPrice) *
+            ((item?.PromotionPrice - item?.Price) / item?.PromotionPrice) *
             100
           ).toFixed(0)}
           %
@@ -25,7 +25,7 @@ const NewProductItem = ({item}) => (
       )}
     </Text>
     <View style={styles.starView}>
-      {StarRating(item?.rating)}
+      <StarRating rating={item?.rating} size={15} />
       {item?.bough !== 0 ? (
         <Text style={styles.boughColor}>({item?.bough})</Text>
       ) : null}

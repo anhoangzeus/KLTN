@@ -165,7 +165,7 @@ export default function AddProductContainer({navigation}) {
         MetaDescription: keyword,
         Name: name,
         Price: formprice,
-        Count: count,
+        Count: parseInt(count, 10),
         Status: true,
         UserID: useID,
         ProductID: keyDetail,

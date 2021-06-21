@@ -8,12 +8,9 @@ import {
   View,
   Text,
   TextInput,
-  Modal,
   Platform,
   ScrollView,
 } from 'react-native';
-// import CheckBox from '@react-native-community/checkbox';
-import * as Animatable from 'react-native-animatable';
 import {Picker} from '@react-native-picker/picker';
 import RNPickerSelect from 'react-native-picker-select';
 // import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -21,6 +18,10 @@ import RNPickerSelect from 'react-native-picker-select';
 import Header from 'components/Header';
 import styles from './RegisterStore.styles';
 import I18n from 'utils/i18n';
+import CheckBox from '@react-native-community/checkbox';
+import Loading from 'components/LoadingView';
+import Col from 'components/Col';
+import RBSheet from 'react-native-raw-bottom-sheet';
 const NAMESPACE = 'common';
 
 // import {NAMESPACE} from './RegisterStore.constants';
@@ -32,21 +33,23 @@ function RegisterStoreView(props) {
     address,
     name,
     des,
+    check,
     frontID,
     backID,
-    setVisible,
+    loading,
     setStep,
     setName,
     setDes,
     setData,
+    setCheck,
     textInputAddress,
     wardData,
     provinceData,
     districtData,
-    visible,
     newAdd,
     takeFrontID,
     takeBackID,
+    submit,
   } = props;
   return (
     <SafeAreaView style={styles.container}>
@@ -122,7 +125,7 @@ function RegisterStoreView(props) {
                 </View>
                 <TouchableOpacity
                   style={styles.btnthem}
-                  onPress={() => setVisible(true)}>
+                  onPress={() => this.RBSheet.open()}>
                   <Text style={styles.themAdd}>Thêm địa chỉ</Text>
                 </TouchableOpacity>
               </View>
@@ -135,6 +138,141 @@ function RegisterStoreView(props) {
                   </Text>
                 </TouchableOpacity>
               ) : null}
+              <RBSheet
+                ref={(ref) => {
+                  this.RBSheet = ref;
+                }}
+                keyboardAvoidingViewEnabled
+                height={300}
+                openDuration={250}
+                customStyles={{
+                  container: {
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  },
+                }}>
+                <View style={styles.ModalContainer}>
+                  <View style={styles.userContainer}>
+                    <View style={styles.textContainer}>
+                      <View style={styles.nameView}>
+                        <Text
+                          style={
+                            styles.whiteText
+                            // data.check_textInputaddress
+                            //   ?
+                            //   : styles.errtext
+                          }>
+                          {I18n.t(`${NAMESPACE}.address`)}
+                        </Text>
+                      </View>
+                      <TextInput
+                        placeholderTextColor="#666666"
+                        autoCapitalize="none"
+                        onChangeText={(val) => textInputAddress(val)}
+                        style={styles.welcomeText}>
+                        {data.NumberAddress}
+                      </TextInput>
+                    </View>
+                  </View>
+                  {data.check_textInputaddress ? (
+                    <View style={styles.divider} />
+                  ) : (
+                    // eslint-disable-next-line react-native/no-inline-styles
+                    <View style={{height: 2, backgroundColor: 'red'}} />
+                  )}
+                  <View style={styles.divider} />
+                  <View style={styles.userContainer}>
+                    <View style={styles.textContainer}>
+                      <Text style={styles.whiteText}>
+                        {I18n.t(`${NAMESPACE}.city`)}
+                      </Text>
+                      {Platform.OS === 'android' ? (
+                        <Picker
+                          style={styles.picker}
+                          selectedValue={data.City}
+                          mode="dialog"
+                          onValueChange={(value) => {
+                            setData({...data, City: value});
+                          }}>
+                          {provinceData()}
+                        </Picker>
+                      ) : (
+                        <View style={styles.pickerView}>
+                          <RNPickerSelect
+                            style={styles.picker1}
+                            onValueChange={(value) => {
+                              setData({...data, City: value});
+                            }}
+                            items={provinceData()}
+                          />
+                        </View>
+                      )}
+                    </View>
+                  </View>
+                  <View style={styles.divider} />
+                  <View style={styles.userContainer}>
+                    <View style={styles.textContainer}>
+                      <Text style={styles.whiteText}>
+                        {I18n.t(`${NAMESPACE}.district`)}
+                      </Text>
+                      {Platform.OS === 'android' ? (
+                        <Picker
+                          style={styles.picker1}
+                          selectedValue={data.Huyen}
+                          mode="dialog"
+                          onValueChange={(value) => {
+                            setData({...data, Huyen: value});
+                          }}>
+                          {districtData(data.City)}
+                        </Picker>
+                      ) : (
+                        <View style={styles.pickerView}>
+                          <RNPickerSelect
+                            onValueChange={(value) => {
+                              setData({...data, Huyen: value});
+                            }}
+                            items={districtData(data.City)}
+                            style={styles.picker1}
+                          />
+                        </View>
+                      )}
+                    </View>
+                    <View style={styles.textContainer}>
+                      <Text style={styles.whiteText}>
+                        {I18n.t(`${NAMESPACE}.prov`)}
+                      </Text>
+                      {Platform.OS === 'android' ? (
+                        <Picker
+                          style={styles.picker1}
+                          selectedValue={data.Xa}
+                          mode="dialog"
+                          onValueChange={(value) => {
+                            setData({...data, Xa: value});
+                          }}>
+                          {wardData(data.City, data.Huyen)}
+                        </Picker>
+                      ) : (
+                        <View style={styles.pickerView}>
+                          <RNPickerSelect
+                            onValueChange={(value) => {
+                              setData({...data, Xa: value});
+                            }}
+                            items={wardData(data.City, data.Huyen)}
+                          />
+                        </View>
+                      )}
+                    </View>
+                  </View>
+                  <TouchableOpacity
+                    style={styles.btnSubmit}
+                    onPress={() => newAdd()}>
+                    <Text style={styles.themAdd}>
+                      {' '}
+                      {I18n.t(`${NAMESPACE}.saveAdd`)}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </RBSheet>
             </View>
           </ScrollView>
         ) : null}
@@ -188,139 +326,46 @@ function RegisterStoreView(props) {
               source={require('../../../assets/images/step4.png')}
               style={styles.stepImg}
             />
+            <Image
+              source={require('../../../assets/images/logoAn-02.png')}
+              style={styles.logoimg}
+            />
+            <Text styles={styles.legacy}>
+              {I18n.t(`${NAMESPACE}.legacy1`)}{' '}
+            </Text>
+            <Text>{I18n.t(`${NAMESPACE}.legacy2`)} </Text>
             <View style={styles.ChangeStatus}>
-              <TouchableOpacity style={styles.pre} onPress={() => setStep(3)} />
+              <CheckBox
+                value={check}
+                onValueChange={(newValue) => setCheck(newValue)}
+              />
+              <Text>{I18n.t(`${NAMESPACE}.argree`)}</Text>
+            </View>
+            <View style={styles.ChangeStatus}>
+              <TouchableOpacity style={styles.pre} onPress={() => submit()}>
+                <Text style={styles.themAdd}>
+                  {I18n.t(`${NAMESPACE}.submit`)}
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         ) : null}
-        <Modal visible={visible} style={styles.modalView}>
-          <SafeAreaView style={styles.ModalContainer}>
-            <View style={styles.userContainer}>
-              <View style={styles.textContainer}>
-                <View style={styles.nameView}>
-                  <Text
-                    style={
-                      styles.whiteText
-                      // data.check_textInputaddress
-                      //   ?
-                      //   : styles.errtext
-                    }>
-                    {I18n.t(`${NAMESPACE}.address`)}
-                  </Text>
-                  {data.check_textInputaddress ? null : (
-                    <Animatable.View animation="fadeInLeft" duration={500}>
-                      <Text style={styles.errorMsg}>
-                        {I18n.t(`${NAMESPACE}.recheck`)}
-                      </Text>
-                    </Animatable.View>
-                  )}
-                </View>
-                <TextInput
-                  placeholderTextColor="#666666"
-                  autoCapitalize="none"
-                  onChangeText={(val) => textInputAddress(val)}
-                  style={styles.welcomeText}>
-                  {data.NumberAddress}
-                </TextInput>
-              </View>
-            </View>
-            {data.check_textInputaddress ? (
-              <View style={styles.divider} />
-            ) : (
-              // eslint-disable-next-line react-native/no-inline-styles
-              <View style={{height: 2, backgroundColor: 'red'}} />
-            )}
-            <View style={styles.divider} />
-            <View style={styles.userContainer}>
-              <View style={styles.textContainer}>
-                <Text style={styles.whiteText}>
-                  {I18n.t(`${NAMESPACE}.city`)}
-                </Text>
-                {Platform.OS === 'android' ? (
-                  <Picker
-                    style={styles.picker}
-                    selectedValue={data.City}
-                    mode="dialog"
-                    onValueChange={(value) => {
-                      setData({...data, City: value});
-                    }}>
-                    {provinceData()}
-                  </Picker>
-                ) : (
-                  <View style={styles.pickerView}>
-                    <RNPickerSelect
-                      style={styles.picker1}
-                      onValueChange={(value) => {
-                        setData({...data, City: value});
-                      }}
-                      items={provinceData()}
-                    />
-                  </View>
-                )}
-              </View>
-            </View>
-            <View style={styles.divider} />
-            <View style={styles.userContainer}>
-              <View style={styles.textContainer}>
-                <Text style={styles.whiteText}>
-                  {I18n.t(`${NAMESPACE}.district`)}
-                </Text>
-                {Platform.OS === 'android' ? (
-                  <Picker
-                    style={styles.picker1}
-                    selectedValue={data.Huyen}
-                    mode="dialog"
-                    onValueChange={(value) => {
-                      setData({...data, Huyen: value});
-                    }}>
-                    {districtData(data.City)}
-                  </Picker>
-                ) : (
-                  <View style={styles.pickerView}>
-                    <RNPickerSelect
-                      onValueChange={(value) => {
-                        setData({...data, Huyen: value});
-                      }}
-                      items={districtData(data.City)}
-                      style={styles.picker1}
-                    />
-                  </View>
-                )}
-              </View>
-              <View style={styles.textContainer}>
-                <Text style={styles.whiteText}>
-                  {I18n.t(`${NAMESPACE}.prov`)}
-                </Text>
-                {Platform.OS === 'android' ? (
-                  <Picker
-                    style={styles.picker1}
-                    selectedValue={data.Xa}
-                    mode="dialog"
-                    onValueChange={(value) => {
-                      setData({...data, Xa: value});
-                    }}>
-                    {wardData(data.City, data.Huyen)}
-                  </Picker>
-                ) : (
-                  <View style={styles.pickerView}>
-                    <RNPickerSelect
-                      onValueChange={(value) => {
-                        setData({...data, Xa: value});
-                      }}
-                      items={wardData(data.City, data.Huyen)}
-                    />
-                  </View>
-                )}
-              </View>
-            </View>
-            <TouchableOpacity style={styles.btnSubmit} onPress={() => newAdd()}>
-              <Text style={styles.themAdd}>
-                {' '}
-                {I18n.t(`${NAMESPACE}.saveAdd`)}
-              </Text>
-            </TouchableOpacity>
-          </SafeAreaView>
-        </Modal>
+
+        {loading && (
+          <Col
+            center
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              position: 'absolute',
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            }}>
+            <Loading />
+          </Col>
+        )}
       </View>
     </SafeAreaView>
   );

@@ -12,6 +12,9 @@ import {
   ActivityIndicator,
   Alert,
   SafeAreaView,
+  KeyboardAvoidingView,
+  Platform,
+  Dimensions,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {Rating} from 'react-native-ratings';
@@ -21,6 +24,7 @@ import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 import I18n from 'utils/i18n';
 const NAMESPACE = 'common';
+const {height} = Dimensions.get('screen');
 export const ProductItem = ({item}) => (
   <View style={styles.itemContainer1}>
     <Text style={styles.txtCodeName}>
@@ -99,7 +103,12 @@ const RatingView = (props) => {
             <TouchableOpacity
               onPress={() => {
                 setModalVisible(true);
-                getRatingPoint(item.ProductId, item.OrderID, item.id);
+                getRatingPoint(
+                  item.ProductId,
+                  item.OrderID,
+                  item.id,
+                  item.UserProduct,
+                );
               }}>
               <ProductItem item={item} />
             </TouchableOpacity>
@@ -125,35 +134,40 @@ const RatingView = (props) => {
                   onPress={() => {
                     setModalVisible(false);
                   }}>
-                  <FontAwesome name="times-circle" size={30} color="red" />
+                  <FontAwesome name="times-circle" size={25} color="red" />
                 </TouchableOpacity>
               </View>
               <View>
-                <Rating
-                  ratingCount={5}
-                  imageSize={40}
-                  showRating
-                  onFinishRating={(rating) => ratingCompleted(rating)}
-                  style={{marginBottom: 5}}
-                />
-                <TextInput
-                  textAlignVertical="top"
-                  multiline={true}
-                  placeholder={I18n.t(`${NAMESPACE}.productReview`)}
-                  placeholderTextColor="#2B4F8C"
-                  autoCapitalize="none"
-                  onChangeText={(val) => handleChange(val)}
-                  style={styles.txtInput}
-                />
-                <TouchableOpacity
-                  style={styles.btncomment}
-                  onPress={() => {
-                    votedProduct();
-                  }}>
-                  <Text style={styles.txtSent}>
-                    {I18n.t(`${NAMESPACE}.sendreview`)}
-                  </Text>
-                </TouchableOpacity>
+                <KeyboardAvoidingView
+                  KeyboardAvoidingView
+                  behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+                  <Rating
+                    ratingCount={5}
+                    imageSize={height / 30}
+                    showRating
+                    onFinishRating={(rating) => ratingCompleted(rating)}
+                    style={{marginBottom: 5}}
+                  />
+
+                  <TextInput
+                    textAlignVertical="top"
+                    multiline={true}
+                    placeholder={I18n.t(`${NAMESPACE}.productReview`)}
+                    placeholderTextColor="#0066CC"
+                    autoCapitalize="none"
+                    onChangeText={(val) => handleChange(val)}
+                    style={styles.txtInput}
+                  />
+                  <TouchableOpacity
+                    style={styles.btncomment}
+                    onPress={() => {
+                      votedProduct();
+                    }}>
+                    <Text style={styles.txtSent}>
+                      {I18n.t(`${NAMESPACE}.sendreview`)}
+                    </Text>
+                  </TouchableOpacity>
+                </KeyboardAvoidingView>
               </View>
             </View>
           </View>

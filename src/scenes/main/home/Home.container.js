@@ -108,16 +108,17 @@ function HomeContainer({ navigation }) {
               count++;
             });
             itemsphone.push({
-              title: childSnapshot.val().Name,
-              price: childSnapshot.val().Price,
-              image: childSnapshot.val().Image,
-              metades: childSnapshot.val().MetaDescription,
-              id: childSnapshot.val().ProductID,
+              Name: childSnapshot.val().Name,
+              Price: childSnapshot.val().Price,
+              Image: childSnapshot.val().Image,
+              MetaDescription: childSnapshot.val().MetaDescription,
+              ProductID: childSnapshot.val().ProductID,
               rating: point / count,
               bough: count,
-              BrandID: childSnapshot.val().BrandID,
               CategoryID: childSnapshot.val().CategoryID,
               PromotionPrice: childSnapshot.val().PromotionPrice,
+              Warranty: childSnapshot.val().Warranty,
+              Counts: childSnapshot.val().Counts,
             });
           }
         });
@@ -139,16 +140,17 @@ function HomeContainer({ navigation }) {
               count++;
             });
             itemslap.push({
-              title: childSnapshot.val().Name,
-              price: childSnapshot.val().Price,
-              image: childSnapshot.val().Image,
-              metades: childSnapshot.val().MetaDescription,
-              id: childSnapshot.val().ProductID,
+              Name: childSnapshot.val().Name,
+              Price: childSnapshot.val().Price,
+              Image: childSnapshot.val().Image,
+              MetaDescription: childSnapshot.val().MetaDescription,
+              ProductID: childSnapshot.val().ProductID,
               rating: point / count,
               bough: count,
-              BrandID: childSnapshot.val().BrandID,
               CategoryID: childSnapshot.val().CategoryID,
               PromotionPrice: childSnapshot.val().PromotionPrice,
+              Warranty: childSnapshot.val().Warranty,
+              Counts: childSnapshot.val().Counts,
             });
           }
         });
@@ -170,16 +172,17 @@ function HomeContainer({ navigation }) {
               count++;
             });
             itemstab.push({
-              title: childSnapshot.val().Name,
-              price: childSnapshot.val().Price,
-              image: childSnapshot.val().Image,
-              metades: childSnapshot.val().MetaDescription,
-              id: childSnapshot.val().ProductID,
+              Name: childSnapshot.val().Name,
+              Price: childSnapshot.val().Price,
+              Image: childSnapshot.val().Image,
+              MetaDescription: childSnapshot.val().MetaDescription,
+              ProductID: childSnapshot.val().ProductID,
               rating: point / count,
               bough: count,
-              BrandID: childSnapshot.val().BrandID,
               CategoryID: childSnapshot.val().CategoryID,
               PromotionPrice: childSnapshot.val().PromotionPrice,
+              Warranty: childSnapshot.val().Warranty,
+              Counts: childSnapshot.val().Counts,
             });
           }
         });
@@ -201,16 +204,17 @@ function HomeContainer({ navigation }) {
               count++;
             });
             itemsdongho.push({
-              title: childSnapshot.val().Name,
-              price: childSnapshot.val().Price,
-              image: childSnapshot.val().Image,
-              metades: childSnapshot.val().MetaDescription,
-              id: childSnapshot.val().ProductID,
+              Name: childSnapshot.val().Name,
+              Price: childSnapshot.val().Price,
+              Image: childSnapshot.val().Image,
+              MetaDescription: childSnapshot.val().MetaDescription,
+              ProductID: childSnapshot.val().ProductID,
               rating: point / count,
               bough: count,
-              BrandID: childSnapshot.val().BrandID,
               CategoryID: childSnapshot.val().CategoryID,
               PromotionPrice: childSnapshot.val().PromotionPrice,
+              Warranty: childSnapshot.val().Warranty,
+              Counts: childSnapshot.val().Counts,
             });
           }
         });
@@ -232,16 +236,17 @@ function HomeContainer({ navigation }) {
               count++;
             });
             itemsphukien.push({
-              title: childSnapshot.val().Name,
-              price: childSnapshot.val().Price,
-              image: childSnapshot.val().Image,
-              metades: childSnapshot.val().MetaDescription,
-              id: childSnapshot.val().ProductID,
+              Name: childSnapshot.val().Name,
+              Price: childSnapshot.val().Price,
+              Image: childSnapshot.val().Image,
+              MetaDescription: childSnapshot.val().MetaDescription,
+              ProductID: childSnapshot.val().ProductID,
               rating: point / count,
               bough: count,
-              BrandID: childSnapshot.val().BrandID,
               CategoryID: childSnapshot.val().CategoryID,
               PromotionPrice: childSnapshot.val().PromotionPrice,
+              Warranty: childSnapshot.val().Warranty,
+              Counts: childSnapshot.val().Counts,
             });
           }
         });
@@ -255,27 +260,31 @@ function HomeContainer({ navigation }) {
       .then((snapshot) => {
         var items = [];
         snapshot.forEach(function (childSnapshot) {
-          var point = 0;
-          var count = 0;
-          childSnapshot.child('Rating').forEach((child) => {
-            point += child.val().Point;
-            count++;
-          });
-          items.push({
-            title: childSnapshot.val().Name,
-            price: childSnapshot.val().Price,
-            image: childSnapshot.val().Image,
-            metades: childSnapshot.val().MetaDescription,
-            id: childSnapshot.val().ProductID,
-            rating: point / count,
-            bough: count,
-            BrandID: childSnapshot.val().BrandID,
-            CategoryID: childSnapshot.val().CategoryID,
-            PromotionPrice: childSnapshot.val().PromotionPrice,
-            UserID: childSnapshot.val().UserID
-              ? childSnapshot.val().UserID
-              : null,
-          });
+          if (childSnapshot.val().Status === true) {
+            var point = 0;
+            var count = 0;
+            childSnapshot.child('Rating').forEach((child) => {
+              point += child.val().Point;
+              count++;
+            });
+            items.push({
+              Name: childSnapshot.val().Name,
+              Price: childSnapshot.val().Price,
+              Image: childSnapshot.val().Image,
+              MetaDescription: childSnapshot.val().MetaDescription,
+              Description: childSnapshot.val().Description,
+              Warranty: childSnapshot.val().Warranty,
+              ProductID: childSnapshot.val().ProductID,
+              rating: point / count,
+              count: count,
+              BrandID: childSnapshot.val().BrandID,
+              CategoryID: childSnapshot.val().CategoryID,
+              PromotionPrice: childSnapshot.val().PromotionPrice,
+              UserID: childSnapshot.val().UserID
+                ? childSnapshot.val().UserID
+                : null,
+            });
+          }
         });
         setListall(items);
       });

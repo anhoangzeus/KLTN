@@ -37,7 +37,7 @@ export default function ProductContainer({navigation, route}) {
   const [listproductlienquan, setlistproductlienquan] = useState([]);
   const [listmoreimage, setlistmoreimage] = useState([]);
   const [listcomment, setlistcomment] = useState([]);
-  const [idsanpham, setidsanpham] = useState(item.id);
+  const [idsanpham, setidsanpham] = useState(item.ProductID);
   const [listcart, setlistcart] = useState([]);
   const [modalvisible, setmodalvisible] = useState(false);
   const [scrollY] = useState(new Animated.Value(0));
@@ -87,22 +87,31 @@ export default function ProductContainer({navigation, route}) {
       .once('value')
       .then((snapshot) => {
         var items = [];
-        snapshot.forEach(function (child) {
-          if (child.val().ProductID !== ProductID) {
-            if (child.val().CategoryID === Category_ID) {
+        snapshot.forEach(function (childSnapshot) {
+          if (childSnapshot.val().ProductID !== ProductID) {
+            if (childSnapshot.val().CategoryID === Category_ID) {
               var point = 0;
               var count = 0;
+              snapshot.child('Rating').forEach((child) => {
+                point += child.val().Point;
+                count++;
+              });
               items.push({
-                title: child.val().Name,
-                price: child.val().Price,
-                image: child.val().Image,
-                metades: child.val().MetaDescription,
-                id: child.val().ProductID,
+                Name: childSnapshot.val().Name,
+                Price: childSnapshot.val().Price,
+                Image: childSnapshot.val().Image,
+                MetaDescription: childSnapshot.val().MetaDescription,
+                Description: childSnapshot.val().Description,
+                Warranty: childSnapshot.val().Warranty,
+                ProductID: childSnapshot.val().ProductID,
                 rating: point / count,
-                bough: count,
-                BrandID: child.val().BrandID,
-                CategoryID: child.val().CategoryID,
-                PromotionPrice: child.val().PromotionPrice,
+                count: count,
+                BrandID: childSnapshot.val().BrandID,
+                CategoryID: childSnapshot.val().CategoryID,
+                PromotionPrice: childSnapshot.val().PromotionPrice,
+                UserID: childSnapshot.val().UserID
+                  ? childSnapshot.val().UserID
+                  : null,
               });
             }
           }
@@ -113,10 +122,10 @@ export default function ProductContainer({navigation, route}) {
   };
   const getData = () => {
     var ImageItems = [];
-    console.log('id san pham: ', item.id);
+    console.log('id san pham: ', item.ProductID);
     database()
       .ref('/Products')
-      .child(item.id)
+      .child(item.ProductID)
       .once('value')
       .then((snapshot) => {
         var _sao1 = 0;
@@ -128,15 +137,15 @@ export default function ProductContainer({navigation, route}) {
         var count = 0;
         var items = [];
         snapshot.child('Rating').forEach((child) => {
-          if (child.val().Point === '1') {
+          if (child.val().Point === 1) {
             _sao1++;
-          } else if (child.val().Point === '2') {
+          } else if (child.val().Point === 2) {
             _sao2++;
-          } else if (child.val().Point === '3') {
+          } else if (child.val().Point === 3) {
             _sao3++;
-          } else if (child.val().Point === '4') {
+          } else if (child.val().Point === 4) {
             _sao4++;
-          } else if (child.val().Point === '5') {
+          } else if (child.val().Point === 5) {
             _sao5++;
           }
           point += child.val().Point;
@@ -168,7 +177,7 @@ export default function ProductContainer({navigation, route}) {
       });
     database()
       .ref('/Products/')
-      .child(item.id)
+      .child(item.ProductID)
       .child('Images')
       .once('value')
       .then((snapshot) => {

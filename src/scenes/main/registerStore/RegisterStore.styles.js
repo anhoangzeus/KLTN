@@ -19,6 +19,11 @@ export default StyleSheet.create({
     width: width / 2,
     resizeMode: 'stretch',
   },
+  logoimg: {
+    height: height / 3,
+    width: width / 1.5,
+    resizeMode: 'stretch',
+  },
   infoView: {
     width: width,
     justifyContent: 'space-between',
@@ -27,8 +32,13 @@ export default StyleSheet.create({
   ChangeStatus: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    alignItems: 'center',
   },
-  nameText: {marginLeft: width * 0.05, fontSize: height / 50},
+  nameText: {
+    marginLeft: width * 0.05,
+    fontSize: height / 50,
+    marginTop: height / 50,
+  },
   nameInput: {
     borderLeftWidth: 1,
     borderTopWidth: 1,
@@ -39,12 +49,13 @@ export default StyleSheet.create({
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
     width: width * 0.9,
-    height: height / 20,
+    height: height / 15,
     borderColor: '#6Ec0B6',
     marginLeft: width * 0.05,
+    marginTop: height / 100,
   },
   btnthem: {
-    alignSelf: 'flex-end',
+    alignSelf: 'flex-start',
     backgroundColor: '#6Ec0B6',
     height: height / 20,
     width: width / 4,
@@ -58,14 +69,16 @@ export default StyleSheet.create({
   pre: {
     height: height / 20,
     width: width / 4,
-    backgroundColor: '#6Ec0B6',
+    backgroundColor: '#2B4F8C',
     marginBottom: height / 50,
     borderRadius: height / 50,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   next: {
     height: height / 20,
     width: width / 4,
-    backgroundColor: '#6Ec0B6',
+    backgroundColor: '#2B4F8C',
     marginBottom: height / 50,
     borderRadius: height / 50,
     marginLeft: width / 4,
@@ -73,9 +86,9 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   userContainer: {
-    marginTop: 5,
     backgroundColor: '#fff',
     flexDirection: 'row',
+    borderTopColor: '#ededed',
   },
   totalContainer1: {
     marginTop: 5,
@@ -96,7 +109,6 @@ export default StyleSheet.create({
     backgroundColor: '#EEEEEE',
   },
   textContainer: {
-    flex: 1,
     marginLeft: 10,
   },
   welcomeText: {
@@ -105,6 +117,16 @@ export default StyleSheet.create({
     width: width,
     borderBottomWidth: 2,
     borderBottomColor: '#6Ec0B6',
+    borderLeftWidth: 2,
+    borderLeftColor: '#6Ec0B6',
+    borderTopColor: '#6Ec0B6',
+    borderTopWidth: 2,
+    borderRightColor: '#6Ec0B6',
+    borderRightWidth: 2,
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
   },
   divider: {
     height: 2,
@@ -119,7 +141,6 @@ export default StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    backgroundColor: 'red',
     borderRadius: 20,
     padding: 35,
     alignItems: 'center',
@@ -134,7 +155,12 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   ModalContainer: {
+    marginTop: height / 50,
     height: height / 2,
+    width: width,
+    marginLeft: -width / 20,
+    flex: 1,
+    borderRadius: 15,
   },
   modalText: {
     marginBottom: 15,
@@ -156,6 +182,7 @@ export default StyleSheet.create({
   picker: {
     height: 40,
     width: width,
+    color: 'gray',
   },
   pickerView: {
     height: height / 20,
@@ -167,15 +194,17 @@ export default StyleSheet.create({
   picker1: {
     height: height / 20,
     width: width / 2,
+    color: 'gray',
   },
   marTen: {marginLeft: 10},
   marHori: {marginHorizontal: 10},
   greenText: {color: '#6Ec0B6', fontSize: 20},
   btnSubmit: {
     backgroundColor: '#6Ec0B6',
-    marginHorizontal: 10,
-    marginVertical: 10,
+    alignSelf: 'center',
     height: height / 20,
+    width: width / 2,
+    marginTop: height / 40,
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
@@ -197,4 +226,5 @@ export default StyleSheet.create({
   address: {
     width: width * 0.8,
   },
+  legacy: {width: width * 0.8, marginLeft: width * 0.1},
 });

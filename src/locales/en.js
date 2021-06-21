@@ -137,7 +137,9 @@ export default {
     city: 'Province/City',
     district: 'District',
     prov: 'Wards',
-    defaulAdd: 'Default address',
+    defaulAdd: 'Set as delivery address',
+    mainAdd: 'Current delivery address',
+
     saveAdd: 'Save address',
     date: 'Date',
     orderid: 'Order ID',
@@ -206,6 +208,11 @@ export default {
     registerStore: 'Register to open store',
     submit: 'Submit',
     next: 'next',
+    legacy1:
+      "When customers do business on TiAN's app, TiAN will charge a 5% fee on each order.",
+    legacy2:
+      'The products on sale must be vegetarian products and have a clear origin, if found to have non-compliance with regulations, TiAn has the right to unilaterally cancel your business status.',
+    argree: 'I agree and terms above',
   },
   message: {
     ERROR_OCCURRED: 'An error occurred, please try again.',

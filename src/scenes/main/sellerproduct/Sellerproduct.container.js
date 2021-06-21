@@ -27,18 +27,20 @@ export default function SellerproductContainer({navigation, route}) {
   const itemRef = database();
 
   const [numcart, setnumcart] = useState(0);
-  const [decription, setdecription] = useState('');
-  const [image, setimage] = useState('');
-  const [name, setname] = useState('');
+  const [decription, setdecription] = useState(item.MetaDescription);
+  const [image, setimage] = useState(item.Image);
+  const [name, setname] = useState(item.Name);
   const [UserID, setUserID] = useState(item.UserID);
-  const [price, setprice] = useState('');
-  const [waranty, setwaranty] = useState('');
-  const [promotionprice, setpromotionprice] = useState('');
-  const [metadescription, setmetadescription] = useState('');
+  const [price, setprice] = useState(item.Price);
+  const [waranty, setwaranty] = useState(item.Warranty);
+  const [promotionprice, setpromotionprice] = useState(item.PromotionPrice);
+  const [metadescription, setmetadescription] = useState(item.MetaDescription);
   const [listproductlienquan, setlistproductlienquan] = useState([]);
-  const [listmoreimage, setlistmoreimage] = useState([]);
+  const [listmoreimage, setlistmoreimage] = useState(
+    item.Iamges ? item.Images : [],
+  );
   const [listcomment, setlistcomment] = useState([]);
-  const [idsanpham, setidsanpham] = useState(item.id);
+  const [idsanpham, setidsanpham] = useState(item.ProductID);
   const [listcart, setlistcart] = useState([]);
   const [modalvisible, setmodalvisible] = useState(false);
   const [scrollY] = useState(new Animated.Value(0));
@@ -90,22 +92,31 @@ export default function SellerproductContainer({navigation, route}) {
       .once('value')
       .then((snapshot) => {
         var items = [];
-        snapshot.forEach(function (child) {
-          if (child.val().ProductID !== ProductID) {
-            if (child.val().CategoryID === Category_ID) {
+        snapshot.forEach(function (childSnapshot) {
+          if (childSnapshot.val().ProductID !== ProductID) {
+            if (childSnapshot.val().CategoryID === Category_ID) {
               var point = 0;
               var count = 0;
+              childSnapshot.child('Rating').forEach((child) => {
+                point += child.val().Point;
+                count++;
+              });
               items.push({
-                title: child.val().Name,
-                price: child.val().Price,
-                image: child.val().Image,
-                metades: child.val().MetaDescription,
-                id: child.val().ProductID,
+                Name: childSnapshot.val().Name,
+                Price: childSnapshot.val().Price,
+                Image: childSnapshot.val().Image,
+                MetaDescription: childSnapshot.val().MetaDescription,
+                Description: childSnapshot.val().Description,
+                Warranty: childSnapshot.val().Warranty,
+                ProductID: childSnapshot.val().ProductID,
                 rating: point / count,
-                bough: count,
-                BrandID: child.val().BrandID,
-                CategoryID: child.val().CategoryID,
-                PromotionPrice: child.val().PromotionPrice,
+                count: count,
+                BrandID: childSnapshot.val().BrandID,
+                CategoryID: childSnapshot.val().CategoryID,
+                PromotionPrice: childSnapshot.val().PromotionPrice,
+                UserID: childSnapshot.val().UserID
+                  ? childSnapshot.val().UserID
+                  : null,
               });
             }
           }
@@ -130,13 +141,13 @@ export default function SellerproductContainer({navigation, route}) {
         snapshot.child('Rating').forEach((child) => {
           if (child.val().Point === '1') {
             _sao1++;
-          } else if (child.val().Point === '2') {
+          } else if (child.val().Point === 2) {
             _sao2++;
-          } else if (child.val().Point === '3') {
+          } else if (child.val().Point === 3) {
             _sao3++;
-          } else if (child.val().Point === '4') {
+          } else if (child.val().Point === 4) {
             _sao4++;
-          } else if (child.val().Point === '5') {
+          } else if (child.val().Point === 5) {
             _sao5++;
           }
           point += child.val().Point;
@@ -239,6 +250,7 @@ export default function SellerproductContainer({navigation, route}) {
       Price: '',
       ProductID: '',
       Quantity: 0,
+      uid: '',
     };
     var temp = 0;
     listcart.forEach(function (element) {
@@ -251,6 +263,7 @@ export default function SellerproductContainer({navigation, route}) {
         product.Price = element.Price;
         product.ProductID = element.Id;
         product.Quantity = element.Quantity;
+        product.UserID = element.UserID;
       }
     });
     if (auth().currentUser !== null) {
@@ -266,6 +279,7 @@ export default function SellerproductContainer({navigation, route}) {
             Picture: image,
             Price: price,
             Quantity: 1,
+            UserID: item.UserID,
           });
       } else {
         database()
@@ -278,6 +292,7 @@ export default function SellerproductContainer({navigation, route}) {
             Picture: product.image,
             Price: product.Price,
             Quantity: product.Quantity,
+            UserID: item.UserID,
           });
       }
       GetCartData();
@@ -308,18 +323,30 @@ export default function SellerproductContainer({navigation, route}) {
       .ref('/ProductUser/')
       .once('value')
       .then((snapshot) => {
-        let item = [];
         snapshot.forEach((childSnapshot) => {
           if (childSnapshot.val().UserID === UserID && item.length < 7) {
+            let point = 0;
+            let count = 0;
+            snapshot.child('Rating').forEach((child) => {
+              point += child.val().Point;
+              count++;
+            });
             item.push({
-              title: childSnapshot.val().Name,
-              price: childSnapshot.val().Price,
-              image: childSnapshot.val().Image,
-              id: childSnapshot.val().ProductID,
-              //rating: snapshot / count,
-              bough: childSnapshot.val().Counts,
+              Name: childSnapshot.val().Name,
+              Price: childSnapshot.val().Price,
+              Image: childSnapshot.val().Image,
+              MetaDescription: childSnapshot.val().MetaDescription,
+              Description: childSnapshot.val().Description,
+              Warranty: childSnapshot.val().Warranty,
+              ProductID: childSnapshot.val().ProductID,
+              rating: point / count,
+              count: count,
+              BrandID: childSnapshot.val().BrandID,
+              CategoryID: childSnapshot.val().CategoryID,
               PromotionPrice: childSnapshot.val().PromotionPrice,
-              UserID: childSnapshot.val().UserID,
+              UserID: childSnapshot.val().UserID
+                ? childSnapshot.val().UserID
+                : null,
             });
           }
         });
