@@ -2,16 +2,16 @@
 /* eslint-disable react-native/no-inline-styles */
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
-import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
+import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
 import SCENE_NAMES from 'constants/sceneName';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {Animated, Text, View} from 'react-native';
-import {getString} from 'utils/i18n';
-import NavigationServices, {getParams} from 'utils/navigationServices';
-import {NAMESPACE} from './Product.constants';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { Animated, Text, View } from 'react-native';
+import { getString } from 'utils/i18n';
+import NavigationServices, { getParams } from 'utils/navigationServices';
+import { NAMESPACE } from './Product.constants';
 import styles from './Product.styles';
 import ProductView from './Product.view';
 const functionsCounter = new Set();
@@ -20,9 +20,9 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 
-export default function ProductContainer({navigation, route}) {
+export default function ProductContainer({ navigation, route }) {
   const isLoading = useSelectorShallow(loadingSelector);
-  const {item} = getParams(route);
+  const { item } = getParams(route);
   console.log('item navigation: ', item);
   const itemRef = database();
 
@@ -223,7 +223,7 @@ export default function ProductContainer({navigation, route}) {
     } else {
       return (
         <View style={styles.cartposition}>
-          <Text style={{color: 'white'}}>{numcart}</Text>
+          <Text style={{ color: 'white' }}>{numcart}</Text>
         </View>
       );
     }
@@ -270,7 +270,6 @@ export default function ProductContainer({navigation, route}) {
             Id: item.ProductID,
             CategoryID: item.CategoryID,
             CategoryName: categoryname,
-
             Name: name,
             Picture: image,
             Price: price,
@@ -279,11 +278,10 @@ export default function ProductContainer({navigation, route}) {
       } else {
         database()
           .ref('/Cart/' + auth().currentUser.uid + '/' + key)
-          .set({
+          .update({
             Id: product.ProductID,
             CategoryID: item.CategoryID,
             CategoryName: categoryname,
-
             Name: product.Name,
             Picture: product.image,
             Price: product.Price,

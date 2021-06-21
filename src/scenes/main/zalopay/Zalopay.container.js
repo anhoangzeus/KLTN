@@ -1,20 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useLayoutEffect, useEffect} from 'react';
+import React, { useLayoutEffect, useEffect } from 'react';
 import ZalopayView from './Zalopay.view';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
-import {NativeModules, NativeEventEmitter} from 'react-native';
-import {NAMESPACE} from './Zalopay.constants';
-import {getString} from 'utils/i18n';
+import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
+import { NativeModules, NativeEventEmitter } from 'react-native';
+import { NAMESPACE } from './Zalopay.constants';
+import { getString } from 'utils/i18n';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import CryptoJS from 'crypto-js';
-import NavigationServices, {getParams} from 'utils/navigationServices';
+import NavigationServices, { getParams } from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
+import Geocoder from 'react-native-geocoding';
+Geocoder.init("AIzaSyDNzy29FhjgnLXCCa9f8vqgcq_B-32uXLs");
 
-const {PayZaloBridge} = NativeModules;
+const { PayZaloBridge } = NativeModules;
 const payZaloBridgeEmitter = new NativeEventEmitter(PayZaloBridge);
 let apptransid;
 const functionsCounter = new Set();
@@ -56,7 +58,7 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 
-export default function ZalopayContainer({navigation, route}) {
+export default function ZalopayContainer({ navigation, route }) {
   const isLoading = useSelectorShallow(loadingSelector);
   const routes = getParams(route);
   useLayoutEffect(() => {
@@ -174,6 +176,13 @@ export default function ZalopayContainer({navigation, route}) {
     setmodal(false);
   }
   function thanhToan() {
+    var location = address.Location;
+    Geocoder.from(diachi)
+      .then(json => {
+        var locationSearch = json.results[0].geometry.location
+        location = locationSearch.lat + '-' + locationSearch.lng
+      })
+      .catch(error => console.warn(error));
     console.log('vao ham thanh toan');
     var key = database().ref().child('Orders/').push().key;
     database()
@@ -189,7 +198,7 @@ export default function ZalopayContainer({navigation, route}) {
         ShipPayment: routes.shipMonney,
         Total: amountprice,
         CustomerID: auth().currentUser.uid,
-        ShipLocation: address.Location,
+        ShipLocation: location,
         TimeLine: {
           ChoLayHang: '',
           ChoXacNhan: '',

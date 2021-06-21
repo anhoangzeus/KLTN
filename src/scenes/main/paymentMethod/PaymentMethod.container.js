@@ -1,22 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useLayoutEffect, useState, useEffect} from 'react';
+import React, { useLayoutEffect, useState, useEffect } from 'react';
 import PaymentMethodView from './PaymentMethod.view';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
-import {NAMESPACE} from './PaymentMethod.constants';
-import {getString} from 'utils/i18n';
+import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
+import { NAMESPACE } from './PaymentMethod.constants';
+import { getString } from 'utils/i18n';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
-import NavigationServices, {getParams} from 'utils/navigationServices';
+import NavigationServices, { getParams } from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
+import Geocoder from 'react-native-geocoding';
+Geocoder.init("AIzaSyDNzy29FhjgnLXCCa9f8vqgcq_B-32uXLs");
 const functionsCounter = new Set();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 
-export default function PaymentMethodContainer({navigation, route}) {
+export default function PaymentMethodContainer({ navigation, route }) {
   const [checked, setchecked] = useState('first');
   const [loading] = useState(false);
   const [modalVisible, setmodalVisible] = useState(false);
@@ -131,6 +133,12 @@ export default function PaymentMethodContainer({navigation, route}) {
         props.address.Huyen +
         ', ' +
         props.address.City;
+      await Geocoder.from(diachi)
+        .then(json => {
+          var locationSearch = json.results[0].geometry.location
+          location = locationSearch.lat + '-' + locationSearch.lng
+        })
+        .catch(error => console.warn(error));
       database()
         .ref('Orders/' + key)
         .set({
