@@ -60,27 +60,21 @@ function StoreProfileView(props) {
                       source={require('../../../assets/images/chat.png')}
                       style={styles.tagImg}
                     />
-                    <View>
-                      <Text style={styles.tagText}>Chat</Text>
-                    </View>
+                    <View />
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.Tag}>
                     <Image
                       source={require('../../../assets/images/tim.png')}
                       style={styles.tagImg}
                     />
-                    <View>
-                      <Text style={styles.tagText}>Theo dõi</Text>
-                    </View>
+                    <View />
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.Tag}>
                     <Image
                       source={require('../../../assets/images/report.png')}
                       style={styles.tagImg}
                     />
-                    <View>
-                      <Text style={styles.tagText}>Báo cáo</Text>
-                    </View>
+                    <View />
                   </TouchableOpacity>
                 </View>
               </View>

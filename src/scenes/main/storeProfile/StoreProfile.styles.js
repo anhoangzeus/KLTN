@@ -33,7 +33,7 @@ export default StyleSheet.create({
     shadowColor: 'black',
     shadowOffset: {width: 5, height: 5},
     height: height / 20,
-    width: width * 0.2,
+    width: width * 0.1,
     backgroundColor: '#fff',
     marginLeft: width / 20,
     flexDirection: 'row',

@@ -43,8 +43,8 @@ export default function ProductContainer({navigation, route}) {
   const [scrollY] = useState(new Animated.Value(0));
   const [isloading, setisloading] = useState(false);
   const [categoryname, setcategoryname] = useState('');
-  const [rating, setrating] = useState(0);
-  const [bough, setbough] = useState(0);
+  const [rating] = useState(item.rating);
+  const [bough, setbough] = useState(item.count);
   const [sao1, setsao1] = useState(0);
   const [sao2, setsao2] = useState(0);
   const [sao3, setsao3] = useState(0);
@@ -133,7 +133,7 @@ export default function ProductContainer({navigation, route}) {
         var _sao3 = 0;
         var _sao4 = 0;
         var _sao5 = 0;
-        var point = 0;
+
         var count = 0;
         var items = [];
         snapshot.child('Rating').forEach((child) => {
@@ -148,7 +148,7 @@ export default function ProductContainer({navigation, route}) {
           } else if (child.val().Point === 5) {
             _sao5++;
           }
-          point += child.val().Point;
+
           count++;
           items.push({
             Avatar: child.val().Avatar,
@@ -165,7 +165,6 @@ export default function ProductContainer({navigation, route}) {
         setwaranty(snapshot.val().Warranty);
         setmetadescription(snapshot.val().MetaDescription);
         setpromotionprice(snapshot.val().PromotionPrice);
-        setrating(point / count);
         setlistcomment(items);
         setbough(count);
         setsao1(_sao1);
