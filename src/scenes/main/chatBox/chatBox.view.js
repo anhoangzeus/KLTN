@@ -16,14 +16,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { normalize } from 'react-native-elements';
+import {normalize} from 'react-native-elements';
 import ImageView from 'react-native-image-viewing';
 import Modal from 'react-native-modal';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { MessType } from 'utils/appContants';
+import {MessType} from 'utils/appContants';
+import RBSheet from 'react-native-raw-bottom-sheet';
 import I18n from 'utils/i18n';
 import NavigationServices from 'utils/navigationServices';
 import styles from './chatBox.styles';
@@ -31,10 +32,10 @@ import CameraRoll from '@react-native-community/cameraroll';
 import RNFetchBlob from 'rn-fetch-blob';
 // import SCENE_NAMES from 'constants/sceneName';
 const NAMESPACE = 'common';
-const { width, height } = Dimensions.get('screen');
+const {width, height} = Dimensions.get('screen');
 
 class ChatBoxContainer extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       onInputChat: false,
@@ -45,9 +46,11 @@ class ChatBoxContainer extends React.Component {
     let newImgUri = url.lastIndexOf('/');
     let imageName = url.substring(newImgUri);
     let dirs = RNFetchBlob.fs.dirs;
-    let path = Platform.OS === 'ios' ? dirs.MainBundleDir + imageName : dirs.PictureDir + imageName;
+    let path =
+      Platform.OS === 'ios'
+        ? dirs.MainBundleDir + imageName
+        : dirs.PictureDir + imageName;
     if (Platform.OS === 'android') {
-
       RNFetchBlob.config({
         fileCache: true,
         appendExt: 'png',
@@ -60,14 +63,15 @@ class ChatBoxContainer extends React.Component {
           path: path,
           description: 'Image',
         },
-
-      }).fetch('GET', url).then(res => {
-        console.log(res, 'end downloaded');
-      });
+      })
+        .fetch('GET', url)
+        .then((res) => {
+          console.log(res, 'end downloaded');
+        });
     } else {
       CameraRoll.saveToCameraRoll(url);
     }
-  }
+  };
   dataArray = (listItem) => {
     var array = [];
     // var list = [];
@@ -76,20 +80,22 @@ class ChatBoxContainer extends React.Component {
     //   list.push({ uri: item });
     // });
     return array;
-  }
+  };
   renderContent = (itemText) => {
-    const { setviewImagesPop, setvisibleViewing } = this.props;
+    const {setviewImagesPop, setvisibleViewing} = this.props;
     if (itemText.messages_type === MessType.Image) {
       return (
         <TouchableOpacity
           style={styles.btnImgView}
-          onLongPress={() => { this.downloadImg(itemText.Text); }}
+          onLongPress={() => {
+            this.downloadImg(itemText.Text);
+          }}
           onPress={() => {
             setviewImagesPop(itemText.Text);
             setvisibleViewing(true);
           }}>
           <Image
-            source={{ uri: itemText.Text }}
+            source={{uri: itemText.Text}}
             style={{
               ...styles.imgView,
               width: itemText.imgWidth || 170,
@@ -103,18 +109,23 @@ class ChatBoxContainer extends React.Component {
       listData = this.dataArray(itemText.Text);
       return (
         <FlatList
-          data={listData} numColumns={3} showsVerticalScrollIndicator={false}
-          keyExtractor={(item, i) => i} scrollEnabled={false}
-          renderItem={({ item, index }) => {
+          data={listData}
+          numColumns={3}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item, i) => i}
+          scrollEnabled={false}
+          renderItem={({item, index}) => {
             return (
               <TouchableOpacity
                 style={styles.btnImgView}
-                onLongPress={() => { this.downloadImg(item); }}
+                onLongPress={() => {
+                  this.downloadImg(item);
+                }}
                 onPress={() => {
                   setviewImagesPop(item);
                   setvisibleViewing(true);
                 }}>
-                <Image source={{ uri: item }} style={styles.moreImg} />
+                <Image source={{uri: item}} style={styles.moreImg} />
               </TouchableOpacity>
             );
           }}
@@ -128,17 +139,17 @@ class ChatBoxContainer extends React.Component {
       );
     }
   };
-  chatMessage = ({ item }) => {
+  chatMessage = ({item}) => {
     return item.Type === 'CUS' ? (
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{flexDirection: 'row'}}>
         {this.renderContent(item)}
-        <Text style={{ ...styles.messTime, marginLeft: normalize(15) }}>
+        <Text style={{...styles.messTime, marginLeft: normalize(15)}}>
           {moment.unix(item.CreatedTime).format('hh:mm MM-DD-YY')}
         </Text>
       </View>
     ) : (
-      <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-        <Text style={{ ...styles.messTime, marginRight: normalize(15) }}>
+      <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+        <Text style={{...styles.messTime, marginRight: normalize(15)}}>
           {moment.unix(item.CreatedTime).format('hh:mm MM-DD-YY')}
         </Text>
         {this.renderContent(item)}
@@ -147,19 +158,19 @@ class ChatBoxContainer extends React.Component {
   };
   // modal cancel
   popupActionCancel = () => {
-    const { isVisiblePopupCancel, setisVisiblePopupCancel } = this.props;
+    const {isVisiblePopupCancel, setisVisiblePopupCancel} = this.props;
     return (
       <Modal
         isVisible={isVisiblePopupCancel}
-        style={{ justifyContent: 'flex-end' }}
-        onBackdropPress={() => this.setState({ isVisiblePopupCancel: false })}>
+        style={{justifyContent: 'flex-end'}}
+        onBackdropPress={() => this.setState({isVisiblePopupCancel: false})}>
         <TouchableOpacity
           //report screen
           onPress={() => {
             setisVisiblePopupCancel(false);
           }}
           style={styles.buttonReport}>
-          <Text style={{ ...styles.textPrice, fontSize: 18 }}>Report</Text>
+          <Text style={{...styles.textPrice, fontSize: 18}}>Report</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
@@ -167,7 +178,7 @@ class ChatBoxContainer extends React.Component {
             NavigationServices.navigate(SCENE_NAMES.MAIN);
           }}
           style={styles.buttonChat}>
-          <Text style={{ ...styles.textPrice, fontSize: 18, color: 'red' }}>
+          <Text style={{...styles.textPrice, fontSize: 18, color: 'red'}}>
             Trang chủ
           </Text>
         </TouchableOpacity>
@@ -176,7 +187,7 @@ class ChatBoxContainer extends React.Component {
             setisVisiblePopupCancel(false);
           }}
           style={styles.buttonCancel}>
-          <Text style={{ ...styles.textPrice, fontSize: 18, fontWeight: '700' }}>
+          <Text style={{...styles.textPrice, fontSize: 18, fontWeight: '700'}}>
             Huỷ bỏ
           </Text>
         </TouchableOpacity>
@@ -204,10 +215,10 @@ class ChatBoxContainer extends React.Component {
       chooseImageTake,
       chooseMultiImageLibrary,
     } = this.props;
-    const { onInputChat } = this.state;
+    const {onInputChat} = this.state;
 
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#2B4F8C' }}>
+      <SafeAreaView style={{flex: 1, backgroundColor: '#2B4F8C'}}>
         <View style={styles.headerContainer}>
           <TouchableOpacity
             onPress={() => {
@@ -222,7 +233,7 @@ class ChatBoxContainer extends React.Component {
             />
           </TouchableOpacity>
           <Text style={styles.headerText}>{Name}</Text>
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{flexDirection: 'row'}}>
             <TouchableOpacity onPress={() => setisVisibleModalCall(true)}>
               <MaterialIcons
                 name="call"
@@ -254,22 +265,27 @@ class ChatBoxContainer extends React.Component {
             inverted
             showsVerticalScrollIndicator={false}
             data={listchat}
-            renderItem={({ item }) => <this.chatMessage item={item} />}
+            renderItem={({item}) => <this.chatMessage item={item} />}
             keyExtractor={(item) => item.id}
-            ListHeaderComponent={<View style={{ height: height * 0.05 }} />}
+            ListHeaderComponent={<View style={{height: height * 0.05}} />}
             ListFooterComponent={
               <View style={styles.messHeaderContaner}>
                 {/* navigate qua profile seller nay  dataSeller?.Merchant &&*/}
-                <TouchableOpacity style={styles.avatarView} onPress={() => { }} >
-                  <Image source={{ uri: dataSeller?.Avatar }} style={styles.avatar} />
+                <TouchableOpacity style={styles.avatarView} onPress={() => {}}>
+                  <Image
+                    source={{uri: dataSeller?.Avatar}}
+                    style={styles.avatar}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.textName}>{dataSeller?.FullName}</Text>
-                <Text style={styles.textHint}>{I18n.t(`${NAMESPACE}.chatHeader`)}</Text>
-                {dataSeller?.Merchant &&
+                <Text style={styles.textHint}>
+                  {I18n.t(`${NAMESPACE}.chatHeader`)}
+                </Text>
+                {dataSeller?.Merchant && (
                   <TouchableOpacity style={styles.btnViewProfile}>
                     <Text>{I18n.t(`${NAMESPACE}.view_profileSeller`)}</Text>
                   </TouchableOpacity>
-                }
+                )}
               </View>
             }
           />
@@ -280,8 +296,8 @@ class ChatBoxContainer extends React.Component {
               ...styles.containerComposize,
               height: onInputChat ? width * 0.24 : height * 0.07,
             }}>
-            <View style={{ flexDirection: 'row' }}>
-              <TouchableOpacity onPress={() => setvisibleChooseImage(true)}>
+            <View style={{flexDirection: 'row'}}>
+              <TouchableOpacity onPress={() => this.RBSheet.open()}>
                 <Image
                   source={require('../../../assets/images/gallery.png')}
                   style={styles.iconUp}
@@ -308,7 +324,7 @@ class ChatBoxContainer extends React.Component {
           </View>
         </KeyboardAvoidingView>
         <ImageView
-          images={[{ uri: viewImagesPop }]}
+          images={[{uri: viewImagesPop}]}
           imageIndex={0}
           visible={visibleViewing}
           onRequestClose={() => setvisibleViewing(false)}
@@ -322,20 +338,35 @@ class ChatBoxContainer extends React.Component {
           isVisible={isVisibleModalCall}
         />
         {/* Popup choose image */}
-        <PopupChooseImage
-          onChooseTake={chooseImageTake}
-          onChooseLibrary={openGalary}
-          onClosePress={() => setvisibleChooseImage(false)}
-          isVisible={visibleChooseImage}
-          children={
-            <TouchableOpacity onPress={() => {
-              setvisibleChooseImage(false);
-              setTimeout(() => chooseMultiImageLibrary(), 200);
-            }} style={styles.btnChoose}>
-              <Text>{I18n.t(`${NAMESPACE}.moreImage`)}</Text>
-            </TouchableOpacity>
-          }
-        />
+        <RBSheet
+          ref={(ref) => {
+            this.RBSheet = ref;
+          }}
+          height={height / 4}
+          openDuration={250}
+          customStyles={{
+            container: {
+              justifyContent: 'center',
+              alignItems: 'center',
+            },
+          }}>
+          <PopupChooseImage
+            onChooseTake={chooseImageTake}
+            onChooseLibrary={openGalary}
+            onClosePress={() => setvisibleChooseImage(false)}
+            isVisible={visibleChooseImage}
+            children={
+              <TouchableOpacity
+                onPress={() => {
+                  setvisibleChooseImage(false);
+                  setTimeout(() => chooseMultiImageLibrary(), 200);
+                }}
+                style={styles.btnChoose}>
+                <Text>{I18n.t(`${NAMESPACE}.moreImage`)}</Text>
+              </TouchableOpacity>
+            }
+          />
+        </RBSheet>
         <this.popupActionCancel />
       </SafeAreaView>
     );

@@ -117,6 +117,16 @@ export default StyleSheet.create({
     width: width,
     borderBottomWidth: 2,
     borderBottomColor: '#6Ec0B6',
+    borderLeftWidth: 2,
+    borderLeftColor: '#6Ec0B6',
+    borderTopColor: '#6Ec0B6',
+    borderTopWidth: 2,
+    borderRightColor: '#6Ec0B6',
+    borderRightWidth: 2,
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
   },
   divider: {
     height: 2,
@@ -145,12 +155,10 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   ModalContainer: {
+    marginTop: height / 50,
     height: height / 2,
-    marginTop: height / 2,
     width: width,
-    borderColor: '#000',
     marginLeft: -width / 20,
-    borderWidth: 1,
     flex: 1,
     borderRadius: 15,
   },
@@ -174,6 +182,7 @@ export default StyleSheet.create({
   picker: {
     height: 40,
     width: width,
+    color: 'gray',
   },
   pickerView: {
     height: height / 20,
@@ -185,6 +194,7 @@ export default StyleSheet.create({
   picker1: {
     height: height / 20,
     width: width / 2,
+    color: 'gray',
   },
   marTen: {marginLeft: 10},
   marHori: {marginHorizontal: 10},

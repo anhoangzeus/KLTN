@@ -201,7 +201,7 @@ export default {
     chatHeader:
       'Nội dung chat là bí mật được bảo đảm bởi TiAn \nNếu nội dung chat vi phạm hành vi cá nhân bạn có thể tố cáo để được xử lí.',
     moreImage: 'Chọn nhiều hình...',
-    oneImage: 'Chọn 1 hình...',
+    oneImage: 'Chọn hình từ thư viện...',
     takephoto: 'Chụp hình...',
     registerStore: 'Đăng ký mở gian hàng',
     submit: 'Submit',

@@ -15,13 +15,13 @@ import {Picker} from '@react-native-picker/picker';
 import RNPickerSelect from 'react-native-picker-select';
 // import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // import NavigationServices from 'utils/navigationServices';
-import Modal from 'react-native-modal';
 import Header from 'components/Header';
 import styles from './RegisterStore.styles';
 import I18n from 'utils/i18n';
 import CheckBox from '@react-native-community/checkbox';
 import Loading from 'components/LoadingView';
 import Col from 'components/Col';
+import RBSheet from 'react-native-raw-bottom-sheet';
 const NAMESPACE = 'common';
 
 // import {NAMESPACE} from './RegisterStore.constants';
@@ -37,7 +37,6 @@ function RegisterStoreView(props) {
     frontID,
     backID,
     loading,
-    setVisible,
     setStep,
     setName,
     setDes,
@@ -47,7 +46,6 @@ function RegisterStoreView(props) {
     wardData,
     provinceData,
     districtData,
-    visible,
     newAdd,
     takeFrontID,
     takeBackID,
@@ -127,7 +125,7 @@ function RegisterStoreView(props) {
                 </View>
                 <TouchableOpacity
                   style={styles.btnthem}
-                  onPress={() => setVisible(true)}>
+                  onPress={() => this.RBSheet.open()}>
                   <Text style={styles.themAdd}>Thêm địa chỉ</Text>
                 </TouchableOpacity>
               </View>
@@ -140,7 +138,19 @@ function RegisterStoreView(props) {
                   </Text>
                 </TouchableOpacity>
               ) : null}
-              <Modal visible={visible}>
+              <RBSheet
+                ref={(ref) => {
+                  this.RBSheet = ref;
+                }}
+                keyboardAvoidingViewEnabled
+                height={300}
+                openDuration={250}
+                customStyles={{
+                  container: {
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  },
+                }}>
                 <View style={styles.ModalContainer}>
                   <View style={styles.userContainer}>
                     <View style={styles.textContainer}>
@@ -262,7 +272,7 @@ function RegisterStoreView(props) {
                     </Text>
                   </TouchableOpacity>
                 </View>
-              </Modal>
+              </RBSheet>
             </View>
           </ScrollView>
         ) : null}
