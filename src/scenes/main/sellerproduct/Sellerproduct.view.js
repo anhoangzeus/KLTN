@@ -268,7 +268,7 @@ function SellerproductView(props) {
                   />
                 </View>
                 <Text muted size={12} style={styles.sellertext}>
-                  {sellerinfo.Name}
+                  {sellerinfo.FullName}
                 </Text>
               </View>
 
