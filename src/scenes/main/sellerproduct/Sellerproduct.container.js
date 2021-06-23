@@ -46,7 +46,7 @@ export default function SellerproductContainer({navigation, route}) {
   const [scrollY] = useState(new Animated.Value(0));
   const [isloading, setisloading] = useState(false);
   const [categoryname, setcategoryname] = useState('');
-  const [rating, setrating] = useState(0);
+  const [rating] = useState(item.rating);
   const [bough, setbough] = useState(0);
   const [sao1, setsao1] = useState(0);
   const [sao2, setsao2] = useState(0);
@@ -135,7 +135,6 @@ export default function SellerproductContainer({navigation, route}) {
         var _sao3 = 0;
         var _sao4 = 0;
         var _sao5 = 0;
-        var point = 0;
         var count = 0;
         var items = [];
         snapshot.child('Rating').forEach((child) => {
@@ -150,7 +149,6 @@ export default function SellerproductContainer({navigation, route}) {
           } else if (child.val().Point === 5) {
             _sao5++;
           }
-          point += child.val().Point;
           count++;
           items.push({
             Avatar: child.val().Avatar,
@@ -168,7 +166,7 @@ export default function SellerproductContainer({navigation, route}) {
         setwaranty(snapshot.val().Warranty);
         setmetadescription(snapshot.val().MetaDescription);
         setpromotionprice(snapshot.val().PromotionPrice);
-        setrating(point / count);
+        //setrating(point / count);
         setlistcomment(items);
         setbough(count);
         setsao1(_sao1);
@@ -182,12 +180,10 @@ export default function SellerproductContainer({navigation, route}) {
       .ref('/ProductUser/' + idsanpham)
       .once('value')
       .then((snapshot) => {
-        //console.log('plit list image: ', snapshot.val().MoreImage);
         snapshot.val().MoreImage
           ? (ImageItems = snapshot.val().MoreImage.split('|'))
           : ImageItems.push(snapshot.val().Image);
       });
-    console.log('list more image: ', ImageItems);
     setlistmoreimage(ImageItems);
     setisloading(false);
   };
@@ -312,8 +308,8 @@ export default function SellerproductContainer({navigation, route}) {
       .then((snapshot) => {
         var info = {
           Avatar: snapshot.val().Avatar,
-          Name: snapshot.val().FullName,
-          ID: snapshot.val().UserID,
+          FullName: snapshot.val().FullName,
+          UserID: snapshot.val().UserID,
         };
         setSellerInfo(info);
       });
@@ -323,15 +319,16 @@ export default function SellerproductContainer({navigation, route}) {
       .ref('/ProductUser/')
       .once('value')
       .then((snapshot) => {
+        const items = [];
         snapshot.forEach((childSnapshot) => {
-          if (childSnapshot.val().UserID === UserID && item.length < 7) {
+          if (childSnapshot.val().UserID === UserID && items.length < 7) {
             let point = 0;
             let count = 0;
             snapshot.child('Rating').forEach((child) => {
               point += child.val().Point;
               count++;
             });
-            item.push({
+            items.push({
               Name: childSnapshot.val().Name,
               Price: childSnapshot.val().Price,
               Image: childSnapshot.val().Image,
@@ -350,8 +347,7 @@ export default function SellerproductContainer({navigation, route}) {
             });
           }
         });
-
-        setSellerProd(item);
+        setSellerProd(items);
       });
   };
 

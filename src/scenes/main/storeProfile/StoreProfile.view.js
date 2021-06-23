@@ -7,13 +7,12 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Col from 'components/Col';
 import Loading from 'components/LoadingView';
 import ProductItem from 'components/ProductItem';
+import auth from '@react-native-firebase/auth';
 //import I18n from 'utils/i18n';
 import {BackgroundImage} from 'react-native-elements/dist/config';
 
 function StoreProfileView(props) {
-  const {info, listItems, loading, choose, setChoose, getListChat} = props;
-
-  console.log('list item props:', listItems);
+  const {info, listItems, loading, choose,isFollow,des, address, setChoose, getListChat, onFollow, onUnFollow} = props;
   if (loading) {
     <Col
       center
@@ -52,37 +51,43 @@ function StoreProfileView(props) {
               <View>
                 {/* <Text style={styles.nameText}>{info.Name}</Text> */}
                 <Text style={styles.nameText}>TienAnh Shop</Text>
-                <View style={styles.flexRow}>
-                  <TouchableOpacity
-                    style={styles.Tag}
-                    onPress={() => getListChat()}>
-                    <Image
-                      source={require('../../../assets/images/chat.png')}
-                      style={styles.tagImg}
-                    />
-                    <View>
-                      <Text style={styles.tagText}>Chat</Text>
-                    </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.Tag}>
-                    <Image
-                      source={require('../../../assets/images/tim.png')}
-                      style={styles.tagImg}
-                    />
-                    <View>
-                      <Text style={styles.tagText}>Theo dõi</Text>
-                    </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.Tag}>
-                    <Image
-                      source={require('../../../assets/images/report.png')}
-                      style={styles.tagImg}
-                    />
-                    <View>
-                      <Text style={styles.tagText}>Báo cáo</Text>
-                    </View>
-                  </TouchableOpacity>
-                </View>
+                {auth().currentUser.uid ? (
+                     <View style={styles.flexRow}>
+                     <TouchableOpacity
+                       style={styles.Tag}
+                       onPress={() => getListChat()}>
+                       <Image
+                         source={require('../../../assets/images/chat.png')}
+                         style={styles.tagImg}
+                       />
+                       <Text>Chat</Text>
+                     </TouchableOpacity>
+                     {!isFollow ? (
+                        <TouchableOpacity style={styles.Tag} onPress={() =>onFollow()}>
+                        <Image
+                          source={require('../../../assets/images/tim.png')}
+                          style={styles.tagImg}
+                        />
+                        <Text>Follow</Text>
+                      </TouchableOpacity>
+                     ) : ( <TouchableOpacity style={styles.Tag} onPress={() =>onUnFollow()}>
+                     <Image
+                       source={require('../../../assets/images/untim.png')}
+                       style={styles.tagImg}
+                     />
+                      <Text>Unf</Text>
+                   </TouchableOpacity>)}
+
+                     <TouchableOpacity style={styles.Tag}>
+                       <Image
+                         source={require('../../../assets/images/report.png')}
+                         style={styles.tagImg}
+                       />
+                       <Text>Report</Text>
+                     </TouchableOpacity>
+                   </View>
+                ) : null }
+
               </View>
             </View>
             <View style={styles.flexRow2}>
@@ -111,7 +116,6 @@ function StoreProfileView(props) {
                 //numColumns={2}
                 data={listItems}
                 renderItem={(item) => {
-                  console.log('tem flatlisst', item.item);
                   return (
                     <TouchableOpacity
                       onPress={() => {
@@ -129,7 +133,16 @@ function StoreProfileView(props) {
               />
             ) : (
               <View style={styles.storeProfile}>
-                <Text>hồ sơ cửa hàng</Text>
+                <Text>{des}</Text>
+                {address.map((address) => {
+                  return (
+                    <View>
+                      <Text>
+                        {address.City}
+                      </Text>
+                    </View>
+                  );
+                  })}
               </View>
             )}
           </BackgroundImage>

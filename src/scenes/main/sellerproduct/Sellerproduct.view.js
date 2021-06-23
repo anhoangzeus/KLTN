@@ -122,7 +122,6 @@ function SellerproductView(props) {
             height={height / 2}>
             {listmoreimage.map((item) => {
               if (item !== '') {
-                console.log('item im view', item);
                 return (
                   <View backgroundColor="white" style={styles.profileContainer}>
                     <Image source={{uri: item}} style={styles.profileImage} />
@@ -269,7 +268,7 @@ function SellerproductView(props) {
                   />
                 </View>
                 <Text muted size={12} style={styles.sellertext}>
-                  {sellerinfo.Name}
+                  {sellerinfo.FullName}
                 </Text>
               </View>
 
@@ -282,6 +281,7 @@ function SellerproductView(props) {
             </TouchableOpacity>
             <View style={styles.listSell}>
               {sellerProd.map((element) => {
+                console.log('seller relate pro', element);
                 return <SellerProduct item={element} />;
               })}
             </View>

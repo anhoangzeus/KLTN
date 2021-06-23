@@ -43,7 +43,13 @@ export default StyleSheet.create({
   tagImg: {
     height: height / 25,
     width: height / 25,
-    borderRadius: height / 100,
+    resizeMode: 'center',
+  },
+  tagImg1: {
+    height: height / 25,
+    width: width * 0.2,
+    marginLeft: 0,
+    resizeMode: 'cover',
   },
   tagText: {fontSize: height / 60},
   bodyContainer: {

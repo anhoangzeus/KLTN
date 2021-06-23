@@ -18,9 +18,8 @@ export default StyleSheet.create({
     alignSelf: 'center',
   },
   itemName: {
-    fontSize: SIZE.DEVICE_HEIGHT / 60,
+    fontSize: SIZE.DEVICE_HEIGHT / 50,
     color: 'black',
-    marginHorizontal: SIZE.DEVICE_HEIGHT / 100,
   },
   itemPrice: {
     fontSize: SIZE.DEVICE_HEIGHT / 50,

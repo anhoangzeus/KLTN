@@ -4,23 +4,27 @@ import {Image, Text, View} from 'react-native';
 import ReactNativeNumberFormat from 'components/NumberFormat';
 import StarRating from 'components/StarRating';
 
-function SellerProduct({image, name, price, rating, bough, PromotionPrice}) {
+function SellerProduct({item}) {
   return (
     <View style={styles.itemContainer}>
-      <Image source={{uri: image}} style={styles.itemImage} />
+      <Image source={{uri: item.Image}} style={styles.itemImage} />
       <Text style={styles.itemName} numberOfLines={2}>
-        {name}
+        {item.Name}
       </Text>
       <Text style={styles.itemPrice}>
-        <ReactNativeNumberFormat value={price} /> đ̲
-        {price === PromotionPrice || !PromotionPrice ? null : (
+        <ReactNativeNumberFormat value={item.Price} /> đ̲
+        {item.Price === item.PromotionPrice || !item.PromotionPrice ? null : (
           <Text style={styles.priceColor}>
             {' '}
-            {(((PromotionPrice - price) / PromotionPrice) * 100).toFixed(0)}%
+            {(
+              ((item.PromotionPrice - item.Price) / item.PromotionPrice) *
+              100
+            ).toFixed(0)}
+            %
           </Text>
         )}
       </Text>
-      <View style={styles.starView}>{StarRating(rating)}</View>
+      <View style={styles.starView}>{StarRating(item.rating)}</View>
     </View>
   );
 }

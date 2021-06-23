@@ -8,7 +8,10 @@ const StarRating = (rating) => {
   // This array will contain our star tags. We will include this
   // array between the view tag.
   let stars = [];
-
+  if (rating === undefined) {
+    console.log('rating undifind');
+    return;
+  }
   // Loop 5 times
   if (isNaN(rating.rating) === false) {
     for (var i = 1; i <= 5; i++) {
