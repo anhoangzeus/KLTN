@@ -23,8 +23,8 @@ import * as Animatable from 'react-native-animatable';
 import ImageView from 'react-native-image-viewing';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import styles from './infoUser.styles';
 import I18n from 'utils/i18n';
+import styles from './infoUser.styles';
 const NAMESPACE = 'common';
 export default function infoUserView(props) {
   const {
@@ -49,14 +49,6 @@ export default function infoUserView(props) {
     textInputNewPass,
     isloading,
   } = props;
-  // if (isloading) {
-  //   return (
-  //     // eslint-disable-next-line react-native/no-inline-styles
-  //     <Col center style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
-  //       <Loading />
-  //     </Col>
-  //   );
-  // }
   return (
     <SafeAreaView style={styles.screenContainersafe}>
       <View style={styles.screenContainer}>
@@ -71,7 +63,7 @@ export default function infoUserView(props) {
               style={styles.avatarContainer}>
               <View style={styles.avatarView}>
                 <Image
-                  source={{uri: data.Avatar}}
+                  source={{ uri: data.Avatar }}
                   size={80}
                   style={styles.img}
                 />
@@ -371,7 +363,7 @@ export default function infoUserView(props) {
           </View>
         </Modal>
         <ImageView
-          images={[{uri: data.Avatar}]}
+          images={[{ uri: data.Avatar }]}
           imageIndex={0}
           visible={visibleViewing}
           onRequestClose={() => setvisibleViewing(false)}

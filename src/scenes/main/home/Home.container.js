@@ -68,14 +68,14 @@ function HomeContainer({ navigation }) {
     }
   };
   const setToken = () => {
-    var keyDecide = DeviceInfo.getDeviceId()
+    var keyDecide = DeviceInfo.getDeviceId();
     if (auth().currentUser && NotificationConstants.fcmToken !== '') {
       database().ref('Users').child(auth().currentUser.uid).child(`fcmToken/${keyDecide}`).update({
         tokenDecide: NotificationConstants.fcmToken,
-        keyDecide: keyDecide
-      })
+        keyDecide: keyDecide,
+      });
     }
-  }
+  };
   const getCountChats = () => {
     if (auth().currentUser) {
       database()

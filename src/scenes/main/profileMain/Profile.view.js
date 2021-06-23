@@ -205,7 +205,7 @@ const ProfileMainView = (props) => {
             <View style={styles.divider} />
             <TouchableOpacity>
               <ProfileItem
-                icon="headphones"
+                icon="shield-check"
                 name={I18n.t(`${NAMESPACE}.suport`)}
               />
             </TouchableOpacity>
