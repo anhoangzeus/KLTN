@@ -10,6 +10,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {chooseImageOptions} from '../../../utils/options';
 import moment from 'moment';
 import I18n from 'utils/i18n';
+var axios = require('axios');
 const NAMESPACE = 'common';
 const functionsCounter = new Set();
 
@@ -123,6 +124,55 @@ export default function AddProductContainer({navigation}) {
     setDataCate(arr);
     setIsLoading(false);
   };
+
+  const sendNotification = async () => {
+    let arr = [];
+    await database()
+      .ref('Brief/' + auth().currentUser.uid + '/Follow')
+      .once('value')
+      .then((snapshot) => {
+        snapshot.forEach((childSnap) => {
+          childSnap.forEach((childSnapshot) => {
+            arr.push(childSnapshot.key);
+          });
+        });
+      });
+    console.log('mảng token :', arr);
+    axios
+      .post(
+        'https://fcm.googleapis.com/fcm/send',
+        {
+          registration_ids: arr,
+          notification: {
+            title: 'Xin Chào',
+            text: 'Đây là thông báo test',
+            sound: 'default',
+            badge: 69,
+          },
+          data: {
+            title: 'Xin Chào Bạn',
+            text: 'Đây là thông báo test',
+            badge: 69,
+            targetModule: 'Case',
+            targetId: 2082,
+          },
+          priority: 'high',
+          android: {
+            priority: 'high',
+          },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization:
+              'key=AAAA2WbinkI:APA91bElJuMpVXvMJaacwBdPh-hNdfrHQ7rUKCOUjS86d4uxaUk8kNN5fsaymjDR7duhoSApGFOyuby-dTO7sTKvXYjrss-W2cYtlC7SEm_6hAHFhkB-H958DbVWJEYAjNZKgBvRr1ja',
+          },
+        },
+      )
+      .then((response) => console.log('gửi thông báo thành công'))
+      .catch((err) => console.log(err));
+  };
+
   const Submit = async () => {
     setIsUpload(true);
     var formprice = price.replace(/\s/g, '');
@@ -146,10 +196,9 @@ export default function AddProductContainer({navigation}) {
         moreimage += url + '|';
       }),
     );
-    console.log('list image push database', imgTemp);
 
-    const x = parseInt(formprice);
-    const y = parseInt(sale);
+    const x = parseInt(formprice, 10);
+    const y = parseInt(sale, 10);
     const PromotionPrice = x - (x * y) / 100;
     var date = moment().subtract(10, 'days').calendar();
     var useID = auth().currentUser.uid;
@@ -179,6 +228,7 @@ export default function AddProductContainer({navigation}) {
     setTimeout(() => {
       setIsSuccess(false);
     }, 1000);
+    sendNotification();
   };
 
   const onChangeName = (text) => {
@@ -190,6 +240,7 @@ export default function AddProductContainer({navigation}) {
   const onChangeKeyWord = (text) => {
     setKeyWord(text);
   };
+  
   useEffect(() => {
     getDataCate();
   }, []);
@@ -202,6 +253,7 @@ export default function AddProductContainer({navigation}) {
   functionsCounter.add(setCate);
   functionsCounter.add(setCateName);
   functionsCounter.add(Submit);
+  functionsCounter.add(sendNotification);
   return (
     <AddProductView
       //chooseImage={chooseImage}

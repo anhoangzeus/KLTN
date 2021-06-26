@@ -12,7 +12,20 @@ import auth from '@react-native-firebase/auth';
 import {BackgroundImage} from 'react-native-elements/dist/config';
 
 function StoreProfileView(props) {
-  const {info, listItems, loading, choose,isFollow,des, address, setChoose, getListChat, onFollow, onUnFollow} = props;
+  const {
+    info,
+    listItems,
+    loading,
+    choose,
+    isFollow,
+    des,
+    address,
+    setChoose,
+    getListChat,
+    onFollow,
+    onUnFollow,
+  } = props;
+  console.log('address list: ', address);
   if (loading) {
     <Col
       center
@@ -52,42 +65,47 @@ function StoreProfileView(props) {
                 {/* <Text style={styles.nameText}>{info.Name}</Text> */}
                 <Text style={styles.nameText}>TienAnh Shop</Text>
                 {auth().currentUser.uid ? (
-                     <View style={styles.flexRow}>
-                     <TouchableOpacity
-                       style={styles.Tag}
-                       onPress={() => getListChat()}>
-                       <Image
-                         source={require('../../../assets/images/chat.png')}
-                         style={styles.tagImg}
-                       />
-                       <Text>Chat</Text>
-                     </TouchableOpacity>
-                     {!isFollow ? (
-                        <TouchableOpacity style={styles.Tag} onPress={() =>onFollow()}>
+                  <View style={styles.flexRow}>
+                    <TouchableOpacity
+                      style={styles.Tag}
+                      onPress={() => getListChat()}>
+                      <Image
+                        source={require('../../../assets/images/chat.png')}
+                        style={styles.tagImg}
+                      />
+                      <Text>Chat</Text>
+                    </TouchableOpacity>
+                    {!isFollow ? (
+                      <TouchableOpacity
+                        style={styles.Tag}
+                        onPress={() => onFollow()}>
                         <Image
                           source={require('../../../assets/images/tim.png')}
                           style={styles.tagImg}
                         />
                         <Text>Follow</Text>
                       </TouchableOpacity>
-                     ) : ( <TouchableOpacity style={styles.Tag} onPress={() =>onUnFollow()}>
-                     <Image
-                       source={require('../../../assets/images/untim.png')}
-                       style={styles.tagImg}
-                     />
-                      <Text>Unf</Text>
-                   </TouchableOpacity>)}
+                    ) : (
+                      <TouchableOpacity
+                        style={styles.Tag}
+                        onPress={() => onUnFollow()}>
+                        <Image
+                          source={require('../../../assets/images/untim.png')}
+                          style={styles.tagImg}
+                        />
+                        <Text>Unf</Text>
+                      </TouchableOpacity>
+                    )}
 
-                     <TouchableOpacity style={styles.Tag}>
-                       <Image
-                         source={require('../../../assets/images/report.png')}
-                         style={styles.tagImg}
-                       />
-                       <Text>Report</Text>
-                     </TouchableOpacity>
-                   </View>
-                ) : null }
-
+                    <TouchableOpacity style={styles.Tag}>
+                      <Image
+                        source={require('../../../assets/images/report.png')}
+                        style={styles.tagImg}
+                      />
+                      <Text>Report</Text>
+                    </TouchableOpacity>
+                  </View>
+                ) : null}
               </View>
             </View>
             <View style={styles.flexRow2}>
@@ -134,15 +152,13 @@ function StoreProfileView(props) {
             ) : (
               <View style={styles.storeProfile}>
                 <Text>{des}</Text>
-                {address.map((address) => {
+                {address?.map((address) => {
                   return (
                     <View>
-                      <Text>
-                        {address.City}
-                      </Text>
+                      <Text>{address.City}</Text>
                     </View>
                   );
-                  })}
+                })}
               </View>
             )}
           </BackgroundImage>

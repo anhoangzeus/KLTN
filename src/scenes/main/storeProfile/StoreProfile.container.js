@@ -19,14 +19,13 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
 export default function StoreProfileContainer({navigation, route}) {
   const isLoading = useSelectorShallow(loadingSelector);
   const {info} = getParams(route);
-  console.log('info user: ', info);
   const [choose, setChoose] = useState(0);
   const [listItems, setListItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState('');
   const [isFollow, setIsFollow] = useState(false);
   const [des, setDes] = useState('');
-  const [address, setAddress] = ([]);
+  const [address, setAddress] = useState([]);
   const getListChat = async () => {
     database()
       .ref('Chats')
@@ -100,57 +99,70 @@ export default function StoreProfileContainer({navigation, route}) {
     setLoading(false);
   };
   const onFollow = async () => {
-    console.log('token follow: ', info.UserID);
-    console.log('vao ham onFollow: ');
-    if (auth().currentUser.uid){
-      await database().ref('Brief/' + info.UserID + '/Follow/' + auth().currentUser.uid).child(token).update({
-        UserID: auth().currentUser.uid,
-        Token: token,
-      });
-      await database().ref('Users/' + auth().currentUser.uid + '/Follow/').child(info.UserID).update({
-        StoreID: info.UserID,
-        Status: true,
-      });
+    if (auth().currentUser.uid) {
+      await database()
+        .ref('Brief/' + info.UserID + '/Follow/' + auth().currentUser.uid)
+        .child(token)
+        .update({
+          UserID: auth().currentUser.uid,
+          Token: token,
+        });
+      await database()
+        .ref('Users/' + auth().currentUser.uid + '/Follow/')
+        .child(info.UserID)
+        .update({
+          StoreID: info.UserID,
+          Status: true,
+        });
     }
     setIsFollow(true);
   };
   const onUnFollow = async () => {
-    if (auth().currentUser.uid){
-      await database().ref('Brief/' + info.UserID + '/Follow/' + auth().currentUser.uid).child(token).set({
-
-      });
-      await database().ref('Users/' + auth().currentUser.uid + '/Follow/').child(info.UserID).update({
-        StoreID: info.UserID,
-        Status: false,
-      });
+    if (auth().currentUser.uid) {
+      await database()
+        .ref('Brief/' + info.UserID + '/Follow/' + auth().currentUser.uid)
+        .child(token)
+        .set({});
+      await database()
+        .ref('Users/' + auth().currentUser.uid + '/Follow/')
+        .child(info.UserID)
+        .update({
+          StoreID: info.UserID,
+          Status: false,
+        });
     }
     setIsFollow(false);
   };
-  const getFollowStatus = async() => {
-    await database().ref('Users/' + auth().currentUser.uid + '/Follow/').child(info.UserID).once('value').then((snapshot) => {
+  const getFollowStatus = async () => {
+    await database()
+      .ref('Users/' + auth().currentUser.uid + '/Follow/')
+      .child(info.UserID)
+      .once('value')
+      .then((snapshot) => {
         console.log('snapshot user: ', snapshot.val().Status);
-        if (snapshot.val().Status === true){
+        if (snapshot.val().Status === true) {
           setIsFollow(true);
         }
-    });
-    await database().ref('Brief/' + info.UserID).once('value').then((snapshot) => {
-      setDes(snapshot.val().Description);
-      snapshot.child('Address').once('value').then((snapshot2) => {
+      });
+    await database()
+      .ref('Brief/' + info.UserID)
+      .once('value')
+      .then((snapshot) => {
+        setDes(snapshot.val().Description);
         let listAddress = [];
-        snapshot2.forEach(childSnapshot => {
-            let item = {
-              City: childSnapshot.val().City,
-              Huyen:childSnapshot.val().Huyen,
-              NumberAddress:childSnapshot.val().NumberAddress,
-              Xa:childSnapshot.val().Xa,
-            };
-            listAddress.push(item);
+        snapshot.child('Address').forEach((snapshot2) => {
+          let item = {
+            City: snapshot2.val().City,
+            Huyen: snapshot2.val().Huyen,
+            NumberAddress: snapshot2.val().NumberAddress,
+            Xa: snapshot2.val().Xa,
+          };
+          listAddress.push(item);
         });
         setAddress(listAddress);
       });
-    });
   };
-  const getToken =  async () => {
+  const getToken = async () => {
     try {
       const value = await AsyncStorage.getItem('token');
       if (value !== null) {
