@@ -15,6 +15,7 @@ import NavigationServices, { getParams } from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 import Geocoder from 'react-native-geocoding';
 Geocoder.init("AIzaSyDNzy29FhjgnLXCCa9f8vqgcq_B-32uXLs");
+
 const { PayZaloBridge } = NativeModules;
 const payZaloBridgeEmitter = new NativeEventEmitter(PayZaloBridge);
 let apptransid;

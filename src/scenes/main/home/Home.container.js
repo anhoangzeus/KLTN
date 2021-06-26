@@ -14,11 +14,14 @@ import React, { useCallback, useEffect, useState } from 'react';
 // import { set } from 'lodash';
 // import SCENE_NAMES from 'constants/sceneName';
 import { LogBox, Text, View } from 'react-native';
-import { NotificationConstants } from 'utils/appContants';
+import { NotificationConstants, NOTIFICATION_TYPE } from 'utils/appContants';
 // import {NAMESPACE} from './Home.constants';
 import styles from './Home.styles';
 import HomeView from './Home.view';
 import DeviceInfo from 'react-native-device-info';
+import PushNotification from 'react-native-push-notification';
+import NavigationServices from 'utils/navigationServices';
+import SCENE_NAMES from 'constants/sceneName';
 const functionsCounter = new Set();
 LogBox.ignoreAllLogs();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
@@ -68,14 +71,30 @@ function HomeContainer({ navigation }) {
     }
   };
   const setToken = () => {
-    var keyDecide = DeviceInfo.getDeviceId()
+    var keyDecide = DeviceInfo.getDeviceId();
     if (auth().currentUser && NotificationConstants.fcmToken !== '') {
-      database().ref('Users').child(auth().currentUser.uid).child(`fcmToken/${keyDecide}`).update({
-        tokenDecide: NotificationConstants.fcmToken,
-        keyDecide: keyDecide
-      })
+      database().ref('FmcToken').once('value').then(snapshot => {
+        var count = true;
+        snapshot.forEach(child => {
+          if (child.val().UserId === auth().currentUser.uid && child.val().keyDecide === keyDecide) {
+            count = false;
+            database().ref('FmcToken').child(child.key).update({
+              tokenDecide: NotificationConstants.fcmToken,
+            });
+          }
+        });
+        if (count) {
+          var key = database().ref('FmcToken').push().key;
+          database().ref('FmcToken').child(key).update({
+            TokenID: key,
+            UserId: auth().currentUser.uid,
+            keyDecide: keyDecide,
+            tokenDecide: NotificationConstants.fcmToken,
+          });
+        }
+      });
     }
-  }
+  };
   const getCountChats = () => {
     if (auth().currentUser) {
       database()
@@ -289,6 +308,7 @@ function HomeContainer({ navigation }) {
         setListall(items);
       });
   };
+
   const getListBanner = () => {
     database()
       .ref('Contents')
@@ -308,6 +328,28 @@ function HomeContainer({ navigation }) {
         setLoading(false);
         setRefreshing(false);
       });
+  };
+  const handleNofify = () => {
+    PushNotification.configure({
+      onNotification: function (notification) {
+        console.log('NOTIFICATION:Tien Anh dep trai', notification);
+        switch (notification?.data?.targetModule) {
+          case NOTIFICATION_TYPE.GIAM_GIA:
+            NavigationServices.navigate(SCENE_NAMES.MAIN);
+            NavigationServices.navigate(SCENE_NAMES.NOTIFY);
+            NavigationServices.navigate(SCENE_NAMES.Route_Contents, { id: notification?.data?.targetId });
+            break;
+          case NOTIFICATION_TYPE.TIN_TUC:
+            NavigationServices.navigate(SCENE_NAMES.MAIN);
+            NavigationServices.navigate(SCENE_NAMES.NOTIFY);
+            NavigationServices.navigate(SCENE_NAMES.Route_Contents, { id: notification?.data?.targetId });
+            break;
+
+          default:
+            break;
+        }
+      },
+    });
   };
   const _onRefresh = () => {
     setToken();
@@ -334,6 +376,7 @@ function HomeContainer({ navigation }) {
     getListBanner();
     getnumcart();
     getCountChats();
+    handleNofify();
   }, []);
 
   const renderNofiCart = () => {
