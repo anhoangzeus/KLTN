@@ -240,7 +240,7 @@ export default function AddProductContainer({navigation}) {
   const onChangeKeyWord = (text) => {
     setKeyWord(text);
   };
-  
+
   useEffect(() => {
     getDataCate();
   }, []);

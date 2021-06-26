@@ -12,6 +12,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 import PushNotification from 'react-native-push-notification';
+import {NOTIFICATION_TYPE} from 'utils/appContants';
 const storeConfig = configureStore();
 
 class App extends PureComponent {
@@ -27,7 +28,28 @@ class App extends PureComponent {
     Text.defaultProps.allowFontScaling = false;
   }
   onActionNotificationListener(notification) {
-    NavigationServices.navigate(SCENE_NAMES.NOTIFY);
+    //NavigationServices.navigate(SCENE_NAMES.NOTIFY);
+    console.log('notification detail', notification);
+    switch (notification?.data?.targetModule) {
+      case NOTIFICATION_TYPE.GIAM_GIA:
+        NavigationServices.navigate(SCENE_NAMES.MAIN);
+        NavigationServices.navigate(SCENE_NAMES.NOTIFY);
+        NavigationServices.navigate(SCENE_NAMES.Route_Contents, {
+          id: notification?.data?.targetId,
+        });
+        break;
+      case NOTIFICATION_TYPE.TIN_TUC:
+        NavigationServices.navigate(SCENE_NAMES.MAIN);
+        NavigationServices.navigate(SCENE_NAMES.NOTIFY);
+        NavigationServices.navigate(SCENE_NAMES.Route_Contents, {
+          id: notification?.data?.targetId,
+        });
+        break;
+
+      default:
+        NavigationServices.navigate(SCENE_NAMES.NOTIFY);
+        break;
+    }
   }
   componentDidMount() {
     FCMService.getFcmToken((token) => {

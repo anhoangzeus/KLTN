@@ -1,38 +1,35 @@
 /* eslint-disable react-native/no-inline-styles */
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
-import { getUserInfoSubmit } from 'appRedux/actions/authActions';
-import { AUTH } from 'appRedux/actionsType';
-import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
+import {getUserInfoSubmit} from 'appRedux/actions/authActions';
+import {AUTH} from 'appRedux/actionsType';
+import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
 import withForceUpdate from 'components/HOC/withForceUpdate';
-import { useActions } from 'hooks/useActions';
+import {useActions} from 'hooks/useActions';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
 import LottieView from 'lottie-react-native';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 // import { set } from 'lodash';
 // import SCENE_NAMES from 'constants/sceneName';
-import { LogBox, Text, View } from 'react-native';
-import { NotificationConstants, NOTIFICATION_TYPE } from 'utils/appContants';
+import {LogBox, Text, View} from 'react-native';
+import {NotificationConstants} from 'utils/appContants';
 // import {NAMESPACE} from './Home.constants';
 import styles from './Home.styles';
 import HomeView from './Home.view';
 import DeviceInfo from 'react-native-device-info';
-import PushNotification from 'react-native-push-notification';
-import NavigationServices from 'utils/navigationServices';
-import SCENE_NAMES from 'constants/sceneName';
 const functionsCounter = new Set();
 LogBox.ignoreAllLogs();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   AUTH.GET_USER_INFO.HANDLER,
 ]);
 
-function HomeContainer({ navigation }) {
-  const actions = useActions({ getUserInfoSubmit });
+function HomeContainer({navigation}) {
+  const actions = useActions({getUserInfoSubmit});
   const isFetchingTest = useSelectorShallow(loadingSelector);
   const onPressTestApi = useCallback(() => {
-    actions.getUserInfoSubmit({ showLoading: false });
+    actions.getUserInfoSubmit({showLoading: false});
   }, [actions]);
 
   // reference.once('value')
@@ -73,26 +70,32 @@ function HomeContainer({ navigation }) {
   const setToken = () => {
     var keyDecide = DeviceInfo.getDeviceId();
     if (auth().currentUser && NotificationConstants.fcmToken !== '') {
-      database().ref('FmcToken').once('value').then(snapshot => {
-        var count = true;
-        snapshot.forEach(child => {
-          if (child.val().UserId === auth().currentUser.uid && child.val().keyDecide === keyDecide) {
-            count = false;
-            database().ref('FmcToken').child(child.key).update({
+      database()
+        .ref('FmcToken')
+        .once('value')
+        .then((snapshot) => {
+          var count = true;
+          snapshot.forEach((child) => {
+            if (
+              child.val().UserId === auth().currentUser.uid &&
+              child.val().keyDecide === keyDecide
+            ) {
+              count = false;
+              database().ref('FmcToken').child(child.key).update({
+                tokenDecide: NotificationConstants.fcmToken,
+              });
+            }
+          });
+          if (count) {
+            var key = database().ref('FmcToken').push().key;
+            database().ref('FmcToken').child(key).update({
+              TokenID: key,
+              UserId: auth().currentUser.uid,
+              keyDecide: keyDecide,
               tokenDecide: NotificationConstants.fcmToken,
             });
           }
         });
-        if (count) {
-          var key = database().ref('FmcToken').push().key;
-          database().ref('FmcToken').child(key).update({
-            TokenID: key,
-            UserId: auth().currentUser.uid,
-            keyDecide: keyDecide,
-            tokenDecide: NotificationConstants.fcmToken,
-          });
-        }
-      });
     }
   };
   const getCountChats = () => {
@@ -329,28 +332,11 @@ function HomeContainer({ navigation }) {
         setRefreshing(false);
       });
   };
-  const handleNofify = () => {
-    PushNotification.configure({
-      onNotification: function (notification) {
-        console.log('NOTIFICATION:Tien Anh dep trai', notification);
-        switch (notification?.data?.targetModule) {
-          case NOTIFICATION_TYPE.GIAM_GIA:
-            NavigationServices.navigate(SCENE_NAMES.MAIN);
-            NavigationServices.navigate(SCENE_NAMES.NOTIFY);
-            NavigationServices.navigate(SCENE_NAMES.Route_Contents, { id: notification?.data?.targetId });
-            break;
-          case NOTIFICATION_TYPE.TIN_TUC:
-            NavigationServices.navigate(SCENE_NAMES.MAIN);
-            NavigationServices.navigate(SCENE_NAMES.NOTIFY);
-            NavigationServices.navigate(SCENE_NAMES.Route_Contents, { id: notification?.data?.targetId });
-            break;
-
-          default:
-            break;
-        }
-      },
-    });
-  };
+  // const handleNofify = () => {
+  //   PushNotification.configure({
+  //     onNotification: function (notification) {},
+  //   });
+  // };
   const _onRefresh = () => {
     setToken();
     setRefreshing(true);
@@ -376,13 +362,13 @@ function HomeContainer({ navigation }) {
     getListBanner();
     getnumcart();
     getCountChats();
-    handleNofify();
+    //handleNofify();
   }, []);
 
   const renderNofiCart = () => {
     if (numcart !== 0) {
       return (
-        <View style={{ ...styles.cartView, width: numcart > 99 ? 19 : 12 }}>
+        <View style={{...styles.cartView, width: numcart > 99 ? 19 : 12}}>
           <Text style={styles.cartText} numberOfLines={1}>
             {numcart > 99 ? '99+' : numcart}
           </Text>
@@ -393,7 +379,7 @@ function HomeContainer({ navigation }) {
   const renderNumChat = () => {
     if (numChat !== 0) {
       return (
-        <View style={{ ...styles.cartView, width: numChat > 99 ? 19 : 12 }}>
+        <View style={{...styles.cartView, width: numChat > 99 ? 19 : 12}}>
           <Text style={styles.cartText} numberOfLines={1}>
             {numChat > 99 ? '99+' : numChat}
           </Text>
