@@ -18,5 +18,9 @@ export const chooseImageOptions = {
 };
 export const NotificationConstants = {
     fcmToken: '',
-}
+};
+export const NOTIFICATION_TYPE = {
+    GIAM_GIA: '1',
+    TIN_TUC: '2',
+};
 

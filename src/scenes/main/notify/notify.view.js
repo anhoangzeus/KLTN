@@ -1,6 +1,5 @@
-import auth from '@react-native-firebase/auth';
 import Header from 'components/Header';
-import {COLOR_BLACK, COLOR_BLUEAIR} from 'constants/colors';
+import { COLOR_BLACK, COLOR_BLUEAIR } from 'constants/colors';
 import SCENE_NAMES from 'constants/sceneName';
 import * as React from 'react';
 import {
@@ -13,8 +12,9 @@ import {
   View,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import styles from './notify.styles';
 import I18n from 'utils/i18n';
+import NavigationServices from 'utils/navigationServices';
+import styles from './notify.styles';
 const NAMESPACE = 'common';
 // eslint-disable-next-line no-unused-vars
 const renderTrangThai = (Status) => {
@@ -43,132 +43,17 @@ const renderTrangThai = (Status) => {
         </Text>
       </View>
     );
-  } else if (Status === '4') {
-    return (
-      <View>
-        <Text style={styles.textSuccess}>
-          {I18n.t(`${NAMESPACE}.ordersuccess`)}
-          <Text style={styles.textSuccess}>
-            {' '}
-            {I18n.t(`${NAMESPACE}.pleasereview`)}
-          </Text>
-        </Text>
-      </View>
-    );
-  } else if (Status === '5') {
-    return (
-      <View>
-        <Text style={styles.textSuccess}>
-          {I18n.t(`${NAMESPACE}.ordercancel`)}
-        </Text>
-      </View>
-    );
-  } else {
-    return (
-      <View>
-        <Text style={styles.textSuccess}>
-          {I18n.t(`${NAMESPACE}.orderreturn`)}
-        </Text>
-      </View>
-    );
   }
 };
-// const renderTimeLine = (name, item) => {
-//   return (
-//     <View style={styles.lineContainer}>
-//       <View style={styles.lineView} />
-//       <View style={styles.lineHolder}>
-//         <Text>{name}</Text>
-//         <Text>
-//           {I18n.t(`${NAMESPACE}.date`)} {item}
-//         </Text>
-//       </View>
-//     </View>
-//   );
-// };
-const OrderItem = ({item, props}) => {
-  //const {isdropdownid, navigation} = props;
-  // const OrderItem = ({item, props}) => {
-  //   return (
-  //     <View style={styles.jContent}>
-  //       <View style={styles.itemsContainer}>
-  //         <TouchableOpacity
-  //           onPress={() => {
-  //             item.Status === 4
-  //               ? navigation.navigate(SCENE_NAMES.TopStackOrder)
-  //               : navigation.navigate(SCENE_NAMES.DetailOrderContainer, {
-  //                   id: item.orderId,
-  //                 });
-  //           }}
-  //           style={styles.orderWidth}>
-  //           <Text style={{color: COLOR_BLUEAIR}}>
-  //             {I18n.t(`${NAMESPACE}.orderid`)} {item.orderId}
-  //           </Text>
-  //           <Text style={{color: COLOR_BLACK}}>
-  //             {item.payment === '01'
-  //               ? I18n.t(`${NAMESPACE}.cash`)
-  //               : I18n.t(`${NAMESPACE}.onlpay`)}
-  //           </Text>
-  //           {renderTrangThai(item.Status)}
-  //           <Text style={{color: COLOR_BLACK}}>
-  //             <MaterialCommunityIcons name="clock" size={13} />{' '}
-  //             {item.CreatedDate}
-  //           </Text>
-  //         </TouchableOpacity>
-  //       </View>
-  //       {isdropdownid === item.orderId ? (
-  //         <View style={styles.dropContainer}>
-  //           {item.TimeLine.ChoXacNhan === ''
-  //             ? null
-  //             : renderTimeLine(
-  //                 I18n.t(`${NAMESPACE}.comfirmgetorder`),
-  //                 item.TimeLine.ChoXacNhan,
-  //               )}
-  //           {item.TimeLine.ChoLayHang === ''
-  //             ? null
-  //             : renderTimeLine(
-  //                 I18n.t(`${NAMESPACE}.getsuccess`),
-  //                 item.TimeLine.ChoLayHang,
-  //               )}
-  //           {item.TimeLine.DangVanChuyen === ''
-  //             ? null
-  //             : renderTimeLine(
-  //                 I18n.t(`${NAMESPACE}.delivering`),
-  //                 item.TimeLine.DangVanChuyen,
-  //               )}
-  //           {item.TimeLine.DaGiaoHang === ''
-  //             ? null
-  //             : renderTimeLine(
-  //                 I18n.t(`${NAMESPACE}.deliverysuccess`),
-  //                 item.TimeLine.DaGiaoHang,
-  //               )}
-  //           {item.TimeLine.DaHuy === ''
-  //             ? null
-  //             : renderTimeLine(
-  //                 I18n.t(`${NAMESPACE}.confirmcancel`),
-  //                 item.TimeLine.DaHuy,
-  //               )}
-  //           {item.TimeLine.TraHang === ''
-  //             ? null
-  //             : renderTimeLine(
-  //                 I18n.t(`${NAMESPACE}.confirmreturn`),
-  //                 item.TimeLine.TraHang,
-  //               )}
-  //         </View>
-  //       ) : null}
-  //     </View>
-  //   );
-  // };
-};
 export default function NotifyView(props) {
-  const NotificationItem = ({item}) => {
-    const {setStateNotigication, navigation} = props;
+  const NotificationItem = ({ item }) => {
+    const { setStateNotigication } = props;
     return (
       <TouchableOpacity
         style={styles.itemContainer}
         onPress={() => {
           setStateNotigication(item.Id);
-          navigation.navigate(SCENE_NAMES.Route_Contents, {id: item.Url});
+          NavigationServices.navigate(SCENE_NAMES.Route_Contents, { id: item.Id });
         }}>
         <View style={styles.itemTopContainer}>
           <View
@@ -208,12 +93,10 @@ export default function NotifyView(props) {
     listThongBao,
     loading,
     ischoose,
-    listOrder,
     redPoint1,
     redPoint2,
     redPoint3,
     setIschoose,
-    getlistOrder,
     _onRefresh,
     refreshing,
   } = props;
@@ -278,27 +161,6 @@ export default function NotifyView(props) {
                 style={ischoose === 3 ? styles.activeIcon : null}
               />
             </TouchableOpacity>
-            {auth().currentUser ? (
-              <TouchableOpacity
-                onPress={() => {
-                  getlistOrder();
-                  setIschoose(4);
-                }}
-                style={
-                  ischoose === 4
-                    ? styles.buttonActiveContainer
-                    : styles.buttonInactiveContainer
-                }>
-                {ischoose === 4 ? <View style={styles.activeMark} /> : null}
-                {ischoose === 4 ? null : <View style={styles.redPoint} />}
-                <MaterialCommunityIcons
-                  name="clipboard-text-outline"
-                  color={ischoose === 4 ? '#2B4F8C' : '#949494'}
-                  size={25}
-                  style={ischoose === 4 ? styles.activeIcon : null}
-                />
-              </TouchableOpacity>
-            ) : null}
           </View>
           {loading ? (
             <View style={styles.listIndiContainer}>
@@ -306,20 +168,6 @@ export default function NotifyView(props) {
                 size="large"
                 color="'#2B4F8C"
                 style={styles.indicatorView}
-              />
-            </View>
-          ) : ischoose === 4 ? (
-            <View style={styles.listContainer}>
-              <FlatList
-                refreshControl={
-                  <RefreshControl
-                    refreshing={refreshing}
-                    onRefresh={_onRefresh}
-                  />
-                }
-                data={listOrder}
-                renderItem={({item}) => <OrderItem item={item} props={props} />}
-                keyExtractor={(item) => item.Id}
               />
             </View>
           ) : (
@@ -332,7 +180,7 @@ export default function NotifyView(props) {
                   />
                 }
                 data={listThongBao}
-                renderItem={({item}) => <NotificationItem item={item} />}
+                renderItem={({ item }) => <NotificationItem item={item} />}
                 keyExtractor={(item, index) => index}
               />
             </View>
