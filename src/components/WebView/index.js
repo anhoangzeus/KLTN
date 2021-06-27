@@ -82,7 +82,7 @@ export class Contents extends Component {
         </View>
         <WebView
           source={{
-            uri: this.state.items?.Url,
+            html: this.state.items?.Url,
           }}
           style={styles.margin}
         />
