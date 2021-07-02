@@ -38,7 +38,6 @@ function CategoryView(props) {
     //listbrand,
     listcontent,
   } = props;
-
   return (
     <SafeAreaView style={styles.screenContainersafe}>
       <View style={styles.screenContainer}>
@@ -104,18 +103,26 @@ function CategoryView(props) {
                 <View style={styles.space} />
                 <View style={styles.listItemContainer}>
                   <FlatList
-                    initialNumToRende={3}
+                    initialNumToRender={4}
                     showsVerticalScrollIndicator={false}
                     numColumns={2}
                     data={listproduct}
                     renderItem={({item}) => (
                       <TouchableOpacity
                         onPress={() => {
-                          NavigationServices.navigate(SCENE_NAMES.PRODUCT, {
-                            id: item.id,
-                            CategoryID: item.CategoryID,
-                            BrandID: item.BrandID,
-                          });
+                          console.log('item pressed', item.UserID);
+                          if (item.UserID) {
+                            NavigationServices.navigate(
+                              SCENE_NAMES.SELLERPRODUCT,
+                              {
+                                item: item,
+                              },
+                            );
+                          } else {
+                            NavigationServices.navigate(SCENE_NAMES.PRODUCT, {
+                              item: item,
+                            });
+                          }
                         }}>
                         <ProductItem item={item} />
                       </TouchableOpacity>

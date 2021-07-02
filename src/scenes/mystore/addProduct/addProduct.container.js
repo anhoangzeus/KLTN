@@ -192,8 +192,10 @@ export default function AddProductContainer({navigation}) {
       keyword === '' ||
       price === '0'
     ) {
-      setIsUpload(true);
+      setIsUpload(false);
+      return;
     }
+    setIsUpload(true);
     var formprice = price.replace(/\s/g, '');
     formprice = formprice.replace(',', '');
     let imgTemp = [];

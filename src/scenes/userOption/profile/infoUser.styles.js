@@ -181,10 +181,13 @@ export default StyleSheet.create({
     marginVertical: 10,
     height: SIZE.DEVICE_HEIGHT / 20,
     borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   txtSave: {
     fontSize: 20,
     textAlign: 'center',
+
     color: 'white',
     marginTop: 5,
   },

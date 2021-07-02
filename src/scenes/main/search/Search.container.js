@@ -90,6 +90,7 @@ export default function SearchContainer({navigation}) {
               BrandID: childSnapshot.val().BrandID,
               CategoryID: childSnapshot.val().CategoryID,
               PromotionPrice: childSnapshot.val().PromotionPrice,
+              Counts: childSnapshot.val().Counts,
             });
           }
         });
@@ -126,6 +127,7 @@ export default function SearchContainer({navigation}) {
               BrandID: childSnapshot.val().BrandID,
               CategoryID: childSnapshot.val().CategoryID,
               PromotionPrice: childSnapshot.val().PromotionPrice,
+              Counts: childSnapshot.val().Count,
             });
           }
         });

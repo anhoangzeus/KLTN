@@ -63,7 +63,7 @@ export default function infoUserView(props) {
               style={styles.avatarContainer}>
               <View style={styles.avatarView}>
                 <Image
-                  source={{ uri: data.Avatar }}
+                  source={{uri: data.Avatar}}
                   size={80}
                   style={styles.img}
                 />
@@ -329,7 +329,6 @@ export default function infoUserView(props) {
               saveChangesHandle();
             }}>
             <Text style={styles.txtSave}>
-              {' '}
               {I18n.t(`${NAMESPACE}.savechange`)}
             </Text>
           </TouchableOpacity>
@@ -363,7 +362,7 @@ export default function infoUserView(props) {
           </View>
         </Modal>
         <ImageView
-          images={[{ uri: data.Avatar }]}
+          images={[{uri: data.Avatar}]}
           imageIndex={0}
           visible={visibleViewing}
           onRequestClose={() => setvisibleViewing(false)}

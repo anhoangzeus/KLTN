@@ -2,16 +2,16 @@
 /* eslint-disable react-native/no-inline-styles */
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
-import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
+import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
 import SCENE_NAMES from 'constants/sceneName';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { Animated, Text, View } from 'react-native';
-import { getString } from 'utils/i18n';
-import NavigationServices, { getParams } from 'utils/navigationServices';
-import { NAMESPACE } from './Product.constants';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
+import {Animated, Text, View} from 'react-native';
+import {getString} from 'utils/i18n';
+import NavigationServices, {getParams} from 'utils/navigationServices';
+import {NAMESPACE} from './Product.constants';
 import styles from './Product.styles';
 import ProductView from './Product.view';
 const functionsCounter = new Set();
@@ -20,20 +20,22 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 
-export default function ProductContainer({ navigation, route }) {
+export default function ProductContainer({navigation, route}) {
   const isLoading = useSelectorShallow(loadingSelector);
-  const { item } = getParams(route);
-  console.log('item navigation: ', item);
+  const {item} = getParams(route);
   const itemRef = database();
 
   const [numcart, setnumcart] = useState(0);
-  const [decription, setdecription] = useState('');
-  const [image, setimage] = useState('');
-  const [name, setname] = useState('');
-  const [price, setprice] = useState('');
-  const [waranty, setwaranty] = useState('');
-  const [promotionprice, setpromotionprice] = useState('');
-  const [metadescription, setmetadescription] = useState('');
+  const decription = item.MetaDescription;
+  const image = item.Image;
+  const name = item.Name;
+  const price = item.Price;
+  const count = item.Counts;
+  const waranty = item.Warranty;
+  const promotionprice = item.PromotionPrice;
+  const metadescription = item.MetaDescription;
+  const rating = item.rating;
+  const [bough, setbough] = useState(item.count);
   const [listproductlienquan, setlistproductlienquan] = useState([]);
   const [listmoreimage, setlistmoreimage] = useState([]);
   const [listcomment, setlistcomment] = useState([]);
@@ -43,8 +45,6 @@ export default function ProductContainer({ navigation, route }) {
   const [scrollY] = useState(new Animated.Value(0));
   const [isloading, setisloading] = useState(false);
   const [categoryname, setcategoryname] = useState('');
-  const [rating] = useState(item.rating);
-  const [bough, setbough] = useState(item.count);
   const [sao1, setsao1] = useState(0);
   const [sao2, setsao2] = useState(0);
   const [sao3, setsao3] = useState(0);
@@ -116,13 +116,11 @@ export default function ProductContainer({ navigation, route }) {
             }
           }
         });
-        console.log('item lien quan: ', items);
         setlistproductlienquan(items);
       });
   };
   const getData = () => {
     var ImageItems = [];
-    console.log('id san pham: ', item.ProductID);
     database()
       .ref('/Products')
       .child(item.ProductID)
@@ -134,7 +132,7 @@ export default function ProductContainer({ navigation, route }) {
         var _sao4 = 0;
         var _sao5 = 0;
 
-        var count = 0;
+        var counts = 0;
         var items = [];
         snapshot.child('Rating').forEach((child) => {
           if (child.val().Point === 1) {
@@ -149,7 +147,7 @@ export default function ProductContainer({ navigation, route }) {
             _sao5++;
           }
 
-          count++;
+          counts++;
           items.push({
             Avatar: child.val().Avatar,
             Comment: child.val().Comment,
@@ -158,15 +156,8 @@ export default function ProductContainer({ navigation, route }) {
             UserName: child.val().UserName,
           });
         });
-        setdecription(snapshot.val().Description);
-        setimage(snapshot.val().Image);
-        setname(snapshot.val().Name);
-        setprice(snapshot.val().Price);
-        setwaranty(snapshot.val().Warranty);
-        setmetadescription(snapshot.val().MetaDescription);
-        setpromotionprice(snapshot.val().PromotionPrice);
         setlistcomment(items);
-        setbough(count);
+        setbough(counts);
         setsao1(_sao1);
         setsao2(_sao2);
         setsao3(_sao3);
@@ -222,7 +213,7 @@ export default function ProductContainer({ navigation, route }) {
     } else {
       return (
         <View style={styles.cartposition}>
-          <Text style={{ color: 'white' }}>{numcart}</Text>
+          <Text style={{color: 'white'}}>{numcart}</Text>
         </View>
       );
     }
@@ -341,6 +332,7 @@ export default function ProductContainer({ navigation, route }) {
       setID={setID}
       numcart={numcart}
       decription={decription}
+      count={count}
       image={image}
       name={name}
       price={price}

@@ -231,7 +231,6 @@ export default function infoUserContainer({navigation}) {
       .ref('avatar/' + data.filename)
       .getDownloadURL();
 
-    console.log(url);
     var date = moment().subtract(10, 'days').calendar();
     if (isSelected === false) {
       if (data.FullName.length <= 1 || data.Phone.length <= 1) {
@@ -243,12 +242,12 @@ export default function infoUserContainer({navigation}) {
           .ref('Users')
           .child(auth().currentUser.uid)
           .update({
-            FullName: data.FullName,
-            Phone: data.Phone,
-            CMND: data.CMND,
+            FullName: data.FullName || '',
+            Phone: data.Phone || '',
+            CMND: data.CMND || '',
             ModifiedBy: 'User',
             ModifiedDate: date,
-            Avatar: url,
+            Avatar: url || '',
           })
           .then(
             setIsloading(false),
