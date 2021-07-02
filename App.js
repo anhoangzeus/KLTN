@@ -32,20 +32,57 @@ class App extends PureComponent {
     console.log('notification detail', notification);
     switch (notification?.data?.targetModule) {
       case NOTIFICATION_TYPE.GIAM_GIA:
-        NavigationServices.navigate(SCENE_NAMES.MAIN);
         NavigationServices.navigate(SCENE_NAMES.NOTIFY);
         NavigationServices.navigate(SCENE_NAMES.Route_Contents, {
           id: notification?.data?.targetId,
         });
         break;
       case NOTIFICATION_TYPE.TIN_TUC:
-        NavigationServices.navigate(SCENE_NAMES.MAIN);
         NavigationServices.navigate(SCENE_NAMES.NOTIFY);
         NavigationServices.navigate(SCENE_NAMES.Route_Contents, {
           id: notification?.data?.targetId,
         });
         break;
-
+      case NOTIFICATION_TYPE.XAC_NHAN:
+        NavigationServices.navigate(SCENE_NAMES.OrderXuli);
+        NavigationServices.navigate(SCENE_NAMES.DetailOrderContainer, {
+          id: notification?.data?.targetId,
+        });
+        break;
+      case NOTIFICATION_TYPE.GIAO_HANG:
+        NavigationServices.navigate(SCENE_NAMES.TopStackOrder);
+        NavigationServices.navigate(SCENE_NAMES.GIAO_HANG, {
+          id: notification?.data?.targetId,
+        });
+        break;
+      case NOTIFICATION_TYPE.DA_GIAO:
+        NavigationServices.navigate(SCENE_NAMES.TopStackOrder);
+        NavigationServices.navigate(SCENE_NAMES.DetailOrderContainer, {
+          id: notification?.data?.targetId,
+        });
+        break;
+      case NOTIFICATION_TYPE.DA_HUY:
+        NavigationServices.navigate(SCENE_NAMES.TopStackOrder);
+        NavigationServices.navigate(SCENE_NAMES.DetailOrderContainer, {
+          id: notification?.data?.targetId,
+        });
+        break;
+      case NOTIFICATION_TYPE.TRA_HANG:
+        NavigationServices.navigate(SCENE_NAMES.TopStackOrder);
+        NavigationServices.navigate(SCENE_NAMES.DetailOrderContainer, {
+          id: notification?.data?.targetId,
+        });
+        break;
+      case NOTIFICATION_TYPE.APPROVE_STORE:
+        NavigationServices.navigate(SCENE_NAMES.PROFILE);
+        NavigationServices.navigate(SCENE_NAMES.MyStoreOptionContainer);
+        break;
+      case NOTIFICATION_TYPE.PRODUCT:
+        NavigationServices.navigate(SCENE_NAMES.MAIN);
+        NavigationServices.navigate(SCENE_NAMES.SELLERPRODUCT, {
+          item: notification?.data?.item,
+        });
+        break;
       default:
         NavigationServices.navigate(SCENE_NAMES.NOTIFY);
         break;

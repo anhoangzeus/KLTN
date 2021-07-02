@@ -98,7 +98,7 @@ function CategoryView(props) {
                   showsHorizontalScrollIndicator={false}
                   data={listcate}
                   renderItem={({item}) => <CategoryItem item={item} />}
-                  keyExtractor={(item) => item.id}
+                  keyExtractor={(item) => item.CateProductID}
                   extraData={categoryid}
                 />
                 <View style={styles.space} />

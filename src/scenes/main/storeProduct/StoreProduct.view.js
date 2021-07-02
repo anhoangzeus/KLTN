@@ -21,7 +21,6 @@ function StoreProductView(props) {
     getlistProduct();
   };
 
-  console.log('list item props:', listItems);
   if (loading) {
     <Col
       center

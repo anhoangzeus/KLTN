@@ -125,8 +125,15 @@ export default function AddProductContainer({navigation}) {
     setIsLoading(false);
   };
 
-  const sendNotification = async () => {
+  const sendNotification = async (noti) => {
     let arr = [];
+    let storeName = '';
+    database()
+      .ref('Brief/' + auth().currentUser.uid)
+      .once('value')
+      .then((snapshot) => {
+        storeName = snapshot.val().StoreName;
+      });
     await database()
       .ref('Brief/' + auth().currentUser.uid + '/Follow')
       .once('value')
@@ -137,24 +144,28 @@ export default function AddProductContainer({navigation}) {
           });
         });
       });
-    console.log('mảng token :', arr);
     axios
       .post(
         'https://fcm.googleapis.com/fcm/send',
         {
           registration_ids: arr,
           notification: {
-            title: 'Xin Chào',
-            text: 'Đây là thông báo test',
+            title: storeName + ' đã thêm một sản phẩm mới',
+            text:
+              storeName + ' đã thêm một sản phẩm mới. Hãy tới xem ngay nào !',
             sound: 'default',
             badge: 69,
+            targetModule: 'PRODUCT',
+            item: noti,
           },
           data: {
-            title: 'Xin Chào Bạn',
-            text: 'Đây là thông báo test',
+            title: storeName + ' đã thêm một sản phẩm mới',
+            text:
+              storeName + ' đã thêm một sản phẩm mới. Hãy tới xem ngay nào !',
             badge: 69,
-            targetModule: 'Case',
+            targetModule: 'PRODUCT',
             targetId: 2082,
+            item: noti,
           },
           priority: 'high',
           android: {
@@ -174,7 +185,15 @@ export default function AddProductContainer({navigation}) {
   };
 
   const Submit = async () => {
-    setIsUpload(true);
+    if (
+      cate === '' ||
+      name === '' ||
+      des === '' ||
+      keyword === '' ||
+      price === '0'
+    ) {
+      setIsUpload(true);
+    }
     var formprice = price.replace(/\s/g, '');
     formprice = formprice.replace(',', '');
     let imgTemp = [];
@@ -228,7 +247,23 @@ export default function AddProductContainer({navigation}) {
     setTimeout(() => {
       setIsSuccess(false);
     }, 1000);
-    sendNotification();
+    const noti = {
+      CategoryID: cate,
+      CreatedDate: date,
+      Description: des,
+      Image: imgTemp[0],
+      MoreImage: moreimage,
+      MetaDescription: keyword,
+      Name: name,
+      Price: formprice,
+      Count: parseInt(count, 10),
+      Status: true,
+      UserID: useID,
+      ProductID: keyDetail,
+      Warranty: warranty,
+      PromotionPrice: PromotionPrice.toString(),
+    };
+    sendNotification(noti);
   };
 
   const onChangeName = (text) => {

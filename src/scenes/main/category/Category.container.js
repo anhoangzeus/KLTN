@@ -52,10 +52,12 @@ export default function CategoryContainer({navigation}) {
       </View>
     );
   };
-  const CategoryItem = ({name, id, icon}) => {
-    const colorText = id === categoryid ? '#6e3b6e' : '#1ba8ff';
+  const CategoryItem = (item) => {
+    console.log('data category: ', item);
+    const colorText =
+      item.item.CateProductID === categoryid ? '#6e3b6e' : '#1ba8ff';
     let iconpath = '../../../assets/icons/orther.png';
-    switch (icon) {
+    switch (item.item.Icon) {
       case 'orther':
         iconpath =
           'https://firebasestorage.googleapis.com/v0/b/doan-d2374.appspot.com/o/cateIcon%2Forther.png?alt=media&token=b47f965b-08b6-4988-aca1-51fcd31f0cab';
@@ -89,7 +91,7 @@ export default function CategoryContainer({navigation}) {
           'https://firebasestorage.googleapis.com/v0/b/doan-d2374.appspot.com/o/cateIcon%2Fchankhong.png?alt=media&token=766d5fca-e6f5-44ca-807f-ea1de55a061a';
     }
     return (
-      <TouchableOpacity onPress={() => setCategoryID(id)}>
+      <TouchableOpacity onPress={() => setCategoryID(item.item.CateProductID)}>
         <View style={styles.ViewImage}>
           <ImageBackground
             style={styles.ImageBack}
@@ -105,7 +107,7 @@ export default function CategoryContainer({navigation}) {
           </ImageBackground>
         </View>
 
-        <Text style={styles.textSelect(colorText)}>{name}</Text>
+        <Text style={styles.textSelect(colorText)}>{item.item.Name}</Text>
       </TouchableOpacity>
     );
   };
@@ -180,9 +182,9 @@ export default function CategoryContainer({navigation}) {
       .then((snapshot) => {
         snapshot.forEach(function (childSnapshot) {
           items.push({
-            name: childSnapshot.val().Name,
-            id: childSnapshot.val().CateProductID,
-            icon: childSnapshot.val().Icon,
+            Name: childSnapshot.val().Name,
+            CateProductID: childSnapshot.val().CateProductID,
+            Icon: childSnapshot.val().Icon,
           });
         });
         setListCate(items);
@@ -207,16 +209,17 @@ export default function CategoryContainer({navigation}) {
                 count++;
               });
               items.push({
-                title: childSnapshot.val().Name,
-                price: childSnapshot.val().Price,
-                image: childSnapshot.val().Image,
-                metades: childSnapshot.val().MetaDescription,
-                id: childSnapshot.val().ProductID,
+                Name: childSnapshot.val().Name,
+                Price: childSnapshot.val().Price,
+                Image: childSnapshot.val().Image,
+                MetaDescription: childSnapshot.val().MetaDescription,
+                ProductID: childSnapshot.val().ProductID,
                 rating: point / count,
                 bough: count,
-                BrandID: childSnapshot.val().BrandID,
                 CategoryID: childSnapshot.val().CategoryID,
                 PromotionPrice: childSnapshot.val().PromotionPrice,
+                Warranty: childSnapshot.val().Warranty,
+                Counts: childSnapshot.val().Counts,
               });
             } else {
               if (childSnapshot.val().CategoryID === cateid) {
@@ -227,16 +230,17 @@ export default function CategoryContainer({navigation}) {
                   count++;
                 });
                 items.push({
-                  title: childSnapshot.val().Name,
-                  price: childSnapshot.val().Price,
-                  image: childSnapshot.val().Image,
-                  metades: childSnapshot.val().MetaDescription,
-                  id: childSnapshot.val().ProductID,
+                  Name: childSnapshot.val().Name,
+                  Price: childSnapshot.val().Price,
+                  Image: childSnapshot.val().Image,
+                  MetaDescription: childSnapshot.val().MetaDescription,
+                  ProductID: childSnapshot.val().ProductID,
                   rating: point / count,
                   bough: count,
-                  BrandID: childSnapshot.val().BrandID,
                   CategoryID: childSnapshot.val().CategoryID,
                   PromotionPrice: childSnapshot.val().PromotionPrice,
+                  Warranty: childSnapshot.val().Warranty,
+                  Counts: childSnapshot.val().Counts,
                 });
               }
             }
@@ -250,16 +254,17 @@ export default function CategoryContainer({navigation}) {
                   count++;
                 });
                 items.push({
-                  title: childSnapshot.val().Name,
-                  price: childSnapshot.val().Price,
-                  image: childSnapshot.val().Image,
-                  metades: childSnapshot.val().MetaDescription,
-                  id: childSnapshot.val().ProductID,
+                  Name: childSnapshot.val().Name,
+                  Price: childSnapshot.val().Price,
+                  Image: childSnapshot.val().Image,
+                  MetaDescription: childSnapshot.val().MetaDescription,
+                  ProductID: childSnapshot.val().ProductID,
                   rating: point / count,
                   bough: count,
-                  BrandID: childSnapshot.val().BrandID,
                   CategoryID: childSnapshot.val().CategoryID,
                   PromotionPrice: childSnapshot.val().PromotionPrice,
+                  Warranty: childSnapshot.val().Warranty,
+                  Counts: childSnapshot.val().Counts,
                 });
               }
             } else {
@@ -274,16 +279,17 @@ export default function CategoryContainer({navigation}) {
                   count++;
                 });
                 items.push({
-                  title: childSnapshot.val().Name,
-                  price: childSnapshot.val().Price,
-                  image: childSnapshot.val().Image,
-                  metades: childSnapshot.val().MetaDescription,
-                  id: childSnapshot.val().ProductID,
+                  Name: childSnapshot.val().Name,
+                  Price: childSnapshot.val().Price,
+                  Image: childSnapshot.val().Image,
+                  MetaDescription: childSnapshot.val().MetaDescription,
+                  ProductID: childSnapshot.val().ProductID,
                   rating: point / count,
                   bough: count,
-                  BrandID: childSnapshot.val().BrandID,
                   CategoryID: childSnapshot.val().CategoryID,
                   PromotionPrice: childSnapshot.val().PromotionPrice,
+                  Warranty: childSnapshot.val().Warranty,
+                  Counts: childSnapshot.val().Counts,
                 });
               }
             }
