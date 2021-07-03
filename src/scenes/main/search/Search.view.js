@@ -35,6 +35,7 @@ function SearchView(props) {
     renderNofiCart,
     _onRefresh,
   } = props;
+
   return (
     <SafeAreaView style={styles.screenContainersafe}>
       <View style={styles.screenContainer}>

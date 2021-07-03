@@ -374,7 +374,7 @@ function infoUserView(props) {
           ref={(ref) => {
             this.RBSheet = ref;
           }}
-          height={300}
+          height={150}
           //animationType="fade"
           closeOnDragDown={true}
           openDuration={250}

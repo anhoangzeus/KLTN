@@ -80,11 +80,11 @@ export default function SearchContainer({navigation}) {
               count++;
             });
             items.push({
-              title: childSnapshot.val().Name,
-              price: childSnapshot.val().Price,
-              image: childSnapshot.val().Image,
-              metades: childSnapshot.val().MetaDescription,
-              id: childSnapshot.val().ProductID,
+              Name: childSnapshot.val().Name,
+              Price: childSnapshot.val().Price,
+              Image: childSnapshot.val().Image,
+              MetaDescription: childSnapshot.val().MetaDescription,
+              ProductID: childSnapshot.val().ProductID,
               rating: point / count,
               bough: count,
               BrandID: childSnapshot.val().BrandID,
@@ -117,11 +117,11 @@ export default function SearchContainer({navigation}) {
               count++;
             });
             items.push({
-              title: childSnapshot.val().Name,
-              price: childSnapshot.val().Price,
-              image: childSnapshot.val().Image,
-              metades: childSnapshot.val().MetaDescription,
-              id: childSnapshot.val().ProductID,
+              Name: childSnapshot.val().Name,
+              Price: childSnapshot.val().Price,
+              Image: childSnapshot.val().Image,
+              MetaDescription: childSnapshot.val().MetaDescription,
+              ProductID: childSnapshot.val().ProductID,
               rating: point / count,
               bough: count,
               BrandID: childSnapshot.val().BrandID,
