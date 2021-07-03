@@ -1,6 +1,6 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
-const {width, height} = Dimensions.get('screen');
+const { width, height } = Dimensions.get('screen');
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
@@ -9,6 +9,12 @@ export default StyleSheet.create({
   screenContainersafe: {
     flex: 1,
     backgroundColor: '#2B4F8C',
+  },
+  btnChange: {
+    backgroundColor: 'green',
+    padding: 2,
+    borderRadius: 8,
+    paddingHorizontal: 10,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -25,17 +31,23 @@ export default StyleSheet.create({
   itemcard: {
     backgroundColor: '#fff',
     width: width,
-    height: height * 0.3,
-    marginTop: height / 15,
+    minHeight: height * 0.25,
+    marginTop: 15,
+    borderBottomWidth: 1,
+    borderColor: '#666666',
   },
   listItem: {
     backgroundColor: '#fff',
     flex: 1,
     alignSelf: 'center',
     flexDirection: 'row',
-    borderRadius: 5,
+    borderRadius: 50,
     width: width,
     height: height / 7,
+    borderBottomWidth: 5,
+    borderTopWidth: 5,
+    marginTop: 5,
+    borderColor: '#2B4F8C',
   },
   bodyContainer: {
     flex: 1,
@@ -70,18 +82,18 @@ export default StyleSheet.create({
   buttonUpDown: {
     width: width / 11,
     height: height / 20,
-    backgroundColor: '#ff3333',
+    backgroundColor: '#2B4F8C',
     justifyContent: 'center',
     borderRadius: 15,
   },
   btnSubmit: {
     width: width * 0.9,
-    marginLeft: width * 0.05,
-    height: height / 15,
+    height: height / 20,
     borderRadius: 10,
     justifyContent: 'center',
     marginVertical: 10,
-    backgroundColor: '#2B4F8C',
+    backgroundColor: '#fff',
+    alignSelf: 'center',
   },
   address: {
     marginTop: 5,
@@ -153,28 +165,30 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   txtCreatOrder: {
-    color: 'white',
+    color: '#2B4F8C',
     alignSelf: 'center',
     fontSize: 20,
+    fontWeight: 'bold',
   },
   txtPromotion: {
     fontSize: 20,
     marginHorizontal: 10,
-    color: '#000',
+    color: '#fff',
   },
   txtMoneyTotal: {
     marginLeft: 10,
-    fontSize: 16,
-    color: '#000',
+    fontSize: 18,
+    color: '#fff',
   },
   TotalContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: '#2B4F8C',
     marginBottom: 5,
+    paddingVertical: 10,
   },
   txtPrice: {
     marginVertical: 4,
     fontSize: 19,
-    color: 'red',
+    color: 'black',
   },
   btnGiamTang: {
     color: '#fff',

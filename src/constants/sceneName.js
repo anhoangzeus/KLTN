@@ -42,6 +42,7 @@ const SCENE_NAMES = {
   AddProductContainer: 'AddProductContainer',
   ChatContainer: 'ChatContainer',
   ChatBoxContainer: 'ChatBoxContainer',
+  Route_ContentViews: 'Route_ContentViews',
 };
 
 export default SCENE_NAMES;
