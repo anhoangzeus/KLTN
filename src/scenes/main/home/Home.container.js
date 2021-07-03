@@ -297,6 +297,7 @@ function HomeContainer({navigation}) {
               Description: childSnapshot.val().Description,
               Warranty: childSnapshot.val().Warranty,
               ProductID: childSnapshot.val().ProductID,
+              Counts: childSnapshot.val().Count,
               rating: point / count,
               count: count,
               BrandID: childSnapshot.val().BrandID,

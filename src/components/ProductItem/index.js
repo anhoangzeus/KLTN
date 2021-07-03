@@ -30,8 +30,8 @@ const Productitem = ({item}) => (
     </View>
     <View style={styles.starView}>
       <StarRating rating={item?.rating} size={15} />
-      {item?.count !== 0 ? (
-        <Text style={styles.boughColor}>({item?.count})</Text>
+      {item?.bough !== 0 ? (
+        <Text style={styles.boughColor}>({item?.bough})</Text>
       ) : null}
     </View>
   </View>

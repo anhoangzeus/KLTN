@@ -23,18 +23,21 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
 export default function SellerproductContainer({navigation, route}) {
   const isLoading = useSelectorShallow(loadingSelector);
   const {item} = getParams(route);
+
   console.log('item naviagte: ', item);
   const itemRef = database();
 
   const [numcart, setnumcart] = useState(0);
-  const [decription, setdecription] = useState(item.MetaDescription);
-  const [image, setimage] = useState(item.Image);
-  const [name, setname] = useState(item.Name);
-  const [UserID, setUserID] = useState(item.UserID);
-  const [price, setprice] = useState(item.Price);
-  const [waranty, setwaranty] = useState(item.Warranty);
-  const [promotionprice, setpromotionprice] = useState(item.PromotionPrice);
-  const [metadescription, setmetadescription] = useState(item.MetaDescription);
+  const decription = item.MetaDescription;
+  const image = item.Image;
+  const name = item.Name;
+  const UserID = item.UserID;
+  const price = item.Price;
+  const count = item.Counts;
+  const waranty = item.Warranty;
+  const promotionprice = item.PromotionPrice;
+  const metadescription = item.MetaDescription;
+  const rating = item.rating;
   const [listproductlienquan, setlistproductlienquan] = useState([]);
   const [listmoreimage, setlistmoreimage] = useState(
     item.Iamges ? item.Images : [],
@@ -46,7 +49,7 @@ export default function SellerproductContainer({navigation, route}) {
   const [scrollY] = useState(new Animated.Value(0));
   const [isloading, setisloading] = useState(false);
   const [categoryname, setcategoryname] = useState('');
-  const [rating] = useState(item.rating);
+
   const [bough, setbough] = useState(0);
   const [sao1, setsao1] = useState(0);
   const [sao2, setsao2] = useState(0);
@@ -109,6 +112,7 @@ export default function SellerproductContainer({navigation, route}) {
                 Description: childSnapshot.val().Description,
                 Warranty: childSnapshot.val().Warranty,
                 ProductID: childSnapshot.val().ProductID,
+                Counts: childSnapshot.val().Counts,
                 rating: point / count,
                 count: count,
                 BrandID: childSnapshot.val().BrandID,
@@ -158,14 +162,15 @@ export default function SellerproductContainer({navigation, route}) {
             UserName: child.val().UserName,
           });
         });
-        setdecription(snapshot.val().Description);
-        setimage(snapshot.val().Image);
-        setname(snapshot.val().Name);
-        setprice(snapshot.val().Price);
-        setUserID(snapshot.val().UserID);
-        setwaranty(snapshot.val().Warranty);
-        setmetadescription(snapshot.val().MetaDescription);
-        setpromotionprice(snapshot.val().PromotionPrice);
+        // setdecription(snapshot.val().Description);
+        // setimage(snapshot.val().Image);
+        // setname(snapshot.val().Name);
+        // setprice(snapshot.val().Price);
+        // setUserID(snapshot.val().UserID);
+        // setwaranty(snapshot.val().Warranty);
+        // setmetadescription(snapshot.val().MetaDescription);
+        // setpromotionprice(snapshot.val().PromotionPrice);
+        // setCount(snapshot.val().Count);
         //setrating(point / count);
         setlistcomment(items);
         setbough(count);
@@ -335,6 +340,7 @@ export default function SellerproductContainer({navigation, route}) {
               MetaDescription: childSnapshot.val().MetaDescription,
               Description: childSnapshot.val().Description,
               Warranty: childSnapshot.val().Warranty,
+              Counts: childSnapshot.val().Counts,
               ProductID: childSnapshot.val().ProductID,
               rating: point / count,
               count: count,
@@ -393,6 +399,7 @@ export default function SellerproductContainer({navigation, route}) {
       getNameBrandCate={getNameBrandCate}
       getnumcart={getnumcart}
       setID={setID}
+      count={count}
       numcart={numcart}
       decription={decription}
       image={image}
