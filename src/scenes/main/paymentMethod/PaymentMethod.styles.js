@@ -1,9 +1,15 @@
-import {StyleSheet, Dimensions} from 'react-native';
-const {height, width} = Dimensions.get('screen');
+import { StyleSheet, Dimensions } from 'react-native';
+const { height, width } = Dimensions.get('screen');
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  btnChange: {
+    backgroundColor: 'green',
+    padding: 2,
+    borderRadius: 8,
+    paddingHorizontal: 10,
   },
   screenContainersafe: {
     flex: 1,
@@ -42,7 +48,13 @@ export default StyleSheet.create({
     flex: 1,
     alignSelf: 'center',
     flexDirection: 'row',
-    borderRadius: 5,
+    borderRadius: 50,
+    width: width,
+    height: height / 7,
+    borderBottomWidth: 5,
+    borderTopWidth: 5,
+    marginVertical: 5,
+    borderColor: '#2B4F8C',
   },
   bodyContainer: {
     flex: 1,
@@ -118,17 +130,17 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
   },
-  addressView: {flex: 1, margin: 10},
-  addressViewRow: {flexDirection: 'row', justifyContent: 'space-between'},
-  greenText: {color: 'green', marginRight: 5, fontSize: 17},
+  addressView: { flex: 1, margin: 10 },
+  addressViewRow: { flexDirection: 'row', justifyContent: 'space-between' },
+  greenText: { color: 'white', marginRight: 5, fontSize: 17 },
   infoView: {
     justifyContent: 'space-between',
     flexDirection: 'row',
     marginTop: 10,
   },
-  payText: {fontSize: 16, marginLeft: 10, color: '#000'},
-  method: {marginLeft: width / 40, fontSize: 16, color: '#000'},
-  txtMoney: {fontSize: 17, marginHorizontal: 10, color: '#000'},
+  payText: { fontSize: 16, marginLeft: 10, color: '#000' },
+  method: { marginLeft: width / 40, fontSize: 16, color: '#000' },
+  txtMoney: { fontSize: 17, marginHorizontal: 10, color: '#000' },
   blankView: {
     backgroundColor: '#fff',
     marginBottom: 5,
@@ -139,7 +151,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 10,
   },
-  btnXacNhan: {color: 'white', fontSize: 20, alignSelf: 'center'},
+  btnXacNhan: { color: 'white', fontSize: 20, alignSelf: 'center' },
   modalMain: {
     width: width / 1.5,
     height: height / 15,
@@ -153,9 +165,9 @@ export default StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
   },
-  btnConfirm: {marginTop: 5, fontSize: 17, color: 'green'},
-  Amount: {marginTop: 5, fontSize: 17, marginBottom: 20},
-  rowView: {flexDirection: 'row'},
+  btnConfirm: { marginTop: 5, fontSize: 17, color: 'green' },
+  Amount: { marginTop: 5, fontSize: 17, marginBottom: 20 },
+  rowView: { flexDirection: 'row' },
   btnThanhToan: {
     borderRadius: 20,
     padding: 10,

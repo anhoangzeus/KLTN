@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import SIZE from 'constants/size';
 export default StyleSheet.create({
   headerContainer: {
@@ -27,12 +27,15 @@ export default StyleSheet.create({
     borderRadius: 25,
     backgroundColor: 'red',
     alignItems: 'center',
-    marginLeft: SIZE.DEVICE_WIDTH / 30,
-    width: SIZE.DEVICE_WIDTH / 20,
+    marginLeft: SIZE.DEVICE_WIDTH / 25,
+    minWidth: 12,
+    minHeight: 12,
+    zIndex: 1,
+    right: -5,
   },
   cartText: {
     alignSelf: 'center',
-    fontSize: 10,
+    fontSize: 8,
     margin: 1,
     fontWeight: 'bold',
     color: 'white',

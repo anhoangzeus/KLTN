@@ -76,6 +76,7 @@ class RegiserOtpContainer extends React.Component {
           }
         }, 1000);
       })
+      // eslint-disable-next-line handle-callback-err
       .catch((err) => { this.setModalVisibleWarning(true, I18n.t(`${NAMESPACE}.otpexpired`)); });
   };
   register = () => {
@@ -134,20 +135,20 @@ class RegiserOtpContainer extends React.Component {
             inputCount={6}
           />
           <TouchableOpacity
-            style={{ ...styles.btnConfirm, backgroundColor: 'red' }}
-            onPress={() => {
-              this.sentOTP();
-            }}>
-            <Text style={styles.textbtn}>
-              {I18n.t(`${NAMESPACE}.sendcode`)}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
             style={{ ...styles.btnConfirm, marginTop: normalize(50) }}
             onPress={() => {
               this.register();
             }}>
             <Text style={styles.textbtn}>{I18n.t(`${NAMESPACE}.confirm`)}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{ marginTop: 20 }}
+            onPress={() => {
+              this.sentOTP();
+            }}>
+            <Text style={{ ...styles.textbtn, color: '#2B4F8C' }}>
+              Chưa nhận được mã? {I18n.t(`${NAMESPACE}.sendcode`)}
+            </Text>
           </TouchableOpacity>
         </View>
         <Modal animationType="fade" transparent={true} visible={modalVisible}>

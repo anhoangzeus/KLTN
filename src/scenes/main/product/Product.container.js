@@ -2,16 +2,16 @@
 /* eslint-disable react-native/no-inline-styles */
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
-import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
+import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
 import SCENE_NAMES from 'constants/sceneName';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {Animated, Text, View} from 'react-native';
-import {getString} from 'utils/i18n';
-import NavigationServices, {getParams} from 'utils/navigationServices';
-import {NAMESPACE} from './Product.constants';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { Animated, Text, View } from 'react-native';
+import { getString } from 'utils/i18n';
+import NavigationServices, { getParams } from 'utils/navigationServices';
+import { NAMESPACE } from './Product.constants';
 import styles from './Product.styles';
 import ProductView from './Product.view';
 const functionsCounter = new Set();
@@ -20,9 +20,9 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 
-export default function ProductContainer({navigation, route}) {
+export default function ProductContainer({ navigation, route }) {
   const isLoading = useSelectorShallow(loadingSelector);
-  const {item} = getParams(route);
+  const { item } = getParams(route);
   const itemRef = database();
 
   const [numcart, setnumcart] = useState(0);
@@ -91,6 +91,7 @@ export default function ProductContainer({navigation, route}) {
           if (childSnapshot.val().ProductID !== ProductID) {
             if (childSnapshot.val().CategoryID === Category_ID) {
               var point = 0;
+              // eslint-disable-next-line no-shadow
               var count = 0;
               snapshot.child('Rating').forEach((child) => {
                 point += child.val().Point;
@@ -213,7 +214,7 @@ export default function ProductContainer({navigation, route}) {
     } else {
       return (
         <View style={styles.cartposition}>
-          <Text style={{color: 'white'}}>{numcart}</Text>
+          <Text style={{ color: 'white', fontSize: 9, fontWeight: '700' }}>{numcart}</Text>
         </View>
       );
     }

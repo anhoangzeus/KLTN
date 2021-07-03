@@ -1,10 +1,10 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import SIZE from 'constants/size';
 
 export default StyleSheet.create({
   itemContainer1: {
     width: SIZE.DEVICE_WIDTH / 2.17,
-    height: SIZE.DEVICE_HEIGHT * 0.4,
+    height: SIZE.DEVICE_HEIGHT * 0.375,
     borderColor: 'silver',
     borderWidth: 1,
     borderRadius: 25,

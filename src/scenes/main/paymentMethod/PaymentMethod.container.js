@@ -12,7 +12,7 @@ import auth from '@react-native-firebase/auth';
 import NavigationServices, { getParams } from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 import Geocoder from 'react-native-geocoding';
-Geocoder.init("AIzaSyDNzy29FhjgnLXCCa9f8vqgcq_B-32uXLs");
+Geocoder.init('AIzaSyDNzy29FhjgnLXCCa9f8vqgcq_B-32uXLs');
 const functionsCounter = new Set();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
@@ -135,8 +135,8 @@ export default function PaymentMethodContainer({ navigation, route }) {
         props.address.City;
       await Geocoder.from(diachi)
         .then(json => {
-          var locationSearch = json.results[0].geometry.location
-          location = locationSearch.lat + '-' + locationSearch.lng
+          var locationSearch = json.results[0].geometry.location;
+          location = locationSearch.lat + '-' + locationSearch.lng;
         })
         .catch(error => console.warn(error));
       database()

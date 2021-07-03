@@ -4,7 +4,7 @@ import SwiperBraner from 'components/Swiper/SwiperBanner';
 import SCENE_NAMES from 'constants/sceneName';
 import * as React from 'react';
 import {
-  FlatList,
+  Dimensions, FlatList,
   RefreshControl,
   SafeAreaView,
   ScrollView,
@@ -12,15 +12,14 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Dimensions,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/Ionicons';
+import I18n from 'utils/i18n';
 import NavigationServices from 'utils/navigationServices';
 import styles from './Category.styles';
-import I18n from 'utils/i18n';
 const NAMESPACE = 'common';
-const {width} = Dimensions.get('screen');
+const { width } = Dimensions.get('screen');
 // import {NAMESPACE} from './Category.constants';
 
 function CategoryView(props) {
@@ -35,7 +34,6 @@ function CategoryView(props) {
     listproduct,
     listcate,
     categoryid,
-    //listbrand,
     listcontent,
   } = props;
   return (
@@ -56,7 +54,7 @@ function CategoryView(props) {
             </TouchableOpacity>
             <View style={styles.cartContainer}>
               <TouchableOpacity
-                style={{width: width * 0.07}}
+                style={{ width: width * 0.07 }}
                 onPress={() => {
                   NavigationServices.navigate(SCENE_NAMES.CART_SCREEN);
                 }}>
@@ -70,7 +68,7 @@ function CategoryView(props) {
             </View>
             <View style={styles.cartContainer}>
               <TouchableOpacity
-                style={{width: width * 0.07, marginLeft: 5}}
+                style={{ width: width * 0.07, marginLeft: 5 }}
                 onPress={() => {
                   NavigationServices.navigate(SCENE_NAMES.ChatContainer);
                 }}>
@@ -96,7 +94,7 @@ function CategoryView(props) {
                   horizontal
                   showsHorizontalScrollIndicator={false}
                   data={listcate}
-                  renderItem={({item}) => <CategoryItem item={item} />}
+                  renderItem={({ item }) => <CategoryItem item={item} />}
                   keyExtractor={(item) => item.CateProductID}
                   extraData={categoryid}
                 />
@@ -107,7 +105,7 @@ function CategoryView(props) {
                     showsVerticalScrollIndicator={false}
                     numColumns={2}
                     data={listproduct}
-                    renderItem={({item}) => (
+                    renderItem={({ item }) => (
                       <TouchableOpacity
                         onPress={() => {
                           console.log('item pressed', item.UserID);
