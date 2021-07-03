@@ -5,7 +5,8 @@ import Col from 'components/Col';
 import Header from 'components/Header';
 import Loading from 'components/LoadingView';
 import PopupChooseImage from 'components/PopupChooseImage';
-import * as React from 'react';
+import React from 'react';
+import RBSheet from 'react-native-raw-bottom-sheet';
 import {
   Alert,
   Image,
@@ -26,7 +27,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import I18n from 'utils/i18n';
 import styles from './infoUser.styles';
 const NAMESPACE = 'common';
-export default function infoUserView(props) {
+function infoUserView(props) {
   const {
     data,
     textInputCMND,
@@ -49,6 +50,7 @@ export default function infoUserView(props) {
     textInputNewPass,
     isloading,
   } = props;
+
   return (
     <SafeAreaView style={styles.screenContainersafe}>
       <View style={styles.screenContainer}>
@@ -69,7 +71,7 @@ export default function infoUserView(props) {
                 />
               </View>
               <TouchableOpacity
-                onPress={() => setvisibleChooseImage(true)}
+                onPress={() => this.RBSheet.open()}
                 style={styles.toudhCamera}>
                 <Image
                   source={require('../../../assets/images/camera.png')}
@@ -368,12 +370,30 @@ export default function infoUserView(props) {
           onRequestClose={() => setvisibleViewing(false)}
         />
         {/* Popup choose image */}
-        <PopupChooseImage
-          onChooseTake={chooseImageTake}
-          onChooseLibrary={chooseImageLibrary}
-          onClosePress={() => setvisibleChooseImage(false)}
-          isVisible={visibleChooseImage}
-        />
+        <RBSheet
+          ref={(ref) => {
+            this.RBSheet = ref;
+          }}
+          height={300}
+          //animationType="fade"
+          closeOnDragDown={true}
+          openDuration={250}
+          customStyles={{
+            container: {
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
+            },
+          }}>
+          <PopupChooseImage
+            onChooseTake={chooseImageTake}
+            onChooseLibrary={chooseImageLibrary}
+            onClosePress={() => setvisibleChooseImage(false)}
+            isVisible={visibleChooseImage}
+          />
+        </RBSheet>
+
         {isloading && (
           <Col
             center
@@ -392,3 +412,4 @@ export default function infoUserView(props) {
     </SafeAreaView>
   );
 }
+export default React.memo(infoUserView);
