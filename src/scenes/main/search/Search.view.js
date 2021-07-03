@@ -16,6 +16,7 @@ import ProductItem from 'components/ProductItem';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import NavigationServices from 'utils/navigationServices';
 import styles from './Search.styles';
+import SCENE_NAMES from 'constants/sceneName';
 import {ScrollView} from 'react-native-gesture-handler';
 import I18n from 'utils/i18n';
 const NAMESPACE = 'common';
@@ -103,15 +104,13 @@ function SearchView(props) {
                     showsHorizontalScrollIndicator={false}
                     data={listStore}
                     renderItem={({item}) => (
-                      <TouchableOpacity>
-                        <ProductItem
-                          name={item.title}
-                          image={item.image}
-                          price={item.price}
-                          rating={item.rating}
-                          bough={item.bough}
-                          PromotionPrice={item.PromotionPrice}
-                        />
+                      <TouchableOpacity
+                        onPress={() =>
+                          NavigationServices.navigate(SCENE_NAMES.PRODUCT, {
+                            item: item,
+                          })
+                        }>
+                        <ProductItem item={item} />
                       </TouchableOpacity>
                     )}
                   />
@@ -140,15 +139,13 @@ function SearchView(props) {
                     showsHorizontalScrollIndicator={false}
                     data={listSeller}
                     renderItem={({item}) => (
-                      <TouchableOpacity>
-                        <ProductItem
-                          name={item.title}
-                          image={item.image}
-                          price={item.price}
-                          rating={item.rating}
-                          bough={item.bough}
-                          PromotionPrice={item.PromotionPrice}
-                        />
+                      <TouchableOpacity
+                        onPress={() =>
+                          NavigationServices.navigate(SCENE_NAMES.PRODUCT, {
+                            item: item,
+                          })
+                        }>
+                        <ProductItem item={item} />
                       </TouchableOpacity>
                     )}
                   />
