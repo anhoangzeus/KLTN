@@ -1,4 +1,4 @@
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 
 export default {
   common: {
@@ -211,6 +211,7 @@ export default {
     legacy2:
       'Các sản phẩm được bày bán phải là san phẩm chay và có nguồn gốc rõ ràng, nếu phát hiện có hành vi không tuân thủ quy đinh TiAn có quyền đơn phương huỷ tư cách kinh doanh của bạn.',
     argree: 'Tôi đồng ý với cách điều khoản trên',
+    soldout: 'Hết hàng',
   },
   message: {
     ERROR_OCCURRED: 'An error occurred, please try again.',

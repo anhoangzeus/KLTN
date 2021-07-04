@@ -33,7 +33,7 @@ export default StyleSheet.create({
     shadowColor: 'black',
     shadowOffset: {width: 5, height: 5},
     height: height / 20,
-    width: width * 0.1,
+    width: width * 0.2,
     backgroundColor: '#fff',
     marginLeft: width / 20,
     flexDirection: 'row',
@@ -43,7 +43,13 @@ export default StyleSheet.create({
   tagImg: {
     height: height / 25,
     width: height / 25,
-    borderRadius: height / 100,
+    resizeMode: 'center',
+  },
+  tagImg1: {
+    height: height / 25,
+    width: width * 0.2,
+    marginLeft: 0,
+    resizeMode: 'cover',
   },
   tagText: {fontSize: height / 60},
   bodyContainer: {

@@ -1,5 +1,5 @@
 import SIZE from 'constants/size';
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   screenContainer: {
@@ -46,7 +46,7 @@ export default StyleSheet.create({
   proHotContainer: {
     backgroundColor: '#fff',
     paddingHorizontal: 12,
-    height: SIZE.DEVICE_HEIGHT * 0.5,
+    height: SIZE.DEVICE_HEIGHT * 0.465,
   },
   activityView: {
     position: 'absolute',
@@ -60,6 +60,7 @@ export default StyleSheet.create({
     marginLeft: SIZE.DEVICE_WIDTH / 25,
     minWidth: 12,
     zIndex: 1,
+    right: -1,
   },
   cartText: {
     alignSelf: 'center',

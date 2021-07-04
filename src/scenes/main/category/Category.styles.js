@@ -200,6 +200,7 @@ export default StyleSheet.create({
     marginLeft: SIZE.DEVICE_WIDTH / 25,
     minWidth: 12,
     zIndex: 1,
+    right: -1,
   },
   cartText: {
     alignSelf: 'center',

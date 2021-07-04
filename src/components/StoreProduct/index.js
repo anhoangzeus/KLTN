@@ -81,7 +81,6 @@ function StoreProduct({item, del}) {
                 style={styles.openButtonKeep}
                 onPress={() => {
                   setModalVisible(false);
-                  console.log('đã bấm');
                 }}>
                 <Text style={styles.textStyle}>
                   {I18n.t(`${NAMESPACE}.keep`)}

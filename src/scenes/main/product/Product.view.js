@@ -3,7 +3,7 @@ import NumberFormat from 'components/NumberFormat';
 import SellerProduct from 'components/ProductItem';
 import StarRating from 'components/StarRating';
 import SCENE_NAMES from 'constants/sceneName';
-import * as React from 'react';
+import React, {useRef} from 'react';
 import {
   Alert,
   Animated,
@@ -19,13 +19,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import RBSheet from 'react-native-raw-bottom-sheet';
 import Swiper from 'react-native-swiper';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import CommentContainer from 'scenes/main/comment/Comment.container.js';
+import I18n from 'utils/i18n';
 import NavigationServices from 'utils/navigationServices';
 import styles from './Product.styles';
-import I18n from 'utils/i18n';
 const NAMESPACE = 'common';
 
 // import {NAMESPACE} from './Product.constants';
@@ -42,6 +44,7 @@ function ProductView(props) {
     name,
     rating,
     idsanpham,
+    count,
     price,
     promotionprice,
     waranty,
@@ -55,6 +58,7 @@ function ProductView(props) {
     modalvisible,
     image,
   } = props;
+  const refRBSheet = useRef();
   const scrollY = new Animated.Value(0);
   const HEADER_MAX_HEIGHT = height / 10;
   const HEADER_MIN_HEIGHT = height / 30;
@@ -64,7 +68,6 @@ function ProductView(props) {
     outputRange: [HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT],
     extrapolate: 'clamp',
   });
-  console.log('element product: ', listproductlienquan);
   return (
     <SafeAreaView style={styles.safeView}>
       <View style={styles.container}>
@@ -165,9 +168,7 @@ function ProductView(props) {
                       // eslint-disable-next-line react-native/no-inline-styles
                       style={{marginLeft: 10}}
                       onPress={() => {
-                        NavigationServices.navigate('RatingView', {
-                          id: idsanpham,
-                        });
+                        refRBSheet.current.open();
                       }}>
                       <Text style={styles.textGreen}>
                         ({I18n.t(`${NAMESPACE}.see`)} {bough}{' '}
@@ -358,13 +359,36 @@ function ProductView(props) {
         </View>
         <View style={styles.devide} />
         <View style={styles.buyView}>
-          <TouchableOpacity style={styles.btnmua} onPress={() => addCart()}>
-            <Text style={styles.addText}>
-              {' '}
-              {I18n.t(`${NAMESPACE}.addCart`)}
-            </Text>
-          </TouchableOpacity>
+          {count > 0 ? (
+            <TouchableOpacity style={styles.btnmua} onPress={() => addCart()}>
+              <Text style={styles.addText}>
+                {I18n.t(`${NAMESPACE}.addCart`)}
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <View style={styles.btnsoldout}>
+              <Text style={styles.addText}>
+                {I18n.t(`${NAMESPACE}.soldout`)}
+              </Text>
+            </View>
+          )}
         </View>
+        <RBSheet
+          ref={refRBSheet}
+          height={height * 0.8}
+          //animationType="fade"
+          closeOnDragDown={true}
+          openDuration={250}
+          customStyles={{
+            container: {
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
+            },
+          }}>
+          <CommentContainer idsanpham={idsanpham} user={false} />
+        </RBSheet>
       </View>
     </SafeAreaView>
   );

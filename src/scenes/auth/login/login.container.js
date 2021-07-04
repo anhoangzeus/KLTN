@@ -10,7 +10,7 @@ const NAMESPACE = 'common';
 // import { GoogleSignin } from '@react-native-community/google-signin';
 const functionsCounter = new Set();
 
-function LoginContainer({ navigation }) {
+function LoginContainer({navigation}) {
   const [data, setData] = React.useState({
     username: '',
     password: '',
@@ -114,8 +114,6 @@ function LoginContainer({ navigation }) {
     });
   };
   const loginHandle = (username, password) => {
-    console.log('go');
-    console.log(data.username, data.password);
     if (data.username.length < 6 || data.password.length < 6) {
       setModalVisibleWarning(true, I18n.t(`${NAMESPACE}.missinfo`));
       return;
@@ -132,7 +130,9 @@ function LoginContainer({ navigation }) {
               auth()
                 .signInWithEmailAndPassword(username, password)
                 .then(() => {
-                  NavigationServices.replace(SCENE_NAMES.MAIN, { name: SCENE_NAMES.HOME });
+                  NavigationServices.replace(SCENE_NAMES.MAIN, {
+                    name: SCENE_NAMES.HOME,
+                  });
                 })
                 .catch(function (error) {
                   setModalVisibleWarning(
@@ -232,7 +232,7 @@ function LoginContainer({ navigation }) {
             handleResetPass();
             setModalVisibleWarning(true, I18n.t(`${NAMESPACE}.emailfail`));
           });
-      } catch { }
+      } catch {}
     }
   };
   functionsCounter.add(textInputChange);

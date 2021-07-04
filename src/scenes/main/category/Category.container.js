@@ -52,44 +52,12 @@ export default function CategoryContainer({navigation}) {
       </View>
     );
   };
-  const CategoryItem = ({name, id, icon}) => {
-    const colorText = id === categoryid ? '#6e3b6e' : '#1ba8ff';
-    let iconpath = '../../../assets/icons/orther.png';
-    switch (icon) {
-      case 'orther':
-        iconpath =
-          'https://firebasestorage.googleapis.com/v0/b/doan-d2374.appspot.com/o/cateIcon%2Forther.png?alt=media&token=b47f965b-08b6-4988-aca1-51fcd31f0cab';
-        break;
-      case 'donglanh':
-        iconpath =
-          'https://firebasestorage.googleapis.com/v0/b/doan-d2374.appspot.com/o/cateIcon%2Fdonglanh.png?alt=media&token=c1edab19-309a-46ce-bc45-45a7b6a4bfff';
-        break;
-      case 'giavi':
-        iconpath =
-          'https://firebasestorage.googleapis.com/v0/b/doan-d2374.appspot.com/o/cateIcon%2Fgiavi.png?alt=media&token=52fa7a43-ddba-4713-b7fd-521dc2f9e298';
-        break;
-      case 'thucuong':
-        iconpath =
-          'https://firebasestorage.googleapis.com/v0/b/doan-d2374.appspot.com/o/cateIcon%2Fthucuong.png?alt=media&token=0242298d-8406-42b5-9b08-4c16633a7417';
-        break;
-      case 'anlien':
-        iconpath =
-          'https://firebasestorage.googleapis.com/v0/b/doan-d2374.appspot.com/o/cateIcon%2Fanlien.png?alt=media&token=c4bb7263-2916-4fbc-a213-d38d01a255f9';
-        break;
-      case 'saykho':
-        iconpath =
-          'https://firebasestorage.googleapis.com/v0/b/doan-d2374.appspot.com/o/cateIcon%2Fsaykho.png?alt=media&token=4c9928b5-6890-43a1-8e50-a4eb1dc5ed8f';
-        break;
-      case 'donghop':
-        iconpath =
-          'https://firebasestorage.googleapis.com/v0/b/doan-d2374.appspot.com/o/cateIcon%2Fdonghop.png?alt=media&token=bbd92ad8-083d-4e49-8a6e-0ff261e5f4dd';
-        break;
-      case 'chankhong':
-        iconpath =
-          'https://firebasestorage.googleapis.com/v0/b/doan-d2374.appspot.com/o/cateIcon%2Fchankhong.png?alt=media&token=766d5fca-e6f5-44ca-807f-ea1de55a061a';
-    }
+  const CategoryItem = (item) => {
+    const colorText =
+      item.item.CateProductID === categoryid ? '#6e3b6e' : '#1ba8ff';
+
     return (
-      <TouchableOpacity onPress={() => setCategoryID(id)}>
+      <TouchableOpacity onPress={() => setCategoryID(item.item.CateProductID)}>
         <View style={styles.ViewImage}>
           <ImageBackground
             style={styles.ImageBack}
@@ -101,11 +69,11 @@ export default function CategoryContainer({navigation}) {
               size={width / 12}
               style={styles.cateIcon}
             /> */}
-            <Image style={styles.ImageBack} source={{uri: iconpath}} />
+            <Image style={styles.ImageBack} source={{uri: item.item.Icon}} />
           </ImageBackground>
         </View>
 
-        <Text style={styles.textSelect(colorText)}>{name}</Text>
+        <Text style={styles.textSelect(colorText)}>{item.item.Name}</Text>
       </TouchableOpacity>
     );
   };
@@ -180,9 +148,9 @@ export default function CategoryContainer({navigation}) {
       .then((snapshot) => {
         snapshot.forEach(function (childSnapshot) {
           items.push({
-            name: childSnapshot.val().Name,
-            id: childSnapshot.val().CateProductID,
-            icon: childSnapshot.val().Icon,
+            Name: childSnapshot.val().Name,
+            CateProductID: childSnapshot.val().CateProductID,
+            Icon: childSnapshot.val().Icon,
           });
         });
         setListCate(items);
@@ -190,16 +158,35 @@ export default function CategoryContainer({navigation}) {
       });
   };
   const ListenForItemsSamsung = async () => {
-    var items = [];
-    itemRef
+    let items = [];
+    await itemRef
       .ref('/Products')
       .once('value')
       .then((snapshot) => {
-        var Brandid = brandid;
         var cateid = categoryid;
         snapshot.forEach(function (childSnapshot) {
-          if (Brandid === '') {
-            if (cateid === '') {
+          if (cateid === '') {
+            var point = 0;
+            var count = 0;
+            childSnapshot.child('Rating').forEach((child) => {
+              point += child.val().Point;
+              count++;
+            });
+            items.push({
+              Name: childSnapshot.val().Name,
+              Price: childSnapshot.val().Price,
+              Image: childSnapshot.val().Image,
+              MetaDescription: childSnapshot.val().MetaDescription,
+              ProductID: childSnapshot.val().ProductID,
+              rating: point / count,
+              bough: count,
+              CategoryID: childSnapshot.val().CategoryID,
+              PromotionPrice: childSnapshot.val().PromotionPrice,
+              Warranty: childSnapshot.val().Warranty,
+              Counts: childSnapshot.val().Counts,
+            });
+          } else {
+            if (childSnapshot.val().CategoryID === cateid) {
               var point = 0;
               var count = 0;
               childSnapshot.child('Rating').forEach((child) => {
@@ -207,91 +194,79 @@ export default function CategoryContainer({navigation}) {
                 count++;
               });
               items.push({
-                title: childSnapshot.val().Name,
-                price: childSnapshot.val().Price,
-                image: childSnapshot.val().Image,
-                metades: childSnapshot.val().MetaDescription,
-                id: childSnapshot.val().ProductID,
+                Name: childSnapshot.val().Name,
+                Price: childSnapshot.val().Price,
+                Image: childSnapshot.val().Image,
+                MetaDescription: childSnapshot.val().MetaDescription,
+                ProductID: childSnapshot.val().ProductID,
                 rating: point / count,
                 bough: count,
-                BrandID: childSnapshot.val().BrandID,
                 CategoryID: childSnapshot.val().CategoryID,
                 PromotionPrice: childSnapshot.val().PromotionPrice,
+                Warranty: childSnapshot.val().Warranty,
+                Counts: childSnapshot.val().Counts,
               });
-            } else {
-              if (childSnapshot.val().CategoryID === cateid) {
-                var point = 0;
-                var count = 0;
-                childSnapshot.child('Rating').forEach((child) => {
-                  point += child.val().Point;
-                  count++;
-                });
-                items.push({
-                  title: childSnapshot.val().Name,
-                  price: childSnapshot.val().Price,
-                  image: childSnapshot.val().Image,
-                  metades: childSnapshot.val().MetaDescription,
-                  id: childSnapshot.val().ProductID,
-                  rating: point / count,
-                  bough: count,
-                  BrandID: childSnapshot.val().BrandID,
-                  CategoryID: childSnapshot.val().CategoryID,
-                  PromotionPrice: childSnapshot.val().PromotionPrice,
-                });
-              }
-            }
-          } else {
-            if (cateid === '') {
-              if (childSnapshot.val().BrandID === brandid) {
-                var point = 0;
-                var count = 0;
-                childSnapshot.child('Rating').forEach((child) => {
-                  point += child.val().Point;
-                  count++;
-                });
-                items.push({
-                  title: childSnapshot.val().Name,
-                  price: childSnapshot.val().Price,
-                  image: childSnapshot.val().Image,
-                  metades: childSnapshot.val().MetaDescription,
-                  id: childSnapshot.val().ProductID,
-                  rating: point / count,
-                  bough: count,
-                  BrandID: childSnapshot.val().BrandID,
-                  CategoryID: childSnapshot.val().CategoryID,
-                  PromotionPrice: childSnapshot.val().PromotionPrice,
-                });
-              }
-            } else {
-              if (
-                childSnapshot.val().BrandID === brandid &&
-                childSnapshot.val().CategoryID === cateid
-              ) {
-                var point = 0;
-                var count = 0;
-                childSnapshot.child('Rating').forEach((child) => {
-                  point += child.val().Point;
-                  count++;
-                });
-                items.push({
-                  title: childSnapshot.val().Name,
-                  price: childSnapshot.val().Price,
-                  image: childSnapshot.val().Image,
-                  metades: childSnapshot.val().MetaDescription,
-                  id: childSnapshot.val().ProductID,
-                  rating: point / count,
-                  bough: count,
-                  BrandID: childSnapshot.val().BrandID,
-                  CategoryID: childSnapshot.val().CategoryID,
-                  PromotionPrice: childSnapshot.val().PromotionPrice,
-                });
-              }
             }
           }
         });
-        setListProduct(items);
-        setLoading(false);
       });
+    await itemRef
+      .ref('/ProductUser')
+      .once('value')
+      .then((snapshot) => {
+        var cateid = categoryid;
+        snapshot.forEach(function (childSnapshot) {
+          if (cateid === '') {
+            var point = 0;
+            var count = 0;
+            childSnapshot.child('Rating').forEach((child) => {
+              point += child.val().Point;
+              count++;
+            });
+            items.push({
+              Name: childSnapshot.val().Name,
+              Price: childSnapshot.val().Price,
+              Image: childSnapshot.val().Image,
+              MetaDescription: childSnapshot.val().MetaDescription,
+              ProductID: childSnapshot.val().ProductID,
+              rating: point / count,
+              bough: count,
+              CategoryID: childSnapshot.val().CategoryID,
+              PromotionPrice: childSnapshot.val().PromotionPrice,
+              Warranty: childSnapshot.val().Warranty,
+              Counts: childSnapshot.val().Count,
+              UserID: true,
+            });
+          } else {
+            if (childSnapshot.val().CategoryID === cateid) {
+              var point = 0;
+              var count = 0;
+              childSnapshot.child('Rating').forEach((child) => {
+                point += child.val().Point;
+                count++;
+              });
+              items.push({
+                Name: childSnapshot.val().Name,
+                Price: childSnapshot.val().Price,
+                Image: childSnapshot.val().Image,
+                MetaDescription: childSnapshot.val().MetaDescription,
+                ProductID: childSnapshot.val().ProductID,
+                rating: point / count,
+                bough: count,
+                CategoryID: childSnapshot.val().CategoryID,
+                PromotionPrice: childSnapshot.val().PromotionPrice,
+                Warranty: childSnapshot.val().Warranty,
+                Counts: childSnapshot.val().Count,
+                UserID: childSnapshot.val().UserID
+                  ? childSnapshot.val().UserID
+                  : null,
+              });
+            }
+          }
+        });
+      });
+    setListProduct(items);
+    setLoading(false);
   };
   const renderNofiCart = () => {
     if (numcart !== 0) {

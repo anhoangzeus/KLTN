@@ -2,6 +2,7 @@
 import { Text, View, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/AntDesign';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import NavigationServices from 'utils/navigationServices';
 import React, { useState, useEffect } from 'react';
 import SCENE_NAMES from 'constants/sceneName';
@@ -69,14 +70,14 @@ const OrderStatus = () => {
             <TouchableOpacity style={styles.items} onPress={() => {
                 NavigationServices.navigate(SCENE_NAMES.TopStackOrder, { screen: SCENE_NAMES.OrderXuli });
             }}>
-                <Icon name="shoppingcart" size={30} color="#000" />
+                <Icon name="form" size={30} color="#000" />
                 <Text style={styles.text}>Chờ xác nhận</Text>
                 {numChoXac > 0 && renderCount(numChoXac)}
             </TouchableOpacity>
             <TouchableOpacity style={styles.items} onPress={() => {
                 NavigationServices.navigate(SCENE_NAMES.TopStackOrder, { screen: SCENE_NAMES.Order_LayHangScreen });
             }}>
-                <Icon name="shoppingcart" size={30} color="#000" />
+                <FontAwesome5 name="boxes" size={30} color="#000" />
                 <Text style={styles.text}>Chờ lấy hàng</Text>
                 {numChoLay > 0 && renderCount(numChoLay)}
             </TouchableOpacity>
@@ -84,13 +85,13 @@ const OrderStatus = () => {
             <TouchableOpacity style={styles.items} onPress={() => {
                 NavigationServices.navigate(SCENE_NAMES.TopStackOrder, { screen: SCENE_NAMES.Order_DangVanChuyen });
             }}>
-                <Icon name="shoppingcart" size={30} color="#000" />
+                <FontAwesome5 name="truck-moving" size={30} color="#000" />
                 <Text style={styles.text}>Đang giao</Text>
                 {numDangGiao > 0 && renderCount(numDangGiao)}
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => { NavigationServices.navigate(SCENE_NAMES.TopRatingScreen); }} style={styles.items}>
-                <Icon name="shoppingcart" size={30} color="#000" />
+                <FontAwesome5 name="star" size={30} color="#000" />
                 <Text style={styles.text}>Đánh giá</Text>
                 {numDanhGia > 0 && renderCount(numDanhGia)}
             </TouchableOpacity>

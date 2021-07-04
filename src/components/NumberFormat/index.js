@@ -8,7 +8,7 @@ function ReactNativeNumberFormat({value}) {
       value={value}
       displayType={'text'}
       thousandSeparator={true}
-      renderText={(formattedValue) => <Text>{formattedValue} </Text>}
+      renderText={(formattedValue) => <Text>{formattedValue}</Text>}
     />
   );
 }

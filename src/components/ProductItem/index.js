@@ -5,36 +5,39 @@ import React from 'react';
 import {Image, Text, View} from 'react-native';
 import styles from './styles';
 
-const Productitem = ({item}) => (
-  <View style={styles.itemContainer}>
-    <Image source={{uri: item?.Image}} style={styles.itemImage} />
-    <Text style={styles.itemName} numberOfLines={2}>
-      {item?.Name}
-    </Text>
-    <View style={{flexDirection: 'row'}}>
-      <Text style={styles.itemPrice}>
-        <ReactNativeNumberFormat value={item?.Price} />đ
+const Productitem = ({item}) => {
+  return (
+    <View style={styles.itemContainer}>
+      <Image source={{uri: item?.Image}} style={styles.itemImage} />
+      <Text style={styles.itemName} numberOfLines={2}>
+        {item?.Name}
       </Text>
-      {item?.Price === item?.PromotionPrice || !item?.PromotionPrice ? null : (
-        <View style={styles.saleView}>
-          <Text style={styles.priceColor}>
-            {' '}
-            {(
-              ((item?.PromotionPrice - item?.Price) / item?.PromotionPrice) *
-              100
-            ).toFixed(0)}
-            %
-          </Text>
-        </View>
-      )}
+      <View style={{flexDirection: 'row'}}>
+        <Text style={styles.itemPrice}>
+          <ReactNativeNumberFormat value={item?.Price} />đ
+        </Text>
+        {item?.Price === item?.PromotionPrice ||
+        !item?.PromotionPrice ? null : (
+          <View style={styles.saleView}>
+            <Text style={styles.priceColor}>
+              {' '}
+              {(
+                ((item?.PromotionPrice - item?.Price) / item?.PromotionPrice) *
+                100
+              ).toFixed(0)}
+              %
+            </Text>
+          </View>
+        )}
+      </View>
+      <View style={styles.starView}>
+        <StarRating rating={item?.rating} size={15} />
+        {item?.bough !== 0 ? (
+          <Text style={styles.boughColor}>({item?.bough})</Text>
+        ) : null}
+      </View>
     </View>
-    <View style={styles.starView}>
-      <StarRating rating={item?.rating} size={15} />
-      {item?.count !== 0 ? (
-        <Text style={styles.boughColor}>({item?.count})</Text>
-      ) : null}
-    </View>
-  </View>
-);
+  );
+};
 
 export default Productitem;

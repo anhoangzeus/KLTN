@@ -62,7 +62,10 @@ export default function MyStoreOptionView(props) {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              NavigationServices.navigate(SCENE_NAMES.AddProductContainer);
+              NavigationServices.navigate(SCENE_NAMES.AddProductContainer, {
+                FullName: FullName,
+                Avatar: Avatar,
+              });
             }}>
             <ProfileItem
               icon="plus-circle"
@@ -91,7 +94,10 @@ export default function MyStoreOptionView(props) {
           <View style={styles.divider} />
           <ProfileItem name={I18n.t(`${NAMESPACE}.mystore`)} />
           <View style={styles.divider1} />
-          <ProfileItem icon="headphones" name={I18n.t(`${NAMESPACE}.suport`)} />
+          <ProfileItem
+            icon="shield-check"
+            name={I18n.t(`${NAMESPACE}.suport`)}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>

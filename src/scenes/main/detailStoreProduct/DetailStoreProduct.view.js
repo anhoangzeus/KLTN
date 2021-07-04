@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useRef} from 'react';
 import {
   View,
   StatusBar,
@@ -25,6 +25,7 @@ import {KeyboardAvoidingView} from 'react-native';
 import I18n from 'utils/i18n';
 const NAMESPACE = 'common';
 const {height, width} = Dimensions.get('screen');
+import RBSheet from 'react-native-raw-bottom-sheet';
 import styles from './DetailStoreProduct.styles';
 
 // import {NAMESPACE} from './DetailStoreProduct.constants';
@@ -59,6 +60,7 @@ function DetailStoreProductView(props) {
     Submit,
     isSuccess,
   } = props;
+  const refRBSheet = useRef();
   if (isloading) {
     return (
       <Col
@@ -89,7 +91,7 @@ function DetailStoreProductView(props) {
             <ScrollView style={styles.bodyContainer}>
               <TouchableOpacity
                 style={styles.userContainer}
-                onPress={() => setPopup(true)}>
+                onPress={() => refRBSheet.current.open()}>
                 <View style={styles.imgView}>
                   {image.map((element) => {
                     return (
@@ -337,12 +339,25 @@ function DetailStoreProductView(props) {
               </Col>
             )}
           </View>
-          <PopupChooseImage
-            onChooseTake={chooseImageTake}
-            onChooseLibrary={chooseImageLibrary}
-            onClosePress={() => setPopup(false)}
-            isVisible={popup}
-          />
+          <RBSheet
+            ref={refRBSheet}
+            closeOnDragDown={true}
+            closeOnPressMask={false}
+            customStyles={{
+              wrapper: {
+                backgroundColor: 'transparent',
+              },
+              draggableIcon: {
+                backgroundColor: '#000',
+              },
+            }}>
+            <PopupChooseImage
+              onChooseTake={chooseImageTake}
+              onChooseLibrary={chooseImageLibrary}
+              onClosePress={() => setPopup(false)}
+              isVisible={popup}
+            />
+          </RBSheet>
           <Modal
             animationType="fade"
             transparent={true}

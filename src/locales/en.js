@@ -213,6 +213,7 @@ export default {
     legacy2:
       'The products on sale must be vegetarian products and have a clear origin, if found to have non-compliance with regulations, TiAn has the right to unilaterally cancel your business status.',
     argree: 'I agree and terms above',
+    soldout: 'Sold out',
   },
   message: {
     ERROR_OCCURRED: 'An error occurred, please try again.',
