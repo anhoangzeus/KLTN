@@ -1,19 +1,19 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import DetailStoreProduct from './DetailStoreProduct.view';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
 import ImageCropPicker from 'react-native-image-crop-picker';
-import {launchCamera} from 'react-native-image-picker';
-import {getParams} from 'utils/navigationServices';
-import {chooseImageOptions} from '../../../utils/options';
+import { launchCamera } from 'react-native-image-picker';
+import { getParams } from 'utils/navigationServices';
+import { chooseImageOptions } from '../../../utils/options';
 import moment from 'moment';
 // import I18n from 'utils/i18n';
 // const NAMESPACE = 'common';
 const functionsCounter = new Set();
 
-export default function DetailStoreProductContainer({navigation, route}) {
-  const {item} = getParams(route);
+export default function DetailStoreProductContainer({ navigation, route }) {
+  const { item } = getParams(route);
   const [image, setImage] = useState(
     item.item.MoreImage ? item.item.MoreImage.split('|') : item.item.Image,
   );

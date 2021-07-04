@@ -1,5 +1,6 @@
-import {StyleSheet, Dimensions} from 'react-native';
-const {height, width} = Dimensions.get('screen');
+import { StyleSheet, Dimensions } from 'react-native';
+import { normalize } from 'react-native-elements';
+const { height, width } = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -10,14 +11,13 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
   },
   resView: {
-    flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    marginHorizontal: 20,
   },
   stepImg: {
     height: height / 15,
     width: width / 2,
     resizeMode: 'stretch',
+    alignSelf: 'center',
   },
   logoimg: {
     height: height / 3,
@@ -35,36 +35,30 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   nameText: {
-    marginLeft: width * 0.05,
     fontSize: height / 50,
     marginTop: height / 50,
   },
   nameInput: {
-    borderLeftWidth: 1,
-    borderTopWidth: 1,
-    borderRightWidth: 1,
-    borderBottomWidth: 1,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    borderBottomRightRadius: 10,
-    borderBottomLeftRadius: 10,
+    borderWidth: 1,
+    borderRadius: 10,
     width: width * 0.9,
     height: height / 15,
     borderColor: '#6Ec0B6',
-    marginLeft: width * 0.05,
-    marginTop: height / 100,
+    paddingHorizontal: 8,
+    marginTop: 10,
   },
   btnthem: {
-    alignSelf: 'flex-start',
     backgroundColor: '#6Ec0B6',
     height: height / 20,
-    width: width / 4,
-    borderRadius: height / 50,
+    borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 10,
+    paddingHorizontal: 10,
   },
   themAdd: {
     color: '#fff',
+    fontSize: 18,
   },
   pre: {
     height: height / 20,
@@ -101,7 +95,7 @@ export default StyleSheet.create({
   },
   whiteText: {
     color: '#000',
-    fontSize: height / 40,
+    fontSize: 17,
   },
   totalContainer: {
     flexDirection: 'row',
@@ -113,20 +107,13 @@ export default StyleSheet.create({
   },
   welcomeText: {
     color: 'black',
-    fontSize: height / 40,
-    width: width,
-    borderBottomWidth: 2,
-    borderBottomColor: '#6Ec0B6',
-    borderLeftWidth: 2,
-    borderLeftColor: '#6Ec0B6',
-    borderTopColor: '#6Ec0B6',
-    borderTopWidth: 2,
-    borderRightColor: '#6Ec0B6',
-    borderRightWidth: 2,
-    borderBottomLeftRadius: 5,
-    borderBottomRightRadius: 5,
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
+    fontSize: 15,
+    width: '100%',
+    borderWidth: 2,
+    borderColor: '#6Ec0B6',
+    borderRadius: 10,
+    marginTop: 10,
+    paddingHorizontal: 8,
   },
   divider: {
     height: 2,
@@ -137,7 +124,7 @@ export default StyleSheet.create({
   },
   errtext: {
     color: 'red',
-    fontSize: height / 40,
+    fontSize: 15,
   },
   modalView: {
     margin: 20,
@@ -155,12 +142,14 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   ModalContainer: {
-    marginTop: height / 50,
-    height: height / 2,
-    width: width,
-    marginLeft: -width / 20,
-    flex: 1,
+    maxHeight: height / 2.3,
+    width: width - 20,
     borderRadius: 15,
+    paddingHorizontal: 20,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    flex: 1,
   },
   modalText: {
     marginBottom: 15,
@@ -192,22 +181,22 @@ export default StyleSheet.create({
     borderRadius: height / 50,
   },
   picker1: {
-    height: height / 20,
-    width: width / 2,
+    height: height / 25,
+    width: width / 2.3,
     color: 'gray',
   },
-  marTen: {marginLeft: 10},
-  marHori: {marginHorizontal: 10},
-  greenText: {color: '#6Ec0B6', fontSize: 20},
+  marTen: { marginLeft: 10 },
+  marHori: { marginHorizontal: 10 },
+  greenText: { color: '#6Ec0B6', fontSize: 20 },
   btnSubmit: {
     backgroundColor: '#6Ec0B6',
     alignSelf: 'center',
     height: height / 20,
     width: width / 2,
-    marginTop: height / 40,
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: normalize(35),
   },
   subBtnText: {
     fontSize: 20,
@@ -221,10 +210,9 @@ export default StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 5,
     width: width,
-    height: height / 7,
   },
   address: {
     width: width * 0.8,
   },
-  legacy: {width: width * 0.8, marginLeft: width * 0.1},
+  legacy: { width: width * 0.8, marginLeft: width * 0.1 },
 });

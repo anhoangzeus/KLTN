@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import RegisterStoreView from './RegisterStore.view';
-import {Picker} from '@react-native-picker/picker';
-import {Platform, View} from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+import { Platform, View } from 'react-native';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
+import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 import storage from '@react-native-firebase/storage';
@@ -20,7 +20,7 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 
-export default function RegisterStoreContainer({navigation}) {
+export default function RegisterStoreContainer({ navigation }) {
   const isLoading = useSelectorShallow(loadingSelector);
   const [data, setData] = React.useState({
     City: '',
@@ -65,11 +65,11 @@ export default function RegisterStoreContainer({navigation}) {
       setVisible(false);
     }
   };
-  const setModalVisibleWarning = (visible, text) => {
+  const setModalVisibleWarning = (visiblea, text) => {
     setData(
       {
         ...data,
-        modalVisibleWarning: visible,
+        modalVisibleWarning: visiblea,
         textAlert: text,
       },
       setTimeout(handleClose, 2000),
@@ -125,7 +125,7 @@ export default function RegisterStoreContainer({navigation}) {
   };
   //Lấy dữ liệu tỉnh/tp từ all.json
   const provinceData = () => {
-    var items = [{id: 0, name: I18n.t(`${NAMESPACE}.choosecity`)}, ...vn];
+    var items = [{ id: 0, name: I18n.t(`${NAMESPACE}.choosecity`) }, ...vn];
     var itemIOS = [];
     if (Platform.OS === 'ios') {
       items.map((item, i) => {
@@ -139,14 +139,14 @@ export default function RegisterStoreContainer({navigation}) {
     return items.map((item, i) => {
       <View
         // eslint-disable-next-line react-native/no-inline-styles
-        style={{backgroundColor: '#fff', justifyContent: 'center', flex: 1}}
+        style={{ backgroundColor: '#fff', justifyContent: 'center', flex: 1 }}
       />;
       return <Picker.Item label={item.name} key={i} value={item.name} />;
     });
   };
   //Lấy dữ liệu quận từ all.json
   const districtData = (pname) => {
-    var items = [{id: 0, name: I18n.t(`${NAMESPACE}.choosedistrict`)}];
+    var items = [{ id: 0, name: I18n.t(`${NAMESPACE}.choosedistrict`) }];
     if (pname !== I18n.t(`${NAMESPACE}.choosecity`)) {
       for (let i = 0; i < vn.length; i++) {
         if (vn[i].name === pname) {
@@ -171,7 +171,7 @@ export default function RegisterStoreContainer({navigation}) {
   };
   //Lấy dữ liệu phường từ all.json
   const wardData = (pname, dname) => {
-    var items = [{id: 0, name: I18n.t(`${NAMESPACE}.chooseprov`)}];
+    var items = [{ id: 0, name: I18n.t(`${NAMESPACE}.chooseprov`) }];
     if (
       pname !== I18n.t(`${NAMESPACE}.choosecity`) &&
       dname !== I18n.t(`${NAMESPACE}.choosedistrict`)

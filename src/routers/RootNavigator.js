@@ -41,6 +41,7 @@ import TopStackLogin from './TopTabNavigator/LoginTab';
 import TopStackOrder from './TopTabNavigator/OrderTab';
 import TopRatingScreen from './TopTabNavigator/RatingTab';
 import Route_ContentViews from 'components/ContentView';
+import ProductNewContainer from 'scenes/userOption/ProductView/ProductNewScreen';
 
 const Stack = createStackNavigator();
 
@@ -210,6 +211,11 @@ function RootNavigator({ onNavigationStateChange }) {
           options={{ headerShown: false }}
           name={SCENE_NAMES.PRODUCT}
           component={ProductScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={SCENE_NAMES.ProductNewContainer}
+          component={ProductNewContainer}
         />
       </Stack.Navigator>
     </NavigationContainer>
