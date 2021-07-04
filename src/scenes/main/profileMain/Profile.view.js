@@ -179,12 +179,6 @@ const ProfileMainView = (props) => {
               />
             </TouchableOpacity>
             <View style={styles.divider1} />
-            {/* <TouchableOpacity>
-              <ProfileItem
-                icon="credit-card-settings-outline"
-                name="Thông tin thanh toán"
-              />
-            </TouchableOpacity> */}
             <View style={styles.divider1} />
             <TouchableOpacity>
               <ProfileItem name={I18n.t(`${NAMESPACE}.setting`)} />
