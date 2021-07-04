@@ -12,14 +12,13 @@ function SellerProduct({item}) {
         {item.Name}
       </Text>
       <Text style={styles.itemPrice}>
-        <ReactNativeNumberFormat value={item.Price} /> đ̲
+        <ReactNativeNumberFormat value={item.PromotionPrice} /> đ̲
         {item.Price === item.PromotionPrice || !item.PromotionPrice ? null : (
           <Text style={styles.priceColor}>
             {' '}
-            {(
-              ((item.PromotionPrice - item.Price) / item.PromotionPrice) *
-              100
-            ).toFixed(0)}
+            {(((item.Price - item.PromotionPrice) / item.Price) * 100).toFixed(
+              0,
+            )}
             %
           </Text>
         )}

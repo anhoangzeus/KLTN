@@ -98,41 +98,7 @@ export default function StoreProfileContainer({navigation, route}) {
       });
     setLoading(false);
   };
-  const onFollow = async () => {
-    if (auth().currentUser.uid) {
-      await database()
-        .ref('Brief/' + info.UserID + '/Follow/' + auth().currentUser.uid)
-        .child(token)
-        .update({
-          UserID: auth().currentUser.uid,
-          Token: token,
-        });
-      await database()
-        .ref('Users/' + auth().currentUser.uid + '/Follow/')
-        .child(info.UserID)
-        .update({
-          StoreID: info.UserID,
-          Status: true,
-        });
-    }
-    setIsFollow(true);
-  };
-  const onUnFollow = async () => {
-    if (auth().currentUser.uid) {
-      await database()
-        .ref('Brief/' + info.UserID + '/Follow/' + auth().currentUser.uid)
-        .child(token)
-        .set({});
-      await database()
-        .ref('Users/' + auth().currentUser.uid + '/Follow/')
-        .child(info.UserID)
-        .update({
-          StoreID: info.UserID,
-          Status: false,
-        });
-    }
-    setIsFollow(false);
-  };
+
   const getFollowStatus = async () => {
     await database()
       .ref('Users/' + auth().currentUser.uid + '/Follow/')
@@ -160,6 +126,42 @@ export default function StoreProfileContainer({navigation, route}) {
         });
         setAddress(listAddress);
       });
+  };
+  const onFollow = async () => {
+    if (auth().currentUser.uid) {
+      await database()
+        .ref('Brief/' + info.UserID + '/Follow/' + auth().currentUser.uid)
+        .child(token)
+        .update({
+          UserID: auth().currentUser.uid,
+          Token: token,
+        });
+      await database()
+        .ref('Users/' + auth().currentUser.uid + '/Follow/')
+        .child(info.UserID)
+        .update({
+          StoreID: info.UserID,
+          Status: true,
+        });
+    }
+    getFollowStatus();
+  };
+  const onUnFollow = async () => {
+    console.log('Unfollow');
+    if (auth().currentUser.uid) {
+      await database()
+        .ref('Brief/' + info.UserID + '/Follow/' + auth().currentUser.uid)
+        .child(token)
+        .set({});
+      await database()
+        .ref('Users/' + auth().currentUser.uid + '/Follow/')
+        .child(info.UserID)
+        .update({
+          StoreID: info.UserID,
+          Status: false,
+        });
+    }
+    setIsFollow(false);
   };
   const getToken = async () => {
     try {

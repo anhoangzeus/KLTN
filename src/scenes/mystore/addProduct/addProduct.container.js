@@ -234,7 +234,7 @@ export default function AddProductContainer({navigation, route}) {
         CreatedDate: date,
         Description: des,
         Image: imgTemp[0],
-        MoreImage: moreimage,
+        Images: moreimage,
         MetaDescription: keyword,
         Name: name,
         Price: formprice,
@@ -251,7 +251,7 @@ export default function AddProductContainer({navigation, route}) {
     setIsUpload(false);
     setTimeout(() => {
       setIsSuccess(false);
-      NavigationServices.navigate(SCENE_NAMES.STORE_PRODUCT, {
+      NavigationServices.replace(SCENE_NAMES.STORE_PRODUCT, {
         FullName: FullName,
         Avatar: Avatar,
       });

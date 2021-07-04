@@ -40,7 +40,7 @@ export default function SellerproductContainer({navigation, route}) {
   const rating = item.rating;
   const [listproductlienquan, setlistproductlienquan] = useState([]);
   const [listmoreimage, setlistmoreimage] = useState(
-    item.Iamges ? item.Images : [],
+    item.Images ? item.Images : [],
   );
   const [listcomment, setlistcomment] = useState([]);
   const [idsanpham, setidsanpham] = useState(item.ProductID);
