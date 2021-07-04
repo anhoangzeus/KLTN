@@ -303,7 +303,6 @@ export default function infoUserContainer({navigation}) {
   };
 
   const pairToSubmitImage = (response) => {
-    console.log('aaa');
     if (response.didCancel) {
       console.log('ImagePicker', 'cancel');
     } else if (response.error) {

@@ -21,7 +21,6 @@ const NAMESPACE = 'common';
 
 function ZalopayView(props) {
   const {payOrder, getStatus, modalVisible, amount} = props;
-  console.log('gia tri hoa don: ', amount);
   return (
     <SafeAreaView style={styles.safeView}>
       <View style={styles.headerContainer}>

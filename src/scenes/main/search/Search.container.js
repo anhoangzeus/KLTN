@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import SearchView from './Search.view';
 import {View, Text} from 'react-native';
 import useSelectorShallow, {
@@ -17,6 +17,8 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
 
 export default function SearchContainer({navigation}) {
   const isLoading = useSelectorShallow(loadingSelector);
+
+  const typingTimeout = useRef(null);
 
   const [listStore, setListStore] = useState([]);
   const [listSeller, setListSeller] = useState([]);
@@ -170,6 +172,15 @@ export default function SearchContainer({navigation}) {
   useEffect(() => {
     getnumcart();
   }, []);
+  useEffect(() => {
+    if (typingTimeout.current) {
+      clearTimeout(typingTimeout.current);
+    }
+    typingTimeout.current = setTimeout(() => {
+      searchDictionary();
+    }, 500);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchText]);
   functionsCounter.add(searchDictionary);
   functionsCounter.add(renderNofiCart);
   functionsCounter.add(_onRefresh);

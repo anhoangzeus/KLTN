@@ -35,7 +35,6 @@ export default function CommentContainer(props) {
         var Sao5 = 0;
         var items = [];
         snapshot.child('Rating').forEach((child) => {
-          console.log('Rating', child.val());
           if (child.val().Point == '1') {
             Sao1++;
           } else if (child.val().Point == '2') {

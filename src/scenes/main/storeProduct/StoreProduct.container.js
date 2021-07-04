@@ -36,7 +36,6 @@ export default function StoreProductContainer({navigation, route}) {
             items.push(childSnapshot.val());
           }
         });
-        console.log('item teim: ', items);
         setListItems(items);
       });
     setLoading(false);

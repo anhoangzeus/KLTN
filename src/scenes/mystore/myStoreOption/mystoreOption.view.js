@@ -37,9 +37,7 @@ export default function MyStoreOptionView(props) {
               NavigationServices.navigate(SCENE_NAMES.InfoUser);
             }}
             style={styles.avatarContainer}>
-            <View style={styles.avatar}>
-              <Image source={{ uri: Avatar }} size={80} style={styles.img} />
-            </View>
+            <Image source={{ uri: Avatar }} size={80} style={styles.img} />
             <Text>{FullName}</Text>
           </TouchableOpacity>
           <View style={styles.divider} />
@@ -64,7 +62,10 @@ export default function MyStoreOptionView(props) {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              NavigationServices.navigate(SCENE_NAMES.AddProductContainer);
+              NavigationServices.navigate(SCENE_NAMES.AddProductContainer, {
+                FullName: FullName,
+                Avatar: Avatar,
+              });
             }}>
             <ProfileItem
               icon="plus-circle"
@@ -93,7 +94,14 @@ export default function MyStoreOptionView(props) {
           <View style={styles.divider} />
           {/* <ProfileItem name={I18n.t(`${NAMESPACE}.mystore`)} />
           <View style={styles.divider1} />
+<<<<<<< HEAD
           <ProfileItem icon="shield-check" name={I18n.t(`${NAMESPACE}.suport`)} /> */}
+=======
+          <ProfileItem
+            icon="shield-check"
+            name={I18n.t(`${NAMESPACE}.suport`)}
+          />
+>>>>>>> 0e62255577a966ab5c0f4ea85768e63159f1b479
         </View>
       </ScrollView>
     </SafeAreaView>

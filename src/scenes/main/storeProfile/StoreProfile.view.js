@@ -25,7 +25,6 @@ function StoreProfileView(props) {
     onFollow,
     onUnFollow,
   } = props;
-  console.log('address list: ', address);
   if (loading) {
     <Col
       center

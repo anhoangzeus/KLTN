@@ -347,7 +347,6 @@ export default function DetailAddressContainer({ navigation, route }) {
     });
   };
   useState(() => {
-    console.log(content);
     if (auth().currentUser.uid !== null && content) {
       database()
         .ref('ListAddress')

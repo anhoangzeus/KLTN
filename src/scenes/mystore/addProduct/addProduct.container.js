@@ -8,13 +8,16 @@ import storage from '@react-native-firebase/storage';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {chooseImageOptions} from '../../../utils/options';
+import NavigationServices from 'utils/navigationServices';
+import SCENE_NAMES from 'constants/sceneName';
 import moment from 'moment';
 import I18n from 'utils/i18n';
 var axios = require('axios');
 const NAMESPACE = 'common';
 const functionsCounter = new Set();
 
-export default function AddProductContainer({navigation}) {
+export default function AddProductContainer({navigation, route}) {
+  const {Avatar, FullName} = NavigationServices.getParams(route);
   const [data, setData] = useState({
     image: '',
     name: '',
@@ -248,6 +251,10 @@ export default function AddProductContainer({navigation}) {
     setIsUpload(false);
     setTimeout(() => {
       setIsSuccess(false);
+      NavigationServices.navigate(SCENE_NAMES.STORE_PRODUCT, {
+        FullName: FullName,
+        Avatar: Avatar,
+      });
     }, 1000);
     const noti = {
       CategoryID: cate,

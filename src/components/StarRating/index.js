@@ -9,7 +9,6 @@ const StarRating = (rating) => {
   // array between the view tag.
   let stars = [];
   if (rating === undefined) {
-    console.log('rating undifind');
     return;
   }
   // Loop 5 times
