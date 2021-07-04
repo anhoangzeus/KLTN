@@ -6,7 +6,6 @@ import {Image, Text, View} from 'react-native';
 import styles from './styles';
 
 const Productitem = ({item}) => {
-  console.log('item :', item);
   return (
     <View style={styles.itemContainer}>
       <Image source={{uri: item?.Image}} style={styles.itemImage} />

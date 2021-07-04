@@ -73,7 +73,6 @@ export default function Rating({navigation}) {
         Avatar = snapshot.val().Avatar;
       });
     if (UserProduct === false) {
-      console.log('vao ham kiem tra rating main: ', UserProduct);
       database()
         .ref('Products/' + idvoted + '/Rating')
         .child(orderdetailid)
@@ -86,7 +85,6 @@ export default function Rating({navigation}) {
           Avatar: Avatar,
         });
     } else {
-      console.log('vao ham kiem tra rating sell: ', UserProduct);
       database()
         .ref('ProductUser/' + idvoted + '/Rating')
         .child(orderdetailid)

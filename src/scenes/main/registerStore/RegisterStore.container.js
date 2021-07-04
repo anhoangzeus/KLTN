@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import RegisterStoreView from './RegisterStore.view';
 import {Picker} from '@react-native-picker/picker';
 import {Platform, View} from 'react-native';
@@ -52,7 +52,8 @@ export default function RegisterStoreContainer({navigation}) {
       modalVisibleWarning: false,
     });
   };
-  const newAdd = () => {
+  const newAdd = (ref) => {
+    console.log('data: ', data);
     if (
       data.City !== '' &&
       data.Huyen !== '' &&
@@ -60,9 +61,12 @@ export default function RegisterStoreContainer({navigation}) {
       data.NumberAddress !== ''
     ) {
       let arr = address;
+      console.log('array" ', arr);
       arr.push(data);
+      console.log('array push" ', arr);
       setAddress(arr);
-      setVisible(false);
+      ref.close();
+      setVisible(!visible);
     }
   };
   const setModalVisibleWarning = (visible, text) => {
@@ -226,7 +230,6 @@ export default function RegisterStoreContainer({navigation}) {
       height: 300,
       cropping: true,
     }).then((image) => {
-      console.log(image);
       setFrontID(image.path);
     });
   };
@@ -236,7 +239,6 @@ export default function RegisterStoreContainer({navigation}) {
       height: 300,
       cropping: true,
     }).then((image) => {
-      console.log(image);
       setBackID(image.path);
     });
   };
@@ -258,7 +260,6 @@ export default function RegisterStoreContainer({navigation}) {
     const backURL = await storage()
       .ref('ID/' + fontimg)
       .getDownloadURL();
-    console.log('front id img url', frontURL);
     await database()
       .ref('Brief/' + auth().currentUser.uid)
       .update({
@@ -291,6 +292,9 @@ export default function RegisterStoreContainer({navigation}) {
     });
     setLoading(false);
   };
+  useEffect(() => {
+    console.log('address', address);
+  }, [address]);
   functionsCounter.add(wardData);
   functionsCounter.add(districtData);
   functionsCounter.add(provinceData);

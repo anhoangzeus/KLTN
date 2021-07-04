@@ -187,7 +187,6 @@ export default function ChatBoxContainer({navigation, route}) {
               .ref('chats/' + fileName)
               .getDownloadURL();
             list_photo_string += url + '$';
-            console.log('1', url);
           }),
         ).then(() => {
           sentMessage(MessType.MoreImages, list_photo_string);

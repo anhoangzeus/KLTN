@@ -139,7 +139,6 @@ export default function StoreProfileContainer({navigation, route}) {
       .child(info.UserID)
       .once('value')
       .then((snapshot) => {
-        console.log('snapshot user: ', snapshot.val().Status);
         if (snapshot.val().Status === true) {
           setIsFollow(true);
         }

@@ -17,15 +17,15 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Header from 'components/Header';
 import I18n from 'utils/i18n';
 const NAMESPACE = 'common';
-const ProfileItem = ({ icon, name }) => (
+const ProfileItem = ({icon, name}) => (
   <View style={styles.itemContainer}>
     <MaterialCommunityIcons name={icon} size={26} color="#1e1e1e" />
-    <Text style={[styles.itemText, { marginLeft: icon ? 20 : 0 }]}>{name}</Text>
+    <Text style={[styles.itemText, {marginLeft: icon ? 20 : 0}]}>{name}</Text>
     <FontAwesome name="angle-right" size={15} color="#1e1e1e" />
   </View>
 );
 export default function MyStoreOptionView(props) {
-  const { FullName, Avatar } = props;
+  const {FullName, Avatar} = props;
   return (
     <SafeAreaView style={styles.SafeSreen}>
       <ScrollView style={styles.screenContainer}>
@@ -37,11 +37,11 @@ export default function MyStoreOptionView(props) {
               NavigationServices.navigate(SCENE_NAMES.InfoUser);
             }}
             style={styles.avatarContainer}>
-            <Image source={{ uri: Avatar }} size={80} style={styles.img} />
+            <Image source={{uri: Avatar}} size={80} style={styles.img} />
             <Text>{FullName}</Text>
           </TouchableOpacity>
           <View style={styles.divider} />
-          <TouchableOpacity onPress={() => { }}>
+          <TouchableOpacity onPress={() => {}}>
             <ProfileItem
               icon="format-list-bulleted"
               name={I18n.t(`${NAMESPACE}.order`)}
@@ -62,7 +62,10 @@ export default function MyStoreOptionView(props) {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              NavigationServices.navigate(SCENE_NAMES.AddProductContainer);
+              NavigationServices.navigate(SCENE_NAMES.AddProductContainer, {
+                FullName: FullName,
+                Avatar: Avatar,
+              });
             }}>
             <ProfileItem
               icon="plus-circle"
@@ -70,19 +73,19 @@ export default function MyStoreOptionView(props) {
             />
           </TouchableOpacity>
           <View style={styles.divider} />
-          <TouchableOpacity onPress={() => { }}>
+          <TouchableOpacity onPress={() => {}}>
             <ProfileItem
               icon="heart-outline"
               name={I18n.t(`${NAMESPACE}.revenue`)}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => { }}>
+          <TouchableOpacity onPress={() => {}}>
             <ProfileItem
               icon="bookmark-outline"
               name={I18n.t(`${NAMESPACE}.review`)}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => { }}>
+          <TouchableOpacity onPress={() => {}}>
             <ProfileItem
               icon="star"
               name={I18n.t(`${NAMESPACE}.productReview`)}
@@ -91,7 +94,10 @@ export default function MyStoreOptionView(props) {
           <View style={styles.divider} />
           <ProfileItem name={I18n.t(`${NAMESPACE}.mystore`)} />
           <View style={styles.divider1} />
-          <ProfileItem icon="shield-check" name={I18n.t(`${NAMESPACE}.suport`)} />
+          <ProfileItem
+            icon="shield-check"
+            name={I18n.t(`${NAMESPACE}.suport`)}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>

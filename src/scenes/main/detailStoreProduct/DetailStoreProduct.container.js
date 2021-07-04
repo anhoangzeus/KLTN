@@ -15,7 +15,7 @@ const functionsCounter = new Set();
 export default function DetailStoreProductContainer({navigation, route}) {
   const {item} = getParams(route);
   const [image, setImage] = useState(
-    item.item.MoreImage ? item.item.MoreImage.split('|') : item.item.Image,
+    item.item.MoreImage ? item.item.MoreImage.split('|') : [item.item.Image],
   );
   const [name, setName] = useState(item.item.Name);
   const [des, setDes] = useState(item.item.Description);
@@ -108,7 +108,6 @@ export default function DetailStoreProductContainer({navigation, route}) {
           };
           arr.push(items);
           if (childSnapshot.val().CateProductID === item.item.CategoryID) {
-            console.log('name', childSnapshot.val().Name);
             setCateName(childSnapshot.val().Name);
           }
         });
@@ -139,10 +138,9 @@ export default function DetailStoreProductContainer({navigation, route}) {
         moreimage += url + '|';
       }),
     );
-    console.log('list image push database', imgTemp);
 
-    const x = parseInt(formprice);
-    const y = parseInt(sale);
+    const x = parseInt(formprice, 10);
+    const y = parseInt(sale, 10);
     const PromotionPrice = x - (x * y) / 100;
     var date = moment().subtract(10, 'days').calendar();
     var useID = auth().currentUser.uid;

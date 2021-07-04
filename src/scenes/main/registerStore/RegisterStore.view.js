@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import * as React from 'react';
+// import * as React from 'react';
+import React, {useRef} from 'react';
 import {
   SafeAreaView,
   TouchableOpacity,
@@ -51,6 +52,8 @@ function RegisterStoreView(props) {
     takeBackID,
     submit,
   } = props;
+  const refRBSheet = useRef();
+  console.log('address: ', address);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.subcontainer}>
@@ -125,7 +128,7 @@ function RegisterStoreView(props) {
                 </View>
                 <TouchableOpacity
                   style={styles.btnthem}
-                  onPress={() => this.RBSheet.open()}>
+                  onPress={() => refRBSheet.current.open()}>
                   <Text style={styles.themAdd}>Thêm địa chỉ</Text>
                 </TouchableOpacity>
               </View>
@@ -139,9 +142,7 @@ function RegisterStoreView(props) {
                 </TouchableOpacity>
               ) : null}
               <RBSheet
-                ref={(ref) => {
-                  this.RBSheet = ref;
-                }}
+                ref={refRBSheet}
                 keyboardAvoidingViewEnabled
                 height={300}
                 openDuration={250}
@@ -265,7 +266,7 @@ function RegisterStoreView(props) {
                   </View>
                   <TouchableOpacity
                     style={styles.btnSubmit}
-                    onPress={() => newAdd()}>
+                    onPress={() => newAdd(refRBSheet.current)}>
                     <Text style={styles.themAdd}>
                       {' '}
                       {I18n.t(`${NAMESPACE}.saveAdd`)}

@@ -53,7 +53,6 @@ export default function CategoryContainer({navigation}) {
     );
   };
   const CategoryItem = (item) => {
-    console.log('data category: ', item);
     const colorText =
       item.item.CateProductID === categoryid ? '#6e3b6e' : '#1ba8ff';
 
