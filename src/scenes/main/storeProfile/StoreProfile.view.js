@@ -135,6 +135,7 @@ function StoreProfileView(props) {
                 renderItem={(item) => {
                   return (
                     <TouchableOpacity
+                      style={styles.touchView}
                       onPress={() => {
                         NavigationServices.navigate(
                           SCENE_NAMES.DETAIL_STORE_PRODUCT,

@@ -89,6 +89,10 @@ export default StyleSheet.create({
   cartContainer: {
     paddingHorizontal: 20,
   },
+  touchView: {
+    backgroundColor: '#fff',
+    width: width / 2,
+  },
   headerText: {
     color: '#fff',
     fontSize: 20,
