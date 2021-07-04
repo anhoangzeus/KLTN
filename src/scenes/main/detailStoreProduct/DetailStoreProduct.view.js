@@ -1,32 +1,24 @@
+import Col from 'components/Col';
+import Header from 'components/Header';
+import Loading from 'components/LoadingView';
+import NumberFormat from 'components/NumberFormat';
+import PopupChooseImage from 'components/PopupChooseImage';
 import React, { useRef } from 'react';
 import {
-  View,
-  StatusBar,
+  Dimensions, Image, KeyboardAvoidingView, Modal, Platform, SafeAreaView, ScrollView, StatusBar,
   Text,
-  TouchableOpacity,
-  Dimensions,
-  ScrollView,
-  SafeAreaView,
-  Image,
-  Platform,
-  Modal,
+  TouchableOpacity, View,
 } from 'react-native';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Header from 'components/Header';
 import { TextInput } from 'react-native-gesture-handler';
-import PopupChooseImage from 'components/PopupChooseImage';
 import RNPickerSelect from 'react-native-picker-select';
-import NumberFormat from 'components/NumberFormat';
-import Loading from 'components/LoadingView';
-import Col from 'components/Col';
-import { KeyboardAvoidingView } from 'react-native';
+import RBSheet from 'react-native-raw-bottom-sheet';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import I18n from 'utils/i18n';
+import styles from './DetailStoreProduct.styles';
 const NAMESPACE = 'common';
 const { height, width } = Dimensions.get('screen');
-import RBSheet from 'react-native-raw-bottom-sheet';
-import styles from './DetailStoreProduct.styles';
 
 // import {NAMESPACE} from './DetailStoreProduct.constants';
 
@@ -85,9 +77,8 @@ function DetailStoreProductView(props) {
           style={styles.screenContainer2}>
           <View style={styles.screenContainer2}>
             <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
-            <Header title={I18n.t(`${NAMESPACE}.addproduct`)} />
+            <Header title={'Chi tiết sản phẩm'} />
             <View style={styles.divider} />
-
             <ScrollView style={styles.bodyContainer}>
               <TouchableOpacity
                 style={styles.userContainer}
@@ -98,7 +89,6 @@ function DetailStoreProductView(props) {
                       <Image source={{ uri: element }} style={styles.imgPro} />
                     );
                   })}
-                  {/* <Image source={{uri: image[0]}} style={styles.imgPro} /> */}
                   <Text style={styles.imgText}>
                     {I18n.t(`${NAMESPACE}.defaultTitle`)}
                   </Text>
@@ -180,7 +170,7 @@ function DetailStoreProductView(props) {
                           }
                         }}
                         items={dataCate}>
-                        <Text style={styles.selectText}>{cateName}</Text>
+                        <Text style={styles.selectText}>{cateName} </Text>
                       </RNPickerSelect>
 
                       <FontAwesome

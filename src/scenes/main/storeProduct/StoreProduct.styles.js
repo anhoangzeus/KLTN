@@ -1,13 +1,13 @@
 import size from 'constants/size';
-import {StyleSheet, Dimensions} from 'react-native';
-const {height, width} = Dimensions.get('screen');
+import { StyleSheet, Dimensions } from 'react-native';
+const { height, width } = Dimensions.get('screen');
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
     height: height,
     backgroundColor: '#ededed',
   },
-  back: {marginTop: height / 50},
+  back: { marginTop: height / 50, marginLeft: 5 },
   imgBackground: {
     // width: width,
     //height: height,
@@ -19,11 +19,11 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
   },
-  flexRow: {flexDirection: 'row', justifyContent: 'space-evenly'},
+  flexRow: { flexDirection: 'row', justifyContent: 'space-evenly' },
   Tag: {
     borderRadius: height / 100,
     shadowColor: 'black',
-    shadowOffset: {width: 5, height: 5},
+    shadowOffset: { width: 5, height: 5 },
     height: height / 12,
     width: width * 0.45,
     backgroundColor: '#fff',
