@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-native/no-inline-styles */
 import CheckBox from '@react-native-community/checkbox';
 import auth from '@react-native-firebase/auth';
@@ -5,8 +6,7 @@ import Col from 'components/Col';
 import Header from 'components/Header';
 import Loading from 'components/LoadingView';
 import PopupChooseImage from 'components/PopupChooseImage';
-import React from 'react';
-import RBSheet from 'react-native-raw-bottom-sheet';
+import React, { useRef } from 'react';
 import {
   Alert,
   Image,
@@ -22,12 +22,15 @@ import {
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import ImageView from 'react-native-image-viewing';
+import RBSheet from 'react-native-raw-bottom-sheet';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import I18n from 'utils/i18n';
 import styles from './infoUser.styles';
 const NAMESPACE = 'common';
 function infoUserView(props) {
+  const refRBSheet = useRef();
+  const scrollViewRef = useRef();
   const {
     data,
     textInputCMND,
@@ -56,7 +59,8 @@ function infoUserView(props) {
       <View style={styles.screenContainer}>
         <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
         <Header title={I18n.t(`${NAMESPACE}.profile`)} />
-        <ScrollView>
+        <ScrollView ref={scrollViewRef}
+          onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}>
           <KeyboardAvoidingView behavior="padding">
             <TouchableOpacity
               onPress={() => {
@@ -65,13 +69,13 @@ function infoUserView(props) {
               style={styles.avatarContainer}>
               <View style={styles.avatarView}>
                 <Image
-                  source={{uri: data.Avatar}}
+                  source={{ uri: data.Avatar }}
                   size={80}
                   style={styles.img}
                 />
               </View>
               <TouchableOpacity
-                onPress={() => this.RBSheet.open()}
+                onPress={() => refRBSheet.current.open()}
                 style={styles.toudhCamera}>
                 <Image
                   source={require('../../../assets/images/camera.png')}
@@ -99,6 +103,7 @@ function infoUserView(props) {
                   )}
                 </View>
                 <TextInput
+                  multiline
                   placeholderTextColor="#666666"
                   autoCapitalize="none"
                   onChangeText={(val) => textInputFullName(val)}
@@ -145,12 +150,7 @@ function infoUserView(props) {
                     style={styles.btnConfirmPhone}
                     onPress={() => {
                       auth().verifyPhoneNumber(data.Phone);
-                    }}>
-                    <Text style={styles.txtConfirmPhone}>
-                      {' '}
-                      {I18n.t(`${NAMESPACE}.sendcode`)}
-                    </Text>
-                  </TouchableOpacity>
+                    }} />
                 </View>
               </View>
             </View>
@@ -324,17 +324,15 @@ function infoUserView(props) {
             ) : null}
           </KeyboardAvoidingView>
         </ScrollView>
-        <View style={styles.btnSave}>
-          <TouchableOpacity
-            style={styles.btnTouch}
-            onPress={() => {
-              saveChangesHandle();
-            }}>
-            <Text style={styles.txtSave}>
-              {I18n.t(`${NAMESPACE}.savechange`)}
-            </Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          style={styles.btnTouch}
+          onPress={() => {
+            saveChangesHandle();
+          }}>
+          <Text style={styles.txtSave}>
+            {I18n.t(`${NAMESPACE}.savechange`)}
+          </Text>
+        </TouchableOpacity>
         <Modal
           animationType="fade"
           transparent={true}
@@ -364,16 +362,14 @@ function infoUserView(props) {
           </View>
         </Modal>
         <ImageView
-          images={[{uri: data.Avatar}]}
+          images={[{ uri: data.Avatar }]}
           imageIndex={0}
           visible={visibleViewing}
           onRequestClose={() => setvisibleViewing(false)}
         />
         {/* Popup choose image */}
         <RBSheet
-          ref={(ref) => {
-            this.RBSheet = ref;
-          }}
+          ref={refRBSheet}
           height={150}
           //animationType="fade"
           closeOnDragDown={true}

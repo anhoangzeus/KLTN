@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import SIZE from 'constants/size';
-import {normalize} from 'react-native-elements';
+import { normalize } from 'react-native-elements';
 
 export default StyleSheet.create({
   screenContainersafe: {
@@ -78,7 +78,8 @@ export default StyleSheet.create({
     fontSize: 15,
     borderBottomColor: '#dddddd',
     borderBottomWidth: 1,
-    width: SIZE.DEVICE_WIDTH / 2,
+    width: '90%',
+    paddingHorizontal: 8,
   },
   errtext: {
     color: 'black',
@@ -179,17 +180,15 @@ export default StyleSheet.create({
     backgroundColor: '#2B4F8C',
     marginHorizontal: 10,
     marginVertical: 10,
-    height: SIZE.DEVICE_HEIGHT / 20,
+    height: SIZE.DEVICE_HEIGHT / 18,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
   txtSave: {
     fontSize: 20,
-    textAlign: 'center',
-
     color: 'white',
-    marginTop: 5,
+    fontWeight: '700',
   },
   magin10: {
     marginHorizontal: 10,

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
+import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native';
 import styles from './StoreProfile.styles';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
@@ -9,7 +9,7 @@ import Loading from 'components/LoadingView';
 import ProductItem from 'components/ProductItem';
 import auth from '@react-native-firebase/auth';
 //import I18n from 'utils/i18n';
-import {BackgroundImage} from 'react-native-elements/dist/config';
+import { BackgroundImage } from 'react-native-elements/dist/config';
 
 function StoreProfileView(props) {
   const {
@@ -59,7 +59,7 @@ function StoreProfileView(props) {
               />
             </TouchableOpacity>
             <View style={styles.avatarContainer}>
-              <Image source={{uri: info.Avatar}} size={80} style={styles.img} />
+              <Image source={{ uri: info.Avatar }} size={80} style={styles.img} />
               <View>
                 {/* <Text style={styles.nameText}>{info.Name}</Text> */}
                 <Text style={styles.nameText}>TienAnh Shop</Text>

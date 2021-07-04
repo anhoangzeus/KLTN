@@ -3,7 +3,7 @@ import auth from '@react-native-firebase/auth';
 import Header from 'components/Header';
 import OrderStatus from 'components/Order';
 import SCENE_NAMES from 'constants/sceneName';
-import * as React from 'react';
+import React, { useState } from 'react';
 import {
   Image,
   SafeAreaView,
@@ -17,16 +17,20 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import NavigationServices from 'utils/navigationServices';
 import styles from './Profile.styles';
 import I18n from 'utils/i18n';
+import Popup1Button from 'components/Popup1Button';
+import { Linking } from 'react-native';
 const NAMESPACE = 'common';
-const ProfileItem = ({icon, name}) => (
+const ProfileItem = ({ icon, name }) => (
   <View style={styles.itemContainer}>
     <MaterialCommunityIcons name={icon} size={26} color="#1e1e1e" />
-    <Text style={[styles.itemText, {marginLeft: icon ? 20 : 0}]}>{name}</Text>
+    <Text style={[styles.itemText, { marginLeft: icon ? 20 : 0 }]}>{name}</Text>
     <FontAwesome name="angle-right" size={15} color="#1e1e1e" />
   </View>
 );
 const ProfileMainView = (props) => {
-  const {Avatar, FullName, Email, CreatedDate, Merchant} = props;
+  const { Avatar, FullName, Email, CreatedDate, Merchant } = props;
+  const [isVisible, setisVisible] = useState(false);
+  console.log('merchant: ', Merchant);
   return (
     <SafeAreaView style={styles.screenContainer}>
       <View style={styles.screenContainer}>
@@ -40,9 +44,9 @@ const ProfileMainView = (props) => {
               <View style={styles.userContainer}>
                 <View style={styles.avatarContainer}>
                   <Image
-                    source={{uri: Avatar}}
+                    source={{ uri: Avatar }}
                     size={80}
-                    style={styles.avatarContainer}
+                    style={styles.imgAvatar}
                   />
                 </View>
                 <View style={styles.textContainer}>
@@ -62,7 +66,7 @@ const ProfileMainView = (props) => {
                 onPress={() => {
                   NavigationServices.navigate(
                     SCENE_NAMES.MyStoreOptionContainer,
-                    {FullName: FullName, Avatar: Avatar},
+                    { FullName: FullName, Avatar: Avatar },
                   );
                 }}>
                 <ProfileItem
@@ -175,34 +179,18 @@ const ProfileMainView = (props) => {
               />
             </TouchableOpacity>
             <View style={styles.divider1} />
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
               <ProfileItem
                 icon="credit-card-settings-outline"
                 name="Thông tin thanh toán"
               />
-            </TouchableOpacity>
-            <View style={styles.divider} />
-            <TouchableOpacity>
-              <ProfileItem icon="cart-outline" name="Sản phẩm đã mua" />
-            </TouchableOpacity>
-            <View style={styles.divider1} />
-            <TouchableOpacity>
-              <ProfileItem icon="eye-outline" name="Sản phẩm đã xem" />
-            </TouchableOpacity>
-            <View style={styles.divider1} />
-            <TouchableOpacity>
-              <ProfileItem icon="heart-outline" name="Sản phẩm yêu thích" />
-            </TouchableOpacity>
-            <View style={styles.divider1} />
-            <TouchableOpacity>
-              <ProfileItem icon="clock-outline" name="Sản phẩm mua sau" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <View style={styles.divider1} />
             <TouchableOpacity>
               <ProfileItem name={I18n.t(`${NAMESPACE}.setting`)} />
             </TouchableOpacity>
             <View style={styles.divider} />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => setisVisible(true)}>
               <ProfileItem
                 icon="shield-check"
                 name={I18n.t(`${NAMESPACE}.suport`)}
@@ -210,7 +198,6 @@ const ProfileMainView = (props) => {
             </TouchableOpacity>
             <View style={styles.divider} />
             <View style={styles.divider} />
-
             <TouchableOpacity
               style={styles.signIn}
               onPress={() => {
@@ -226,6 +213,13 @@ const ProfileMainView = (props) => {
             <View style={styles.divider} />
           </View>
         </ScrollView>
+        <Popup1Button
+          isVisible={isVisible}
+          onClosePress={() => setisVisible(false)}
+          title={'Tổng đài trợ giúp khách hàng'}
+          onConfirm={() => Linking.openURL('tel:0353830738')}
+          content={'Bạn sẽ kết nối với nhân viên để được hỗ trợ. Nhấn Xác nhận để tiếp tục'}
+        />
       </View>
     </SafeAreaView>
   );

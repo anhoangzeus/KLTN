@@ -1,8 +1,8 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 // eslint-disable-next-line no-unused-vars
 import SIZE from 'constants/size';
-import {Dimensions} from 'react-native';
-const {height, width} = Dimensions.get('screen');
+import { Dimensions } from 'react-native';
+const { height, width } = Dimensions.get('screen');
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,

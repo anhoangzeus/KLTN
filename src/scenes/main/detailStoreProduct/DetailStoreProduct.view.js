@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 import {
   View,
   StatusBar,
@@ -15,16 +15,16 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header from 'components/Header';
-import {TextInput} from 'react-native-gesture-handler';
+import { TextInput } from 'react-native-gesture-handler';
 import PopupChooseImage from 'components/PopupChooseImage';
 import RNPickerSelect from 'react-native-picker-select';
 import NumberFormat from 'components/NumberFormat';
 import Loading from 'components/LoadingView';
 import Col from 'components/Col';
-import {KeyboardAvoidingView} from 'react-native';
+import { KeyboardAvoidingView } from 'react-native';
 import I18n from 'utils/i18n';
 const NAMESPACE = 'common';
-const {height, width} = Dimensions.get('screen');
+const { height, width } = Dimensions.get('screen');
 import RBSheet from 'react-native-raw-bottom-sheet';
 import styles from './DetailStoreProduct.styles';
 
@@ -95,7 +95,7 @@ function DetailStoreProductView(props) {
                 <View style={styles.imgView}>
                   {image.map((element) => {
                     return (
-                      <Image source={{uri: element}} style={styles.imgPro} />
+                      <Image source={{ uri: element }} style={styles.imgPro} />
                     );
                   })}
                   {/* <Image source={{uri: image[0]}} style={styles.imgPro} /> */}
@@ -187,11 +187,11 @@ function DetailStoreProductView(props) {
                         name="angle-right"
                         size={26}
                         color="#1e1e1e"
-                        style={{marginRight: width / 20}}
+                        style={{ marginRight: width / 20 }}
                       />
                     </View>
                   </View>
-                  <View style={styles.cardOption} onPress={() => {}}>
+                  <View style={styles.cardOption} onPress={() => { }}>
                     <View style={styles.itemContainer}>
                       <MaterialCommunityIcons
                         name={'bookmark-outline'}
@@ -247,7 +247,7 @@ function DetailStoreProductView(props) {
                       </Text>
                     </View>
                   </View>
-                  <View style={styles.cardOption} onPress={() => {}}>
+                  <View style={styles.cardOption} onPress={() => { }}>
                     <View style={styles.itemContainer}>
                       <MaterialCommunityIcons
                         name={'information-variant'}
@@ -273,7 +273,7 @@ function DetailStoreProductView(props) {
                       <Text style={styles.unit}> </Text>
                     </View>
                   </View>
-                  <View style={styles.cardOption} onPress={() => {}}>
+                  <View style={styles.cardOption} onPress={() => { }}>
                     <View style={styles.itemContainer}>
                       <MaterialCommunityIcons
                         name={'sale'}
@@ -312,7 +312,7 @@ function DetailStoreProductView(props) {
                 </View>
                 {/* </View> */}
               </View>
-              <View style={{height: height / 7}} />
+              <View style={{ height: height / 7 }} />
             </ScrollView>
             <View style={styles.divider} />
 
@@ -362,7 +362,7 @@ function DetailStoreProductView(props) {
             animationType="fade"
             transparent={true}
             visible={isSuccess}
-            onRequestClose={() => {}}>
+            onRequestClose={() => { }}>
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
                 <FontAwesome5 name="check-double" size={40} color="green" />

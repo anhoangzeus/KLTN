@@ -1,28 +1,20 @@
 /* eslint-disable react-native/no-inline-styles */
-// import * as React from 'react';
-import React, {useRef} from 'react';
-import {
-  SafeAreaView,
-  TouchableOpacity,
-  StatusBar,
-  Image,
-  View,
-  Text,
-  TextInput,
-  Platform,
-  ScrollView,
-} from 'react-native';
-import {Picker} from '@react-native-picker/picker';
-import RNPickerSelect from 'react-native-picker-select';
+import CheckBox from '@react-native-community/checkbox';
+import { Picker } from '@react-native-picker/picker';
+import Col from 'components/Col';
 // import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // import NavigationServices from 'utils/navigationServices';
 import Header from 'components/Header';
-import styles from './RegisterStore.styles';
-import I18n from 'utils/i18n';
-import CheckBox from '@react-native-community/checkbox';
 import Loading from 'components/LoadingView';
-import Col from 'components/Col';
-import RBSheet from 'react-native-raw-bottom-sheet';
+import React from 'react';
+import {
+  FlatList, Image, Platform, SafeAreaView, ScrollView, StatusBar, Text,
+  TextInput, TouchableOpacity, View,
+} from 'react-native';
+import Modal from 'react-native-modal';
+import RNPickerSelect from 'react-native-picker-select';
+import I18n from 'utils/i18n';
+import styles from './RegisterStore.styles';
 const NAMESPACE = 'common';
 
 // import {NAMESPACE} from './RegisterStore.constants';
@@ -32,6 +24,8 @@ function RegisterStoreView(props) {
     step,
     data,
     address,
+    visible,
+    setVisible,
     name,
     des,
     check,
@@ -52,8 +46,6 @@ function RegisterStoreView(props) {
     takeBackID,
     submit,
   } = props;
-  const refRBSheet = useRef();
-  console.log('address: ', address);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.subcontainer}>
@@ -63,57 +55,53 @@ function RegisterStoreView(props) {
         {step === 1 ? (
           <ScrollView>
             <View style={styles.resView}>
-              <Image
-                source={require('../../../assets/images/step1.png')}
-                style={styles.stepImg}
-              />
+              <Image source={require('../../../assets/images/step1.png')} style={styles.stepImg} />
               <View style={styles.infoView}>
-                <Text style={styles.nameText}>Tên SHop</Text>
+                <Text style={styles.nameText}>Tên cửa hàng</Text>
                 <TextInput
                   style={styles.nameInput}
-                  placeholder={'Tên của shop'}
+                  multiline
+                  placeholder={'Nhập tên...'}
                   value={name}
                   onChangeText={(value) => setName(value)}
                 />
                 <Text style={styles.nameText}>Mô tả cửa hàng</Text>
                 <TextInput
-                  placeholder={'Mô tả cửa hàng'}
+                  placeholder={'Nhập mô tả cửa hàng...'}
+                  multiline
                   style={styles.nameInput}
                   value={des}
                   onChangeText={(value) => setDes(value)}
                 />
-                <Text style={styles.nameText}>Địa chỉ</Text>
-                <View>
-                  {address.map((item) => {
+                <TouchableOpacity
+                  style={styles.btnthem}
+                  onPress={() => setVisible(true)}>
+                  <Text style={styles.themAdd}>Thêm địa chỉ</Text>
+                </TouchableOpacity>
+                {address?.length > 0 &&
+                  <Text style={styles.nameText}>Danh sách địa chỉ</Text>}
+                <FlatList
+                  data={address}
+                  ListEmptyComponent={<View>
+                    <Text style={styles.nameText}>Chưa có địa chỉ cửa hàng !</Text>
+                  </View>}
+                  renderItem={({ item, index }) => {
                     return (
                       <View style={styles.listItem}>
-                        <View style={{flex: 1, margin: 10}}>
+                        <View style={{ flex: 1, marginLeft: 5 }}>
                           <View
                             style={{
                               flexDirection: 'row',
                               justifyContent: 'space-between',
                             }}>
                             <Text style={styles.addresstitle}>
-                              {I18n.t(`${NAMESPACE}.address`)}
+                              {I18n.t(`${NAMESPACE}.address`)} {index + 1}:
                             </Text>
-                            {/* <TouchableOpacity
-                     onPress={() => {
-                       NavigationServices.navigate(SCENE_NAMES.DETAIL_ADDRESS, {
-                         content: Address.Id,
-                       });
-                     }}>
-                     <Text
-                       style={{color: 'green', marginRight: 5, fontSize: 17}}>
-                       {I18n.t(`${NAMESPACE}.change`)}
-                     </Text>
-                   </TouchableOpacity> */}
                           </View>
-
                           <Text style={styles.address}>
                             {item.NumberAddress}, {item.Xa}, {item.Huyen},{' '}
                             {item.City}
                           </Text>
-
                           <View
                             style={{
                               justifyContent: 'space-between',
@@ -124,96 +112,63 @@ function RegisterStoreView(props) {
                         </View>
                       </View>
                     );
-                  })}
-                </View>
-                <TouchableOpacity
-                  style={styles.btnthem}
-                  onPress={() => refRBSheet.current.open()}>
-                  <Text style={styles.themAdd}>Thêm địa chỉ</Text>
-                </TouchableOpacity>
+                  }}
+                />
               </View>
-              {name !== '' && des !== '' && address.length > 0 ? (
+              {name !== '' && des !== '' && address.length > 0 &&
                 <TouchableOpacity
                   style={styles.next}
                   onPress={() => setStep(2)}>
                   <Text style={styles.themAdd}>
                     {I18n.t(`${NAMESPACE}.next`)}
                   </Text>
-                </TouchableOpacity>
-              ) : null}
-              <RBSheet
-                ref={refRBSheet}
-                keyboardAvoidingViewEnabled
-                height={300}
-                openDuration={250}
-                customStyles={{
-                  container: {
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  },
-                }}>
+                </TouchableOpacity>}
+              <Modal isVisible={visible} onBackdropPress={() => setVisible(false)}>
                 <View style={styles.ModalContainer}>
-                  <View style={styles.userContainer}>
-                    <View style={styles.textContainer}>
-                      <View style={styles.nameView}>
-                        <Text
-                          style={
-                            styles.whiteText
-                            // data.check_textInputaddress
-                            //   ?
-                            //   : styles.errtext
-                          }>
-                          {I18n.t(`${NAMESPACE}.address`)}
-                        </Text>
-                      </View>
-                      <TextInput
-                        placeholderTextColor="#666666"
-                        autoCapitalize="none"
-                        onChangeText={(val) => textInputAddress(val)}
-                        style={styles.welcomeText}>
-                        {data.NumberAddress}
-                      </TextInput>
-                    </View>
-                  </View>
+                  <Text style={styles.whiteText}>{I18n.t(`${NAMESPACE}.address`)}<Text style={{ fontSize: 10 }}> (Số nhà/tên đường)</Text></Text>
+                  <TextInput
+                    placeholderTextColor="#666666"
+                    autoCapitalize="none"
+                    multiline
+                    placeholder={'Nhập địa chỉ...'}
+                    onChangeText={(val) => textInputAddress(val)}
+                    style={styles.welcomeText}>
+                    {data.NumberAddress}
+                  </TextInput>
                   {data.check_textInputaddress ? (
                     <View style={styles.divider} />
                   ) : (
-                    // eslint-disable-next-line react-native/no-inline-styles
-                    <View style={{height: 2, backgroundColor: 'red'}} />
+                    <View style={{ height: 2, backgroundColor: 'red' }} />
+                  )}
+                  <View style={styles.divider} />
+                  <Text style={styles.whiteText}>
+                    {I18n.t(`${NAMESPACE}.city`)}
+                  </Text>
+                  {Platform.OS === 'android' ? (
+                    <Picker
+                      style={styles.picker}
+                      selectedValue={data.City}
+                      mode="dialog"
+                      onValueChange={(value) => {
+                        setData({ ...data, City: value });
+                      }}>
+                      {provinceData()}
+                    </Picker>
+                  ) : (
+                    <View style={styles.pickerView}>
+                      <RNPickerSelect
+                        style={styles.picker1}
+                        onValueChange={(value) => {
+                          setData({ ...data, City: value });
+                        }}
+                        items={provinceData()}
+                      />
+                    </View>
                   )}
                   <View style={styles.divider} />
                   <View style={styles.userContainer}>
-                    <View style={styles.textContainer}>
-                      <Text style={styles.whiteText}>
-                        {I18n.t(`${NAMESPACE}.city`)}
-                      </Text>
-                      {Platform.OS === 'android' ? (
-                        <Picker
-                          style={styles.picker}
-                          selectedValue={data.City}
-                          mode="dialog"
-                          onValueChange={(value) => {
-                            setData({...data, City: value});
-                          }}>
-                          {provinceData()}
-                        </Picker>
-                      ) : (
-                        <View style={styles.pickerView}>
-                          <RNPickerSelect
-                            style={styles.picker1}
-                            onValueChange={(value) => {
-                              setData({...data, City: value});
-                            }}
-                            items={provinceData()}
-                          />
-                        </View>
-                      )}
-                    </View>
-                  </View>
-                  <View style={styles.divider} />
-                  <View style={styles.userContainer}>
-                    <View style={styles.textContainer}>
-                      <Text style={styles.whiteText}>
+                    <View>
+                      <Text style={{ fontSize: 14, color: '#000' }}>
                         {I18n.t(`${NAMESPACE}.district`)}
                       </Text>
                       {Platform.OS === 'android' ? (
@@ -222,7 +177,7 @@ function RegisterStoreView(props) {
                           selectedValue={data.Huyen}
                           mode="dialog"
                           onValueChange={(value) => {
-                            setData({...data, Huyen: value});
+                            setData({ ...data, Huyen: value });
                           }}>
                           {districtData(data.City)}
                         </Picker>
@@ -230,7 +185,7 @@ function RegisterStoreView(props) {
                         <View style={styles.pickerView}>
                           <RNPickerSelect
                             onValueChange={(value) => {
-                              setData({...data, Huyen: value});
+                              setData({ ...data, Huyen: value });
                             }}
                             items={districtData(data.City)}
                             style={styles.picker1}
@@ -239,7 +194,7 @@ function RegisterStoreView(props) {
                       )}
                     </View>
                     <View style={styles.textContainer}>
-                      <Text style={styles.whiteText}>
+                      <Text style={{ fontSize: 14, color: '#000' }}>
                         {I18n.t(`${NAMESPACE}.prov`)}
                       </Text>
                       {Platform.OS === 'android' ? (
@@ -248,7 +203,7 @@ function RegisterStoreView(props) {
                           selectedValue={data.Xa}
                           mode="dialog"
                           onValueChange={(value) => {
-                            setData({...data, Xa: value});
+                            setData({ ...data, Xa: value });
                           }}>
                           {wardData(data.City, data.Huyen)}
                         </Picker>
@@ -256,7 +211,7 @@ function RegisterStoreView(props) {
                         <View style={styles.pickerView}>
                           <RNPickerSelect
                             onValueChange={(value) => {
-                              setData({...data, Xa: value});
+                              setData({ ...data, Xa: value });
                             }}
                             items={wardData(data.City, data.Huyen)}
                           />
@@ -266,14 +221,14 @@ function RegisterStoreView(props) {
                   </View>
                   <TouchableOpacity
                     style={styles.btnSubmit}
-                    onPress={() => newAdd(refRBSheet.current)}>
+                    onPress={() => newAdd()}>
                     <Text style={styles.themAdd}>
                       {' '}
                       {I18n.t(`${NAMESPACE}.saveAdd`)}
                     </Text>
                   </TouchableOpacity>
                 </View>
-              </RBSheet>
+              </Modal>
             </View>
           </ScrollView>
         ) : null}
@@ -286,8 +241,8 @@ function RegisterStoreView(props) {
             <Text>Chụp CMND/CCCD mặt trước</Text>
             <TouchableOpacity onPress={() => takeFrontID()}>
               <Image
-                source={{uri: frontID}}
-                style={{width: 400, height: 300, resizeMode: 'contain'}}
+                source={{ uri: frontID }}
+                style={{ width: 400, height: 300, resizeMode: 'contain' }}
               />
             </TouchableOpacity>
             <View style={styles.ChangeStatus}>
@@ -308,8 +263,8 @@ function RegisterStoreView(props) {
             <Text>Chụp CMND/CCCD mặt sau</Text>
             <TouchableOpacity onPress={() => takeBackID()}>
               <Image
-                source={{uri: backID}}
-                style={{width: 400, height: 300, resizeMode: 'contain'}}
+                source={{ uri: backID }}
+                style={{ width: 400, height: 300, resizeMode: 'contain' }}
               />
             </TouchableOpacity>
             <View style={styles.ChangeStatus}>
@@ -351,11 +306,9 @@ function RegisterStoreView(props) {
             </View>
           </View>
         ) : null}
-
         {loading && (
           <Col
             center
-            // eslint-disable-next-line react-native/no-inline-styles
             style={{
               position: 'absolute',
               top: 0,

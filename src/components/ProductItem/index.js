@@ -2,22 +2,22 @@
 import ReactNativeNumberFormat from 'components/NumberFormat';
 import StarRating from 'components/StarRating';
 import React from 'react';
-import {Image, Text, View} from 'react-native';
+import { Image, Text, View } from 'react-native';
 import styles from './styles';
 
-const Productitem = ({item}) => {
+const Productitem = ({ item }) => {
   return (
     <View style={styles.itemContainer}>
-      <Image source={{uri: item?.Image}} style={styles.itemImage} />
+      <Image source={{ uri: item?.Image }} style={styles.itemImage} />
       <Text style={styles.itemName} numberOfLines={2}>
         {item?.Name}
       </Text>
-      <View style={{flexDirection: 'row'}}>
+      <View style={{ flexDirection: 'row' }}>
         <Text style={styles.itemPrice}>
-          <ReactNativeNumberFormat value={item?.Price} />đ
+          <ReactNativeNumberFormat value={item?.Price} />
         </Text>
         {item?.Price === item?.PromotionPrice ||
-        !item?.PromotionPrice ? null : (
+          !item?.PromotionPrice ? null : (
           <View style={styles.saleView}>
             <Text style={styles.priceColor}>
               {' '}
