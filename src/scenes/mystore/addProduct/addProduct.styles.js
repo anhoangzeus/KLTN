@@ -1,8 +1,8 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 // eslint-disable-next-line no-unused-vars
 import SIZE from 'constants/size';
-import {Dimensions} from 'react-native';
-const {height, width} = Dimensions.get('screen');
+import { Dimensions } from 'react-native';
+const { height, width } = Dimensions.get('screen');
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
@@ -16,9 +16,10 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
   },
   userContainer: {
-    marginTop: 0,
+    marginTop: 20,
     backgroundColor: '#fff',
     flexDirection: 'row',
+    paddingHorizontal: 5,
   },
   totalContainer1: {
     marginTop: 5,
@@ -57,23 +58,17 @@ export default StyleSheet.create({
   },
   welcomeText: {
     color: 'black',
-    fontSize: height / 40,
+    fontSize: 15,
     height: height / 15,
     marginTop: height / 100,
     marginLeft: 5,
     padding: height / 100,
     borderBottomWidth: 1,
-    borderBottomColor: '#6Ec0B6',
-    borderLeftWidth: 1,
-    borderLeftColor: '#6Ec0B6',
-    borderTopColor: '#6Ec0B6',
-    borderTopWidth: 1,
-    borderRightColor: '#6Ec0B6',
-    borderRightWidth: 1,
-    borderBottomLeftRadius: 5,
-    borderBottomRightRadius: 5,
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
+    borderColor: '#6Ec0B6',
+    borderWidth: 1,
+    borderRadius: 5,
+    width: '95%',
+    paddingHorizontal: 8,
   },
   elementText: {
     color: 'black',
@@ -173,9 +168,9 @@ export default StyleSheet.create({
     color: '#1e1e1e',
     fontSize: 17,
     flex: 1,
+    alignSelf: 'flex-end',
   },
   cardText: {
-    //marginTop: 5,
     fontSize: height / 40,
     textAlign: 'right',
     borderColor: '#ededed',
@@ -183,16 +178,19 @@ export default StyleSheet.create({
     height: height / 20,
     backgroundColor: '#fff',
     padding: height / 200,
+    borderBottomWidth: 1,
+    borderBottomColor: 'gray',
   },
   selectText: {
     color: '#1e1e1e',
     fontSize: 17,
   },
   cardOption: {
-    height: height / 15,
+    height: height / 14,
     width: width,
     backgroundColor: '#fff',
     flexDirection: 'row',
+    alignItems: 'center',
   },
   itemContainer: {
     flexDirection: 'row',

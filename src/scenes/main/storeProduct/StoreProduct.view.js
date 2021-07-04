@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
+import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native';
 import styles from './StoreProduct.styles';
 import StoreProduct from 'components/StoreProduct';
 import NavigationServices from 'utils/navigationServices';
@@ -9,10 +9,10 @@ import Col from 'components/Col';
 import database from '@react-native-firebase/database';
 import Loading from 'components/LoadingView';
 //import I18n from 'utils/i18n';
-import {BackgroundImage} from 'react-native-elements/dist/config';
+import { BackgroundImage } from 'react-native-elements/dist/config';
 //const NAMESPACE = 'common';
 function StoreProductView(props) {
-  const {FullName, Avatar, listItems, loading, getlistProduct} = props;
+  const { FullName, Avatar, listItems, loading, getlistProduct } = props;
   const del = async (item) => {
     await database()
       .ref('ProductUser/' + item.item.ProductID)
@@ -38,14 +38,12 @@ function StoreProductView(props) {
   } else {
     return (
       <View style={styles.screenContainer}>
-        {/* <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
-          <Header title={I18n.t(`${NAMESPACE}.manasell`)} /> */}
         <View style={styles.bodyContainer}>
           <BackgroundImage
             source={require('../../../assets/images/storeback.png')}
             style={styles.imgBackground}>
             <TouchableOpacity
-              onPress={() => NavigationServices.goBack()}
+              onPress={() => NavigationServices.navigate(SCENE_NAMES.MyStoreOptionContainer)}
               style={styles.back}>
               <FontAwesome
                 name="chevron-left"
@@ -64,7 +62,7 @@ function StoreProductView(props) {
                 <Text style={styles.nameText}>TienAnh Shop</Text>
               </View>
 
-              <Image source={{uri: Avatar}} size={80} style={styles.img} />
+              <Image source={{ uri: Avatar }} size={80} style={styles.img} />
             </TouchableOpacity>
             <View style={styles.flexRow}>
               <View style={styles.Tag}>

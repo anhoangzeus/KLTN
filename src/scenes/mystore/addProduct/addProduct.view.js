@@ -1,34 +1,27 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-unused-vars */
-import * as React from 'react';
-import {useRef} from 'react';
-import {
-  View,
-  StatusBar,
-  Text,
-  TouchableOpacity,
-  Dimensions,
-  ScrollView,
-  SafeAreaView,
-  Image,
-  Platform,
-  Modal,
-} from 'react-native';
-import styles from './addProduct.styles';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Header from 'components/Header';
-import {TextInput} from 'react-native-gesture-handler';
-import PopupChooseImage from 'components/PopupChooseImage';
-import RNPickerSelect from 'react-native-picker-select';
-import NumberFormat from 'components/NumberFormat';
-import Loading from 'components/LoadingView';
 import Col from 'components/Col';
-import {KeyboardAvoidingView} from 'react-native';
-import I18n from 'utils/i18n';
+import Header from 'components/Header';
+import Loading from 'components/LoadingView';
+import NumberFormat from 'components/NumberFormat';
+import PopupChooseImage from 'components/PopupChooseImage';
+import * as React from 'react';
+import { useRef } from 'react';
+import {
+  Dimensions, Image, KeyboardAvoidingView, Modal, Platform, SafeAreaView, ScrollView, StatusBar,
+  Text,
+  TouchableOpacity, View,
+} from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
+import RNPickerSelect from 'react-native-picker-select';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import I18n from 'utils/i18n';
+import styles from './addProduct.styles';
 const NAMESPACE = 'common';
-const {height, width} = Dimensions.get('screen');
+const { height, width } = Dimensions.get('screen');
 
 export default function AddProductView(props) {
   const {
@@ -66,7 +59,6 @@ export default function AddProductView(props) {
     return (
       <Col
         center
-        // eslint-disable-next-line react-native/no-inline-styles
         style={{
           position: 'absolute',
           top: 0,
@@ -96,7 +88,7 @@ export default function AddProductView(props) {
                 <View style={styles.imgView}>
                   {image.map((element) => {
                     return (
-                      <Image source={{uri: element}} style={styles.imgPro} />
+                      <Image source={{ uri: element }} style={styles.imgPro} />
                     );
                   })}
                   {/* <Image source={{uri: image}} style={styles.imgPro} /> */}
@@ -106,7 +98,6 @@ export default function AddProductView(props) {
                 </View>
               </TouchableOpacity>
               <View style={styles.divider} />
-
               <View style={styles.nameView}>
                 <Text style={styles.titletext}>
                   {' '}
@@ -116,10 +107,11 @@ export default function AddProductView(props) {
                   keyboardType="default"
                   placeholderTextColor="#666666"
                   autoCapitalize="none"
+                  multiline
                   onChangeText={(val) => {
                     onChangeName(val);
                   }}
-                  placeholder={I18n.t(`${NAMESPACE}.proname`)}
+                  placeholder={I18n.t(`${NAMESPACE}.proname`) + '...'}
                   style={styles.welcomeText}>
                   {name}
                 </TextInput>
@@ -130,6 +122,7 @@ export default function AddProductView(props) {
                   keyboardType="default"
                   placeholderTextColor="#666666"
                   autoCapitalize="none"
+                  multiline
                   placeholder={I18n.t(`${NAMESPACE}.prodes`) + '...'}
                   onChangeText={(val) => {
                     onChangeDes(val);
@@ -144,6 +137,7 @@ export default function AddProductView(props) {
                   keyboardType="default"
                   placeholderTextColor="#666666"
                   autoCapitalize="none"
+                  multiline
                   placeholder={I18n.t(`${NAMESPACE}.prokey`) + '...'}
                   onChangeText={(val) => {
                     onChangeKeyWord(val);
@@ -155,7 +149,6 @@ export default function AddProductView(props) {
                     <Text style={styles.errorMsg}>Tên không hợp lệ</Text>
                   </Animatable.View> */}
               </View>
-
               <View style={styles.divider} />
               <View style={styles.userContainer}>
                 {/* <View style={styles.cardOption}> */}
@@ -171,7 +164,6 @@ export default function AddProductView(props) {
                         {' '}
                         {I18n.t(`${NAMESPACE}.category`)}
                       </Text>
-
                       <RNPickerSelect
                         style={styles.picker}
                         onValueChange={(value, index) => {
@@ -179,29 +171,28 @@ export default function AddProductView(props) {
                           setCateName(dataCate[index - 1].label);
                         }}
                         items={dataCate}>
-                        <Text style={styles.selectText}>{cateName}</Text>
+                        <Text style={styles.selectText}>{cateName} </Text>
                       </RNPickerSelect>
-
                       <FontAwesome
                         name="angle-right"
                         size={26}
                         color="#1e1e1e"
-                        style={{marginRight: width / 20}}
+                        style={{ marginRight: width / 20 }}
                       />
                     </View>
                   </View>
-                  <View style={styles.cardOption} onPress={() => {}}>
+                  <View style={styles.cardOption} onPress={() => { }}>
                     <View style={styles.itemContainer}>
                       <MaterialCommunityIcons
                         name={'bookmark-outline'}
                         size={26}
                         color={'gold'}
+                        style={{ alignSelf: 'flex-end' }}
                       />
                       <Text style={styles.itemText}>
                         {' '}
                         {I18n.t(`${NAMESPACE}.price`)}
                       </Text>
-
                       <TextInput
                         keyboardType="numeric"
                         placeholderTextColor="#666666"
@@ -222,7 +213,7 @@ export default function AddProductView(props) {
                       <MaterialCommunityIcons
                         name={'shield-half-full'}
                         size={26}
-                        color={'green'}
+                        color={'green'} style={{ alignSelf: 'flex-end' }}
                       />
                       <Text style={styles.itemText}>
                         {' '}
@@ -246,12 +237,12 @@ export default function AddProductView(props) {
                       </Text>
                     </View>
                   </View>
-                  <View style={styles.cardOption} onPress={() => {}}>
+                  <View style={styles.cardOption} onPress={() => { }}>
                     <View style={styles.itemContainer}>
                       <MaterialCommunityIcons
                         name={'information-variant'}
                         size={26}
-                        color={'black'}
+                        color={'black'} style={{ alignSelf: 'flex-end' }}
                       />
                       <Text style={styles.itemText}>
                         {I18n.t(`${NAMESPACE}.count`)}
@@ -272,12 +263,12 @@ export default function AddProductView(props) {
                       <Text style={styles.unit}> </Text>
                     </View>
                   </View>
-                  <View style={styles.cardOption} onPress={() => {}}>
+                  <View style={styles.cardOption} onPress={() => { }}>
                     <View style={styles.itemContainer}>
                       <MaterialCommunityIcons
                         name={'sale'}
                         size={26}
-                        color={'red'}
+                        color={'red'} style={{ alignSelf: 'flex-end' }}
                       />
                       <Text style={styles.itemText}>
                         {I18n.t(`${NAMESPACE}.sale`)}
@@ -311,7 +302,7 @@ export default function AddProductView(props) {
                 </View>
                 {/* </View> */}
               </View>
-              <View style={{height: height / 7}} />
+              <View style={{ height: height / 7 }} />
             </ScrollView>
             <View style={styles.divider} />
 
@@ -325,7 +316,6 @@ export default function AddProductView(props) {
             {isUpload && (
               <Col
                 center
-                // eslint-disable-next-line react-native/no-inline-styles
                 style={{
                   position: 'absolute',
                   top: 0,
@@ -359,7 +349,7 @@ export default function AddProductView(props) {
             animationType="fade"
             transparent={true}
             visible={isSuccess}
-            onRequestClose={() => {}}>
+            onRequestClose={() => { }}>
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
                 <FontAwesome5 name="check-double" size={40} color="green" />

@@ -93,7 +93,7 @@ export default {
     addproduct: 'Thêm sản phẩm',
     revenue: 'Doanh thu',
     suport: 'Hỗ trợ',
-    proname: 'Têm sản phẩm',
+    proname: 'Tên sản phẩm',
     prodes: 'Mô tả sản phẩm',
     prokey: 'Gợi ý tìm kiếm',
     category: 'Danh mục',
