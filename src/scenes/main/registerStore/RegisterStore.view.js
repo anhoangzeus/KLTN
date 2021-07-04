@@ -9,12 +9,13 @@ import Loading from 'components/LoadingView';
 import React from 'react';
 import {
   FlatList, Image, Platform, SafeAreaView, ScrollView, StatusBar, Text,
-  TextInput, TouchableOpacity, View,
+  TextInput, TouchableOpacity, View, Dimensions,
 } from 'react-native';
 import Modal from 'react-native-modal';
 import RNPickerSelect from 'react-native-picker-select';
 import I18n from 'utils/i18n';
 import styles from './RegisterStore.styles';
+const { width } = Dimensions.get('screen');
 const NAMESPACE = 'common';
 
 // import {NAMESPACE} from './RegisterStore.constants';
@@ -232,51 +233,65 @@ function RegisterStoreView(props) {
             </View>
           </ScrollView>
         ) : null}
-        {step === 2 ? (
+        {step === 2 &&
           <View style={styles.resView}>
             <Image
               source={require('../../../assets/images/step2.png')}
               style={styles.stepImg}
             />
-            <Text>Chụp CMND/CCCD mặt trước</Text>
+            <Text style={styles.nameText}>Chụp CMND/CCCD mặt trước</Text>
             <TouchableOpacity onPress={() => takeFrontID()}>
               <Image
                 source={{ uri: frontID }}
-                style={{ width: 400, height: 300, resizeMode: 'contain' }}
+                style={{ width: '100%', height: 300, resizeMode: 'contain', marginTop: 10 }}
               />
             </TouchableOpacity>
             <View style={styles.ChangeStatus}>
-              <TouchableOpacity style={styles.pre} onPress={() => setStep(1)} />
+              <TouchableOpacity style={styles.pre} onPress={() => setStep(1)} >
+                <Text style={styles.themAdd}>
+                  Quay về
+                </Text>
+              </TouchableOpacity>
               <TouchableOpacity
-                style={styles.next}
-                onPress={() => setStep(3)}
-              />
+                style={{ ...styles.next, width: width / 2.5 }}
+                onPress={() => setStep(3)}>
+                <Text style={styles.themAdd}>
+                  {I18n.t(`${NAMESPACE}.next`)}
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
-        ) : null}
-        {step === 3 ? (
+        }
+        {step === 3 &&
           <View style={styles.resView}>
             <Image
               source={require('../../../assets/images/step3.png')}
               style={styles.stepImg}
             />
-            <Text>Chụp CMND/CCCD mặt sau</Text>
+            <Text style={styles.nameText}>Chụp CMND/CCCD mặt sau</Text>
             <TouchableOpacity onPress={() => takeBackID()}>
               <Image
                 source={{ uri: backID }}
-                style={{ width: 400, height: 300, resizeMode: 'contain' }}
+                style={{ width: '100%', height: 300, resizeMode: 'contain', marginTop: 10 }}
               />
             </TouchableOpacity>
             <View style={styles.ChangeStatus}>
-              <TouchableOpacity style={styles.pre} onPress={() => setStep(2)} />
+              <TouchableOpacity style={styles.pre} onPress={() => setStep(2)} >
+                <Text style={styles.themAdd}>
+                  Quay về
+                </Text>
+              </TouchableOpacity>
               <TouchableOpacity
-                style={styles.next}
-                onPress={() => setStep(4)}
-              />
+                style={{ ...styles.next, width: width / 2.5 }}
+                onPress={() => setStep(4)}>
+                <Text style={styles.themAdd}>
+                  {I18n.t(`${NAMESPACE}.next`)}
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
-        ) : null}
-        {step === 4 ? (
+        }
+        {step === 4 &&
           <View style={styles.resView}>
             <Image
               source={require('../../../assets/images/step4.png')}
@@ -298,14 +313,21 @@ function RegisterStoreView(props) {
               <Text>{I18n.t(`${NAMESPACE}.argree`)}</Text>
             </View>
             <View style={styles.ChangeStatus}>
-              <TouchableOpacity style={styles.pre} onPress={() => submit()}>
+              <TouchableOpacity style={styles.pre} onPress={() => setStep(3)} >
+                <Text style={styles.themAdd}>
+                  Quay về
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{ ...styles.next, width: width / 2.5 }}
+                onPress={() => submit()}>
                 <Text style={styles.themAdd}>
                   {I18n.t(`${NAMESPACE}.submit`)}
                 </Text>
               </TouchableOpacity>
             </View>
           </View>
-        ) : null}
+        }
         {loading && (
           <Col
             center

@@ -23,6 +23,7 @@ export default StyleSheet.create({
     height: height / 3,
     width: width / 1.5,
     resizeMode: 'stretch',
+    alignSelf: 'center',
   },
   infoView: {
     width: width,
@@ -31,7 +32,6 @@ export default StyleSheet.create({
   },
   ChangeStatus: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
     alignItems: 'center',
   },
   nameText: {
@@ -62,22 +62,21 @@ export default StyleSheet.create({
   },
   pre: {
     height: height / 20,
-    width: width / 4,
-    backgroundColor: '#2B4F8C',
-    marginBottom: height / 50,
+    width: width / 2.5,
+    backgroundColor: '#666666',
     borderRadius: height / 50,
     alignItems: 'center',
     justifyContent: 'center',
   },
   next: {
     height: height / 20,
-    width: width / 4,
     backgroundColor: '#2B4F8C',
     marginBottom: height / 50,
     borderRadius: height / 50,
-    marginLeft: width / 4,
     alignItems: 'center',
     justifyContent: 'center',
+    marginHorizontal: 40,
+    marginTop: 15,
   },
   userContainer: {
     backgroundColor: '#fff',
