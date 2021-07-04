@@ -25,10 +25,10 @@ import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CommentContainer from 'scenes/main/comment/Comment.container.js';
-import I18n from 'utils/i18n';
 import NavigationServices from 'utils/navigationServices';
 import styles from './Product.styles';
 const NAMESPACE = 'common';
+import I18n from 'utils/i18n';
 
 // import {NAMESPACE} from './Product.constants';
 

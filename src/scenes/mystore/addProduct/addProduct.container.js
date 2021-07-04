@@ -131,7 +131,7 @@ export default function AddProductContainer({navigation, route}) {
   const sendNotification = async (noti) => {
     let arr = [];
     let storeName = '';
-    database()
+    await database()
       .ref('Brief/' + auth().currentUser.uid)
       .once('value')
       .then((snapshot) => {

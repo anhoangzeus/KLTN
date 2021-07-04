@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import {Platform} from 'react-native';
 
 export default {
   common: {
@@ -128,7 +128,7 @@ export default {
     cartnull: 'Chưa có sản phẩm nào trong giỏ',
     continueshopping: 'Tiếp tục mua sắm',
     null: 'Không có sản phẩm',
-    search: 'Bạn tìm gì hôm nay',
+    search: 'Bạn tìm gì hôm nay ?',
     find: 'Tìm kiếm',
     choosedistrict: 'Chọn quận/huyện',
     choosecity: 'Chọn tỉnh/thành phố',
@@ -212,6 +212,10 @@ export default {
       'Các sản phẩm được bày bán phải là san phẩm chay và có nguồn gốc rõ ràng, nếu phát hiện có hành vi không tuân thủ quy đinh TiAn có quyền đơn phương huỷ tư cách kinh doanh của bạn.',
     argree: 'Tôi đồng ý với cách điều khoản trên',
     soldout: 'Hết hàng',
+    hot: 'Hot nhất hôm nay',
+    new: 'Sản phẩm mới nhất',
+    hotdiscount: 'Giảm giá shock',
+    cheap: 'Giá ưu đãi',
   },
   message: {
     ERROR_OCCURRED: 'An error occurred, please try again.',

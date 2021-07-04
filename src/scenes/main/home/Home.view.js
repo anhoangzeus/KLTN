@@ -24,7 +24,8 @@ import Foundation from 'react-native-vector-icons/Foundation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import NavigationServices from 'utils/navigationServices';
 import styles from './Home.styles';
-
+const NAMESPACE = 'common';
+import I18n from 'utils/i18n';
 const {width} = Dimensions.get('screen');
 
 function HomeView(props) {
@@ -55,7 +56,10 @@ function HomeView(props) {
               NavigationServices.navigate(SCENE_NAMES.SEARCH);
             }}>
             <FontAwesome name="search" size={width * 0.05} color="#969696" />
-            <Text style={styles.inputText}>Bạn tìm gì hôm nay?</Text>
+            <Text style={styles.inputText}>
+              {' '}
+              {I18n.t(`${NAMESPACE}.search`)}
+            </Text>
           </TouchableOpacity>
           <View style={styles.cartContainer}>
             <TouchableOpacity
@@ -92,11 +96,11 @@ function HomeView(props) {
               <RefreshControl refreshing={refreshing} onRefresh={_onRefresh} />
             }>
             {SwiperBraner(listcontents)}
-            {TopBraner('Hot nhất hôm nay')}
+            {TopBraner(I18n.t(`${NAMESPACE}.hot`))}
             <View style={styles.proHotContainer}>
               <Text style={{fontSize: 17, color: 'black', marginVertical: 10}}>
                 <Foundation name="burst-new" color="red" size={25} />
-                Đóng hộp
+                {I18n.t(`${NAMESPACE}.new`)}
               </Text>
               <FlatList
                 horizontal={true}
@@ -118,7 +122,7 @@ function HomeView(props) {
             <View style={styles.proHotContainer}>
               <Text style={{fontSize: 18, color: 'black', marginVertical: 10}}>
                 <Foundation name="burst-new" color="red" size={25} />{' '}
-                Breads-Bakery Hot Sale
+                {I18n.t(`${NAMESPACE}.hotdiscount`)}
               </Text>
               <FlatList
                 horizontal={true}
@@ -139,8 +143,8 @@ function HomeView(props) {
             </View>
             <View style={styles.proHotContainer}>
               <Text style={{fontSize: 18, color: 'black', marginVertical: 10}}>
-                <Foundation name="burst-new" color="red" size={25} /> Snack
-                Foods Hot Sale
+                <Foundation name="burst-new" color="red" size={25} />
+                {I18n.t(`${NAMESPACE}.cheap`)}
               </Text>
               <FlatList
                 horizontal={true}

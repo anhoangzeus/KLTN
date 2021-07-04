@@ -2,7 +2,7 @@ import Swiper from 'react-native-swiper';
 import React from 'react';
 import SIZE from 'constants/size';
 import styles from './style';
-import { TouchableOpacity, View, Image } from 'react-native';
+import {TouchableOpacity, View, Image} from 'react-native';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 
@@ -10,7 +10,7 @@ const SwiperBraner = (listcontents) => {
   return (
     <Swiper
       autoplay={true}
-      autoplayTimeout={2}
+      autoplayTimeout={1000}
       loop={true}
       showsPagination={true}
       showsButtons={true}
@@ -27,7 +27,7 @@ const SwiperBraner = (listcontents) => {
             })
           }>
           <View style={styles.sectionContainer}>
-            <Image source={{ uri: item.Image }} style={styles.sectionImage} />
+            <Image source={{uri: item.Image}} style={styles.sectionImage} />
           </View>
         </TouchableOpacity>
       ))}
