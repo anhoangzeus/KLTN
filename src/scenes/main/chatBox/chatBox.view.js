@@ -346,6 +346,8 @@ class ChatBoxContainer extends React.Component {
           openDuration={250}
           customStyles={{
             container: {
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
               justifyContent: 'center',
               alignItems: 'center',
             },
