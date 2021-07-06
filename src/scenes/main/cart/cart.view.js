@@ -7,6 +7,7 @@ import {
   ActivityIndicator, Alert, Dimensions, FlatList, Image, Modal, SafeAreaView, ScrollView,
   StatusBar, Text, TouchableOpacity, View,
 } from 'react-native';
+import { normalize } from 'react-native-elements';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import I18n from 'utils/i18n';
@@ -140,7 +141,7 @@ export default function CartView(props) {
           translucent={false}
         />
         <Header title={I18n.t(`${NAMESPACE}.cart`)} />
-        <ScrollView>
+        <ScrollView style={{ paddingHorizontal: normalize(10) }}>
           {hasAddress ? (
             <View style={styles.listItem}>
               <View style={{ flex: 1, margin: 10 }}>

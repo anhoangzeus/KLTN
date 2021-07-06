@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles';
-import {View, Text, Image} from 'react-native';
+import { View, Text, Image } from 'react-native';
 import StarRating from 'components/StarRating';
 
 function CommentItem(item) {
@@ -13,7 +13,7 @@ function CommentItem(item) {
       <View style={styles.marginView}>
         <Text style={styles.blackText}>{item.item.UserName}</Text>
         <View style={styles.flexDir}>
-          <Image source={{uri: item.item.Avatar}} style={styles.sourceImage} />
+          <Image source={{ uri: item.item.Avatar }} style={styles.sourceImage} />
           <Text muted style={styles.blackText}>
             {item.item.Comment}
           </Text>

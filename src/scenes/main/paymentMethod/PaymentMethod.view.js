@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import NumberFormat from 'components/NumberFormat';
 import SCENE_NAMES from 'constants/sceneName';
 import * as React from 'react';
@@ -6,6 +7,7 @@ import {
   Dimensions, Modal, SafeAreaView, ScrollView,
   StatusBar, Text, TouchableOpacity, View,
 } from 'react-native';
+import { normalize } from 'react-native-elements';
 import { RadioButton } from 'react-native-paper';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -13,7 +15,7 @@ import I18n from 'utils/i18n';
 import NavigationServices from 'utils/navigationServices';
 import styles from './PaymentMethod.styles';
 const NAMESPACE = 'common';
-const { height, width } = Dimensions.get('screen');
+const { width } = Dimensions.get('screen');
 function PaymentMethodView(props) {
   const {
     thanhToan,
@@ -49,7 +51,7 @@ function PaymentMethodView(props) {
             {I18n.t(`${NAMESPACE}.payment`)}
           </Text>
         </View>
-        <ScrollView style={{ height: height }}>
+        <ScrollView style={{ flex: 1, paddingHorizontal: normalize(15) }}>
           <View style={styles.listItem}>
             <View style={styles.addressView}>
               <View style={styles.addressViewRow}>
@@ -133,7 +135,6 @@ function PaymentMethodView(props) {
             </Text>
             <Text
               color="red"
-              // eslint-disable-next-line react-native/no-inline-styles
               style={{ fontSize: 20, marginHorizontal: 10, color: '#000' }}>
               <NumberFormat value={prop.content + shipMoney} />
             </Text>
@@ -149,7 +150,6 @@ function PaymentMethodView(props) {
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.bodyContainer} />
         <Modal
           animationType="fade"
           transparent={true}
