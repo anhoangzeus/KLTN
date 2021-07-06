@@ -49,8 +49,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
     flexDirection: 'row',
     borderRadius: 50,
-    width: width,
-    height: height / 7,
+    width: '100%',
     borderBottomWidth: 5,
     borderTopWidth: 5,
     marginVertical: 5,
@@ -71,7 +70,7 @@ export default StyleSheet.create({
   },
   address: {
     marginTop: 5,
-    fontSize: height / 50,
+    fontSize: height / 55,
   },
   addresstitle: {
     fontWeight: 'bold',

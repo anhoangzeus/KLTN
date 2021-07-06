@@ -5,7 +5,7 @@ import { normalize } from 'react-native-elements';
 export default StyleSheet.create({
   itemContainer: {
     width: SIZE.DEVICE_WIDTH / 2,
-    height: SIZE.DEVICE_HEIGHT / 2.6,
+    minHeight: SIZE.DEVICE_HEIGHT / 2.6,
     borderColor: '#E5E5E5',
     borderWidth: 2,
     padding: normalize(5),
