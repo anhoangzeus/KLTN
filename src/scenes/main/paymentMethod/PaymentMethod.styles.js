@@ -1,5 +1,5 @@
-import { StyleSheet, Dimensions } from 'react-native';
-const { height, width } = Dimensions.get('screen');
+import {StyleSheet, Dimensions} from 'react-native';
+const {height, width} = Dimensions.get('screen');
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
@@ -130,17 +130,17 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
   },
-  addressView: { flex: 1, margin: 10 },
-  addressViewRow: { flexDirection: 'row', justifyContent: 'space-between' },
-  greenText: { color: 'white', marginRight: 5, fontSize: 17 },
+  addressView: {flex: 1, margin: 10},
+  addressViewRow: {flexDirection: 'row', justifyContent: 'space-between'},
+  greenText: {color: 'white', marginRight: 5, fontSize: 17},
   infoView: {
     justifyContent: 'space-between',
     flexDirection: 'row',
     marginTop: 10,
   },
-  payText: { fontSize: 16, marginLeft: 10, color: '#000' },
-  method: { marginLeft: width / 40, fontSize: 16, color: '#000' },
-  txtMoney: { fontSize: 17, marginHorizontal: 10, color: '#000' },
+  payText: {fontSize: 16, marginLeft: 10, color: '#000'},
+  method: {marginLeft: width / 40, fontSize: 16, color: '#000'},
+  txtMoney: {fontSize: 17, marginHorizontal: 10, color: '#000'},
   blankView: {
     backgroundColor: '#fff',
     marginBottom: 5,
@@ -151,7 +151,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 10,
   },
-  btnXacNhan: { color: 'white', fontSize: 20, alignSelf: 'center' },
+  btnXacNhan: {color: 'white', fontSize: 20, alignSelf: 'center'},
   modalMain: {
     width: width / 1.5,
     height: height / 15,
@@ -165,22 +165,27 @@ export default StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
   },
-  btnConfirm: { marginTop: 5, fontSize: 17, color: 'green' },
-  Amount: { marginTop: 5, fontSize: 17, marginBottom: 20 },
-  rowView: { flexDirection: 'row' },
+  btnConfirm: {marginTop: 5, fontSize: 17, color: 'green'},
+  Amount: {marginTop: 5, fontSize: 17, marginBottom: 20},
+  rowView: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginBottom: 10,
+  },
   btnThanhToan: {
     borderRadius: 20,
     padding: 10,
     elevation: 2,
     backgroundColor: '#2196F3',
-    width: width / 2.5,
+    width: width / 3,
+    marginLeft: 10,
   },
   btnClose: {
     borderRadius: 20,
     padding: 10,
     elevation: 2,
     backgroundColor: '#2196F3',
-    width: width / 2.5,
+    width: width / 3,
     marginLeft: 5,
   },
 });

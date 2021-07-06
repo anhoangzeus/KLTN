@@ -3,17 +3,23 @@ import SCENE_NAMES from 'constants/sceneName';
 import * as React from 'react';
 import {
   Alert,
-  Dimensions, Modal, SafeAreaView, ScrollView,
-  StatusBar, Text, TouchableOpacity, View,
+  Dimensions,
+  Modal,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import { RadioButton } from 'react-native-paper';
+import {RadioButton} from 'react-native-paper';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import I18n from 'utils/i18n';
 import NavigationServices from 'utils/navigationServices';
 import styles from './PaymentMethod.styles';
 const NAMESPACE = 'common';
-const { height, width } = Dimensions.get('screen');
+const {height, width} = Dimensions.get('screen');
 function PaymentMethodView(props) {
   const {
     thanhToan,
@@ -36,20 +42,20 @@ function PaymentMethodView(props) {
         />
         <View style={styles.headerContainer}>
           <TouchableOpacity
-            style={{ width: width / 5 }}
+            style={{width: width / 5}}
             onPress={() => NavigationServices.goBack()}>
             <FontAwesome
               name="angle-left"
               size={35}
               color="#fff"
-              style={{ marginLeft: width / 40 }}
+              style={{marginLeft: width / 40}}
             />
           </TouchableOpacity>
           <Text style={styles.headerText}>
             {I18n.t(`${NAMESPACE}.payment`)}
           </Text>
         </View>
-        <ScrollView style={{ height: height }}>
+        <ScrollView style={{height: height}}>
           <View style={styles.listItem}>
             <View style={styles.addressView}>
               <View style={styles.addressViewRow}>
@@ -134,7 +140,7 @@ function PaymentMethodView(props) {
             <Text
               color="red"
               // eslint-disable-next-line react-native/no-inline-styles
-              style={{ fontSize: 20, marginHorizontal: 10, color: '#000' }}>
+              style={{fontSize: 20, marginHorizontal: 10, color: '#000'}}>
               <NumberFormat value={prop.content + shipMoney} />
             </Text>
           </View>
@@ -184,7 +190,7 @@ function PaymentMethodView(props) {
             Alert.alert('Modal has been closed.');
           }}>
           <View style={styles.centeredView}>
-            <View style={{ ...styles.modalView, padding: width / 15 }}>
+            <View style={{...styles.modalView, padding: width / 15}}>
               <Text style={styles.btnConfirm}>
                 {I18n.t(`${NAMESPACE}.confirmorder`)}
               </Text>
@@ -208,16 +214,6 @@ function PaymentMethodView(props) {
               </Text>
               <View style={styles.rowView}>
                 <TouchableOpacity
-                  style={styles.btnThanhToan}
-                  onPress={() => {
-                    thanhToan();
-                  }}>
-                  <Text style={styles.textStyle}>
-                    {' '}
-                    {I18n.t(`${NAMESPACE}.confirm`)}
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
                   style={styles.btnClose}
                   onPress={() => {
                     handleCloseConfirm();
@@ -225,6 +221,16 @@ function PaymentMethodView(props) {
                   <Text style={styles.textStyle}>
                     {' '}
                     {I18n.t(`${NAMESPACE}.back`)}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.btnThanhToan}
+                  onPress={() => {
+                    thanhToan();
+                  }}>
+                  <Text style={styles.textStyle}>
+                    {' '}
+                    {I18n.t(`${NAMESPACE}.confirm`)}
                   </Text>
                 </TouchableOpacity>
               </View>

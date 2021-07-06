@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useLayoutEffect, useState, useEffect } from 'react';
+import React, {useLayoutEffect, useState, useEffect} from 'react';
 import PaymentMethodView from './PaymentMethod.view';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
-import { NAMESPACE } from './PaymentMethod.constants';
-import { getString } from 'utils/i18n';
+import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
+import {NAMESPACE} from './PaymentMethod.constants';
+import {getString} from 'utils/i18n';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
-import NavigationServices, { getParams } from 'utils/navigationServices';
+import NavigationServices, {getParams} from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 import Geocoder from 'react-native-geocoding';
 Geocoder.init('AIzaSyDNzy29FhjgnLXCCa9f8vqgcq_B-32uXLs');
@@ -18,7 +18,7 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 
-export default function PaymentMethodContainer({ navigation, route }) {
+export default function PaymentMethodContainer({navigation, route}) {
   const [checked, setchecked] = useState('first');
   const [loading] = useState(false);
   const [modalVisible, setmodalVisible] = useState(false);
@@ -34,7 +34,14 @@ export default function PaymentMethodContainer({ navigation, route }) {
     });
   }, [navigation]);
 
-  const getShipMoney = () => {
+  const getShipMoney = async () => {
+    var policy = {};
+    await database()
+      .ref('Policy/ShipPayment')
+      .once('value')
+      .then((snapshot) => {
+        policy = snapshot.val();
+      });
     var a = '';
     a = props.address.Location;
     var b = a.indexOf('-');
@@ -50,15 +57,18 @@ export default function PaymentMethodContainer({ navigation, route }) {
     dist = dist * 60 * 1.1515;
     dist = dist * 1.609344;
     var shipmoney = 0;
-    if (dist >= 5 && dist < 10) {
-      shipmoney = 50000;
+    if (dist < 5) {
+      shipmoney = policy.Level1;
+    } else if (dist >= 5 && dist < 10) {
+      shipmoney = policy.Level2;
     } else if (dist >= 10 && dist < 25) {
-      shipmoney = 100000;
+      shipmoney = policy.Level3;
     } else if (dist >= 25 && dist < 50) {
-      shipmoney = 200000;
-    } else if (dist >= 50) {
-      shipmoney = 250000;
+      shipmoney = policy.Level4;
+    } else {
+      shipmoney = policy.Level5;
     }
+    console.log('>>>>>> shipMoney', shipmoney);
     setshipMoney(shipmoney);
   };
 
@@ -134,11 +144,11 @@ export default function PaymentMethodContainer({ navigation, route }) {
         ', ' +
         props.address.City;
       await Geocoder.from(diachi)
-        .then(json => {
+        .then((json) => {
           var locationSearch = json.results[0].geometry.location;
           location = locationSearch.lat + '-' + locationSearch.lng;
         })
-        .catch(error => console.warn(error));
+        .catch((error) => console.warn(error));
       database()
         .ref('Orders/' + key)
         .set({
@@ -187,6 +197,40 @@ export default function PaymentMethodContainer({ navigation, route }) {
                 UserProduct: childSnapshot.val().UserID ? true : false,
                 Status: false,
               });
+            // if (childSnapshot.val().UserID) {
+            //   database()
+            //     .ref('StatisticSeller/' + key + '/' + keyDetail)
+            //     .set({
+            //       OrderDetailID: keyDetail,
+            //       Price: childSnapshot.val().Price,
+            //       ProductID: childSnapshot.val().Id,
+            //       Quantity: childSnapshot.val().Quantity,
+            //       CategoryID: childSnapshot.val().CategoryID,
+            //       BrandID: childSnapshot.val().BrandID,
+            //       Name: childSnapshot.val().Name,
+            //       Picture: childSnapshot.val().Picture,
+            //       BrandName: childSnapshot.val().BrandName,
+            //       CategoryName: childSnapshot.val().CategoryName,
+            //       UserID: childSnapshot.val().UserID,
+            //       Status: 0,
+            //     });
+            // } else {
+            //   database()
+            //     .ref('Statistic/' + key + '/' + keyDetail)
+            //     .set({
+            //       OrderDetailID: keyDetail,
+            //       Price: childSnapshot.val().Price,
+            //       ProductID: childSnapshot.val().Id,
+            //       Quantity: childSnapshot.val().Quantity,
+            //       CategoryID: childSnapshot.val().CategoryID,
+            //       BrandID: childSnapshot.val().BrandID,
+            //       Name: childSnapshot.val().Name,
+            //       Picture: childSnapshot.val().Picture,
+            //       BrandName: childSnapshot.val().BrandName,
+            //       CategoryName: childSnapshot.val().CategoryName,
+            //       Status: 0,
+            //     });
+            // }
             database()
               .ref('Cart/' + auth().currentUser.uid)
               .child(childSnapshot.key)
@@ -200,7 +244,7 @@ export default function PaymentMethodContainer({ navigation, route }) {
       NavigationServices.navigate(SCENE_NAMES.ZALOPAY, {
         amount: props.content,
         shipMoney: shipMoney,
-        listItem: props.CartItem,
+        listItem: props.listItem,
         Address: props.address,
       });
     }
