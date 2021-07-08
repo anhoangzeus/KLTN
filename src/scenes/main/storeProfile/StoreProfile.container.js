@@ -25,7 +25,9 @@ export default function StoreProfileContainer({navigation, route}) {
   const [token, setToken] = useState('');
   const [isFollow, setIsFollow] = useState(false);
   const [des, setDes] = useState('');
+  const [storeInfo, setStoreInfo] = useState({});
   const [address, setAddress] = useState([]);
+  const [visible, setVisible] = useState(false);
   const getListChat = async () => {
     database()
       .ref('Chats')
@@ -114,6 +116,10 @@ export default function StoreProfileContainer({navigation, route}) {
       .once('value')
       .then((snapshot) => {
         setDes(snapshot.val().Description);
+        setStoreInfo({
+          StoreID: snapshot.val().StoreID,
+          StoreName: snapshot.val().StoreName,
+        });
         let listAddress = [];
         snapshot.child('Address').forEach((snapshot2) => {
           let item = {
@@ -194,6 +200,9 @@ export default function StoreProfileContainer({navigation, route}) {
       isFollow={isFollow}
       des={des}
       address={address}
+      storeInfo={storeInfo}
+      visible={visible}
+      setVisible={setVisible}
       setChoose={setChoose}
       getlistProduct={getlistProduct}
       getListChat={getListChat}

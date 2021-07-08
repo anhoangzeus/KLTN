@@ -6,13 +6,22 @@ import Loading from 'components/LoadingView';
 import NumberFormat from 'components/NumberFormat';
 import PopupChooseImage from 'components/PopupChooseImage';
 import * as React from 'react';
-import { useRef } from 'react';
+import {useRef} from 'react';
 import {
-  Dimensions, Image, KeyboardAvoidingView, Modal, Platform, SafeAreaView, ScrollView, StatusBar,
+  Dimensions,
+  Image,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
   Text,
-  TouchableOpacity, View,
+  TouchableOpacity,
+  View,
+  FlatList,
 } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import {TextInput} from 'react-native-gesture-handler';
 import RNPickerSelect from 'react-native-picker-select';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -21,7 +30,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import I18n from 'utils/i18n';
 import styles from './addProduct.styles';
 const NAMESPACE = 'common';
-const { height, width } = Dimensions.get('screen');
+const {height, width} = Dimensions.get('screen');
 
 export default function AddProductView(props) {
   const {
@@ -86,15 +95,20 @@ export default function AddProductView(props) {
                 style={styles.userContainer}
                 onPress={() => refRBSheet.current.open()}>
                 <View style={styles.imgView}>
-                  {image.map((element) => {
-                    return (
-                      <Image source={{ uri: element }} style={styles.imgPro} />
-                    );
-                  })}
                   {/* <Image source={{uri: image}} style={styles.imgPro} /> */}
-                  <Text style={styles.imgText}>
-                    {I18n.t(`${NAMESPACE}.defaultTitle`)}
-                  </Text>
+                  <FlatList
+                    horizontal={true}
+                    data={image || []}
+                    renderItem={(item) => {
+                      console.log('item flatlist', item);
+                      return (
+                        <Image
+                          source={{uri: item.item}}
+                          style={styles.imgPro}
+                        />
+                      );
+                    }}
+                  />
                 </View>
               </TouchableOpacity>
               <View style={styles.divider} />
@@ -122,12 +136,13 @@ export default function AddProductView(props) {
                   keyboardType="default"
                   placeholderTextColor="#666666"
                   autoCapitalize="none"
-                  multiline
+                  multiline={true}
+                  textAlignVertical="top"
                   placeholder={I18n.t(`${NAMESPACE}.prodes`) + '...'}
                   onChangeText={(val) => {
                     onChangeDes(val);
                   }}
-                  style={styles.welcomeText}>
+                  style={styles.welcomeText2}>
                   {des}
                 </TextInput>
                 <Text style={styles.titletext}>
@@ -157,7 +172,7 @@ export default function AddProductView(props) {
                     <View style={styles.itemContainer}>
                       <MaterialCommunityIcons
                         name={'format-list-bulleted'}
-                        size={26}
+                        size={20}
                         color={'#2B4F8C'}
                       />
                       <Text style={styles.itemText}>
@@ -175,19 +190,19 @@ export default function AddProductView(props) {
                       </RNPickerSelect>
                       <FontAwesome
                         name="angle-right"
-                        size={26}
+                        size={20}
                         color="#1e1e1e"
-                        style={{ marginRight: width / 20 }}
+                        style={{marginRight: width / 20}}
                       />
                     </View>
                   </View>
-                  <View style={styles.cardOption} onPress={() => { }}>
+                  <View style={styles.cardOption} onPress={() => {}}>
                     <View style={styles.itemContainer}>
                       <MaterialCommunityIcons
                         name={'bookmark-outline'}
-                        size={26}
+                        size={20}
                         color={'gold'}
-                        style={{ alignSelf: 'flex-end' }}
+                        style={{alignSelf: 'flex-end'}}
                       />
                       <Text style={styles.itemText}>
                         {' '}
@@ -212,8 +227,9 @@ export default function AddProductView(props) {
                     <View style={styles.itemContainer}>
                       <MaterialCommunityIcons
                         name={'shield-half-full'}
-                        size={26}
-                        color={'green'} style={{ alignSelf: 'flex-end' }}
+                        size={20}
+                        color={'green'}
+                        style={{alignSelf: 'flex-end'}}
                       />
                       <Text style={styles.itemText}>
                         {' '}
@@ -237,12 +253,13 @@ export default function AddProductView(props) {
                       </Text>
                     </View>
                   </View>
-                  <View style={styles.cardOption} onPress={() => { }}>
+                  <View style={styles.cardOption} onPress={() => {}}>
                     <View style={styles.itemContainer}>
                       <MaterialCommunityIcons
                         name={'information-variant'}
-                        size={26}
-                        color={'black'} style={{ alignSelf: 'flex-end' }}
+                        size={20}
+                        color={'black'}
+                        style={{alignSelf: 'flex-end'}}
                       />
                       <Text style={styles.itemText}>
                         {I18n.t(`${NAMESPACE}.count`)}
@@ -263,12 +280,13 @@ export default function AddProductView(props) {
                       <Text style={styles.unit}> </Text>
                     </View>
                   </View>
-                  <View style={styles.cardOption} onPress={() => { }}>
+                  <View style={styles.cardOption} onPress={() => {}}>
                     <View style={styles.itemContainer}>
                       <MaterialCommunityIcons
                         name={'sale'}
-                        size={26}
-                        color={'red'} style={{ alignSelf: 'flex-end' }}
+                        size={20}
+                        color={'red'}
+                        style={{alignSelf: 'flex-end'}}
                       />
                       <Text style={styles.itemText}>
                         {I18n.t(`${NAMESPACE}.sale`)}
@@ -302,7 +320,7 @@ export default function AddProductView(props) {
                 </View>
                 {/* </View> */}
               </View>
-              <View style={{ height: height / 7 }} />
+              <View style={{height: height / 7}} />
             </ScrollView>
             <View style={styles.divider} />
 
@@ -349,7 +367,7 @@ export default function AddProductView(props) {
             animationType="fade"
             transparent={true}
             visible={isSuccess}
-            onRequestClose={() => { }}>
+            onRequestClose={() => {}}>
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
                 <FontAwesome5 name="check-double" size={40} color="green" />

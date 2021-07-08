@@ -109,30 +109,32 @@ function HomeContainer({navigation}) {
       .then((snapshot) => {
         var itemsphone = [];
         snapshot.forEach(function (childSnapshot) {
-          var point = 0;
-          var count = 0;
-          childSnapshot.child('Rating').forEach((child) => {
-            point += child.val().Point;
-            count++;
-          });
-          itemsphone.push({
-            Name: childSnapshot.val().Name,
-            Price: childSnapshot.val().Price,
-            price: parseInt(childSnapshot.val().Price, 10),
-            Image: childSnapshot.val().Image,
-            MetaDescription: childSnapshot.val().MetaDescription,
-            ProductID: childSnapshot.val().ProductID,
-            rating: point / count,
-            bough: count,
-            CategoryID: childSnapshot.val().CategoryID,
-            PromotionPrice: childSnapshot.val().PromotionPrice,
-            Warranty: childSnapshot.val().Warranty,
-            Counts: childSnapshot.val().Counts,
-            ModifiedDate: childSnapshot.val().ModifiedDate,
-            Discount:
-              parseInt(childSnapshot.val().Price, 10) -
-              parseInt(childSnapshot.val().PromotionPrice, 10),
-          });
+          if (childSnapshot.val().Status) {
+            var point = 0;
+            var count = 0;
+            childSnapshot.child('Rating').forEach((child) => {
+              point += child.val().Point;
+              count++;
+            });
+            itemsphone.push({
+              Name: childSnapshot.val().Name,
+              Price: childSnapshot.val().Price,
+              price: parseInt(childSnapshot.val().Price, 10),
+              Image: childSnapshot.val().Image,
+              MetaDescription: childSnapshot.val().MetaDescription,
+              ProductID: childSnapshot.val().ProductID,
+              rating: point / count,
+              bough: count,
+              CategoryID: childSnapshot.val().CategoryID,
+              PromotionPrice: childSnapshot.val().PromotionPrice,
+              Warranty: childSnapshot.val().Warranty,
+              Counts: childSnapshot.val().Counts,
+              ModifiedDate: childSnapshot.val().ModifiedDate,
+              Discount:
+                parseInt(childSnapshot.val().Price, 10) -
+                parseInt(childSnapshot.val().PromotionPrice, 10),
+            });
+          }
         });
         let arr = _.orderBy(itemsphone, ['price'], ['asc']);
         let arr3 = _.orderBy(itemsphone, ['Discount'], ['asc']);

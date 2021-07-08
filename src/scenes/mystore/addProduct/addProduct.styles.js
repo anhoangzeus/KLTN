@@ -16,7 +16,6 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
   },
   userContainer: {
-    marginTop: 20,
     backgroundColor: '#fff',
     flexDirection: 'row',
     paddingHorizontal: 5,
@@ -27,8 +26,9 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   imgPro: {
-    height: height / 6,
-    width: width / 3,
+    height: height / 7.5,
+    width: width / 6,
+    marginLeft: 20,
     alignItems: 'center',
     justifyContent: 'center',
     resizeMode: 'contain',
@@ -37,7 +37,7 @@ export default StyleSheet.create({
     color: '#2B4F8C',
     paddingTop: height / 11,
     fontSize: height / 50,
-    marginLeft: width / 10,
+    //marginLeft: width / 10,
   },
   nameView: {
     //justifyContent: 'space-between',
@@ -45,8 +45,11 @@ export default StyleSheet.create({
   },
   imgView: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    height: height / 5,
+
+    alignItems: 'center',
+    height: height / 6,
+    width: width,
+    backgroundColor: '#F8F8F8',
   },
   whiteText: {
     color: '#2B4F8C',
@@ -60,14 +63,21 @@ export default StyleSheet.create({
     color: 'black',
     fontSize: 15,
     height: height / 15,
-    marginTop: height / 100,
-    marginLeft: 5,
+    marginLeft: width * 0.06,
+    width: width * 0.87,
+    padding: height / 100,
+
+    paddingHorizontal: 8,
+  },
+  welcomeText2: {
+    color: 'black',
+    fontSize: 15,
+    height: 72,
+    marginLeft: width * 0.06,
+    width: width * 0.87,
     padding: height / 100,
     borderBottomWidth: 1,
-    borderColor: '#6Ec0B6',
-    borderWidth: 1,
-    borderRadius: 5,
-    width: '95%',
+    borderBottomColor: '#949494',
     paddingHorizontal: 8,
   },
   elementText: {
@@ -99,10 +109,10 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
   titletext: {
-    color: '#2B4F8C',
-    fontSize: height / 40,
-    marginTop: height / 150,
-    marginLeft: 5,
+    color: '#383838',
+    fontSize: 14,
+    marginLeft: width * 0.0655,
+    marginTop: 14,
   },
   subText: {
     fontSize: height / 50,

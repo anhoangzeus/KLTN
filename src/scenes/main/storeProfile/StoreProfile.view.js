@@ -8,8 +8,10 @@ import Col from 'components/Col';
 import Loading from 'components/LoadingView';
 import ProductItem from 'components/ProductItem';
 import auth from '@react-native-firebase/auth';
-//import I18n from 'utils/i18n';
+import I18n from 'utils/i18n';
+const NAMESPACE = 'common';
 import {BackgroundImage} from 'react-native-elements/dist/config';
+import {Modal} from 'react-native-paper';
 
 function StoreProfileView(props) {
   const {
@@ -19,7 +21,10 @@ function StoreProfileView(props) {
     choose,
     isFollow,
     des,
+    storeInfo,
     address,
+    visible,
+    setVisible,
     setChoose,
     getListChat,
     onFollow,
@@ -31,7 +36,7 @@ function StoreProfileView(props) {
           <Header title={I18n.t(`${NAMESPACE}.manasell`)} /> */}
       <View style={styles.bodyContainer}>
         <BackgroundImage
-          source={require('../../../assets/images/backsell.png')}
+          source={require('../../../assets/images/back.png')}
           style={styles.imgBackground}>
           <TouchableOpacity
             onPress={() => NavigationServices.goBack()}
@@ -47,7 +52,7 @@ function StoreProfileView(props) {
             <Image source={{uri: info.Avatar}} size={80} style={styles.img} />
             <View>
               {/* <Text style={styles.nameText}>{info.Name}</Text> */}
-              <Text style={styles.nameText}>TienAnh Shop</Text>
+              <Text style={styles.nameText}>{storeInfo.StoreName}</Text>
               {auth().currentUser.uid ? (
                 <View style={styles.flexRow}>
                   <TouchableOpacity
@@ -81,7 +86,17 @@ function StoreProfileView(props) {
                     </TouchableOpacity>
                   )}
 
-                  <TouchableOpacity style={styles.Tag}>
+                  <TouchableOpacity
+                    style={styles.Tag}
+                    onPress={() => {
+                      if (auth().currentUser.uid) {
+                        NavigationServices.navigate(SCENE_NAMES.REPORT, {
+                          params: storeInfo,
+                        });
+                      } else {
+                        setVisible(true);
+                      }
+                    }}>
                     <Image
                       source={require('../../../assets/images/report.png')}
                       style={styles.tagImg}
@@ -145,6 +160,32 @@ function StoreProfileView(props) {
               })}
             </View>
           )}
+          <Modal visible={visible} style={styles.modalContainer}>
+            <View style={styles.modal}>
+              <Text style={styles.rpText}>
+                {' '}
+                {I18n.t(`${NAMESPACE}.loginRequire`)}
+              </Text>
+              <View style={styles.action}>
+                <TouchableOpacity onPress={() => setVisible(false)}>
+                  <Text style={styles.btnSelect}>
+                    {' '}
+                    {I18n.t(`${NAMESPACE}.cancel`)}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    setVisible(false);
+                    NavigationServices.navigate(SCENE_NAMES.TopStackLogin);
+                  }}>
+                  <Text style={styles.btnSelect2}>
+                    {' '}
+                    {I18n.t(`${NAMESPACE}.signIn`)}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
         </BackgroundImage>
       </View>
       {loading && (

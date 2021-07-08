@@ -125,4 +125,30 @@ export default StyleSheet.create({
 
     alignItems: 'center',
   },
+  modalContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modal: {
+    height: height / 5,
+    width: width * 0.6,
+    backgroundColor: 'white',
+    borderRadius: 8,
+    justifyContent: 'space-around',
+  },
+  rpText: {
+    color: '#FF0303',
+    fontSize: 14,
+    textAlign: 'center',
+  },
+  action: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  btnSelect: {
+    color: '#949494',
+  },
+  btnSelect2: {
+    color: '#2B4F8C',
+  },
 });

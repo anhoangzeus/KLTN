@@ -29,7 +29,7 @@ export default function AddProductContainer({navigation, route}) {
     sale: '',
   });
   const [image, setImage] = useState([
-    'https://thailamlandscape.vn/wp-content/uploads/2017/10/no-image.png',
+    'https://pics.freeicons.io/uploads/icons/png/8050029891556279743-512.png',
   ]);
   const [fileName, setFileName] = useState('');
   const [name, setName] = useState('');

@@ -1,6 +1,6 @@
 import size from 'constants/size';
-import { StyleSheet, Dimensions } from 'react-native';
-const { height } = Dimensions.get('screen');
+import {StyleSheet, Dimensions} from 'react-native';
+const {height} = Dimensions.get('screen');
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
@@ -25,7 +25,7 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    height: size.DEVICE_HEIGHT / 7,
+    height: size.DEVICE_HEIGHT / 5,
   },
   img: {
     width: 80,

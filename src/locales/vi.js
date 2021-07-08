@@ -216,6 +216,13 @@ export default {
     new: 'Sản phẩm mới nhất',
     hotdiscount: 'Giảm giá shock',
     cheap: 'Giá ưu đãi',
+    loginRequire: 'Bạn cần đăng nhập để thực hiện chức năng này',
+    TheReasonForTheReport: 'Lý do báo cáo',
+    PleaseEnter: 'Vui lòng nhập nội dung',
+    rule1: 'Sản phẩm kém chất lượng',
+    rule2: 'Hành vi lừa đảo',
+    rule3: 'Ngôn ngữ thô tục',
+    rule4: 'Thái độ tiêu cực',
   },
   message: {
     ERROR_OCCURRED: 'An error occurred, please try again.',

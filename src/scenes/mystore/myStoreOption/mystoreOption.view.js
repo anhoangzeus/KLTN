@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StatusBar,
@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
-  Image, Linking,
+  Image,
+  Linking,
 } from 'react-native';
 import styles from './myStoreOption.styles';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -18,15 +19,15 @@ import Header from 'components/Header';
 import I18n from 'utils/i18n';
 import Popup1Button from 'components/Popup1Button';
 const NAMESPACE = 'common';
-const ProfileItem = ({ icon, name }) => (
+const ProfileItem = ({icon, name}) => (
   <View style={styles.itemContainer}>
-    <MaterialCommunityIcons name={icon} size={26} color="#1e1e1e" />
-    <Text style={[styles.itemText, { marginLeft: icon ? 20 : 0 }]}>{name}</Text>
+    <MaterialCommunityIcons name={icon} size={26} color="#585858" />
+    <Text style={[styles.itemText, {marginLeft: icon ? 20 : 0}]}>{name}</Text>
     <FontAwesome name="angle-right" size={15} color="#1e1e1e" />
   </View>
 );
 export default function MyStoreOptionView(props) {
-  const { FullName, Avatar } = props;
+  const {FullName, Avatar} = props;
   const [isVisible, setisVisible] = useState(false);
   return (
     <SafeAreaView style={styles.SafeSreen}>
@@ -39,11 +40,11 @@ export default function MyStoreOptionView(props) {
               NavigationServices.navigate(SCENE_NAMES.InfoUser);
             }}
             style={styles.avatarContainer}>
-            <Image source={{ uri: Avatar }} size={80} style={styles.img} />
+            <Image source={{uri: Avatar}} size={80} style={styles.img} />
             <Text>{FullName}</Text>
           </TouchableOpacity>
           <View style={styles.divider} />
-          <TouchableOpacity onPress={() => { }}>
+          <TouchableOpacity onPress={() => {}}>
             <ProfileItem
               icon="format-list-bulleted"
               name={I18n.t(`${NAMESPACE}.order`)}
@@ -75,19 +76,22 @@ export default function MyStoreOptionView(props) {
             />
           </TouchableOpacity>
           <View style={styles.divider} />
-          <TouchableOpacity onPress={() => { }}>
+          <TouchableOpacity
+            onPress={() => {
+              NavigationServices.navigate(SCENE_NAMES.STATISTIC);
+            }}>
             <ProfileItem
               icon="heart-outline"
               name={I18n.t(`${NAMESPACE}.revenue`)}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => { }}>
+          <TouchableOpacity onPress={() => {}}>
             <ProfileItem
               icon="bookmark-outline"
               name={I18n.t(`${NAMESPACE}.review`)}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => { }}>
+          <TouchableOpacity onPress={() => {}}>
             <ProfileItem
               icon="star"
               name={I18n.t(`${NAMESPACE}.productReview`)}
@@ -106,7 +110,9 @@ export default function MyStoreOptionView(props) {
           onClosePress={() => setisVisible(false)}
           title={'Tổng đài trợ giúp khách hàng'}
           onConfirm={() => Linking.openURL('tel:0353830738')}
-          content={'Bạn sẽ kết nối với nhân viên để được hỗ trợ. Nhấn Xác nhận để tiếp tục'}
+          content={
+            'Bạn sẽ kết nối với nhân viên để được hỗ trợ. Nhấn Xác nhận để tiếp tục'
+          }
         />
       </ScrollView>
     </SafeAreaView>
