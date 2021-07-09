@@ -3,7 +3,7 @@ import auth from '@react-native-firebase/auth';
 import Header from 'components/Header';
 import OrderStatus from 'components/Order';
 import SCENE_NAMES from 'constants/sceneName';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -18,17 +18,56 @@ import NavigationServices from 'utils/navigationServices';
 import styles from './Profile.styles';
 import I18n from 'utils/i18n';
 import Popup1Button from 'components/Popup1Button';
-import { Linking } from 'react-native';
+import {Linking} from 'react-native';
 const NAMESPACE = 'common';
-const ProfileItem = ({ icon, name }) => (
+const ProfileItem = ({icon, name}) => (
   <View style={styles.itemContainer}>
     <MaterialCommunityIcons name={icon} size={26} color="#1e1e1e" />
-    <Text style={[styles.itemText, { marginLeft: icon ? 20 : 0 }]}>{name}</Text>
+    <Text style={[styles.itemText, {marginLeft: icon ? 20 : 0}]}>{name}</Text>
     <FontAwesome name="angle-right" size={15} color="#1e1e1e" />
   </View>
 );
+const Storetab = ({merchant, fullname, Avatar}) => {
+  if (merchant === 1) {
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          NavigationServices.navigate(SCENE_NAMES.REGISTER_STORE, {
+            FullName: fullname,
+            Avatar: Avatar,
+          });
+        }}>
+        <ProfileItem
+          icon="storefront"
+          name={I18n.t(`${NAMESPACE}.registerStore`)}
+        />
+      </TouchableOpacity>
+    );
+  } else if (merchant === 2) {
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          NavigationServices.navigate(SCENE_NAMES.MyStoreOptionContainer, {
+            FullName: fullname,
+            Avatar: Avatar,
+          });
+        }}>
+        <ProfileItem icon="storefront" name={I18n.t(`${NAMESPACE}.mystore`)} />
+      </TouchableOpacity>
+    );
+  } else {
+    return (
+      <TouchableOpacity>
+        <ProfileItem
+          icon="storefront"
+          name={I18n.t(`${NAMESPACE}.blockstore`)}
+        />
+      </TouchableOpacity>
+    );
+  }
+};
 const ProfileMainView = (props) => {
-  const { Avatar, FullName, Email, CreatedDate, Merchant } = props;
+  const {Avatar, FullName, Email, CreatedDate, Merchant} = props;
   const [isVisible, setisVisible] = useState(false);
   console.log('merchant: ', Merchant);
   return (
@@ -44,7 +83,7 @@ const ProfileMainView = (props) => {
               <View style={styles.userContainer}>
                 <View style={styles.avatarContainer}>
                   <Image
-                    source={{ uri: Avatar }}
+                    source={{uri: Avatar}}
                     size={80}
                     style={styles.imgAvatar}
                   />
@@ -60,34 +99,7 @@ const ProfileMainView = (props) => {
               </View>
             </TouchableOpacity>
             <View style={styles.divider} />
-
-            {Merchant ? (
-              <TouchableOpacity
-                onPress={() => {
-                  NavigationServices.navigate(
-                    SCENE_NAMES.MyStoreOptionContainer,
-                    { FullName: FullName, Avatar: Avatar },
-                  );
-                }}>
-                <ProfileItem
-                  icon="storefront"
-                  name={I18n.t(`${NAMESPACE}.mystore`)}
-                />
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                onPress={() => {
-                  NavigationServices.navigate(SCENE_NAMES.REGISTER_STORE, {
-                    FullName: FullName,
-                    Avatar: Avatar,
-                  });
-                }}>
-                <ProfileItem
-                  icon="storefront"
-                  name={I18n.t(`${NAMESPACE}.registerStore`)}
-                />
-              </TouchableOpacity>
-            )}
+            <Storetab merchant={Merchant} fullname={FullName} Avatar={Avatar} />
 
             <View style={styles.divider} />
             <TouchableOpacity>
@@ -212,7 +224,9 @@ const ProfileMainView = (props) => {
           onClosePress={() => setisVisible(false)}
           title={'Tổng đài trợ giúp khách hàng'}
           onConfirm={() => Linking.openURL('tel:0353830738')}
-          content={'Bạn sẽ kết nối với nhân viên để được hỗ trợ. Nhấn Xác nhận để tiếp tục'}
+          content={
+            'Bạn sẽ kết nối với nhân viên để được hỗ trợ. Nhấn Xác nhận để tiếp tục'
+          }
         />
       </View>
     </SafeAreaView>

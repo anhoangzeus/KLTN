@@ -223,6 +223,7 @@ export default {
     rule2: 'Hành vi lừa đảo',
     rule3: 'Ngôn ngữ thô tục',
     rule4: 'Thái độ tiêu cực',
+    blockstore: 'Cửa hàng của bạn đã bị khóa',
   },
   message: {
     ERROR_OCCURRED: 'An error occurred, please try again.',

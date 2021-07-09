@@ -1,4 +1,5 @@
-import React, {useLayoutEffect, useEffect} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useLayoutEffect, useEffect, useState} from 'react';
 import StatisticView from './Statistic.view';
 import useSelectorShallow, {
   selectorWithProps,
@@ -14,7 +15,7 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
 ]);
 
 export default function StatisticContainer({navigation}) {
-  //const [listOrder, setListOrder] = useState();
+  const [listOrder, setListOrder] = useState([]);
   const isLoading = useSelectorShallow(loadingSelector);
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -50,12 +51,25 @@ export default function StatisticContainer({navigation}) {
           });
         });
         List.push(order);
-        console.log('list order: ', List);
+        setListOrder(List);
+        console.log('list order: ', listOrder);
       });
+  };
+  const selectMonth = (time) => {
+    let m = time.slice(3, 5);
+    return m;
+  };
+  const getTime = () => {
+    var date = new Date();
+    let m = date.getMonth();
+    let morder = selectMonth('09/07/2021 23:31:36 PM');
+    console.log('this month: ', m + 1);
+    console.log('order month: ', parseInt(morder, 10));
   };
 
   useEffect(() => {
     getStatis();
+    getTime();
   }, []);
 
   return <StatisticView isLoading={isLoading} />;

@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, {useLayoutEffect, useState, useEffect} from 'react';
 import ReportView from './Report.view';
 import useSelectorShallow, {
   selectorWithProps,
@@ -24,7 +24,7 @@ export default function ReportContainer({navigation, route}) {
   const [rule4, setRule4] = useState(false);
   const [rule5, setRule5] = useState(false);
   const [visible, setVisible] = useState(false);
-
+  const [rpname, setRpName] = useState('');
   const isLoading = useSelectorShallow(loadingSelector);
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -48,9 +48,7 @@ export default function ReportContainer({navigation, route}) {
         Content: Content,
         CreatedDate: moment().subtract(10, 'days').calendar(),
         FeedBackID: key,
-        ReportName: auth().currentUser.displayName
-          ? auth().currentUser.displayName
-          : '',
+        ReportName: rpname,
         Status: 'True',
         StoreID: params.StoreID,
         StoreName: params.StoreName,
@@ -62,6 +60,19 @@ export default function ReportContainer({navigation, route}) {
     }, 2000);
     NavigationServices.goBack();
   };
+
+  const getReportInfo = () => {
+    database()
+      .ref('Users/' + auth().currentUser.uid)
+      .once('value')
+      .then((snapshot) => {
+        setRpName(snapshot.val().UserName);
+      });
+  };
+  useEffect(() => {
+    getReportInfo();
+  }, []);
+
   functionsCounter.add(onPress);
   return (
     <ReportView

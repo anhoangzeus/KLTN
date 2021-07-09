@@ -225,6 +225,7 @@ export default {
     rule2: 'Deceptive behavior',
     rule3: 'Vulgar language',
     rule4: 'Negative attitude',
+    blockstore: 'Your store has been closed',
   },
   message: {
     ERROR_OCCURRED: 'An error occurred, please try again.',

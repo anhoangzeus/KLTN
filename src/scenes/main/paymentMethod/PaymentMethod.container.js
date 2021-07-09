@@ -131,10 +131,10 @@ export default function PaymentMethodContainer({navigation, route}) {
   };
   const thanhToan = async () => {
     if (checked === 'first') {
-      var key = database().ref().child('Orders/').push().key;
+      var key = database().ref('Orders/').push().key;
       var phone = props.address.ShipPhone;
       var name = props.address.ShipName;
-      var location = props.address.Location;
+      //var location = props.address.Location;
       var diachi =
         props.address.NumberAddress +
         ', ' +
@@ -149,9 +149,9 @@ export default function PaymentMethodContainer({navigation, route}) {
           location = locationSearch.lat + '-' + locationSearch.lng;
         })
         .catch((error) => console.warn(error));
-      database()
+      await database()
         .ref('Orders/' + key)
-        .set({
+        .update({
           Status: '1',
           CreatedDate: GetCurrentDate(),
           ShipAddress: diachi,
@@ -160,9 +160,10 @@ export default function PaymentMethodContainer({navigation, route}) {
           OrderID: key,
           Payment: '01',
           ShipPayment: shipMoney,
-          Total: props.content + shipMoney,
+          Total: (parseInt(props.content, 10) + parseInt(shipMoney, 10))
+            .toString,
           CustomerID: auth().currentUser.uid,
-          ShipLocation: location,
+          //ShipLocation: location,
           TimeLine: {
             ChoLayHang: '',
             ChoXacNhan: '',
@@ -197,40 +198,40 @@ export default function PaymentMethodContainer({navigation, route}) {
                 UserProduct: childSnapshot.val().UserID ? true : false,
                 Status: false,
               });
-            // if (childSnapshot.val().UserID) {
-            //   database()
-            //     .ref('StatisticSeller/' + key + '/' + keyDetail)
-            //     .set({
-            //       OrderDetailID: keyDetail,
-            //       Price: childSnapshot.val().Price,
-            //       ProductID: childSnapshot.val().Id,
-            //       Quantity: childSnapshot.val().Quantity,
-            //       CategoryID: childSnapshot.val().CategoryID,
-            //       BrandID: childSnapshot.val().BrandID,
-            //       Name: childSnapshot.val().Name,
-            //       Picture: childSnapshot.val().Picture,
-            //       BrandName: childSnapshot.val().BrandName,
-            //       CategoryName: childSnapshot.val().CategoryName,
-            //       UserID: childSnapshot.val().UserID,
-            //       Status: 0,
-            //     });
-            // } else {
-            //   database()
-            //     .ref('Statistic/' + key + '/' + keyDetail)
-            //     .set({
-            //       OrderDetailID: keyDetail,
-            //       Price: childSnapshot.val().Price,
-            //       ProductID: childSnapshot.val().Id,
-            //       Quantity: childSnapshot.val().Quantity,
-            //       CategoryID: childSnapshot.val().CategoryID,
-            //       BrandID: childSnapshot.val().BrandID,
-            //       Name: childSnapshot.val().Name,
-            //       Picture: childSnapshot.val().Picture,
-            //       BrandName: childSnapshot.val().BrandName,
-            //       CategoryName: childSnapshot.val().CategoryName,
-            //       Status: 0,
-            //     });
-            // }
+            if (childSnapshot.val().UserID) {
+              database()
+                .ref('StatisticSeller/' + key + '/' + keyDetail)
+                .set({
+                  OrderDetailID: keyDetail,
+                  Price: childSnapshot.val().Price,
+                  ProductID: childSnapshot.val().Id,
+                  Quantity: childSnapshot.val().Quantity,
+                  CategoryID: childSnapshot.val().CategoryID,
+                  BrandID: childSnapshot.val().BrandID,
+                  Name: childSnapshot.val().Name,
+                  Picture: childSnapshot.val().Picture,
+                  BrandName: childSnapshot.val().BrandName,
+                  CategoryName: childSnapshot.val().CategoryName,
+                  UserID: childSnapshot.val().UserID,
+                  Status: 0,
+                });
+            } else {
+              database()
+                .ref('Statistic/' + key + '/' + keyDetail)
+                .set({
+                  OrderDetailID: keyDetail,
+                  Price: childSnapshot.val().Price,
+                  ProductID: childSnapshot.val().Id,
+                  Quantity: childSnapshot.val().Quantity,
+                  CategoryID: childSnapshot.val().CategoryID,
+                  BrandID: childSnapshot.val().BrandID,
+                  Name: childSnapshot.val().Name,
+                  Picture: childSnapshot.val().Picture,
+                  BrandName: childSnapshot.val().BrandName,
+                  CategoryName: childSnapshot.val().CategoryName,
+                  Status: 0,
+                });
+            }
             database()
               .ref('Cart/' + auth().currentUser.uid)
               .child(childSnapshot.key)
