@@ -1,6 +1,12 @@
 import * as React from 'react';
-import {View, Dimensions} from 'react-native';
-// import styles from './Statistic.styles';
+import {
+  View,
+  Dimensions,
+  SafeAreaView,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
+import styles from './Statistic.styles';
 // import AppText from 'components/AppText';
 import {
   LineChart,
@@ -10,50 +16,50 @@ import {
   // ContributionGraph,
   // StackedBarChart,
 } from 'react-native-chart-kit';
+import {Icon} from 'react-native-elements';
+import NavigationServices from 'utils/navigationServices';
 // import {NAMESPACE} from './Statistic.constants';
 
-function StatisticView() {
+function StatisticView(props) {
+  const {timeline, revenue, loading} = props;
+  console.log('revenue: ', revenue);
+  if (loading) {
+    return <View style={styles.container} />;
+  }
   return (
-    <View>
+    <SafeAreaView>
+      <View>
+        <View style={styles.vHeader}>
+          <TouchableOpacity
+            style={styles.vBack}
+            onPress={() => NavigationServices.goBack()}>
+            <Icon
+              type="font-awesome"
+              name="angle-left"
+              size={30}
+              color={'black'}
+            />
+          </TouchableOpacity>
+
+          <View style={styles.vTitleContainer}>
+            <Text style={styles.txtTitle}>Report</Text>
+          </View>
+        </View>
+        {/* <View style={styles.line} /> */}
+      </View>
       <LineChart
         data={{
-          labels: [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'July',
-            'August',
-            'September',
-            'October',
-            'November',
-            'December',
-          ],
+          labels: timeline,
           datasets: [
             {
-              data: [
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-              ],
+              data: revenue,
             },
           ],
         }}
         width={Dimensions.get('window').width} // from react-native
         height={220}
         yAxisLabel="$"
-        yAxisSuffix="k"
+        yAxisSuffix="đ"
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
           backgroundColor: '#e26a00',
@@ -77,7 +83,7 @@ function StatisticView() {
         //   borderRadius: 16,
         // }}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 

@@ -198,40 +198,7 @@ export default function PaymentMethodContainer({navigation, route}) {
                 UserProduct: childSnapshot.val().UserID ? true : false,
                 Status: false,
               });
-            if (childSnapshot.val().UserID) {
-              database()
-                .ref('StatisticSeller/' + key + '/' + keyDetail)
-                .set({
-                  OrderDetailID: keyDetail,
-                  Price: childSnapshot.val().Price,
-                  ProductID: childSnapshot.val().Id,
-                  Quantity: childSnapshot.val().Quantity,
-                  CategoryID: childSnapshot.val().CategoryID,
-                  BrandID: childSnapshot.val().BrandID,
-                  Name: childSnapshot.val().Name,
-                  Picture: childSnapshot.val().Picture,
-                  BrandName: childSnapshot.val().BrandName,
-                  CategoryName: childSnapshot.val().CategoryName,
-                  UserID: childSnapshot.val().UserID,
-                  Status: 0,
-                });
-            } else {
-              database()
-                .ref('Statistic/' + key + '/' + keyDetail)
-                .set({
-                  OrderDetailID: keyDetail,
-                  Price: childSnapshot.val().Price,
-                  ProductID: childSnapshot.val().Id,
-                  Quantity: childSnapshot.val().Quantity,
-                  CategoryID: childSnapshot.val().CategoryID,
-                  BrandID: childSnapshot.val().BrandID,
-                  Name: childSnapshot.val().Name,
-                  Picture: childSnapshot.val().Picture,
-                  BrandName: childSnapshot.val().BrandName,
-                  CategoryName: childSnapshot.val().CategoryName,
-                  Status: 0,
-                });
-            }
+
             database()
               .ref('Cart/' + auth().currentUser.uid)
               .child(childSnapshot.key)

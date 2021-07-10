@@ -16,6 +16,10 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
 
 export default function StatisticContainer({navigation}) {
   const [listOrder, setListOrder] = useState([]);
+  const [thismonth, setThismonth] = useState(1);
+  const [timeline, setTimeline] = useState([]);
+  const [revenue, setRevenue] = useState([]);
+  const [loading, setLoading] = useState(true);
   const isLoading = useSelectorShallow(loadingSelector);
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -23,8 +27,9 @@ export default function StatisticContainer({navigation}) {
     });
   }, [navigation]);
 
-  const getStatis = () => {
-    database()
+  const getStatis = async () => {
+    setLoading(true);
+    await database()
       .ref('Orders')
       .once('value')
       .then((snapshot) => {
@@ -47,12 +52,12 @@ export default function StatisticContainer({navigation}) {
                 CreatedDate: childSnapshot.val().CreatedDate,
                 Detail: item,
               };
+              List.push(order);
             }
           });
         });
-        List.push(order);
+        //List.push(order);
         setListOrder(List);
-        console.log('list order: ', listOrder);
       });
   };
   const selectMonth = (time) => {
@@ -62,9 +67,33 @@ export default function StatisticContainer({navigation}) {
   const getTime = () => {
     var date = new Date();
     let m = date.getMonth();
+    setThismonth(m + 1);
     let morder = selectMonth('09/07/2021 23:31:36 PM');
     console.log('this month: ', m + 1);
     console.log('order month: ', parseInt(morder, 10));
+  };
+  const createData = (list) => {
+    setLoading(true);
+    let m = [];
+    let rv = [];
+    for (let i = 1; i <= thismonth; i++) {
+      m.push(i);
+      let count = 0;
+      list.forEach((element) => {
+        if (selectMonth(element.CreatedDate) == i) {
+          console.log('element mont: ', i, element);
+          element.Detail.forEach((item) => {
+            count += parseInt(item.Price, 10) * item.Quantity;
+          });
+        }
+      });
+      rv.push(count);
+    }
+    setTimeline(m);
+    setRevenue(rv);
+    console.log('mont line: ', m);
+    console.log('reve line: ', rv);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -72,5 +101,17 @@ export default function StatisticContainer({navigation}) {
     getTime();
   }, []);
 
-  return <StatisticView isLoading={isLoading} />;
+  useEffect(() => {
+    console.log('list order: ', listOrder);
+    createData(listOrder);
+  }, [listOrder]);
+
+  return (
+    <StatisticView
+      isLoading={isLoading}
+      timeline={timeline}
+      revenue={revenue}
+      loading={loading}
+    />
+  );
 }

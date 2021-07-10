@@ -102,9 +102,6 @@ const ProfileMainView = (props) => {
             <Storetab merchant={Merchant} fullname={FullName} Avatar={Avatar} />
 
             <View style={styles.divider} />
-            <TouchableOpacity>
-              <ProfileItem icon="facebook" name="Kết nối mạng xã hội" />
-            </TouchableOpacity>
             <View style={styles.divider} />
             <TouchableOpacity
               onPress={() => {

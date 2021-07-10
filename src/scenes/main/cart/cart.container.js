@@ -82,7 +82,7 @@ const CartContainer = ({navigation}) => {
               CategoryID: childSnapshot.val().CategoryID,
             });
             total += Number(
-              childSnapshot.val().PromotionPrice * childSnapshot.val().Quantity,
+              childSnapshot.val().Price * childSnapshot.val().Quantity,
             );
           });
           setCartItem(items);
