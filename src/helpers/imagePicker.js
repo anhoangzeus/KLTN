@@ -29,8 +29,6 @@ export const openImagePicker = (customOptions, callback) => {
     customOptions ? {...customOptions} : {},
   );
   ImagePicker.showImagePicker(options, (response) => {
-    console.log('response::', response);
-
     if (response.didCancel) {
       console.log('User cancelled image picker');
     } else if (response.error) {

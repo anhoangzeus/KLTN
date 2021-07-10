@@ -14,7 +14,7 @@ export default StyleSheet.create({
     backgroundColor: '#ededed',
   },
   userContainer: {
-    marginTop: 5,
+    marginVertical: 5,
     backgroundColor: '#fff',
     flexDirection: 'row',
   },
@@ -42,7 +42,16 @@ export default StyleSheet.create({
   },
   welcomeText: {
     color: 'black',
-    fontSize: height / 40,
+    width: width * 0.95,
+    fontSize: 20,
+    borderColor: '#009966',
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+    borderRadius: 10,
+    marginVertical: 5,
+    paddingHorizontal: 8,
   },
   divider: {
     height: 2,
@@ -110,6 +119,8 @@ export default StyleSheet.create({
   picker: {
     height: 40,
     width: width,
+    borderColor: '#009966',
+    borderWidth: 1,
   },
   picker1: {
     height: 40,
@@ -120,6 +131,8 @@ export default StyleSheet.create({
   greenText: { color: 'green', fontSize: 20 },
   btnSubmit: {
     backgroundColor: '#FF3333',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginHorizontal: 10,
     marginVertical: 10,
     height: height / 20,
@@ -129,6 +142,5 @@ export default StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     color: 'white',
-    marginTop: 5,
   },
 });

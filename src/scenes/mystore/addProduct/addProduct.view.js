@@ -1,30 +1,34 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-unused-vars */
+import Col from 'components/Col';
+import Header from 'components/Header';
+import Loading from 'components/LoadingView';
+import NumberFormat from 'components/NumberFormat';
+import PopupChooseImage from 'components/PopupChooseImage';
 import * as React from 'react';
+import {useRef} from 'react';
 import {
-  View,
+  Dimensions,
+  Image,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  SafeAreaView,
+  ScrollView,
   StatusBar,
   Text,
   TouchableOpacity,
-  Dimensions,
-  ScrollView,
-  SafeAreaView,
-  Image,
-  Platform,
-  Modal,
+  View,
+  FlatList,
 } from 'react-native';
-import styles from './addProduct.styles';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Header from 'components/Header';
 import {TextInput} from 'react-native-gesture-handler';
-import PopupChooseImage from 'components/PopupChooseImage';
 import RNPickerSelect from 'react-native-picker-select';
-import NumberFormat from 'components/NumberFormat';
-import Loading from 'components/LoadingView';
-import Col from 'components/Col';
-import {KeyboardAvoidingView} from 'react-native';
+import RBSheet from 'react-native-raw-bottom-sheet';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import I18n from 'utils/i18n';
+import styles from './addProduct.styles';
 const NAMESPACE = 'common';
 const {height, width} = Dimensions.get('screen');
 
@@ -59,11 +63,11 @@ export default function AddProductView(props) {
     Submit,
     isSuccess,
   } = props;
+  const refRBSheet = useRef();
   if (isloading) {
     return (
       <Col
         center
-        // eslint-disable-next-line react-native/no-inline-styles
         style={{
           position: 'absolute',
           top: 0,
@@ -89,21 +93,25 @@ export default function AddProductView(props) {
             <ScrollView style={styles.bodyContainer}>
               <TouchableOpacity
                 style={styles.userContainer}
-                onPress={() => setPopup(true)}>
+                onPress={() => refRBSheet.current.open()}>
                 <View style={styles.imgView}>
-                  {image.map((element) => {
-                    return (
-                      <Image source={{uri: element}} style={styles.imgPro} />
-                    );
-                  })}
                   {/* <Image source={{uri: image}} style={styles.imgPro} /> */}
-                  <Text style={styles.imgText}>
-                    {I18n.t(`${NAMESPACE}.defaultTitle`)}
-                  </Text>
+                  <FlatList
+                    horizontal={true}
+                    data={image || []}
+                    renderItem={(item) => {
+                      console.log('item flatlist', item);
+                      return (
+                        <Image
+                          source={{uri: item.item}}
+                          style={styles.imgPro}
+                        />
+                      );
+                    }}
+                  />
                 </View>
               </TouchableOpacity>
               <View style={styles.divider} />
-
               <View style={styles.nameView}>
                 <Text style={styles.titletext}>
                   {' '}
@@ -113,10 +121,11 @@ export default function AddProductView(props) {
                   keyboardType="default"
                   placeholderTextColor="#666666"
                   autoCapitalize="none"
+                  multiline
                   onChangeText={(val) => {
                     onChangeName(val);
                   }}
-                  placeholder={I18n.t(`${NAMESPACE}.proname`)}
+                  placeholder={I18n.t(`${NAMESPACE}.proname`) + '...'}
                   style={styles.welcomeText}>
                   {name}
                 </TextInput>
@@ -127,11 +136,13 @@ export default function AddProductView(props) {
                   keyboardType="default"
                   placeholderTextColor="#666666"
                   autoCapitalize="none"
+                  multiline={true}
+                  textAlignVertical="top"
                   placeholder={I18n.t(`${NAMESPACE}.prodes`) + '...'}
                   onChangeText={(val) => {
                     onChangeDes(val);
                   }}
-                  style={styles.welcomeText}>
+                  style={styles.welcomeText2}>
                   {des}
                 </TextInput>
                 <Text style={styles.titletext}>
@@ -141,6 +152,7 @@ export default function AddProductView(props) {
                   keyboardType="default"
                   placeholderTextColor="#666666"
                   autoCapitalize="none"
+                  multiline
                   placeholder={I18n.t(`${NAMESPACE}.prokey`) + '...'}
                   onChangeText={(val) => {
                     onChangeKeyWord(val);
@@ -152,7 +164,6 @@ export default function AddProductView(props) {
                     <Text style={styles.errorMsg}>Tên không hợp lệ</Text>
                   </Animatable.View> */}
               </View>
-
               <View style={styles.divider} />
               <View style={styles.userContainer}>
                 {/* <View style={styles.cardOption}> */}
@@ -161,14 +172,13 @@ export default function AddProductView(props) {
                     <View style={styles.itemContainer}>
                       <MaterialCommunityIcons
                         name={'format-list-bulleted'}
-                        size={26}
+                        size={20}
                         color={'#2B4F8C'}
                       />
                       <Text style={styles.itemText}>
                         {' '}
                         {I18n.t(`${NAMESPACE}.category`)}
                       </Text>
-
                       <RNPickerSelect
                         style={styles.picker}
                         onValueChange={(value, index) => {
@@ -176,12 +186,11 @@ export default function AddProductView(props) {
                           setCateName(dataCate[index - 1].label);
                         }}
                         items={dataCate}>
-                        <Text style={styles.selectText}>{cateName}</Text>
+                        <Text style={styles.selectText}>{cateName} </Text>
                       </RNPickerSelect>
-
                       <FontAwesome
                         name="angle-right"
-                        size={26}
+                        size={20}
                         color="#1e1e1e"
                         style={{marginRight: width / 20}}
                       />
@@ -191,14 +200,14 @@ export default function AddProductView(props) {
                     <View style={styles.itemContainer}>
                       <MaterialCommunityIcons
                         name={'bookmark-outline'}
-                        size={26}
+                        size={20}
                         color={'gold'}
+                        style={{alignSelf: 'flex-end'}}
                       />
                       <Text style={styles.itemText}>
                         {' '}
                         {I18n.t(`${NAMESPACE}.price`)}
                       </Text>
-
                       <TextInput
                         keyboardType="numeric"
                         placeholderTextColor="#666666"
@@ -218,8 +227,9 @@ export default function AddProductView(props) {
                     <View style={styles.itemContainer}>
                       <MaterialCommunityIcons
                         name={'shield-half-full'}
-                        size={26}
+                        size={20}
                         color={'green'}
+                        style={{alignSelf: 'flex-end'}}
                       />
                       <Text style={styles.itemText}>
                         {' '}
@@ -247,8 +257,9 @@ export default function AddProductView(props) {
                     <View style={styles.itemContainer}>
                       <MaterialCommunityIcons
                         name={'information-variant'}
-                        size={26}
+                        size={20}
                         color={'black'}
+                        style={{alignSelf: 'flex-end'}}
                       />
                       <Text style={styles.itemText}>
                         {I18n.t(`${NAMESPACE}.count`)}
@@ -273,8 +284,9 @@ export default function AddProductView(props) {
                     <View style={styles.itemContainer}>
                       <MaterialCommunityIcons
                         name={'sale'}
-                        size={26}
+                        size={20}
                         color={'red'}
+                        style={{alignSelf: 'flex-end'}}
                       />
                       <Text style={styles.itemText}>
                         {I18n.t(`${NAMESPACE}.sale`)}
@@ -322,7 +334,6 @@ export default function AddProductView(props) {
             {isUpload && (
               <Col
                 center
-                // eslint-disable-next-line react-native/no-inline-styles
                 style={{
                   position: 'absolute',
                   top: 0,
@@ -335,12 +346,23 @@ export default function AddProductView(props) {
               </Col>
             )}
           </View>
-          <PopupChooseImage
-            onChooseTake={chooseImageTake}
-            onChooseLibrary={chooseImageLibrary}
-            onClosePress={() => setPopup(false)}
-            isVisible={popup}
-          />
+          <RBSheet
+            ref={refRBSheet}
+            height={height / 4}
+            openDuration={250}
+            customStyles={{
+              container: {
+                justifyContent: 'center',
+                alignItems: 'center',
+              },
+            }}>
+            <PopupChooseImage
+              onChooseTake={chooseImageTake}
+              onChooseLibrary={chooseImageLibrary}
+              onClosePress={() => setPopup(false)}
+              isVisible={popup}
+            />
+          </RBSheet>
           <Modal
             animationType="fade"
             transparent={true}

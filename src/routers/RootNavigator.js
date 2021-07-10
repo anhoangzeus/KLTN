@@ -21,6 +21,10 @@ import ProfileScreen from 'scenes/main/profile/Profile.container';
 import ProfileMainScreen from 'scenes/main/profileMain/Profile.container';
 import SearchContainer from 'scenes/main/search/Search.container';
 // Screen Import
+import ReportContainer from 'scenes/main/report/Report.container';
+import StatisticContainer from 'scenes/main/statistic/Statistic.container';
+import CommentContainer from 'scenes/main/comment/Comment.container';
+import RegisterStoreContainer from 'scenes/main/registerStore/RegisterStore.container';
 import StoreProfileContainer from 'scenes/main/storeProfile/StoreProfile.container';
 import DetailStoreProductContainer from 'scenes/main/detailStoreProduct/DetailStoreProduct.container';
 import StoreProductContainer from 'scenes/main/storeProduct/StoreProduct.container';
@@ -38,6 +42,8 @@ import MainTabNavigator from './TabNavigator';
 import TopStackLogin from './TopTabNavigator/LoginTab';
 import TopStackOrder from './TopTabNavigator/OrderTab';
 import TopRatingScreen from './TopTabNavigator/RatingTab';
+import Route_ContentViews from 'components/ContentView';
+//import ProductNewContainer from 'scenes/userOption/ProductView/ProductNewScreen';
 
 const Stack = createStackNavigator();
 
@@ -60,6 +66,22 @@ function RootNavigator({onNavigationStateChange}) {
           <Stack.Screen name={SCENE_NAMES.DUMMY} component={DummyScreen} />
         )}
         {/* Plop screen */}
+        <Stack.Screen
+          options={{headerShown: false}}
+          name={SCENE_NAMES.REPORT}
+          component={ReportContainer}
+        />
+        <Stack.Screen
+          name={SCENE_NAMES.STATISTIC}
+          options={{headerShown: false}}
+          component={StatisticContainer}
+        />
+        <Stack.Screen name={SCENE_NAMES.COMMENT} component={CommentContainer} />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name={SCENE_NAMES.REGISTER_STORE}
+          component={RegisterStoreContainer}
+        />
         <Stack.Screen
           options={{headerShown: false}}
           name={SCENE_NAMES.STORE_PROFILE}
@@ -194,9 +216,19 @@ function RootNavigator({onNavigationStateChange}) {
         />
         <Stack.Screen
           options={{headerShown: false}}
+          name={SCENE_NAMES.Route_ContentViews}
+          component={Route_ContentViews}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
           name={SCENE_NAMES.PRODUCT}
           component={ProductScreen}
         />
+        {/* <Stack.Screen
+          options={{ headerShown: false }}
+          name={SCENE_NAMES.ProductNewContainer}
+          component={ProductNewContainer}
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

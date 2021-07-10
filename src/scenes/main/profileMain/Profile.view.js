@@ -3,7 +3,7 @@ import auth from '@react-native-firebase/auth';
 import Header from 'components/Header';
 import OrderStatus from 'components/Order';
 import SCENE_NAMES from 'constants/sceneName';
-import * as React from 'react';
+import React, {useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -17,6 +17,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import NavigationServices from 'utils/navigationServices';
 import styles from './Profile.styles';
 import I18n from 'utils/i18n';
+import Popup1Button from 'components/Popup1Button';
+import {Linking} from 'react-native';
 const NAMESPACE = 'common';
 const ProfileItem = ({icon, name}) => (
   <View style={styles.itemContainer}>
@@ -25,8 +27,48 @@ const ProfileItem = ({icon, name}) => (
     <FontAwesome name="angle-right" size={15} color="#1e1e1e" />
   </View>
 );
+const Storetab = ({merchant, fullname, Avatar}) => {
+  if (merchant === 1) {
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          NavigationServices.navigate(SCENE_NAMES.REGISTER_STORE, {
+            FullName: fullname,
+            Avatar: Avatar,
+          });
+        }}>
+        <ProfileItem
+          icon="storefront"
+          name={I18n.t(`${NAMESPACE}.registerStore`)}
+        />
+      </TouchableOpacity>
+    );
+  } else if (merchant === 2) {
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          NavigationServices.navigate(SCENE_NAMES.MyStoreOptionContainer, {
+            FullName: fullname,
+            Avatar: Avatar,
+          });
+        }}>
+        <ProfileItem icon="storefront" name={I18n.t(`${NAMESPACE}.mystore`)} />
+      </TouchableOpacity>
+    );
+  } else {
+    return (
+      <TouchableOpacity>
+        <ProfileItem
+          icon="storefront"
+          name={I18n.t(`${NAMESPACE}.blockstore`)}
+        />
+      </TouchableOpacity>
+    );
+  }
+};
 const ProfileMainView = (props) => {
   const {Avatar, FullName, Email, CreatedDate, Merchant} = props;
+  const [isVisible, setisVisible] = useState(false);
   console.log('merchant: ', Merchant);
   return (
     <SafeAreaView style={styles.screenContainer}>
@@ -43,7 +85,7 @@ const ProfileMainView = (props) => {
                   <Image
                     source={{uri: Avatar}}
                     size={80}
-                    style={styles.avatarContainer}
+                    style={styles.imgAvatar}
                   />
                 </View>
                 <View style={styles.textContainer}>
@@ -57,24 +99,9 @@ const ProfileMainView = (props) => {
               </View>
             </TouchableOpacity>
             <View style={styles.divider} />
-            <TouchableOpacity
-              onPress={() => {
-                NavigationServices.navigate(
-                  SCENE_NAMES.MyStoreOptionContainer,
-                  {FullName: FullName, Avatar: Avatar},
-                );
-              }}>
-              {Merchant ? (
-                <ProfileItem
-                  icon="storefront"
-                  name={I18n.t(`${NAMESPACE}.mystore`)}
-                />
-              ) : null}
-            </TouchableOpacity>
+            <Storetab merchant={Merchant} fullname={FullName} Avatar={Avatar} />
+
             <View style={styles.divider} />
-            <TouchableOpacity>
-              <ProfileItem icon="facebook" name="Kết nối mạng xã hội" />
-            </TouchableOpacity>
             <View style={styles.divider} />
             <TouchableOpacity
               onPress={() => {
@@ -161,42 +188,19 @@ const ProfileMainView = (props) => {
               />
             </TouchableOpacity>
             <View style={styles.divider1} />
-            <TouchableOpacity>
-              <ProfileItem
-                icon="credit-card-settings-outline"
-                name="Thông tin thanh toán"
-              />
-            </TouchableOpacity>
-            <View style={styles.divider} />
-            <TouchableOpacity>
-              <ProfileItem icon="cart-outline" name="Sản phẩm đã mua" />
-            </TouchableOpacity>
-            <View style={styles.divider1} />
-            <TouchableOpacity>
-              <ProfileItem icon="eye-outline" name="Sản phẩm đã xem" />
-            </TouchableOpacity>
-            <View style={styles.divider1} />
-            <TouchableOpacity>
-              <ProfileItem icon="heart-outline" name="Sản phẩm yêu thích" />
-            </TouchableOpacity>
-            <View style={styles.divider1} />
-            <TouchableOpacity>
-              <ProfileItem icon="clock-outline" name="Sản phẩm mua sau" />
-            </TouchableOpacity>
             <View style={styles.divider1} />
             <TouchableOpacity>
               <ProfileItem name={I18n.t(`${NAMESPACE}.setting`)} />
             </TouchableOpacity>
             <View style={styles.divider} />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => setisVisible(true)}>
               <ProfileItem
-                icon="headphones"
+                icon="shield-check"
                 name={I18n.t(`${NAMESPACE}.suport`)}
               />
             </TouchableOpacity>
             <View style={styles.divider} />
             <View style={styles.divider} />
-
             <TouchableOpacity
               style={styles.signIn}
               onPress={() => {
@@ -212,6 +216,15 @@ const ProfileMainView = (props) => {
             <View style={styles.divider} />
           </View>
         </ScrollView>
+        <Popup1Button
+          isVisible={isVisible}
+          onClosePress={() => setisVisible(false)}
+          title={'Tổng đài trợ giúp khách hàng'}
+          onConfirm={() => Linking.openURL('tel:0353830738')}
+          content={
+            'Bạn sẽ kết nối với nhân viên để được hỗ trợ. Nhấn Xác nhận để tiếp tục'
+          }
+        />
       </View>
     </SafeAreaView>
   );

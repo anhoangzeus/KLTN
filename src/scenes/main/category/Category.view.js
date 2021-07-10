@@ -4,6 +4,7 @@ import SwiperBraner from 'components/Swiper/SwiperBanner';
 import SCENE_NAMES from 'constants/sceneName';
 import * as React from 'react';
 import {
+  Dimensions,
   FlatList,
   RefreshControl,
   SafeAreaView,
@@ -12,13 +13,12 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Dimensions,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/Ionicons';
+import I18n from 'utils/i18n';
 import NavigationServices from 'utils/navigationServices';
 import styles from './Category.styles';
-import I18n from 'utils/i18n';
 const NAMESPACE = 'common';
 const {width} = Dimensions.get('screen');
 // import {NAMESPACE} from './Category.constants';
@@ -35,10 +35,8 @@ function CategoryView(props) {
     listproduct,
     listcate,
     categoryid,
-    //listbrand,
     listcontent,
   } = props;
-
   return (
     <SafeAreaView style={styles.screenContainersafe}>
       <View style={styles.screenContainer}>
@@ -97,31 +95,32 @@ function CategoryView(props) {
                   horizontal
                   showsHorizontalScrollIndicator={false}
                   data={listcate}
-                  renderItem={({item}) => (
-                    <CategoryItem
-                      name={item.name}
-                      id={item.id}
-                      icon={item.icon}
-                    />
-                  )}
-                  keyExtractor={(item) => item.id}
+                  renderItem={({item}) => <CategoryItem item={item} />}
+                  keyExtractor={(item) => item.CateProductID}
                   extraData={categoryid}
                 />
                 <View style={styles.space} />
                 <View style={styles.listItemContainer}>
                   <FlatList
-                    initialNumToRende={3}
+                    initialNumToRender={4}
                     showsVerticalScrollIndicator={false}
                     numColumns={2}
                     data={listproduct}
                     renderItem={({item}) => (
                       <TouchableOpacity
                         onPress={() => {
-                          NavigationServices.navigate(SCENE_NAMES.PRODUCT, {
-                            id: item.id,
-                            CategoryID: item.CategoryID,
-                            BrandID: item.BrandID,
-                          });
+                          if (item.UserID) {
+                            NavigationServices.navigate(
+                              SCENE_NAMES.SELLERPRODUCT,
+                              {
+                                item: item,
+                              },
+                            );
+                          } else {
+                            NavigationServices.navigate(SCENE_NAMES.PRODUCT, {
+                              item: item,
+                            });
+                          }
                         }}>
                         <ProductItem item={item} />
                       </TouchableOpacity>

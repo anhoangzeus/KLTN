@@ -14,9 +14,12 @@ import React, {useCallback, useEffect, useState} from 'react';
 // import { set } from 'lodash';
 // import SCENE_NAMES from 'constants/sceneName';
 import {LogBox, Text, View} from 'react-native';
+import {NotificationConstants} from 'utils/appContants';
+import _ from 'lodash';
 // import {NAMESPACE} from './Home.constants';
 import styles from './Home.styles';
 import HomeView from './Home.view';
+import DeviceInfo from 'react-native-device-info';
 const functionsCounter = new Set();
 LogBox.ignoreAllLogs();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
@@ -30,21 +33,9 @@ function HomeContainer({navigation}) {
     actions.getUserInfoSubmit({showLoading: false});
   }, [actions]);
 
-  // reference.once('value')
-  // .then(snapshot => {
-  // console.log('User data: ', snapshot.val());
-  // });
-  // useLayoutEffect(() => {
-  //   navigation.setOptions({
-  //     title: I18n.t(${NAMESPACE}.title),
-  //   });
-  // }, [navigation]);
-
   const [listpro, setListPro] = useState([]);
   const [listphone, setListphone] = useState([]);
   const [listtablet, setListtablet] = useState([]);
-  const [listdongho, setListdongho] = useState([]);
-  const [listphukien, setListphukien] = useState([]);
   const [listall, setListall] = useState([]);
   const [listcontents, setListcontents] = useState([]);
   const [numcart, setNumcart] = useState(0);
@@ -65,6 +56,37 @@ function HomeContainer({navigation}) {
         });
     }
   };
+  const setToken = () => {
+    var keyDecide = DeviceInfo.getDeviceId();
+    if (auth().currentUser && NotificationConstants.fcmToken !== '') {
+      database()
+        .ref('FmcToken')
+        .once('value')
+        .then((snapshot) => {
+          var count = true;
+          snapshot.forEach((child) => {
+            if (
+              child.val().UserId === auth().currentUser.uid &&
+              child.val().keyDecide === keyDecide
+            ) {
+              count = false;
+              database().ref('FmcToken').child(child.key).update({
+                tokenDecide: NotificationConstants.fcmToken,
+              });
+            }
+          });
+          if (count) {
+            var key = database().ref('FmcToken').push().key;
+            database().ref('FmcToken').child(key).update({
+              TokenID: key,
+              UserId: auth().currentUser.uid,
+              keyDecide: keyDecide,
+              tokenDecide: NotificationConstants.fcmToken,
+            });
+          }
+        });
+    }
+  };
   const getCountChats = () => {
     if (auth().currentUser) {
       database()
@@ -82,14 +104,12 @@ function HomeContainer({navigation}) {
   const _getListPhoneNew = () => {
     database()
       .ref('/Products')
+      .orderByValue('Price')
       .once('value')
       .then((snapshot) => {
         var itemsphone = [];
         snapshot.forEach(function (childSnapshot) {
-          if (
-            childSnapshot.val().CategoryID ===
-            'AIzaSyDSWIekvpvwQbRiGh4WF88H91tqFzL6OWI'
-          ) {
+          if (childSnapshot.val().Status) {
             var point = 0;
             var count = 0;
             childSnapshot.child('Rating').forEach((child) => {
@@ -97,144 +117,32 @@ function HomeContainer({navigation}) {
               count++;
             });
             itemsphone.push({
-              title: childSnapshot.val().Name,
-              price: childSnapshot.val().Price,
-              image: childSnapshot.val().Image,
-              metades: childSnapshot.val().MetaDescription,
-              id: childSnapshot.val().ProductID,
+              Name: childSnapshot.val().Name,
+              Price: childSnapshot.val().Price,
+              price: parseInt(childSnapshot.val().Price, 10),
+              Image: childSnapshot.val().Image,
+              MetaDescription: childSnapshot.val().MetaDescription,
+              ProductID: childSnapshot.val().ProductID,
               rating: point / count,
               bough: count,
-              BrandID: childSnapshot.val().BrandID,
               CategoryID: childSnapshot.val().CategoryID,
               PromotionPrice: childSnapshot.val().PromotionPrice,
+              Warranty: childSnapshot.val().Warranty,
+              Counts: childSnapshot.val().Counts,
+              ModifiedDate: childSnapshot.val().ModifiedDate,
+              Discount:
+                parseInt(childSnapshot.val().Price, 10) -
+                parseInt(childSnapshot.val().PromotionPrice, 10),
             });
           }
         });
-        setListphone(itemsphone);
-      });
-  };
-  const _getListLaptopNew = () => {
-    database()
-      .ref('/Products')
-      .once('value')
-      .then((snapshot) => {
-        var itemslap = [];
-        snapshot.forEach(function (childSnapshot) {
-          if (childSnapshot.val().CategoryID === '-MJaC7kTLJOYZjt9G4zs') {
-            var point = 0;
-            var count = 0;
-            childSnapshot.child('Rating').forEach((child) => {
-              point += child.val().Point;
-              count++;
-            });
-            itemslap.push({
-              title: childSnapshot.val().Name,
-              price: childSnapshot.val().Price,
-              image: childSnapshot.val().Image,
-              metades: childSnapshot.val().MetaDescription,
-              id: childSnapshot.val().ProductID,
-              rating: point / count,
-              bough: count,
-              BrandID: childSnapshot.val().BrandID,
-              CategoryID: childSnapshot.val().CategoryID,
-              PromotionPrice: childSnapshot.val().PromotionPrice,
-            });
-          }
-        });
-        setListPro(itemslap);
-      });
-  };
-  const _getListTabletNew = () => {
-    database()
-      .ref('/Products')
-      .once('value')
-      .then((snapshot) => {
-        var itemstab = [];
-        snapshot.forEach(function (childSnapshot) {
-          if (childSnapshot.val().CategoryID === '-MJaB1_P1gTPbxmjMXSW') {
-            var point = 0;
-            var count = 0;
-            childSnapshot.child('Rating').forEach((child) => {
-              point += child.val().Point;
-              count++;
-            });
-            itemstab.push({
-              title: childSnapshot.val().Name,
-              price: childSnapshot.val().Price,
-              image: childSnapshot.val().Image,
-              metades: childSnapshot.val().MetaDescription,
-              id: childSnapshot.val().ProductID,
-              rating: point / count,
-              bough: count,
-              BrandID: childSnapshot.val().BrandID,
-              CategoryID: childSnapshot.val().CategoryID,
-              PromotionPrice: childSnapshot.val().PromotionPrice,
-            });
-          }
-        });
-        setListtablet(itemstab);
-      });
-  };
-  const _getListDongHoNew = () => {
-    database()
-      .ref('/Products')
-      .once('value')
-      .then((snapshot) => {
-        var itemsdongho = [];
-        snapshot.forEach(function (childSnapshot) {
-          if (childSnapshot.val().CategoryID === '-MJaCJRVtI_o9Hv5XY-N') {
-            var point = 0;
-            var count = 0;
-            childSnapshot.child('Rating').forEach((child) => {
-              point += child.val().Point;
-              count++;
-            });
-            itemsdongho.push({
-              title: childSnapshot.val().Name,
-              price: childSnapshot.val().Price,
-              image: childSnapshot.val().Image,
-              metades: childSnapshot.val().MetaDescription,
-              id: childSnapshot.val().ProductID,
-              rating: point / count,
-              bough: count,
-              BrandID: childSnapshot.val().BrandID,
-              CategoryID: childSnapshot.val().CategoryID,
-              PromotionPrice: childSnapshot.val().PromotionPrice,
-            });
-          }
-        });
-        setListdongho(itemsdongho);
-      });
-  };
-  const _getListPhukienNew = () => {
-    database()
-      .ref('/Products')
-      .once('value')
-      .then((snapshot) => {
-        var itemsphukien = [];
-        snapshot.forEach(function (childSnapshot) {
-          if (childSnapshot.val().CategoryID === '-MJaCDw6CYGQenBvOtGO') {
-            var point = 0;
-            var count = 0;
-            childSnapshot.child('Rating').forEach((child) => {
-              point += child.val().Point;
-              count++;
-            });
-            itemsphukien.push({
-              title: childSnapshot.val().Name,
-              price: childSnapshot.val().Price,
-              image: childSnapshot.val().Image,
-              metades: childSnapshot.val().MetaDescription,
-              id: childSnapshot.val().ProductID,
-              rating: point / count,
-              bough: count,
-              BrandID: childSnapshot.val().BrandID,
-              CategoryID: childSnapshot.val().CategoryID,
-              PromotionPrice: childSnapshot.val().PromotionPrice,
-            });
-          }
-        });
-        setListphukien(itemsphukien);
+        let arr = _.orderBy(itemsphone, ['price'], ['asc']);
+        let arr3 = _.orderBy(itemsphone, ['Discount'], ['asc']);
+        let arr2 = _.reverse(itemsphone);
+        console.log('sort time line: ', arr2);
+        setListphone(arr2);
+        setListPro(arr3);
+        setListtablet(arr);
       });
   };
   const ListenForItems = () => {
@@ -244,31 +152,38 @@ function HomeContainer({navigation}) {
       .then((snapshot) => {
         var items = [];
         snapshot.forEach(function (childSnapshot) {
-          var point = 0;
-          var count = 0;
-          childSnapshot.child('Rating').forEach((child) => {
-            point += child.val().Point;
-            count++;
-          });
-          items.push({
-            title: childSnapshot.val().Name,
-            price: childSnapshot.val().Price,
-            image: childSnapshot.val().Image,
-            metades: childSnapshot.val().MetaDescription,
-            id: childSnapshot.val().ProductID,
-            rating: point / count,
-            bough: count,
-            BrandID: childSnapshot.val().BrandID,
-            CategoryID: childSnapshot.val().CategoryID,
-            PromotionPrice: childSnapshot.val().PromotionPrice,
-            UserID: childSnapshot.val().UserID
-              ? childSnapshot.val().UserID
-              : null,
-          });
+          if (childSnapshot.val().Status === true) {
+            var point = 0;
+            var count = 0;
+            childSnapshot.child('Rating').forEach((child) => {
+              point += child.val().Point;
+              count++;
+            });
+            items.push({
+              Name: childSnapshot.val().Name,
+              Price: childSnapshot.val().Price,
+              Image: childSnapshot.val().Image,
+              MetaDescription: childSnapshot.val().MetaDescription,
+              Description: childSnapshot.val().Description,
+              Warranty: childSnapshot.val().Warranty,
+              ProductID: childSnapshot.val().ProductID,
+              Counts: childSnapshot.val().Count,
+              rating: point / count,
+              count: count,
+              bough: count,
+              BrandID: childSnapshot.val().BrandID,
+              CategoryID: childSnapshot.val().CategoryID,
+              PromotionPrice: childSnapshot.val().PromotionPrice,
+              UserID: childSnapshot.val().UserID
+                ? childSnapshot.val().UserID
+                : null,
+            });
+          }
         });
         setListall(items);
       });
   };
+
   const getListBanner = () => {
     database()
       .ref('Contents')
@@ -295,31 +210,16 @@ function HomeContainer({navigation}) {
     getListBanner();
     ListenForItems();
     _getListPhoneNew();
-    _getListLaptopNew();
-    _getListTabletNew();
-    _getListDongHoNew();
-    _getListPhukienNew();
     getnumcart();
     getCountChats();
-    setTimeout(() => {
-      setRefreshing(false);
-      setLoading(false);
-    }, 10000);
   };
   useEffect(() => {
+    setToken();
     _getListPhoneNew();
-    _getListLaptopNew();
-    _getListTabletNew();
-    _getListDongHoNew();
-    _getListPhukienNew();
     ListenForItems();
     getListBanner();
     getnumcart();
     getCountChats();
-    setTimeout(() => {
-      setRefreshing(false);
-      setLoading(false);
-    }, 15000);
   }, []);
 
   const renderNofiCart = () => {
@@ -355,9 +255,7 @@ function HomeContainer({navigation}) {
       </View>
     );
   }
-
   functionsCounter.add(renderNofiCart);
-  functionsCounter.add(getnumcart);
   functionsCounter.add(_onRefresh);
   functionsCounter.add(renderNumChat);
 
@@ -370,9 +268,7 @@ function HomeContainer({navigation}) {
       listpro={listpro}
       listall={listall}
       listcontents={listcontents}
-      listdongho={listdongho}
       listphone={listphone}
-      listphukien={listphukien}
       listtablet={listtablet}
       numcart={numcart}
       loading={loading}

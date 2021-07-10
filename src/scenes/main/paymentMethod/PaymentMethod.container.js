@@ -1,22 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useLayoutEffect, useState, useEffect } from 'react';
+import React, {useLayoutEffect, useState, useEffect} from 'react';
 import PaymentMethodView from './PaymentMethod.view';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
-import { NAMESPACE } from './PaymentMethod.constants';
-import { getString } from 'utils/i18n';
+import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
+import {NAMESPACE} from './PaymentMethod.constants';
+import {getString} from 'utils/i18n';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
-import NavigationServices, { getParams } from 'utils/navigationServices';
+import NavigationServices, {getParams} from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
+import Geocoder from 'react-native-geocoding';
+Geocoder.init('AIzaSyDNzy29FhjgnLXCCa9f8vqgcq_B-32uXLs');
 const functionsCounter = new Set();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 
-export default function PaymentMethodContainer({ navigation, route }) {
+export default function PaymentMethodContainer({navigation, route}) {
   const [checked, setchecked] = useState('first');
   const [loading] = useState(false);
   const [modalVisible, setmodalVisible] = useState(false);
@@ -32,7 +34,14 @@ export default function PaymentMethodContainer({ navigation, route }) {
     });
   }, [navigation]);
 
-  const getShipMoney = () => {
+  const getShipMoney = async () => {
+    var policy = {};
+    await database()
+      .ref('Policy/ShipPayment')
+      .once('value')
+      .then((snapshot) => {
+        policy = snapshot.val();
+      });
     var a = '';
     a = props.address.Location;
     var b = a.indexOf('-');
@@ -48,15 +57,18 @@ export default function PaymentMethodContainer({ navigation, route }) {
     dist = dist * 60 * 1.1515;
     dist = dist * 1.609344;
     var shipmoney = 0;
-    if (dist >= 5 && dist < 10) {
-      shipmoney = 50000;
+    if (dist < 5) {
+      shipmoney = policy.Level1;
+    } else if (dist >= 5 && dist < 10) {
+      shipmoney = policy.Level2;
     } else if (dist >= 10 && dist < 25) {
-      shipmoney = 100000;
+      shipmoney = policy.Level3;
     } else if (dist >= 25 && dist < 50) {
-      shipmoney = 200000;
-    } else if (dist >= 50) {
-      shipmoney = 250000;
+      shipmoney = policy.Level4;
+    } else {
+      shipmoney = policy.Level5;
     }
+    console.log('>>>>>> shipMoney', shipmoney);
     setshipMoney(shipmoney);
   };
 
@@ -119,10 +131,10 @@ export default function PaymentMethodContainer({ navigation, route }) {
   };
   const thanhToan = async () => {
     if (checked === 'first') {
-      var key = database().ref().child('Orders/').push().key;
+      var key = database().ref('Orders/').push().key;
       var phone = props.address.ShipPhone;
       var name = props.address.ShipName;
-      var location = props.address.Location;
+      //var location = props.address.Location;
       var diachi =
         props.address.NumberAddress +
         ', ' +
@@ -131,9 +143,15 @@ export default function PaymentMethodContainer({ navigation, route }) {
         props.address.Huyen +
         ', ' +
         props.address.City;
-      database()
+      await Geocoder.from(diachi)
+        .then((json) => {
+          var locationSearch = json.results[0].geometry.location;
+          location = locationSearch.lat + '-' + locationSearch.lng;
+        })
+        .catch((error) => console.warn(error));
+      await database()
         .ref('Orders/' + key)
-        .set({
+        .update({
           Status: '1',
           CreatedDate: GetCurrentDate(),
           ShipAddress: diachi,
@@ -142,9 +160,10 @@ export default function PaymentMethodContainer({ navigation, route }) {
           OrderID: key,
           Payment: '01',
           ShipPayment: shipMoney,
-          Total: props.content + shipMoney,
+          Total: (parseInt(props.content, 10) + parseInt(shipMoney, 10))
+            .toString,
           CustomerID: auth().currentUser.uid,
-          ShipLocation: location,
+          //ShipLocation: location,
           TimeLine: {
             ChoLayHang: '',
             ChoXacNhan: '',
@@ -173,8 +192,13 @@ export default function PaymentMethodContainer({ navigation, route }) {
                 Picture: childSnapshot.val().Picture,
                 BrandName: childSnapshot.val().BrandName,
                 CategoryName: childSnapshot.val().CategoryName,
+                UserID: childSnapshot.val().UserID
+                  ? childSnapshot.val().UserID
+                  : null,
+                UserProduct: childSnapshot.val().UserID ? true : false,
                 Status: false,
               });
+
             database()
               .ref('Cart/' + auth().currentUser.uid)
               .child(childSnapshot.key)
@@ -188,7 +212,7 @@ export default function PaymentMethodContainer({ navigation, route }) {
       NavigationServices.navigate(SCENE_NAMES.ZALOPAY, {
         amount: props.content,
         shipMoney: shipMoney,
-        listItem: props.CartItem,
+        listItem: props.listItem,
         Address: props.address,
       });
     }

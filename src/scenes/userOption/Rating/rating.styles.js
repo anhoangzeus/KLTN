@@ -61,8 +61,8 @@ export default StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    height: SIZE.DEVICE_HEIGHT / 1.5,
-    width: SIZE.DEVICE_WIDTH / 1.2,
+    height: SIZE.DEVICE_HEIGHT / 1.7,
+    width: SIZE.DEVICE_WIDTH / 1.1,
   },
   modalText: {
     textAlign: 'center',
@@ -125,7 +125,7 @@ export default StyleSheet.create({
   txtInput: {
     borderColor: '#2B4F8C',
     borderWidth: 1,
-    height: SIZE.DEVICE_HEIGHT / 2.6,
+    height: SIZE.DEVICE_HEIGHT * 0.3,
     fontSize: 18,
     borderRadius: 10,
   },
@@ -138,6 +138,6 @@ export default StyleSheet.create({
   },
   btnRating: {
     width: SIZE.DEVICE_WIDTH / 15,
-    marginLeft: 20,
+    marginRight: SIZE.DEVICE_WIDTH / 30,
   },
 });

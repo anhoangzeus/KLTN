@@ -23,28 +23,33 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
 export default function SellerproductContainer({navigation, route}) {
   const isLoading = useSelectorShallow(loadingSelector);
   const {item} = getParams(route);
+
   console.log('item naviagte: ', item);
   const itemRef = database();
 
   const [numcart, setnumcart] = useState(0);
-  const [decription, setdecription] = useState('');
-  const [image, setimage] = useState('');
-  const [name, setname] = useState('');
-  const [UserID, setUserID] = useState(item.UserID);
-  const [price, setprice] = useState('');
-  const [waranty, setwaranty] = useState('');
-  const [promotionprice, setpromotionprice] = useState('');
-  const [metadescription, setmetadescription] = useState('');
+  const decription = item.MetaDescription;
+  const image = item.Image;
+  const name = item.Name;
+  const UserID = item.UserID;
+  const price = item.Price;
+  const count = item.Counts;
+  const waranty = item.Warranty;
+  const promotionprice = item.PromotionPrice;
+  const metadescription = item.MetaDescription;
+  const rating = item.rating;
   const [listproductlienquan, setlistproductlienquan] = useState([]);
-  const [listmoreimage, setlistmoreimage] = useState([]);
+  const [listmoreimage, setlistmoreimage] = useState(
+    item.Images ? item.Images : [],
+  );
   const [listcomment, setlistcomment] = useState([]);
-  const [idsanpham, setidsanpham] = useState(item.id);
+  const [idsanpham, setidsanpham] = useState(item.ProductID);
   const [listcart, setlistcart] = useState([]);
   const [modalvisible, setmodalvisible] = useState(false);
   const [scrollY] = useState(new Animated.Value(0));
   const [isloading, setisloading] = useState(false);
   const [categoryname, setcategoryname] = useState('');
-  const [rating, setrating] = useState(0);
+
   const [bough, setbough] = useState(0);
   const [sao1, setsao1] = useState(0);
   const [sao2, setsao2] = useState(0);
@@ -90,22 +95,32 @@ export default function SellerproductContainer({navigation, route}) {
       .once('value')
       .then((snapshot) => {
         var items = [];
-        snapshot.forEach(function (child) {
-          if (child.val().ProductID !== ProductID) {
-            if (child.val().CategoryID === Category_ID) {
+        snapshot.forEach(function (childSnapshot) {
+          if (childSnapshot.val().ProductID !== ProductID) {
+            if (childSnapshot.val().CategoryID === Category_ID) {
               var point = 0;
               var count = 0;
+              childSnapshot.child('Rating').forEach((child) => {
+                point += child.val().Point;
+                count++;
+              });
               items.push({
-                title: child.val().Name,
-                price: child.val().Price,
-                image: child.val().Image,
-                metades: child.val().MetaDescription,
-                id: child.val().ProductID,
+                Name: childSnapshot.val().Name,
+                Price: childSnapshot.val().Price,
+                Image: childSnapshot.val().Image,
+                MetaDescription: childSnapshot.val().MetaDescription,
+                Description: childSnapshot.val().Description,
+                Warranty: childSnapshot.val().Warranty,
+                ProductID: childSnapshot.val().ProductID,
+                Counts: childSnapshot.val().Counts,
                 rating: point / count,
-                bough: count,
-                BrandID: child.val().BrandID,
-                CategoryID: child.val().CategoryID,
-                PromotionPrice: child.val().PromotionPrice,
+                count: count,
+                BrandID: childSnapshot.val().BrandID,
+                CategoryID: childSnapshot.val().CategoryID,
+                PromotionPrice: childSnapshot.val().PromotionPrice,
+                UserID: childSnapshot.val().UserID
+                  ? childSnapshot.val().UserID
+                  : null,
               });
             }
           }
@@ -124,22 +139,20 @@ export default function SellerproductContainer({navigation, route}) {
         var _sao3 = 0;
         var _sao4 = 0;
         var _sao5 = 0;
-        var point = 0;
         var count = 0;
         var items = [];
         snapshot.child('Rating').forEach((child) => {
           if (child.val().Point === '1') {
             _sao1++;
-          } else if (child.val().Point === '2') {
+          } else if (child.val().Point === 2) {
             _sao2++;
-          } else if (child.val().Point === '3') {
+          } else if (child.val().Point === 3) {
             _sao3++;
-          } else if (child.val().Point === '4') {
+          } else if (child.val().Point === 4) {
             _sao4++;
-          } else if (child.val().Point === '5') {
+          } else if (child.val().Point === 5) {
             _sao5++;
           }
-          point += child.val().Point;
           count++;
           items.push({
             Avatar: child.val().Avatar,
@@ -149,15 +162,16 @@ export default function SellerproductContainer({navigation, route}) {
             UserName: child.val().UserName,
           });
         });
-        setdecription(snapshot.val().Description);
-        setimage(snapshot.val().Image);
-        setname(snapshot.val().Name);
-        setprice(snapshot.val().Price);
-        setUserID(snapshot.val().UserID);
-        setwaranty(snapshot.val().Warranty);
-        setmetadescription(snapshot.val().MetaDescription);
-        setpromotionprice(snapshot.val().PromotionPrice);
-        setrating(point / count);
+        // setdecription(snapshot.val().Description);
+        // setimage(snapshot.val().Image);
+        // setname(snapshot.val().Name);
+        // setprice(snapshot.val().Price);
+        // setUserID(snapshot.val().UserID);
+        // setwaranty(snapshot.val().Warranty);
+        // setmetadescription(snapshot.val().MetaDescription);
+        // setpromotionprice(snapshot.val().PromotionPrice);
+        // setCount(snapshot.val().Count);
+        //setrating(point / count);
         setlistcomment(items);
         setbough(count);
         setsao1(_sao1);
@@ -171,12 +185,10 @@ export default function SellerproductContainer({navigation, route}) {
       .ref('/ProductUser/' + idsanpham)
       .once('value')
       .then((snapshot) => {
-        //console.log('plit list image: ', snapshot.val().MoreImage);
         snapshot.val().MoreImage
           ? (ImageItems = snapshot.val().MoreImage.split('|'))
           : ImageItems.push(snapshot.val().Image);
       });
-    console.log('list more image: ', ImageItems);
     setlistmoreimage(ImageItems);
     setisloading(false);
   };
@@ -239,6 +251,7 @@ export default function SellerproductContainer({navigation, route}) {
       Price: '',
       ProductID: '',
       Quantity: 0,
+      uid: '',
     };
     var temp = 0;
     listcart.forEach(function (element) {
@@ -251,6 +264,7 @@ export default function SellerproductContainer({navigation, route}) {
         product.Price = element.Price;
         product.ProductID = element.Id;
         product.Quantity = element.Quantity;
+        product.UserID = element.UserID;
       }
     });
     if (auth().currentUser !== null) {
@@ -266,6 +280,7 @@ export default function SellerproductContainer({navigation, route}) {
             Picture: image,
             Price: price,
             Quantity: 1,
+            UserID: item.UserID,
           });
       } else {
         database()
@@ -278,6 +293,7 @@ export default function SellerproductContainer({navigation, route}) {
             Picture: product.image,
             Price: product.Price,
             Quantity: product.Quantity,
+            UserID: item.UserID,
           });
       }
       GetCartData();
@@ -297,8 +313,8 @@ export default function SellerproductContainer({navigation, route}) {
       .then((snapshot) => {
         var info = {
           Avatar: snapshot.val().Avatar,
-          Name: snapshot.val().FullName,
-          ID: snapshot.val().UserID,
+          FullName: snapshot.val().FullName,
+          UserID: snapshot.val().UserID,
         };
         setSellerInfo(info);
       });
@@ -308,23 +324,36 @@ export default function SellerproductContainer({navigation, route}) {
       .ref('/ProductUser/')
       .once('value')
       .then((snapshot) => {
-        let item = [];
+        const items = [];
         snapshot.forEach((childSnapshot) => {
-          if (childSnapshot.val().UserID === UserID && item.length < 7) {
-            item.push({
-              title: childSnapshot.val().Name,
-              price: childSnapshot.val().Price,
-              image: childSnapshot.val().Image,
-              id: childSnapshot.val().ProductID,
-              //rating: snapshot / count,
-              bough: childSnapshot.val().Counts,
+          if (childSnapshot.val().UserID === UserID && items.length < 7) {
+            let point = 0;
+            let count = 0;
+            snapshot.child('Rating').forEach((child) => {
+              point += child.val().Point;
+              count++;
+            });
+            items.push({
+              Name: childSnapshot.val().Name,
+              Price: childSnapshot.val().Price,
+              Image: childSnapshot.val().Image,
+              MetaDescription: childSnapshot.val().MetaDescription,
+              Description: childSnapshot.val().Description,
+              Warranty: childSnapshot.val().Warranty,
+              Counts: childSnapshot.val().Counts,
+              ProductID: childSnapshot.val().ProductID,
+              rating: point / count,
+              count: count,
+              BrandID: childSnapshot.val().BrandID,
+              CategoryID: childSnapshot.val().CategoryID,
               PromotionPrice: childSnapshot.val().PromotionPrice,
-              UserID: childSnapshot.val().UserID,
+              UserID: childSnapshot.val().UserID
+                ? childSnapshot.val().UserID
+                : null,
             });
           }
         });
-
-        setSellerProd(item);
+        setSellerProd(items);
       });
   };
 
@@ -370,6 +399,7 @@ export default function SellerproductContainer({navigation, route}) {
       getNameBrandCate={getNameBrandCate}
       getnumcart={getnumcart}
       setID={setID}
+      count={count}
       numcart={numcart}
       decription={decription}
       image={image}

@@ -209,6 +209,14 @@ export default StyleSheet.create({
     marginVertical: 5,
     alignItems: 'center',
   },
+  btnsoldout: {
+    width: width / 1.1,
+    backgroundColor: '#FF4040',
+    justifyContent: 'center',
+    borderRadius: 5,
+    marginVertical: 5,
+    alignItems: 'center',
+  },
   centeredView: {
     justifyContent: 'center',
     flex: 1,

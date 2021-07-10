@@ -88,6 +88,7 @@ export default StyleSheet.create({
   itemTopTextContainer: {
     marginRight: 40,
     marginLeft: 4,
+    maxWidth: '90%'
   },
   itemName: {
     color: '#000',

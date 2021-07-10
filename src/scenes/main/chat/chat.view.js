@@ -11,8 +11,8 @@ import {
   Text,
   TouchableOpacity,
   View,
+  TextInput,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import NavigationServices from 'utils/navigationServices';
 import styles from './chat.styles';
@@ -27,7 +27,10 @@ class ChatContainer extends React.Component {
     return (
       <TouchableOpacity
         onPress={() => {
-          NavigationServices.navigate(SCENE_NAMES.ChatBoxContainer, { id: item.id, Name: item.Name });
+          NavigationServices.navigate(SCENE_NAMES.ChatBoxContainer, {
+            id: item.id,
+            Name: item.Name,
+          });
         }}
         style={styles.itemMessView}>
         <View>
@@ -63,7 +66,7 @@ class ChatContainer extends React.Component {
     );
   };
   render() {
-    const {listChat} = this.props;
+    const {filterChat, filterListchat} = this.props;
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: '#2B4F8C'}}>
         <View style={{flex: 1, backgroundColor: '#fff'}}>
@@ -83,14 +86,17 @@ class ChatContainer extends React.Component {
             <Text style={styles.headerText}>Chat</Text>
             <View style={styles.cartContainer} />
           </View>
-          <TouchableOpacity style={styles.searchView}>
-            <Text style={styles.text}>
-              <Icon name="search1" size={20} color="#000" />{' '}
-              {I18n.t(`${NAMESPACE}.find`)}
-            </Text>
-          </TouchableOpacity>
+          <TextInput
+            style={styles.searchView}
+            placeholder={I18n.t(`${NAMESPACE}.find`)}
+            onChangeText={(val) => {
+              filterListchat(val);
+            }}
+            leftIcon={{type: 'font-awesome', name: 'comment'}}>
+            {/* <Icon name="search1" size={20} color="#000" />{' '} */}
+          </TextInput>
           <FlatList
-            data={listChat}
+            data={filterChat}
             renderItem={({item}) => <this.listChatView item={item} />}
             keyExtractor={(item) => item.id}
           />

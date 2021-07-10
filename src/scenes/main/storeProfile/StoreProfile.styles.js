@@ -7,12 +7,11 @@ export default StyleSheet.create({
     height: height,
     backgroundColor: '#ededed',
   },
-  back: {marginTop: height / 50},
+  back: {marginTop: height / 40},
   imgBackground: {
-    width: width,
-    resizeMode: 'contain',
-    //height: height,
-    justifyContent: 'space-around',
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
   },
   SafeSreen: {
     flex: 1,
@@ -44,7 +43,13 @@ export default StyleSheet.create({
   tagImg: {
     height: height / 25,
     width: height / 25,
-    borderRadius: height / 100,
+    resizeMode: 'center',
+  },
+  tagImg1: {
+    height: height / 25,
+    width: width * 0.2,
+    marginLeft: 0,
+    resizeMode: 'cover',
   },
   tagText: {fontSize: height / 60},
   bodyContainer: {
@@ -84,6 +89,10 @@ export default StyleSheet.create({
   cartContainer: {
     paddingHorizontal: 20,
   },
+  touchView: {
+    backgroundColor: '#fff',
+    width: width / 2,
+  },
   headerText: {
     color: '#fff',
     fontSize: 20,
@@ -115,5 +124,31 @@ export default StyleSheet.create({
     justifyContent: 'center',
 
     alignItems: 'center',
+  },
+  modalContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modal: {
+    height: height / 5,
+    width: width * 0.6,
+    backgroundColor: 'white',
+    borderRadius: 8,
+    justifyContent: 'space-around',
+  },
+  rpText: {
+    color: '#FF0303',
+    fontSize: 14,
+    textAlign: 'center',
+  },
+  action: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  btnSelect: {
+    color: '#949494',
+  },
+  btnSelect2: {
+    color: '#2B4F8C',
   },
 });

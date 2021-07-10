@@ -5,6 +5,12 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  btnChange: {
+    backgroundColor: 'green',
+    padding: 2,
+    borderRadius: 8,
+    paddingHorizontal: 10,
+  },
   screenContainersafe: {
     flex: 1,
     backgroundColor: '#2B4F8C',
@@ -42,7 +48,12 @@ export default StyleSheet.create({
     flex: 1,
     alignSelf: 'center',
     flexDirection: 'row',
-    borderRadius: 5,
+    borderRadius: 50,
+    width: '100%',
+    borderBottomWidth: 5,
+    borderTopWidth: 5,
+    marginVertical: 5,
+    borderColor: '#2B4F8C',
   },
   bodyContainer: {
     flex: 1,
@@ -59,7 +70,7 @@ export default StyleSheet.create({
   },
   address: {
     marginTop: 5,
-    fontSize: height / 50,
+    fontSize: height / 55,
   },
   addresstitle: {
     fontWeight: 'bold',
@@ -120,7 +131,7 @@ export default StyleSheet.create({
   },
   addressView: {flex: 1, margin: 10},
   addressViewRow: {flexDirection: 'row', justifyContent: 'space-between'},
-  greenText: {color: 'green', marginRight: 5, fontSize: 17},
+  greenText: {color: 'white', marginRight: 5, fontSize: 17},
   infoView: {
     justifyContent: 'space-between',
     flexDirection: 'row',
@@ -155,20 +166,25 @@ export default StyleSheet.create({
   },
   btnConfirm: {marginTop: 5, fontSize: 17, color: 'green'},
   Amount: {marginTop: 5, fontSize: 17, marginBottom: 20},
-  rowView: {flexDirection: 'row'},
+  rowView: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginBottom: 10,
+  },
   btnThanhToan: {
     borderRadius: 20,
     padding: 10,
     elevation: 2,
     backgroundColor: '#2196F3',
-    width: width / 2.5,
+    width: width / 3,
+    marginLeft: 10,
   },
   btnClose: {
     borderRadius: 20,
     padding: 10,
     elevation: 2,
     backgroundColor: '#2196F3',
-    width: width / 2.5,
+    width: width / 3,
     marginLeft: 5,
   },
 });

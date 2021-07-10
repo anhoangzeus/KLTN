@@ -3,7 +3,7 @@ import NumberFormat from 'components/NumberFormat';
 import SellerProduct from 'components/ProductItem';
 import StarRating from 'components/StarRating';
 import SCENE_NAMES from 'constants/sceneName';
-import * as React from 'react';
+import React, { useRef } from 'react';
 import {
   Alert,
   Animated,
@@ -19,18 +19,20 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import RBSheet from 'react-native-raw-bottom-sheet';
 import Swiper from 'react-native-swiper';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import CommentContainer from 'scenes/main/comment/Comment.container.js';
+import I18n from 'utils/i18n';
 import NavigationServices from 'utils/navigationServices';
 import styles from './Product.styles';
-import I18n from 'utils/i18n';
 const NAMESPACE = 'common';
 
 // import {NAMESPACE} from './Product.constants';
 
-const {height, width} = Dimensions.get('screen');
+const { height, width } = Dimensions.get('screen');
 function ProductView(props) {
   const {
     addCart,
@@ -42,7 +44,7 @@ function ProductView(props) {
     name,
     rating,
     idsanpham,
-    metadescription,
+    count,
     price,
     promotionprice,
     waranty,
@@ -56,7 +58,7 @@ function ProductView(props) {
     modalvisible,
     image,
   } = props;
-  console.log('list moreimage:', image);
+  const refRBSheet = useRef();
   const scrollY = new Animated.Value(0);
   const HEADER_MAX_HEIGHT = height / 10;
   const HEADER_MIN_HEIGHT = height / 30;
@@ -74,7 +76,7 @@ function ProductView(props) {
           backgroundColor="transparent"
           translucent={true}
         />
-        <Animated.View style={[styles.headerFont1, {height: headerHeight}]}>
+        <Animated.View style={[styles.headerFont1, { height: headerHeight }]}>
           <TouchableOpacity
             style={styles.setTouchableBack}
             onPress={() => NavigationServices.goBack()}>
@@ -109,7 +111,7 @@ function ProductView(props) {
           showsVerticalScrollIndicator={false}
           scrollEventThrottle={16}
           onScroll={Animated.event([
-            {nativeEvent: {contentOffset: {y: scrollY}}},
+            { nativeEvent: { contentOffset: { y: scrollY } } },
           ])}>
           <Swiper
             loop={true}
@@ -119,7 +121,7 @@ function ProductView(props) {
             height={height / 2}>
             {listmoreimage.map((item) => (
               <View backgroundColor="white" style={styles.profileContainer}>
-                <Image source={{uri: item}} style={styles.profileImage} />
+                <Image source={{ uri: item }} style={styles.profileImage} />
               </View>
             ))}
           </Swiper>
@@ -164,15 +166,13 @@ function ProductView(props) {
                     <StarRating rating={rating} size={17} />
                     <TouchableOpacity
                       // eslint-disable-next-line react-native/no-inline-styles
-                      style={{marginLeft: 10}}
+                      style={{ marginLeft: 10 }}
                       onPress={() => {
-                        NavigationServices.navigate('RatingView', {
-                          id: idsanpham,
-                        });
+                        refRBSheet.current.open();
                       }}>
                       <Text style={styles.textGreen}>
-                        ( ({I18n.t(`${NAMESPACE}.see`)} {bough} (
-                        {I18n.t(`${NAMESPACE}.review`)})
+                        ({I18n.t(`${NAMESPACE}.see`)} {bough}{' '}
+                        {I18n.t(`${NAMESPACE}.rv`)} )
                       </Text>
                     </TouchableOpacity>
                   </View>
@@ -183,14 +183,13 @@ function ProductView(props) {
                   </Text>
                 )}
 
-                <Text style={styles.metaView}>{metadescription}</Text>
                 <View style={styles.priceView}>
                   <Text style={styles.priceText}>
                     <NumberFormat value={promotionprice} />{' '}
                   </Text>
                   {price === promotionprice ? null : (
                     // eslint-disable-next-line react-native/no-inline-styles
-                    <View style={{flexDirection: 'row'}}>
+                    <View style={{ flexDirection: 'row' }}>
                       <Text style={styles.promotionText}>
                         <NumberFormat value={price} />
                       </Text>
@@ -220,22 +219,14 @@ function ProductView(props) {
                 showsHorizontalScrollIndicator={false}
                 style={styles.flatstyle}
                 data={listproductlienquan}
-                renderItem={({item}) => (
+                renderItem={({ item }) => (
                   <TouchableOpacity
                     onPress={() => {
                       NavigationServices.push(SCENE_NAMES.PRODUCT, {
                         item: item,
                       });
                     }}>
-                    <SellerProduct
-                      item={item}
-                      // name={item.title}
-                      // image={item.image}
-                      // price={item.price}
-                      // rating={item.rating}
-                      // bough={item.bough}
-                      // PromotionPrice={item.PromotionPrice}
-                    />
+                    <SellerProduct item={item} />
                   </TouchableOpacity>
                 )}
                 keyExtractor={(item) => item.proid}
@@ -259,7 +250,7 @@ function ProductView(props) {
             <View style={styles.relateView}>
               <View style={styles.clientView}>
                 <Text bold size={12} style={styles.clientText}>
-                  ({I18n.t(`${NAMESPACE}.guestreview`)}{' '}
+                  ({I18n.t(`${NAMESPACE}.guestreview`)} )
                 </Text>
                 <TouchableOpacity
                   onPress={() => {
@@ -269,7 +260,7 @@ function ProductView(props) {
                   }}>
                   <Text style={styles.viewAll}>
                     {' '}
-                    ({I18n.t(`${NAMESPACE}.viewall`)}
+                    ({I18n.t(`${NAMESPACE}.seeAll`)}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -277,7 +268,7 @@ function ProductView(props) {
               <View style={styles.rowView}>
                 <View style={styles.ratingView}>
                   {/* <Text style={styles.ratingText}>{rating.toFixed(1)}</Text> */}
-                  <StarRating rating={rating} size={10} />
+                  <StarRating rating={rating} size={15} />
                   <Text style={styles.commentText}>
                     {bough} {I18n.t(`${NAMESPACE}.review`)}
                   </Text>
@@ -314,7 +305,7 @@ function ProductView(props) {
             showsVerticalScrollIndicator={false}
             initialNumToRender={3}
             pagingEnabled={true}
-            renderItem={({item}) => <CommentItem item={item} />}
+            renderItem={({ item }) => <CommentItem item={item} />}
           />
         </ScrollView>
         <View style={styles.centeredView}>
@@ -342,7 +333,7 @@ function ProductView(props) {
                 </View>
 
                 <View style={styles.rowView}>
-                  <Image source={{uri: image}} style={styles.modalImage} />
+                  <Image source={{ uri: image }} style={styles.modalImage} />
                   <View style={styles.byView}>
                     <Text numberOfLines={1} style={styles.modalnameText}>
                       {name}
@@ -368,13 +359,36 @@ function ProductView(props) {
         </View>
         <View style={styles.devide} />
         <View style={styles.buyView}>
-          <TouchableOpacity style={styles.btnmua} onPress={() => addCart()}>
-            <Text style={styles.addText}>
-              {' '}
-              {I18n.t(`${NAMESPACE}.addCart`)}
-            </Text>
-          </TouchableOpacity>
+          {count > 0 ? (
+            <TouchableOpacity style={styles.btnmua} onPress={() => addCart()}>
+              <Text style={styles.addText}>
+                {I18n.t(`${NAMESPACE}.addCart`)}
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <View style={styles.btnsoldout}>
+              <Text style={styles.addText}>
+                {I18n.t(`${NAMESPACE}.soldout`)}
+              </Text>
+            </View>
+          )}
         </View>
+        <RBSheet
+          ref={refRBSheet}
+          height={height * 0.8}
+          //animationType="fade"
+          closeOnDragDown={true}
+          openDuration={250}
+          customStyles={{
+            container: {
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
+            },
+          }}>
+          <CommentContainer idsanpham={idsanpham} user={false} />
+        </RBSheet>
       </View>
     </SafeAreaView>
   );

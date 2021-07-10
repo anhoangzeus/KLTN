@@ -5,7 +5,7 @@ import {normalize} from 'react-native-elements';
 export default StyleSheet.create({
   itemContainer: {
     width: SIZE.DEVICE_WIDTH / 4,
-    height: SIZE.DEVICE_HEIGHT / 2.75,
+    height: SIZE.DEVICE_HEIGHT / 2.5,
     borderColor: '#fff',
     borderWidth: 2,
     padding: normalize(5),
@@ -18,15 +18,14 @@ export default StyleSheet.create({
     alignSelf: 'center',
   },
   itemName: {
-    fontSize: SIZE.DEVICE_HEIGHT / 60,
+    fontSize: SIZE.DEVICE_HEIGHT / 50,
     color: 'black',
-    marginHorizontal: SIZE.DEVICE_HEIGHT / 100,
   },
   itemPrice: {
     fontSize: SIZE.DEVICE_HEIGHT / 50,
     fontWeight: 'bold',
     color: 'black',
-    marginHorizontal: 10,
+    //marginHorizontal: 10,
   },
   priceColor: {
     color: 'red',

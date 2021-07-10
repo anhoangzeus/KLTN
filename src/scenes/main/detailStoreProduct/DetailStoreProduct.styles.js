@@ -1,8 +1,8 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 // eslint-disable-next-line no-unused-vars
 import SIZE from 'constants/size';
-import {Dimensions} from 'react-native';
-const {height, width} = Dimensions.get('screen');
+import { Dimensions } from 'react-native';
+const { height, width } = Dimensions.get('screen');
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
@@ -57,11 +57,17 @@ export default StyleSheet.create({
   },
   welcomeText: {
     color: 'black',
-    fontSize: height / 40,
-    height: height / 20,
+    fontSize: 15,
+    height: height / 15,
     marginTop: height / 100,
     marginLeft: 5,
     padding: height / 100,
+    borderBottomWidth: 1,
+    borderColor: '#6Ec0B6',
+    borderWidth: 1,
+    borderRadius: 5,
+    width: '95%',
+    paddingHorizontal: 8,
   },
   elementText: {
     color: 'black',

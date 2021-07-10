@@ -3,18 +3,18 @@ import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 import storage from '@react-native-firebase/storage';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
-import { Platform, Linking } from 'react-native';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { chooseImageOptions, MessType } from 'utils/appContants';
-import { getParams } from 'utils/navigationServices';
+import React, {useEffect, useState} from 'react';
+import {Platform, Linking} from 'react-native';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {chooseImageOptions, MessType} from 'utils/appContants';
+import {getParams} from 'utils/navigationServices';
 import ChatBoxView from './chatBox.view';
 import ImageCropPicker from 'react-native-image-crop-picker';
 
 const functionsCounter = new Set();
 
-export default function ChatBoxContainer({ navigation, route }) {
-  const { id, Name } = getParams(route);
+export default function ChatBoxContainer({navigation, route}) {
+  const {id, Name} = getParams(route);
   const [listchat, setListChat] = useState([]);
   const [textchat, setTextChat] = useState('');
   const [data, setData] = useState({});
@@ -32,27 +32,40 @@ export default function ChatBoxContainer({ navigation, route }) {
       avatar: 'https://i.ibb.co/HDzz1rC/avartarnone.png',
       name: 'Name',
     };
-    database().ref('Users').child(auth().currentUser.uid).once('value').then((snapshot) => {
-      user.avatar = snapshot.val().Avatar;
-      user.name = snapshot.val().FullName;
-    });
+    database()
+      .ref('Users')
+      .child(auth().currentUser.uid)
+      .once('value')
+      .then((snapshot) => {
+        user.avatar = snapshot.val().Avatar;
+        user.name = snapshot.val().FullName;
+      });
     setData(user);
   };
   const setSeen = () => {
     database().ref('Chats').child(auth().currentUser.uid).child(id).update({
       Status: 0,
     });
-    database().ref('Messages').child(id).child(auth().currentUser.uid).once('value').then((snapshot) => {
-      snapshot.forEach((child) => {
-        child.ref.update({
-          Status: false,
+    database()
+      .ref('Messages')
+      .child(id)
+      .child(auth().currentUser.uid)
+      .once('value')
+      .then((snapshot) => {
+        snapshot.forEach((child) => {
+          child.ref.update({
+            Status: false,
+          });
         });
       });
-    });
   };
   const getSeen = () => {
     var num = 1;
-    database().ref('Messages').child(id).child(auth().currentUser.uid).once('value')
+    database()
+      .ref('Messages')
+      .child(id)
+      .child(auth().currentUser.uid)
+      .once('value')
       .then((snapshot) => {
         snapshot.forEach((child) => {
           if (child.val().Status) {
@@ -63,10 +76,18 @@ export default function ChatBoxContainer({ navigation, route }) {
     return num++;
   };
   const getListChat = () => {
-    database().ref('Users').child(id).once('value').then(snapshot => {
-      setdataSeller(snapshot.val());
-    });
-    database().ref('Messages').child(auth().currentUser.uid).child(id).orderByChild('CreatedTime', 'desc')
+    database()
+      .ref('Users')
+      .child(id)
+      .once('value')
+      .then((snapshot) => {
+        setdataSeller(snapshot.val());
+      });
+    database()
+      .ref('Messages')
+      .child(auth().currentUser.uid)
+      .child(id)
+      .orderByChild('CreatedTime', 'desc')
       .on('value', (snapshot) => {
         var items = [];
         snapshot.forEach((childSnapshot) => {
@@ -97,25 +118,40 @@ export default function ChatBoxContainer({ navigation, route }) {
       lastmessage = content;
     }
     if (content !== '') {
-      var newPostKey = database().ref().child('Messages').child(auth().currentUser.uid).child(id).push().key;
-      database().ref('Messages').child(auth().currentUser.uid).child(id).child(newPostKey).set({
-        CreatedTime: moment().unix(),
-        Text: content,
-        Type: 'USER',
-        Status: false,
-        imgHeight: imgHeight,
-        imgWidth: imgWidth,
-        messages_type: messType,
-      });
-      database().ref('Messages').child(id).child(auth().currentUser.uid).child(newPostKey).set({
-        CreatedTime: moment().unix(),
-        Text: content,
-        Type: 'CUS',
-        Status: true,
-        imgHeight: imgHeight,
-        imgWidth: imgWidth,
-        messages_type: messType,
-      });
+      var newPostKey = database()
+        .ref()
+        .child('Messages')
+        .child(auth().currentUser.uid)
+        .child(id)
+        .push().key;
+      database()
+        .ref('Messages')
+        .child(auth().currentUser.uid)
+        .child(id)
+        .child(newPostKey)
+        .set({
+          CreatedTime: moment().unix(),
+          Text: content,
+          Type: 'USER',
+          Status: false,
+          imgHeight: imgHeight,
+          imgWidth: imgWidth,
+          messages_type: messType,
+        });
+      database()
+        .ref('Messages')
+        .child(id)
+        .child(auth().currentUser.uid)
+        .child(newPostKey)
+        .set({
+          CreatedTime: moment().unix(),
+          Text: content,
+          Type: 'CUS',
+          Status: true,
+          imgHeight: imgHeight,
+          imgWidth: imgWidth,
+          messages_type: messType,
+        });
       ////
       var numSeen = getSeen();
       database().ref('Chats').child(id).child(auth().currentUser.uid).update({
@@ -130,23 +166,33 @@ export default function ChatBoxContainer({ navigation, route }) {
   };
 
   const chooseMultiImageLibrary = () => {
-    ImageCropPicker.openPicker({ multiple: true, mediaType: 'photo' })
-      .then(images => {
+    ImageCropPicker.openPicker({multiple: true, mediaType: 'photo'}).then(
+      (images) => {
         var list_photo_string = '';
         var list_photo = [];
-        Promise.all(images.map(async (response, index) => {
-          var fileExt = response.path.split('.');
-          var fileName = id + moment().format('_YYYY_MM_DD_HH_mm_ss') + `_${index}.` + fileExt[fileExt.length - 1];
-          list_photo.push(fileName);
-          // Up image to server
-          await storage().ref('chats/' + fileName).putFile(response.path);
-          const url = await storage().ref('chats/' + fileName).getDownloadURL();
-          list_photo_string += url + '$';
-          console.log('1', url);
-        })).then(() => {
+        Promise.all(
+          images.map(async (response, index) => {
+            var fileExt = response.path.split('.');
+            var fileName =
+              id +
+              moment().format('_YYYY_MM_DD_HH_mm_ss') +
+              `_${index}.` +
+              fileExt[fileExt.length - 1];
+            list_photo.push(fileName);
+            // Up image to server
+            await storage()
+              .ref('chats/' + fileName)
+              .putFile(response.path);
+            const url = await storage()
+              .ref('chats/' + fileName)
+              .getDownloadURL();
+            list_photo_string += url + '$';
+          }),
+        ).then(() => {
           sentMessage(MessType.MoreImages, list_photo_string);
         });
-      });
+      },
+    );
   };
   const pairToSubmitImage = async (response) => {
     if (response.didCancel) {
@@ -157,21 +203,31 @@ export default function ChatBoxContainer({ navigation, route }) {
       var fileName = '';
       if (Platform.OS === 'android') {
         var fileExt = response.uri.split('.');
-        var fileName = id + moment().format('_YYYY_MM_DD_HH_mm_ss.') + fileExt[fileExt.length - 1];
+        var fileName =
+          id +
+          moment().format('_YYYY_MM_DD_HH_mm_ss.') +
+          fileExt[fileExt.length - 1];
       } else {
         var fileExt = response.uri.split('.');
-        var fileName = id + moment().format('_YYYY_MM_DD_HH_mm_ss.') + fileExt[fileExt.length - 1];
+        var fileName =
+          id +
+          moment().format('_YYYY_MM_DD_HH_mm_ss.') +
+          fileExt[fileExt.length - 1];
       }
       setimgHeight(response.height);
       setimgWidth(response.width);
       // Up image to server
-      const task = storage().ref('chats/' + fileName).putFile(response.uri);
+      const task = storage()
+        .ref('chats/' + fileName)
+        .putFile(response.uri);
       try {
         await task;
       } catch (e) {
         console.error(e);
       }
-      const url = await storage().ref('chats/' + fileName).getDownloadURL();
+      const url = await storage()
+        .ref('chats/' + fileName)
+        .getDownloadURL();
       sentMessage(MessType.Image, url);
     }
   };

@@ -114,8 +114,6 @@ function LoginContainer({navigation}) {
     });
   };
   const loginHandle = (username, password) => {
-    console.log('go');
-    console.log(data.username, data.password);
     if (data.username.length < 6 || data.password.length < 6) {
       setModalVisibleWarning(true, I18n.t(`${NAMESPACE}.missinfo`));
       return;
@@ -132,7 +130,7 @@ function LoginContainer({navigation}) {
               auth()
                 .signInWithEmailAndPassword(username, password)
                 .then(() => {
-                  NavigationServices.navigate(SCENE_NAMES.MAIN, {
+                  NavigationServices.replace(SCENE_NAMES.MAIN, {
                     name: SCENE_NAMES.HOME,
                   });
                 })

@@ -9,7 +9,6 @@ const functionsCounter = new Set();
 export default function NotifyContainer({ navigation }) {
 
     const [listThongBao, setlistThongBao] = useState([]);
-    const [listOrder, setlistOrder] = useState([]);
     const [loading, isLoading] = useState(false);
     const [ischoose, setIschoose] = useState(1);
     const [refreshing, isRefreshing] = useState(false);
@@ -22,20 +21,6 @@ export default function NotifyContainer({ navigation }) {
         return date;
     };
 
-    const getlistOrder = () => {
-        database().ref('Orders').once('value').then((snapshot) => {
-            var items = [];
-            snapshot.forEach((child) => {
-                if (auth().currentUser) {
-                    if (child.val().CustomerID === auth().currentUser.uid) {
-                        items.push(child.val());
-                    }
-                }
-            });
-            setlistOrder(items);
-            isRefreshing(false);
-        });
-    };
     const getThongBao = () => {
         var uid = '';
         if (auth().currentUser) {
@@ -124,20 +109,16 @@ export default function NotifyContainer({ navigation }) {
         isredPoint2(false);
         isredPoint3(false);
         getThongBao();
-        getlistOrder();
     };
     useEffect(() => {
-        getlistOrder();
         getThongBao();
     }, [ischoose]);
     functionsCounter.add(setStateNotigication);
     functionsCounter.add(setIschoose);
     functionsCounter.add(_onRefresh);
-    functionsCounter.add(getlistOrder);
     return (
         <NotifyView
             listThongBao={listThongBao}
-            listOrder={listOrder}
             loading={loading}
             ischoose={ischoose}
             refreshing={refreshing}
@@ -147,8 +128,6 @@ export default function NotifyContainer({ navigation }) {
             setStateNotigication={setStateNotigication}
             _onRefresh={_onRefresh}
             setIschoose={setIschoose}
-            navigation={navigation}
-            getlistOrder={getlistOrder}
         />
     );
 }

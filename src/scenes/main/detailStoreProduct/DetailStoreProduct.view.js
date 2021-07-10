@@ -1,31 +1,24 @@
-import * as React from 'react';
-import {
-  View,
-  StatusBar,
-  Text,
-  TouchableOpacity,
-  Dimensions,
-  ScrollView,
-  SafeAreaView,
-  Image,
-  Platform,
-  Modal,
-} from 'react-native';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Header from 'components/Header';
-import {TextInput} from 'react-native-gesture-handler';
-import PopupChooseImage from 'components/PopupChooseImage';
-import RNPickerSelect from 'react-native-picker-select';
-import NumberFormat from 'components/NumberFormat';
-import Loading from 'components/LoadingView';
 import Col from 'components/Col';
-import {KeyboardAvoidingView} from 'react-native';
+import Header from 'components/Header';
+import Loading from 'components/LoadingView';
+import NumberFormat from 'components/NumberFormat';
+import PopupChooseImage from 'components/PopupChooseImage';
+import React, { useRef } from 'react';
+import {
+  Dimensions, Image, KeyboardAvoidingView, Modal, Platform, SafeAreaView, ScrollView, StatusBar,
+  Text,
+  TouchableOpacity, View,
+} from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
+import RNPickerSelect from 'react-native-picker-select';
+import RBSheet from 'react-native-raw-bottom-sheet';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import I18n from 'utils/i18n';
-const NAMESPACE = 'common';
-const {height, width} = Dimensions.get('screen');
 import styles from './DetailStoreProduct.styles';
+const NAMESPACE = 'common';
+const { height, width } = Dimensions.get('screen');
 
 // import {NAMESPACE} from './DetailStoreProduct.constants';
 
@@ -59,6 +52,7 @@ function DetailStoreProductView(props) {
     Submit,
     isSuccess,
   } = props;
+  const refRBSheet = useRef();
   if (isloading) {
     return (
       <Col
@@ -83,20 +77,18 @@ function DetailStoreProductView(props) {
           style={styles.screenContainer2}>
           <View style={styles.screenContainer2}>
             <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
-            <Header title={I18n.t(`${NAMESPACE}.addproduct`)} />
+            <Header title={'Chi tiết sản phẩm'} />
             <View style={styles.divider} />
-
             <ScrollView style={styles.bodyContainer}>
               <TouchableOpacity
                 style={styles.userContainer}
-                onPress={() => setPopup(true)}>
+                onPress={() => refRBSheet.current.open()}>
                 <View style={styles.imgView}>
                   {image.map((element) => {
                     return (
-                      <Image source={{uri: element}} style={styles.imgPro} />
+                      <Image source={{ uri: element }} style={styles.imgPro} />
                     );
                   })}
-                  {/* <Image source={{uri: image[0]}} style={styles.imgPro} /> */}
                   <Text style={styles.imgText}>
                     {I18n.t(`${NAMESPACE}.defaultTitle`)}
                   </Text>
@@ -178,18 +170,18 @@ function DetailStoreProductView(props) {
                           }
                         }}
                         items={dataCate}>
-                        <Text style={styles.selectText}>{cateName}</Text>
+                        <Text style={styles.selectText}>{cateName} </Text>
                       </RNPickerSelect>
 
                       <FontAwesome
                         name="angle-right"
                         size={26}
                         color="#1e1e1e"
-                        style={{marginRight: width / 20}}
+                        style={{ marginRight: width / 20 }}
                       />
                     </View>
                   </View>
-                  <View style={styles.cardOption} onPress={() => {}}>
+                  <View style={styles.cardOption} onPress={() => { }}>
                     <View style={styles.itemContainer}>
                       <MaterialCommunityIcons
                         name={'bookmark-outline'}
@@ -245,7 +237,7 @@ function DetailStoreProductView(props) {
                       </Text>
                     </View>
                   </View>
-                  <View style={styles.cardOption} onPress={() => {}}>
+                  <View style={styles.cardOption} onPress={() => { }}>
                     <View style={styles.itemContainer}>
                       <MaterialCommunityIcons
                         name={'information-variant'}
@@ -271,7 +263,7 @@ function DetailStoreProductView(props) {
                       <Text style={styles.unit}> </Text>
                     </View>
                   </View>
-                  <View style={styles.cardOption} onPress={() => {}}>
+                  <View style={styles.cardOption} onPress={() => { }}>
                     <View style={styles.itemContainer}>
                       <MaterialCommunityIcons
                         name={'sale'}
@@ -310,7 +302,7 @@ function DetailStoreProductView(props) {
                 </View>
                 {/* </View> */}
               </View>
-              <View style={{height: height / 7}} />
+              <View style={{ height: height / 7 }} />
             </ScrollView>
             <View style={styles.divider} />
 
@@ -337,17 +329,30 @@ function DetailStoreProductView(props) {
               </Col>
             )}
           </View>
-          <PopupChooseImage
-            onChooseTake={chooseImageTake}
-            onChooseLibrary={chooseImageLibrary}
-            onClosePress={() => setPopup(false)}
-            isVisible={popup}
-          />
+          <RBSheet
+            ref={refRBSheet}
+            closeOnDragDown={true}
+            closeOnPressMask={false}
+            customStyles={{
+              wrapper: {
+                backgroundColor: 'transparent',
+              },
+              draggableIcon: {
+                backgroundColor: '#000',
+              },
+            }}>
+            <PopupChooseImage
+              onChooseTake={chooseImageTake}
+              onChooseLibrary={chooseImageLibrary}
+              onClosePress={() => setPopup(false)}
+              isVisible={popup}
+            />
+          </RBSheet>
           <Modal
             animationType="fade"
             transparent={true}
             visible={isSuccess}
-            onRequestClose={() => {}}>
+            onRequestClose={() => { }}>
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
                 <FontAwesome5 name="check-double" size={40} color="green" />

@@ -1,5 +1,5 @@
-import * as React from 'react';
-
+/* eslint-disable react/self-closing-comp */
+import React, {useRef} from 'react';
 import {
   ScrollView,
   Image,
@@ -23,9 +23,11 @@ import styles from './Sellerproduct.styles';
 import NumberFormat from 'components/NumberFormat';
 import StarRating from 'components/StarRating';
 import CommentItem from 'components/CommentItem';
+import RBSheet from 'react-native-raw-bottom-sheet';
 import SmallProductCard from 'components/SmallProductCard';
 import SellerProduct from 'components/SellerProduct';
 import NavigationServices from 'utils/navigationServices';
+import CommentContainer from 'scenes/main/comment/Comment.container.js';
 import SCENE_NAMES from 'constants/sceneName';
 import I18n from 'utils/i18n';
 const NAMESPACE = 'common';
@@ -41,6 +43,7 @@ function SellerproductView(props) {
     renderNofiCart,
     listproductlienquan,
     listmoreimage,
+    count,
     bough,
     name,
     rating,
@@ -61,6 +64,7 @@ function SellerproductView(props) {
     sellerinfo,
     sellerProd,
   } = props;
+  const refRBSheet = useRef();
   const scrollY = new Animated.Value(0);
   const HEADER_MAX_HEIGHT = height / 10;
   const HEADER_MIN_HEIGHT = height / 30;
@@ -122,7 +126,6 @@ function SellerproductView(props) {
             height={height / 2}>
             {listmoreimage.map((item) => {
               if (item !== '') {
-                console.log('item im view', item);
                 return (
                   <View backgroundColor="white" style={styles.profileContainer}>
                     <Image source={{uri: item}} style={styles.profileImage} />
@@ -174,9 +177,7 @@ function SellerproductView(props) {
                       // eslint-disable-next-line react-native/no-inline-styles
                       style={{marginLeft: 10}}
                       onPress={() => {
-                        NavigationServices.navigate('RatingView', {
-                          id: idsanpham,
-                        });
+                        refRBSheet.current.open();
                       }}>
                       <Text style={styles.textGreen}>
                         ({I18n.t(`${NAMESPACE}.see`)} {bough}{' '}
@@ -235,14 +236,7 @@ function SellerproductView(props) {
                         item: item,
                       });
                     }}>
-                    <SmallProductCard
-                      name={item.title}
-                      image={item.image}
-                      price={item.price}
-                      rating={item.rating}
-                      bough={item.bough}
-                      PromotionPrice={item.PromotionPrice}
-                    />
+                    <SmallProductCard item={item} />
                   </TouchableOpacity>
                 )}
                 keyExtractor={(item) => item.proid}
@@ -276,7 +270,7 @@ function SellerproductView(props) {
                   />
                 </View>
                 <Text muted size={12} style={styles.sellertext}>
-                  {sellerinfo.Name}
+                  {sellerinfo.FullName}
                 </Text>
               </View>
 
@@ -289,16 +283,7 @@ function SellerproductView(props) {
             </TouchableOpacity>
             <View style={styles.listSell}>
               {sellerProd.map((element) => {
-                return (
-                  <SellerProduct
-                    name={element.title}
-                    image={element.image}
-                    price={element.price}
-                    rating={element.rating}
-                    bough={element.bough}
-                    PromotionPrice={element.PromotionPrice}
-                  />
-                );
+                return <SellerProduct item={element} />;
               })}
             </View>
           </View>
@@ -322,9 +307,7 @@ function SellerproductView(props) {
                 </Text>
                 <TouchableOpacity
                   onPress={() => {
-                    NavigationServices.navigate('RatingView', {
-                      id: idsanpham,
-                    });
+                    refRBSheet.current.open();
                   }}>
                   <Text style={styles.viewAll}>
                     {I18n.t(`${NAMESPACE}.seeAll`)}
@@ -335,7 +318,7 @@ function SellerproductView(props) {
               <View style={styles.rowView}>
                 <View style={styles.ratingView}>
                   {/* <Text style={styles.ratingText}>{rating.toFixed(1)}</Text> */}
-                  <StarRating rating={rating} size={10} />
+                  <StarRating rating={rating} size={17} />
                   <Text style={styles.commentText}>
                     {bough} {I18n.t(`${NAMESPACE}.review`)}
                   </Text>
@@ -425,10 +408,36 @@ function SellerproductView(props) {
         </View>
         <View style={styles.devide} />
         <View style={styles.buyView}>
-          <TouchableOpacity style={styles.btnmua} onPress={() => addCart()}>
-            <Text style={styles.addText}>{I18n.t(`${NAMESPACE}.addCart`)}</Text>
-          </TouchableOpacity>
+          {count > 0 ? (
+            <TouchableOpacity style={styles.btnmua} onPress={() => addCart()}>
+              <Text style={styles.addText}>
+                {I18n.t(`${NAMESPACE}.addCart`)}
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <View style={styles.btnsoldout}>
+              <Text style={styles.addText}>
+                {I18n.t(`${NAMESPACE}.soldout`)}
+              </Text>
+            </View>
+          )}
         </View>
+        <RBSheet
+          ref={refRBSheet}
+          height={height * 0.8}
+          //animationType="fade"
+          closeOnDragDown={true}
+          openDuration={250}
+          customStyles={{
+            container: {
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
+            },
+          }}>
+          <CommentContainer idsanpham={idsanpham} user={true} />
+        </RBSheet>
       </View>
     </SafeAreaView>
   );

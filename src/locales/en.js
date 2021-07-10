@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import {Platform} from 'react-native';
 
 export default {
   common: {
@@ -127,7 +127,7 @@ export default {
     cartnull: 'No product in your shopping cart',
     continueshopping: 'Continue shopping',
     null: 'No products',
-    search: 'What are you looking for today?',
+    search: 'What are you looking for today ?',
     find: 'Search',
     choosedistrict: 'Select district',
     choosecity: 'Select province/city',
@@ -137,7 +137,9 @@ export default {
     city: 'Province/City',
     district: 'District',
     prov: 'Wards',
-    defaulAdd: 'Default address',
+    defaulAdd: 'Set as delivery address',
+    mainAdd: 'Current delivery address',
+
     saveAdd: 'Save address',
     date: 'Date',
     orderid: 'Order ID',
@@ -198,10 +200,32 @@ export default {
     view: 'View',
     noorder: 'No orders yet',
     delpro: 'Are you sure you want to delete the product?',
-    chatHeader: 'Chat content is confidential guaranteed by TiAn \nIf chat content violates your personal behavior, you can report it to be handled.',
+    chatHeader:
+      'Chat content is confidential guaranteed by TiAn \nIf chat content violates your personal behavior, you can report it to be handled.',
     moreImage: 'Choose multiple images...',
     oneImage: 'Choose image...',
     takephoto: 'Take a photo...',
+    registerStore: 'Register to open store',
+    submit: 'Submit',
+    next: 'next',
+    legacy1:
+      "When customers do business on TiAN's app, TiAN will charge a 5% fee on each order.",
+    legacy2:
+      'The products on sale must be vegetarian products and have a clear origin, if found to have non-compliance with regulations, TiAn has the right to unilaterally cancel your business status.',
+    argree: 'I agree and terms above',
+    soldout: 'Sold out',
+    hot: "Today's hottest",
+    new: 'Latest product',
+    hotdiscount: 'Shock discount',
+    cheap: 'The cheapest',
+    loginRequire: 'You need to login to perform this function ',
+    TheReasonForTheReport: 'The Reason For The Report',
+    PleaseEnter: 'Please enter',
+    rule1: 'Poor quality product',
+    rule2: 'Deceptive behavior',
+    rule3: 'Vulgar language',
+    rule4: 'Negative attitude',
+    blockstore: 'Your store has been closed',
   },
   message: {
     ERROR_OCCURRED: 'An error occurred, please try again.',

@@ -1,27 +1,28 @@
 /* eslint-disable react-native/no-inline-styles */
+import Header from 'components/Header';
+import ReactNativeNumberFormat from 'components/NumberFormat/index';
+import SCENE_NAMES from 'constants/sceneName';
 import * as React from 'react';
 import {
+  ActivityIndicator,
+  Alert,
+  Dimensions,
+  FlatList,
   Image,
+  Modal,
+  SafeAreaView,
   ScrollView,
   StatusBar,
-  View,
-  Alert,
-  FlatList,
-  TouchableOpacity,
   Text,
-  Modal,
-  Dimensions,
-  ActivityIndicator,
-  SafeAreaView,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import styles from './cart.styles';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {normalize} from 'react-native-elements';
 import Entypo from 'react-native-vector-icons/Entypo';
-import ReactNativeNumberFormat from 'components/NumberFormat/index';
-import NavigationServices from 'utils/navigationServices';
-import SCENE_NAMES from 'constants/sceneName';
-import Header from 'components/Header';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import I18n from 'utils/i18n';
+import NavigationServices from 'utils/navigationServices';
+import styles from './cart.styles';
 const NAMESPACE = 'common';
 //import {NAMESPACE} from '../detailAddress/DetailAddress.constants';
 const {width} = Dimensions.get('screen');
@@ -62,15 +63,6 @@ export default function CartView(props) {
             <FontAwesome name="angle-right" size={30} />
           </View>
         </View>
-        <View style={styles.flexRow}>
-          <FontAwesome
-            name="gift"
-            color="green"
-            size={24}
-            style={styles.itemGift}
-          />
-          {/* <Text style={styles.txtReceice}>Nhận một phần quà may mắn</Text> */}
-        </View>
         <View style={styles.itemInfo}>
           <Image style={styles.itemImage} source={{uri: item.Picture}} />
           <View style={styles.itemDec}>
@@ -98,13 +90,7 @@ export default function CartView(props) {
               </TouchableOpacity>
             </View>
           </View>
-          <Modal
-            animationType="fade"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              Alert.alert('Modal has been closed.');
-            }}>
+          <Modal animationType="fade" transparent={true} visible={modalVisible}>
             <View style={styles.centeredView}>
               <View style={{...styles.modalView, padding: width / 15}}>
                 <Text style={styles.modalText}>
@@ -139,7 +125,7 @@ export default function CartView(props) {
               setModalVisible(true);
               set_idCanXoa(item.Id);
             }}>
-            <FontAwesome name="remove" size={30} color="red" />
+            <FontAwesome name="remove" size={30} color="#2B4F8C" />
           </TouchableOpacity>
         </View>
       </View>
@@ -162,7 +148,7 @@ export default function CartView(props) {
           translucent={false}
         />
         <Header title={I18n.t(`${NAMESPACE}.cart`)} />
-        <ScrollView>
+        <ScrollView style={{paddingHorizontal: normalize(10)}}>
           {hasAddress ? (
             <View style={styles.listItem}>
               <View style={{flex: 1, margin: 10}}>
@@ -175,13 +161,12 @@ export default function CartView(props) {
                     {I18n.t(`${NAMESPACE}.addressdelivery`)}
                   </Text>
                   <TouchableOpacity
+                    style={styles.btnChange}
                     onPress={() => {
-                      NavigationServices.navigate(SCENE_NAMES.DETAIL_ADDRESS, {
-                        content: Address.Id,
-                      });
+                      NavigationServices.navigate(SCENE_NAMES.AddRessScreen);
                     }}>
                     <Text
-                      style={{color: 'green', marginRight: 5, fontSize: 17}}>
+                      style={{color: 'white', marginRight: 5, fontSize: 17}}>
                       {I18n.t(`${NAMESPACE}.change`)}
                     </Text>
                   </TouchableOpacity>
@@ -207,7 +192,7 @@ export default function CartView(props) {
             <View style={styles.listItem}>
               <TouchableOpacity
                 onPress={() => {
-                  NavigationServices.navigate(SCENE_NAMES.DETAIL_ADDRESS, {
+                  NavigationServices.navigate(SCENE_NAMES.AddRessScreen, {
                     id: '',
                   });
                 }}
