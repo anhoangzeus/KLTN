@@ -10,7 +10,7 @@ const SwiperBraner = (listcontents) => {
   return (
     <Swiper
       autoplay={true}
-      autoplayTimeout={2}
+      autoplayTimeout={1000}
       loop={true}
       showsPagination={true}
       showsButtons={true}
@@ -22,7 +22,7 @@ const SwiperBraner = (listcontents) => {
           style={styles.sectionContainer}
           key={item.id}
           onPress={() =>
-            NavigationServices.navigate(SCENE_NAMES.Route_Contents, {
+            NavigationServices.navigate(SCENE_NAMES.Route_ContentViews, {
               id: item.Url,
             })
           }>

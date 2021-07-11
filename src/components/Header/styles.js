@@ -1,12 +1,13 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import SIZE from 'constants/size';
 export default StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
-    paddingTop: 15,
+    paddingTop: 5,
     backgroundColor: '#2B4F8C',
     justifyContent: 'space-between',
-    paddingBottom: 12,
+    paddingBottom: 5,
+    height: SIZE.DEVICE_HEIGHT / 15,
   },
   cartContainer: {
     paddingHorizontal: 20,

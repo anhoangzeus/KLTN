@@ -1,26 +1,26 @@
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
-import {Picker} from '@react-native-picker/picker';
-import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
+import { Picker } from '@react-native-picker/picker';
+import { getIsFetchingByActionsTypeSelector } from 'appRedux/selectors/loadingSelector';
 import SCENE_NAMES from 'constants/sceneName';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
-import React, {useState} from 'react';
-import {Platform, View} from 'react-native';
-import NavigationServices, {getParams} from 'utils/navigationServices';
+import React, { useState } from 'react';
+import { Platform } from 'react-native';
+import I18n from 'utils/i18n';
+import NavigationServices, { getParams } from 'utils/navigationServices';
 import vn from '../../../../vn.json';
 import DetailAddressView from './DetailAddress.view';
-import I18n from 'utils/i18n';
 const NAMESPACE = 'common';
 const functionsCounter = new Set();
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 
-export default function DetailAddressContainer({navigation, route}) {
+export default function DetailAddressContainer({ navigation, route }) {
   const isLoading = useSelectorShallow(loadingSelector);
-  const {content} = getParams(route);
+  const { content } = getParams(route);
   const [data, setData] = React.useState({
     ListID: '',
     ShipName: '',
@@ -81,7 +81,7 @@ export default function DetailAddressContainer({navigation, route}) {
     }
   };
   const textInputPhone = (val) => {
-    if (val.trim().length === 10) {
+    if (val.trim().length === 10 || val.trim().length === 11 || val.trim().length === 12) {
       setData({
         ...data,
         ShipPhone: val,
@@ -158,7 +158,7 @@ export default function DetailAddressContainer({navigation, route}) {
             .then((snapshot) => {
               snapshot.forEach(function (child) {
                 if (child !== data.ListID) {
-                  child.ref.update({Main: false});
+                  child.ref.update({ Main: false });
                 }
               });
             });
@@ -224,7 +224,7 @@ export default function DetailAddressContainer({navigation, route}) {
             .then((snapshot) => {
               snapshot.forEach(function (child) {
                 if (child !== data.ListID) {
-                  child.ref.update({Main: false});
+                  child.ref.update({ Main: false });
                 }
               });
             });
@@ -273,7 +273,7 @@ export default function DetailAddressContainer({navigation, route}) {
   };
   //Lấy dữ liệu tỉnh/tp từ all.json
   const provinceData = () => {
-    var items = [{id: 0, name: I18n.t(`${NAMESPACE}.choosecity`)}, ...vn];
+    var items = [{ id: 0, name: I18n.t(`${NAMESPACE}.choosecity`) }, ...vn];
     var itemIOS = [];
     if (Platform.OS === 'ios') {
       items.map((item, i) => {
@@ -285,16 +285,12 @@ export default function DetailAddressContainer({navigation, route}) {
       return itemIOS;
     }
     return items.map((item, i) => {
-      <View
-        // eslint-disable-next-line react-native/no-inline-styles
-        style={{backgroundColor: '#fff', justifyContent: 'center', flex: 1}}
-      />;
       return <Picker.Item label={item.name} key={i} value={item.name} />;
     });
   };
   //Lấy dữ liệu quận từ all.json
   const districtData = (pname) => {
-    var items = [{id: 0, name: I18n.t(`${NAMESPACE}.choosedistrict`)}];
+    var items = [{ id: 0, name: I18n.t(`${NAMESPACE}.choosedistrict`) }];
     if (pname !== I18n.t(`${NAMESPACE}.choosecity`)) {
       for (let i = 0; i < vn.length; i++) {
         if (vn[i].name === pname) {
@@ -319,7 +315,7 @@ export default function DetailAddressContainer({navigation, route}) {
   };
   //Lấy dữ liệu phường từ all.json
   const wardData = (pname, dname) => {
-    var items = [{id: 0, name: I18n.t(`${NAMESPACE}.chooseprov`)}];
+    var items = [{ id: 0, name: I18n.t(`${NAMESPACE}.chooseprov`) }];
     if (
       pname !== I18n.t(`${NAMESPACE}.choosecity`) &&
       dname !== I18n.t(`${NAMESPACE}.choosedistrict`)

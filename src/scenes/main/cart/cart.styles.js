@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 const { width, height } = Dimensions.get('screen');
 export default StyleSheet.create({
@@ -30,7 +30,7 @@ export default StyleSheet.create({
   },
   itemcard: {
     backgroundColor: '#fff',
-    width: width,
+    width: '100%',
     minHeight: height * 0.25,
     marginTop: 15,
     borderBottomWidth: 1,
@@ -42,8 +42,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
     flexDirection: 'row',
     borderRadius: 50,
-    width: width,
-    height: height / 7,
+    width: '100%',
     borderBottomWidth: 5,
     borderTopWidth: 5,
     marginTop: 5,
@@ -97,7 +96,7 @@ export default StyleSheet.create({
   },
   address: {
     marginTop: 5,
-    fontSize: height / 50,
+    fontSize: height / 55,
   },
   addresstitle: {
     fontWeight: 'bold',

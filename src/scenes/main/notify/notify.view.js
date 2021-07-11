@@ -1,5 +1,5 @@
 import Header from 'components/Header';
-import { COLOR_BLACK, COLOR_BLUEAIR } from 'constants/colors';
+import {COLOR_BLACK, COLOR_BLUEAIR} from 'constants/colors';
 import SCENE_NAMES from 'constants/sceneName';
 import * as React from 'react';
 import {
@@ -46,14 +46,16 @@ const renderTrangThai = (Status) => {
   }
 };
 export default function NotifyView(props) {
-  const NotificationItem = ({ item }) => {
-    const { setStateNotigication } = props;
+  const NotificationItem = ({item}) => {
+    const {setStateNotigication} = props;
     return (
       <TouchableOpacity
         style={styles.itemContainer}
         onPress={() => {
           setStateNotigication(item.Id);
-          NavigationServices.navigate(SCENE_NAMES.Route_Contents, { id: item.Id });
+          NavigationServices.navigate(SCENE_NAMES.Route_Contents, {
+            id: item.Id,
+          });
         }}>
         <View style={styles.itemTopContainer}>
           <View
@@ -101,7 +103,7 @@ export default function NotifyView(props) {
     refreshing,
   } = props;
   return (
-    <SafeAreaView style={styles.screenContainer}>
+    <SafeAreaView style={styles.screenContainersafe}>
       <View style={styles.screenContainer}>
         {/* <StatusBar barStyle="light-content" /> */}
         <Header title={I18n.t(`${NAMESPACE}.notification`)} isCart={true} />
@@ -180,7 +182,7 @@ export default function NotifyView(props) {
                   />
                 }
                 data={listThongBao}
-                renderItem={({ item }) => <NotificationItem item={item} />}
+                renderItem={({item}) => <NotificationItem item={item} />}
                 keyExtractor={(item, index) => index}
               />
             </View>

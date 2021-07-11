@@ -14,7 +14,7 @@ const Productitem = ({item}) => {
       </Text>
       <View style={{flexDirection: 'row'}}>
         <Text style={styles.itemPrice}>
-          <ReactNativeNumberFormat value={item?.Price} />đ
+          <ReactNativeNumberFormat value={item?.PromotionPrice} />
         </Text>
         {item?.Price === item?.PromotionPrice ||
         !item?.PromotionPrice ? null : (
@@ -22,7 +22,7 @@ const Productitem = ({item}) => {
             <Text style={styles.priceColor}>
               {' '}
               {(
-                ((item?.PromotionPrice - item?.Price) / item?.PromotionPrice) *
+                ((item?.Price - item?.PromotionPrice) / item?.Price) *
                 100
               ).toFixed(0)}
               %

@@ -1,5 +1,7 @@
 const SCENE_NAMES = {
   // Scene name
+  REPORT: 'REPORT_SCREEN',
+  STATISTIC: 'STATISTIC_SCREEN',
   COMMENT: 'COMMENT_SCREEN',
   REGISTER_STORE: 'REGISTER_STORE_SCREEN',
   STORE_PROFILE: 'STORE_PROFILE_SCREEN',
@@ -43,6 +45,7 @@ const SCENE_NAMES = {
   ChatContainer: 'ChatContainer',
   ChatBoxContainer: 'ChatBoxContainer',
   Route_ContentViews: 'Route_ContentViews',
+  ProductNewContainer: 'ProductNewContainer',
 };
 
 export default SCENE_NAMES;

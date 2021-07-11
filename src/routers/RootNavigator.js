@@ -1,5 +1,5 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 //Route Import
 import Route_Contents from 'components/WebView/index';
 import SCENE_NAMES from 'constants/sceneName';
@@ -21,6 +21,8 @@ import ProfileScreen from 'scenes/main/profile/Profile.container';
 import ProfileMainScreen from 'scenes/main/profileMain/Profile.container';
 import SearchContainer from 'scenes/main/search/Search.container';
 // Screen Import
+import ReportContainer from 'scenes/main/report/Report.container';
+import StatisticContainer from 'scenes/main/statistic/Statistic.container';
 import CommentContainer from 'scenes/main/comment/Comment.container';
 import RegisterStoreContainer from 'scenes/main/registerStore/RegisterStore.container';
 import StoreProfileContainer from 'scenes/main/storeProfile/StoreProfile.container';
@@ -41,10 +43,11 @@ import TopStackLogin from './TopTabNavigator/LoginTab';
 import TopStackOrder from './TopTabNavigator/OrderTab';
 import TopRatingScreen from './TopTabNavigator/RatingTab';
 import Route_ContentViews from 'components/ContentView';
+//import ProductNewContainer from 'scenes/userOption/ProductView/ProductNewScreen';
 
 const Stack = createStackNavigator();
 
-function RootNavigator({ onNavigationStateChange }) {
+function RootNavigator({onNavigationStateChange}) {
   return (
     <NavigationContainer
       onStateChange={onNavigationStateChange}
@@ -63,59 +66,69 @@ function RootNavigator({ onNavigationStateChange }) {
           <Stack.Screen name={SCENE_NAMES.DUMMY} component={DummyScreen} />
         )}
         {/* Plop screen */}
+        <Stack.Screen
+          options={{headerShown: false}}
+          name={SCENE_NAMES.REPORT}
+          component={ReportContainer}
+        />
+        <Stack.Screen
+          name={SCENE_NAMES.STATISTIC}
+          options={{headerShown: false}}
+          component={StatisticContainer}
+        />
         <Stack.Screen name={SCENE_NAMES.COMMENT} component={CommentContainer} />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.REGISTER_STORE}
           component={RegisterStoreContainer}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.STORE_PROFILE}
           component={StoreProfileContainer}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.DETAIL_STORE_PRODUCT}
           component={DetailStoreProductContainer}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.STORE_PRODUCT}
           component={StoreProductContainer}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.SELLERPRODUCT}
           component={SellerproductContainer}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.SEARCH}
           component={SearchContainer}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.REGISER_OTP}
           component={RegiserOtpContainer}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.ZALOPAY}
           component={ZalopayContainer}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.PAYMENT_METHOD}
           component={PaymentMethodContainer}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.DETAIL_ADDRESS}
           component={DetailAddressContainer}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.ChatContainer}
           component={ChatContainer}
         />
@@ -125,52 +138,52 @@ function RootNavigator({ onNavigationStateChange }) {
         />
         <Stack.Screen name={SCENE_NAMES.SIGN_IN} component={SignInContainer} />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.MAIN}
           component={MainTabNavigator}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.ChatBoxContainer}
           component={ChatBoxContainer}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.AddProductContainer}
           component={AddProductContainer}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.TopStackLogin}
           component={TopStackLogin}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.TopRatingScreen}
           component={TopRatingScreen}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.TopStackOrder}
           component={TopStackOrder}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.RatingScreen}
           component={RatingScreen}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.DetailOrderContainer}
           component={DetailOrderContainer}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.GET_START}
           component={GetStartContainer}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.CART_SCREEN}
           component={CartScreen}
         />
@@ -178,12 +191,12 @@ function RootNavigator({ onNavigationStateChange }) {
         <Stack.Screen name={SCENE_NAMES.Register} component={RegisterScreen} />
         <Stack.Screen name={SCENE_NAMES.PROFILE} component={ProfileScreen} />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.MyStoreOptionContainer}
           component={MyStoreOptionContainer}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.AddRessScreen}
           component={AddRessScreen}
         />
@@ -192,25 +205,30 @@ function RootNavigator({ onNavigationStateChange }) {
           component={ProfileMainScreen}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.InfoUser}
           component={InfoUser}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.Route_Contents}
           component={Route_Contents}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.Route_ContentViews}
           component={Route_ContentViews}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
           name={SCENE_NAMES.PRODUCT}
           component={ProductScreen}
         />
+        {/* <Stack.Screen
+          options={{ headerShown: false }}
+          name={SCENE_NAMES.ProductNewContainer}
+          component={ProductNewContainer}
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

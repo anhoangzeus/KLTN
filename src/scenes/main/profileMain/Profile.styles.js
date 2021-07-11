@@ -16,11 +16,20 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   avatarContainer: {
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#2B4F8C',
+  },
+  imgAvatar: {
     width: 50,
     height: 50,
     borderRadius: 25,
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'white',
   },
   textContainer: {
     flex: 1,

@@ -52,7 +52,7 @@ export default function RegisterStoreContainer({navigation}) {
       modalVisibleWarning: false,
     });
   };
-  const newAdd = (ref) => {
+  const newAdd = () => {
     console.log('data: ', data);
     if (
       data.City !== '' &&
@@ -65,15 +65,14 @@ export default function RegisterStoreContainer({navigation}) {
       arr.push(data);
       console.log('array push" ', arr);
       setAddress(arr);
-      ref.close();
-      setVisible(!visible);
+      setVisible(false);
     }
   };
-  const setModalVisibleWarning = (visible, text) => {
+  const setModalVisibleWarning = (visiblea, text) => {
     setData(
       {
         ...data,
-        modalVisibleWarning: visible,
+        modalVisibleWarning: visiblea,
         textAlert: text,
       },
       setTimeout(handleClose, 2000),
@@ -273,7 +272,7 @@ export default function RegisterStoreContainer({navigation}) {
         ModifyAt: moment().unix(),
       });
 
-    await address.forEach((element) => {
+    address.forEach((element) => {
       const key = database()
         .ref('Brief/' + auth().currentUser.uid)
         .child('Address')

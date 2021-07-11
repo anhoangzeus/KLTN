@@ -80,7 +80,7 @@ class App extends PureComponent {
       case NOTIFICATION_TYPE.PRODUCT:
         NavigationServices.navigate(SCENE_NAMES.MAIN);
         NavigationServices.navigate(SCENE_NAMES.SELLERPRODUCT, {
-          item: notification?.data?.item,
+          item: JSON.parse(notification?.data?.item),
         });
         break;
       default:

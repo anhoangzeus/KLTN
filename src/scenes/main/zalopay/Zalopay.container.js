@@ -61,6 +61,7 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
 export default function ZalopayContainer({navigation, route}) {
   const isLoading = useSelectorShallow(loadingSelector);
   const routes = getParams(route);
+  console.log(routes);
   useLayoutEffect(() => {
     navigation.setOptions({
       title: getString(`${NAMESPACE}.title`),

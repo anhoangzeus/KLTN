@@ -25,7 +25,9 @@ export default function StoreProfileContainer({navigation, route}) {
   const [token, setToken] = useState('');
   const [isFollow, setIsFollow] = useState(false);
   const [des, setDes] = useState('');
+  const [storeInfo, setStoreInfo] = useState({});
   const [address, setAddress] = useState([]);
+  const [visible, setVisible] = useState(false);
   const getListChat = async () => {
     database()
       .ref('Chats')
@@ -98,6 +100,39 @@ export default function StoreProfileContainer({navigation, route}) {
       });
     setLoading(false);
   };
+
+  const getFollowStatus = async () => {
+    await database()
+      .ref('Users/' + auth().currentUser.uid + '/Follow/')
+      .child(info.UserID)
+      .once('value')
+      .then((snapshot) => {
+        if (snapshot.val().Status === true) {
+          setIsFollow(true);
+        }
+      });
+    await database()
+      .ref('Brief/' + info.UserID)
+      .once('value')
+      .then((snapshot) => {
+        setDes(snapshot.val().Description);
+        setStoreInfo({
+          StoreID: snapshot.val().StoreID,
+          StoreName: snapshot.val().StoreName,
+        });
+        let listAddress = [];
+        snapshot.child('Address').forEach((snapshot2) => {
+          let item = {
+            City: snapshot2.val().City,
+            Huyen: snapshot2.val().Huyen,
+            NumberAddress: snapshot2.val().NumberAddress,
+            Xa: snapshot2.val().Xa,
+          };
+          listAddress.push(item);
+        });
+        setAddress(listAddress);
+      });
+  };
   const onFollow = async () => {
     if (auth().currentUser.uid) {
       await database()
@@ -115,9 +150,10 @@ export default function StoreProfileContainer({navigation, route}) {
           Status: true,
         });
     }
-    setIsFollow(true);
+    getFollowStatus();
   };
   const onUnFollow = async () => {
+    console.log('Unfollow');
     if (auth().currentUser.uid) {
       await database()
         .ref('Brief/' + info.UserID + '/Follow/' + auth().currentUser.uid)
@@ -132,34 +168,6 @@ export default function StoreProfileContainer({navigation, route}) {
         });
     }
     setIsFollow(false);
-  };
-  const getFollowStatus = async () => {
-    await database()
-      .ref('Users/' + auth().currentUser.uid + '/Follow/')
-      .child(info.UserID)
-      .once('value')
-      .then((snapshot) => {
-        if (snapshot.val().Status === true) {
-          setIsFollow(true);
-        }
-      });
-    await database()
-      .ref('Brief/' + info.UserID)
-      .once('value')
-      .then((snapshot) => {
-        setDes(snapshot.val().Description);
-        let listAddress = [];
-        snapshot.child('Address').forEach((snapshot2) => {
-          let item = {
-            City: snapshot2.val().City,
-            Huyen: snapshot2.val().Huyen,
-            NumberAddress: snapshot2.val().NumberAddress,
-            Xa: snapshot2.val().Xa,
-          };
-          listAddress.push(item);
-        });
-        setAddress(listAddress);
-      });
   };
   const getToken = async () => {
     try {
@@ -192,6 +200,9 @@ export default function StoreProfileContainer({navigation, route}) {
       isFollow={isFollow}
       des={des}
       address={address}
+      storeInfo={storeInfo}
+      visible={visible}
+      setVisible={setVisible}
       setChoose={setChoose}
       getlistProduct={getlistProduct}
       getListChat={getListChat}

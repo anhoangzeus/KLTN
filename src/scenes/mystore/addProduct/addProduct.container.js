@@ -29,7 +29,7 @@ export default function AddProductContainer({navigation, route}) {
     sale: '',
   });
   const [image, setImage] = useState([
-    'https://thailamlandscape.vn/wp-content/uploads/2017/10/no-image.png',
+    'https://pics.freeicons.io/uploads/icons/png/8050029891556279743-512.png',
   ]);
   const [fileName, setFileName] = useState('');
   const [name, setName] = useState('');
@@ -131,7 +131,7 @@ export default function AddProductContainer({navigation, route}) {
   const sendNotification = async (noti) => {
     let arr = [];
     let storeName = '';
-    database()
+    await database()
       .ref('Brief/' + auth().currentUser.uid)
       .once('value')
       .then((snapshot) => {
@@ -234,7 +234,7 @@ export default function AddProductContainer({navigation, route}) {
         CreatedDate: date,
         Description: des,
         Image: imgTemp[0],
-        MoreImage: moreimage,
+        Images: moreimage,
         MetaDescription: keyword,
         Name: name,
         Price: formprice,
@@ -251,7 +251,7 @@ export default function AddProductContainer({navigation, route}) {
     setIsUpload(false);
     setTimeout(() => {
       setIsSuccess(false);
-      NavigationServices.navigate(SCENE_NAMES.STORE_PRODUCT, {
+      NavigationServices.replace(SCENE_NAMES.STORE_PRODUCT, {
         FullName: FullName,
         Avatar: Avatar,
       });

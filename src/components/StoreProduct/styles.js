@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import SIZE from 'constants/size';
-import {normalize} from 'react-native-elements';
+import { normalize } from 'react-native-elements';
 
 export default StyleSheet.create({
   itemContainer: {
@@ -72,7 +72,6 @@ export default StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     justifyContent: 'center',
-    width: SIZE.DEVICE_WIDTH * 0.9,
   },
   modalText: {
     marginBottom: 15,
@@ -101,7 +100,6 @@ export default StyleSheet.create({
   centeredView: {
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 1,
   },
   textStyle: {
     color: 'white',
