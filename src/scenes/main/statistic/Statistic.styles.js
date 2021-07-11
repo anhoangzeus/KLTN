@@ -5,8 +5,8 @@ import {normalize} from 'react-native-elements';
 export default StyleSheet.create({
   vHeader: {
     flexDirection: 'row',
-    paddingTop: normalize(30),
-    paddingLeft: normalize(10),
+    //paddingTop: normalize(30),
+    paddingLeft: normalize(5),
     alignItems: 'center',
     backgroundColor: 'white',
     paddingBottom: normalize(3),
@@ -15,6 +15,9 @@ export default StyleSheet.create({
     width: 40,
     height: 40,
     justifyContent: 'center',
+  },
+  scroll: {
+    backgroundColor: '#fff',
   },
   txtTitle: {
     color: 'black',
@@ -36,5 +39,13 @@ export default StyleSheet.create({
   },
   line: {
     backgroundColor: '#E8E8E8',
+  },
+  chartMain: {
+    borderRadius: 16,
+    marginTop: 16,
+  },
+  title: {
+    fontSize: normalize(14),
+    color: '#949494',
   },
 });

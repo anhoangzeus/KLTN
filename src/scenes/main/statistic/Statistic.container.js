@@ -19,6 +19,7 @@ export default function StatisticContainer({navigation}) {
   const [thismonth, setThismonth] = useState(1);
   const [timeline, setTimeline] = useState([]);
   const [revenue, setRevenue] = useState([]);
+  const [order, setOrder] = useState([]);
   const [loading, setLoading] = useState(true);
   const isLoading = useSelectorShallow(loadingSelector);
   useLayoutEffect(() => {
@@ -76,22 +77,27 @@ export default function StatisticContainer({navigation}) {
     setLoading(true);
     let m = [];
     let rv = [];
+    let od = [];
     for (let i = 1; i <= thismonth; i++) {
       m.push(i);
       let count = 0;
+      let temp = 0;
       list.forEach((element) => {
         if (selectMonth(element.CreatedDate) == i) {
           console.log('element mont: ', i, element);
           element.Detail.forEach((item) => {
-            count += parseInt(item.Price, 10) * item.Quantity;
+            count += (parseInt(item.Price, 10) * item.Quantity) / 1000;
+            temp += 1;
           });
         }
       });
       rv.push(count);
+      od.push(temp);
     }
     setTimeline(m);
     setRevenue(rv);
-    console.log('mont line: ', m);
+    setOrder(od);
+    console.log('mont line: ', od);
     console.log('reve line: ', rv);
     setLoading(false);
   };
@@ -111,6 +117,7 @@ export default function StatisticContainer({navigation}) {
       isLoading={isLoading}
       timeline={timeline}
       revenue={revenue}
+      order={order}
       loading={loading}
     />
   );
