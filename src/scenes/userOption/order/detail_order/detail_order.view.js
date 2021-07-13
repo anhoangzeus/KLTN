@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import auth from '@react-native-firebase/auth';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import NavigationServices from 'utils/navigationServices';
 import styles from './detail_order.styles';
@@ -41,8 +42,8 @@ const RenderList = ({
       <Text
         style={{
           color: '#1e88e5',
-          fontWeight: 'bold',
-          fontSize: 20,
+          fontWeight: '600',
+          fontSize: 17,
           marginTop: 10,
         }}>
         <ReactNativeNumberFormat value={Price} />
@@ -57,6 +58,7 @@ const DetailOrderView = (props) => {
     huy_Order,
     setModalVisible,
     OrderID,
+    CusID,
     CreatedDate,
     Status,
     ShipName,
@@ -97,7 +99,8 @@ const DetailOrderView = (props) => {
                 <Text style={styles.titletext}>
                   {I18n.t(`${NAMESPACE}.addressdelivery`)}
                 </Text>
-                {Status === 'Chờ xác nhận' ? (
+                {Status === 'Chờ xác nhận' &&
+                auth().currentUser.uid === CusID ? (
                   <TouchableOpacity
                     onPress={() => {
                       NavigationServices.navigate(SCENE_NAMES.AddRessScreen);
@@ -181,12 +184,12 @@ const DetailOrderView = (props) => {
             {I18n.t(`${NAMESPACE}.deliveryprice`)}:{' '}
             <ReactNativeNumberFormat value={ShipPayment} />
           </Text>
-          <Text style={{marginHorizontal: 10, fontSize: 20, color: '#000'}}>
+          <Text style={{marginHorizontal: 10, fontSize: 17, color: '#000'}}>
             {I18n.t(`${NAMESPACE}.total`)}:{' '}
             <ReactNativeNumberFormat value={Total} />
           </Text>
         </View>
-        {Status === 'Chờ xác nhận' ? (
+        {Status === 'Chờ xác nhận' && auth().currentUser.uid === CusID ? (
           <TouchableOpacity
             style={styles.totalContainer}
             onPress={() => {
@@ -196,7 +199,7 @@ const DetailOrderView = (props) => {
               {I18n.t(`${NAMESPACE}.cancelorder`)}
             </Text>
           </TouchableOpacity>
-        ) : Status === 'Chờ lấy hàng' ? (
+        ) : Status === 'Chờ lấy hàng' && auth().currentUser.uid === CusID ? (
           <View
             style={styles.totalContainer}
             onPress={() => {

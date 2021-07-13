@@ -1,5 +1,5 @@
 import SIZE from 'constants/size';
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   screenContainer: {

@@ -226,6 +226,11 @@ export default {
     rule3: 'Vulgar language',
     rule4: 'Negative attitude',
     blockstore: 'Your store has been closed',
+    storProfile: 'Store profile',
+    returnrate: 'Return rate',
+    f2021: 'Member from 2021',
+    thisorder: 'Number of orders this month',
+    thisrevenue: 'This month`s revenue',
   },
   message: {
     ERROR_OCCURRED: 'An error occurred, please try again.',

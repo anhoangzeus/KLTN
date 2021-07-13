@@ -2,8 +2,9 @@ import Swiper from 'react-native-swiper';
 import React from 'react';
 import SIZE from 'constants/size';
 import styles from './style';
-import {TouchableOpacity, View, Image} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import NavigationServices from 'utils/navigationServices';
+import FastImage from 'react-native-fast-image';
 import SCENE_NAMES from 'constants/sceneName';
 
 const SwiperBraner = (listcontents) => {
@@ -27,7 +28,7 @@ const SwiperBraner = (listcontents) => {
             })
           }>
           <View style={styles.sectionContainer}>
-            <Image source={{uri: item.Image}} style={styles.sectionImage} />
+            <FastImage source={{uri: item.Image}} style={styles.sectionImage} />
           </View>
         </TouchableOpacity>
       ))}

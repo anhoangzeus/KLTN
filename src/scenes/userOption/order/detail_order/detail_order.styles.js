@@ -52,7 +52,7 @@ export default StyleSheet.create({
   titletext: {
     fontWeight: 'bold',
     color: 'black',
-    fontSize: 20,
+    fontSize: 15,
   },
   titletext1: {
     fontWeight: 'bold',
@@ -61,7 +61,7 @@ export default StyleSheet.create({
   },
   textorder: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 17,
     paddingLeft: 10,
     color: '#1e88e5',
   },

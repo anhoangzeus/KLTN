@@ -29,59 +29,51 @@ export default function StoreProfileContainer({navigation, route}) {
   const [address, setAddress] = useState([]);
   const [visible, setVisible] = useState(false);
   const getListChat = async () => {
-    database()
-      .ref('Chats')
-      .child(auth().currentUser.uid)
-      .on('value', async (snapshot) => {
-        let temp = 0;
-        snapshot.forEach((childSnapshot) => {
-          if (childSnapshot.key === info.UserID) {
-            temp += 1;
+    if (auth().currentUser.uid) {
+      database()
+        .ref('Chats')
+        .child(auth().currentUser.uid)
+        .on('value', async (snapshot) => {
+          let temp = 0;
+          snapshot.forEach((childSnapshot) => {
+            if (childSnapshot.key === info.UserID) {
+              temp += 1;
+              NavigationServices.navigate(SCENE_NAMES.ChatBoxContainer, {
+                Name: childSnapshot.val().Name,
+                id: info.UserID,
+              });
+            }
+          });
+          if (temp === 0) {
+            await database()
+              .ref('Chats/' + auth().currentUser.uid)
+              .child(info.UserID)
+              .update({
+                Avatar: info.Avatar,
+                //LastMess: '',
+                Name: info.FullName,
+                //Status: 1,
+                LastMessTime: moment().unix(),
+              });
+            await database()
+              .ref('Chats/' + info.UserID)
+              .child(auth().currentUser.uid)
+              .update({
+                Avatar: info.Avatar,
+                //LastMess: '',
+                Name: info.FullName,
+                //Status: 1,
+                LastMessTime: moment().unix(),
+              });
             NavigationServices.navigate(SCENE_NAMES.ChatBoxContainer, {
-              Name: childSnapshot.val().Name,
+              Name: info.FullName,
               id: info.UserID,
             });
           }
         });
-        if (temp === 0) {
-          await database()
-            .ref('Chats/' + auth().currentUser.uid)
-            .child(info.UserID)
-            .update({
-              Avatar: info.Avatar,
-              //LastMess: '',
-              Name: info.FullName,
-              //Status: 1,
-              LastMessTime: moment().unix(),
-            });
-          await database()
-            .ref('Chats/' + info.UserID)
-            .child(auth().currentUser.uid)
-            .update({
-              Avatar: info.Avatar,
-              //LastMess: '',
-              Name: info.FullName,
-              //Status: 1,
-              LastMessTime: moment().unix(),
-            });
-          NavigationServices.navigate(SCENE_NAMES.ChatBoxContainer, {
-            Name: info.FullName,
-            id: info.UserID,
-          });
-        }
-        // var items = [];
-        // snapshot.forEach((childSnapshot) => {
-        //   items.push({
-        //     id: childSnapshot.key,
-        //     Avatar: childSnapshot.val().Avatar,
-        //     LastMess: childSnapshot.val().LastMess,
-        //     LastMessTime: childSnapshot.val().LastMessTime,
-        //     Name: childSnapshot.val().Name,
-        //     Status: childSnapshot.val().Status,
-        //   });
-        //   console.log(childSnapshot);
-        // });
-      });
+    } else {
+      setVisible(true);
+    }
   };
 
   const getlistProduct = async () => {
@@ -101,37 +93,18 @@ export default function StoreProfileContainer({navigation, route}) {
     setLoading(false);
   };
 
-  const getFollowStatus = async () => {
-    await database()
-      .ref('Users/' + auth().currentUser.uid + '/Follow/')
-      .child(info.UserID)
-      .once('value')
-      .then((snapshot) => {
-        if (snapshot.val().Status === true) {
-          setIsFollow(true);
-        }
-      });
-    await database()
-      .ref('Brief/' + info.UserID)
-      .once('value')
-      .then((snapshot) => {
-        setDes(snapshot.val().Description);
-        setStoreInfo({
-          StoreID: snapshot.val().StoreID,
-          StoreName: snapshot.val().StoreName,
+  const getFollowStatus = () => {
+    if (auth().currentUser.uid) {
+      database()
+        .ref('Users/' + auth().currentUser.uid + '/Follow/')
+        .child(info.UserID)
+        .once('value')
+        .then((snapshot) => {
+          if (snapshot.val().Status === true) {
+            setIsFollow(true);
+          }
         });
-        let listAddress = [];
-        snapshot.child('Address').forEach((snapshot2) => {
-          let item = {
-            City: snapshot2.val().City,
-            Huyen: snapshot2.val().Huyen,
-            NumberAddress: snapshot2.val().NumberAddress,
-            Xa: snapshot2.val().Xa,
-          };
-          listAddress.push(item);
-        });
-        setAddress(listAddress);
-      });
+    }
   };
   const onFollow = async () => {
     if (auth().currentUser.uid) {
@@ -179,11 +152,35 @@ export default function StoreProfileContainer({navigation, route}) {
       // error reading value
     }
   };
+  const getAddress = async () => {
+    await database()
+      .ref('Brief/' + info.UserID)
+      .once('value')
+      .then((snapshot) => {
+        setDes(snapshot.val().Description);
+        setStoreInfo({
+          StoreID: snapshot.val().StoreID,
+          StoreName: snapshot.val().StoreName,
+        });
+        let listAddress = [];
+        snapshot.child('Address').forEach((snapshot2) => {
+          let item = {
+            City: snapshot2.val().City,
+            Huyen: snapshot2.val().Huyen,
+            NumberAddress: snapshot2.val().NumberAddress,
+            Xa: snapshot2.val().Xa,
+          };
+          listAddress.push(item);
+        });
+        setAddress(listAddress);
+      });
+  };
 
   useEffect(() => {
     getlistProduct();
     getToken();
     getFollowStatus();
+    getAddress();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   functionsCounter.add(getlistProduct);

@@ -15,6 +15,7 @@ import {
   SafeAreaView,
   StatusBar,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -128,7 +129,11 @@ function SellerproductView(props) {
               if (item !== '') {
                 return (
                   <View backgroundColor="white" style={styles.profileContainer}>
-                    <Image source={{uri: item}} style={styles.profileImage} />
+                    <FastImage
+                      source={{uri: item, priority: FastImage.priority.high}}
+                      style={styles.profileImage}
+                      resizeMode={FastImage.resizeMode.contain}
+                    />
                   </View>
                 );
               }

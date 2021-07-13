@@ -1,12 +1,16 @@
 import ReactNativeNumberFormat from 'components/NumberFormat';
 import StarRating from 'components/StarRating';
 import React from 'react';
-import { Image, Text, View } from 'react-native';
+import {Text, View} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import styles from './styles';
 
-const NewProductItem = ({ item }) => (
+const NewProductItem = ({item}) => (
   <View style={styles.itemContainer1}>
-    <Image source={{ uri: item?.Image }} style={styles.itemImage} />
+    <FastImage
+      source={{uri: item?.Image, priority: FastImage.priority.high}}
+      style={styles.itemImage}
+    />
     <Text style={styles.itemName} numberOfLines={2}>
       {item?.Name}
     </Text>

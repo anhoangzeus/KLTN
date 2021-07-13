@@ -151,4 +151,44 @@ export default StyleSheet.create({
   btnSelect2: {
     color: '#2B4F8C',
   },
+  itemTouch: {
+    backgroundColor: '#fff',
+  },
+  desText: {
+    fontSize: 14,
+    marginTop: 5,
+    marginLeft: 15,
+  },
+  grayView: {
+    backgroundColor: '#FFFAFA',
+    height: height / 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  boxView: {
+    flexDirection: 'row',
+  },
+  boxContainer: {
+    width: width / 2,
+    //height: height / 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  perText: {
+    fontSize: 22,
+    color: '#009900',
+  },
+  div: {
+    height: 8,
+    backgroundColor: '#ededed',
+  },
+  whiteView: {
+    backgroundColor: '#fff',
+    height: height / 20,
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  icon: {
+    marginLeft: 10,
+  },
 });
