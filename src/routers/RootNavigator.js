@@ -21,6 +21,8 @@ import ProfileScreen from 'scenes/main/profile/Profile.container';
 import ProfileMainScreen from 'scenes/main/profileMain/Profile.container';
 import SearchContainer from 'scenes/main/search/Search.container';
 // Screen Import
+import EditStoreContainer from 'scenes/main/editStore/EditStore.container';
+import SellerOrderContainer from 'scenes/main/sellerOrder/SellerOrder.container';
 import ReportContainer from 'scenes/main/report/Report.container';
 import StatisticContainer from 'scenes/main/statistic/Statistic.container';
 import CommentContainer from 'scenes/main/comment/Comment.container';
@@ -66,6 +68,16 @@ function RootNavigator({onNavigationStateChange}) {
           <Stack.Screen name={SCENE_NAMES.DUMMY} component={DummyScreen} />
         )}
         {/* Plop screen */}
+        <Stack.Screen
+          options={{headerShown: false}}
+          name={SCENE_NAMES.EDIT_STORE}
+          component={EditStoreContainer}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name={SCENE_NAMES.SELLER_ORDER}
+          component={SellerOrderContainer}
+        />
         <Stack.Screen
           options={{headerShown: false}}
           name={SCENE_NAMES.REPORT}

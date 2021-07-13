@@ -44,12 +44,7 @@ export default function MyStoreOptionView(props) {
             <Text>{FullName}</Text>
           </TouchableOpacity>
           <View style={styles.divider} />
-          <TouchableOpacity onPress={() => {}}>
-            <ProfileItem
-              icon="format-list-bulleted"
-              name={I18n.t(`${NAMESPACE}.order`)}
-            />
-          </TouchableOpacity>
+
           <View style={styles.divider1} />
           <TouchableOpacity
             onPress={() => {
@@ -85,7 +80,16 @@ export default function MyStoreOptionView(props) {
               name={I18n.t(`${NAMESPACE}.revenue`)}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity
+            onPress={() => {
+              NavigationServices.navigate(SCENE_NAMES.SELLER_ORDER);
+            }}>
+            <ProfileItem
+              icon="format-list-bulleted"
+              name={I18n.t(`${NAMESPACE}.order`)}
+            />
+          </TouchableOpacity>
+          {/* <TouchableOpacity onPress={() => {}}>
             <ProfileItem
               icon="bookmark-outline"
               name={I18n.t(`${NAMESPACE}.review`)}
@@ -96,7 +100,7 @@ export default function MyStoreOptionView(props) {
               icon="star"
               name={I18n.t(`${NAMESPACE}.productReview`)}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <View style={styles.divider} />
           <TouchableOpacity onPress={() => setisVisible(true)}>
             <ProfileItem

@@ -10,6 +10,7 @@ const functionsCounter = new Set();
 const DetailOrderContainer = ({navigation, route}) => {
   const {id} = getParams(route);
   const [OrderID, setOrderID] = useState('');
+  const [CusID, setCusID] = useState('');
   const [CreatedDate, setCreatedDate] = useState('');
   const [Status, setStatus] = useState('');
   const [ShipName, setShipName] = useState('');
@@ -81,6 +82,7 @@ const DetailOrderContainer = ({navigation, route}) => {
           item.push(product);
         });
         setOrderID(snapshot.val().OrderID);
+        setCusID(snapshot.val().CustomerID);
         setCreatedDate(snapshot.val().CreatedDate);
         setShipName(snapshot.val().ShipName);
         setShipMoblie(snapshot.val().ShipMoblie);
@@ -126,6 +128,7 @@ const DetailOrderContainer = ({navigation, route}) => {
       setModalVisible={setModalVisible}
       setModal={setModal}
       OrderID={OrderID}
+      CusID={CusID}
       CreatedDate={CreatedDate}
       Status={Status}
       ShipName={ShipName}

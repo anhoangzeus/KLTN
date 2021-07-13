@@ -1,22 +1,17 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import styles from './styles';
 import ReactNativeNumberFormat from 'components/NumberFormat';
 import StarRating from 'components/StarRating';
-import {
-  Image,
-  Text,
-  View,
-  ImageBackground,
-  TouchableOpacity,
-} from 'react-native';
+import {Text, View, ImageBackground, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import I18n from 'utils/i18n';
 import Modal from 'react-native-modal';
+import FastImage from 'react-native-fast-image';
 //import {TouchableOpacity} from 'react-native-gesture-handler';
 //import database from '@react-native-firebase/database';
 const NAMESPACE = 'common';
-function StoreProduct({ item, del }) {
+function StoreProduct({item, del}) {
   console.log('item>>>>>>>>', item.item);
   const [modalVisible, setModalVisible] = useState(false);
   // const del = () => {
@@ -30,7 +25,7 @@ function StoreProduct({ item, del }) {
       <ImageBackground
         source={require('../../assets/images/Frame1.png')}
         style={styles.imgBackground}>
-        <Image source={{ uri: item.item?.Image }} style={styles.itemImage} />
+        <FastImage source={{uri: item.item?.Image}} style={styles.itemImage} />
         <View>
           <TouchableOpacity
             style={styles.del}
@@ -66,9 +61,10 @@ function StoreProduct({ item, del }) {
       <Modal
         animationType="fade"
         transparent={true}
-        visible={modalVisible} onBackdropPress={() => setModalVisible(false)}>
+        visible={modalVisible}
+        onBackdropPress={() => setModalVisible(false)}>
         <View style={styles.centeredView}>
-          <View style={{ ...styles.modalView, padding: 10 }}>
+          <View style={{...styles.modalView, padding: 10}}>
             <Text style={styles.modalText}>
               {I18n.t(`${NAMESPACE}.delpro`)}
             </Text>

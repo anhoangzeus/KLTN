@@ -95,6 +95,7 @@ export default {
     suport: 'Hỗ trợ',
     proname: 'Tên sản phẩm',
     prodes: 'Mô tả sản phẩm',
+    product: 'Sản phẩm',
     prokey: 'Gợi ý tìm kiếm',
     category: 'Danh mục',
     chooseCate: 'Chọn danh mục',
@@ -224,6 +225,11 @@ export default {
     rule3: 'Ngôn ngữ thô tục',
     rule4: 'Thái độ tiêu cực',
     blockstore: 'Cửa hàng của bạn đã bị khóa',
+    storProfile: 'Thông tin cửa hàng',
+    returnrate: 'Tỉ lệ đổi trả',
+    f2021: 'Thành viên từ 2021',
+    thisorder: 'Số đơn hàng tháng này',
+    thisrevenue: 'Doanh thu tháng này',
   },
   message: {
     ERROR_OCCURRED: 'An error occurred, please try again.',
@@ -290,7 +296,6 @@ export default {
     prov: 'Xã/Phường',
     defaulAdd: 'Địa chỉ mặc định',
     saveAdd: 'Lưu địa chỉ',
-    product: 'Sản phẩm',
   },
   validation: {
     string: {
