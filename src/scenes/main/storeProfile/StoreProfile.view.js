@@ -4,6 +4,7 @@ import styles from './StoreProfile.styles';
 import NavigationServices from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Col from 'components/Col';
 import Loading from 'components/LoadingView';
 import ProductItem from 'components/ProductItem';
@@ -30,6 +31,7 @@ function StoreProfileView(props) {
     onFollow,
     onUnFollow,
   } = props;
+  console.log('thong tin dia chi: ', address);
   return (
     <View style={styles.screenContainer}>
       {/* <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
@@ -53,7 +55,7 @@ function StoreProfileView(props) {
             <View>
               {/* <Text style={styles.nameText}>{info.Name}</Text> */}
               <Text style={styles.nameText}>{storeInfo.StoreName}</Text>
-              {auth().currentUser.uid ? (
+              {auth().currentUser?.uid ? (
                 <View style={styles.flexRow}>
                   <TouchableOpacity
                     style={styles.Tag}
@@ -111,7 +113,10 @@ function StoreProfileView(props) {
             <TouchableOpacity
               onPress={() => setChoose(0)}
               style={styles.lineTab}>
-              <Text style={styles.tabText}>sản phẩm</Text>
+              <Text style={styles.tabText}>
+                {' '}
+                {I18n.t(`${NAMESPACE}.product`)}
+              </Text>
               {choose === 0 ? (
                 <Image source={require('../../../assets/images/line.png')} />
               ) : null}
@@ -119,7 +124,10 @@ function StoreProfileView(props) {
             <TouchableOpacity
               onPress={() => setChoose(1)}
               style={styles.lineTab}>
-              <Text style={styles.tabText}>Hồ sơ cửa hàng</Text>
+              <Text style={styles.tabText}>
+                {' '}
+                {I18n.t(`${NAMESPACE}.storProfile`)}
+              </Text>
               {choose === 1 ? (
                 <Image source={require('../../../assets/images/line.png')} />
               ) : null}
@@ -130,11 +138,12 @@ function StoreProfileView(props) {
             <FlatList
               initialNumToRender={20}
               showsVerticalScrollIndicator={false}
-              //numColumns={2}
+              numColumns={2}
               data={listItems}
               renderItem={(item) => {
                 return (
                   <TouchableOpacity
+                    style={styles.itemTouch}
                     onPress={() => {
                       NavigationServices.navigate(
                         SCENE_NAMES.DETAIL_STORE_PRODUCT,
@@ -150,11 +159,70 @@ function StoreProfileView(props) {
             />
           ) : (
             <View style={styles.storeProfile}>
-              <Text>{des}</Text>
+              <View style={styles.boxView}>
+                <View style={styles.boxContainer}>
+                  <Text style={styles.perText}>{listItems.length}</Text>
+                  <View>
+                    <Text> {I18n.t(`${NAMESPACE}.product`)} </Text>
+                  </View>
+                </View>
+                <View style={styles.boxContainer}>
+                  <Text style={styles.perText}>0%</Text>
+                  <View>
+                    <Text>{I18n.t(`${NAMESPACE}.returnrate`)}</Text>
+                  </View>
+                </View>
+              </View>
+              <View style={styles.div} />
+              <View style={styles.whiteView}>
+                <Text style={styles.desText}>
+                  {' '}
+                  {I18n.t(`${NAMESPACE}.storProfile`)}
+                </Text>
+              </View>
+              <View style={styles.grayView}>
+                <FontAwesome
+                  name="calendar"
+                  size={17}
+                  color="#969696"
+                  style={styles.icon}
+                />
+                <Text style={styles.desText}>
+                  {I18n.t(`${NAMESPACE}.f2021`)}
+                </Text>
+              </View>
+              <View style={styles.whiteView}>
+                <FontAwesome5
+                  name="store"
+                  size={17}
+                  color="#969696"
+                  style={styles.icon}
+                />
+                <Text style={styles.desText}>
+                  {I18n.t(`${NAMESPACE}.storProfile`)}
+                </Text>
+              </View>
+              <View style={styles.grayView}>
+                <Text style={styles.desText}>{des}</Text>
+              </View>
+              <View style={styles.whiteView}>
+                <FontAwesome5
+                  name="location-arrow"
+                  size={17}
+                  color="#969696"
+                  style={styles.icon}
+                />
+                <Text style={styles.desText}>
+                  {I18n.t(`${NAMESPACE}.address`)}
+                </Text>
+              </View>
               {address?.map((addressitem) => {
                 return (
-                  <View>
-                    <Text>{addressitem.City}</Text>
+                  <View style={styles.whiteView}>
+                    <Text style={styles.desText}>
+                      {addressitem.NumberAddress}, {addressitem.Xa},
+                      {addressitem.Huyen}, {addressitem.City}
+                    </Text>
                   </View>
                 );
               })}

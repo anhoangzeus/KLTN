@@ -1,28 +1,22 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useLayoutEffect, useEffect, useState} from 'react';
-import StatisticView from './Statistic.view';
+import SellerOrderView from './SellerOrder.view';
 import useSelectorShallow, {
   selectorWithProps,
 } from 'hooks/useSelectorShallowEqual';
 import {getIsFetchingByActionsTypeSelector} from 'appRedux/selectors/loadingSelector';
-import {NAMESPACE} from './Statistic.constants';
+import {NAMESPACE} from './SellerOrder.constants';
 import {getString} from 'utils/i18n';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
-
+import _ from 'lodash';
 const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
   // ACTION.HANDLER,
 ]);
 
-export default function StatisticContainer({navigation}) {
+export default function SellerOrderContainer({navigation}) {
   const [listOrder, setListOrder] = useState([]);
-  const [thismonth, setThismonth] = useState(1);
-  const [timeline, setTimeline] = useState([]);
-  const [revenue, setRevenue] = useState([]);
-  const [order, setOrder] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [orderCount, setOrderCount] = useState(0);
-  const [revenueCount, setRevenueCount] = useState(0);
+
+  const [refreshing, setRefreshing] = useState(false);
   const isLoading = useSelectorShallow(loadingSelector);
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -31,7 +25,6 @@ export default function StatisticContainer({navigation}) {
   }, [navigation]);
 
   const getStatis = async () => {
-    setLoading(true);
     await database()
       .ref('Orders')
       .once('value')
@@ -41,26 +34,35 @@ export default function StatisticContainer({navigation}) {
         snapshot.forEach((childSnapshot) => {
           let temp = 0;
           let item = [];
-
+          let count = 0;
           childSnapshot.child('OrderDetails').forEach((element) => {
             if (element.val().UserID === auth().currentUser.uid) {
+              console.log('elêmnt: ', element.val());
               item.push(element.val());
+              count +=
+                parseInt(element.val().Price, 10) *
+                parseInt(element.val().Quantity, 10);
               temp++;
             }
           });
+          console.log('count : ', count);
           if (temp !== 0) {
             order = {
               TimeLine: childSnapshot.val().TimeLine,
               CreatedDate: childSnapshot.val().CreatedDate,
+              OrderID: childSnapshot.val().OrderID,
+              Total: count,
               Detail: item,
+              ShipAddress: childSnapshot.val().ShipAddress,
             };
             List.push(order);
           }
         });
         //List.push(order);
-        console.log('list: ', List);
-        setListOrder(List);
+        let arr = _.orderBy(List, ['CreatedDate'], ['asc']);
+        setListOrder(arr);
       });
+    setRefreshing(false);
   };
   const selectMonth = (time) => {
     let m = time.slice(3, 5);
@@ -69,70 +71,27 @@ export default function StatisticContainer({navigation}) {
   const getTime = () => {
     var date = new Date();
     let m = date.getMonth();
-    setThismonth(m + 1);
     let morder = selectMonth('09/07/2021 23:31:36 PM');
     console.log('this month: ', m + 1);
     console.log('order month: ', parseInt(morder, 10));
-  };
-  const createData = (list) => {
-    setLoading(true);
-    let m = [];
-    let rv = [];
-    let od = [];
-    let odCount = 0;
-    let reCount = 0;
-    for (let i = 1; i <= thismonth; i++) {
-      m.push(i);
-      let count = 0;
-      let temp = 0;
-      list.forEach((element) => {
-        if (selectMonth(element.CreatedDate) == i) {
-          console.log('element mont: ', i, element);
-          element.Detail.forEach((item) => {
-            count += (parseInt(item.Price, 10) * item.Quantity) / 1000;
-
-            if (i == thismonth) {
-              reCount += parseInt(item.Price, 10) * item.Quantity;
-            }
-          });
-          temp += 1;
-          if (i == thismonth) {
-            odCount += 1;
-          }
-        }
-      });
-      rv.push(count);
-      od.push(temp);
-    }
-    setTimeline(m);
-    setRevenue(rv);
-    setOrder(od);
-    setRevenueCount(reCount);
-    setOrderCount(odCount);
-    console.log('mont line: ', od);
-    console.log('reve line: ', rv);
-    setLoading(false);
   };
 
   useEffect(() => {
     getStatis();
     getTime();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    console.log('list order: ', listOrder);
-    createData(listOrder);
-  }, [listOrder]);
+  const _onRefresh = () => {
+    setRefreshing(true);
+    getStatis();
+  };
 
   return (
-    <StatisticView
+    <SellerOrderView
       isLoading={isLoading}
-      timeline={timeline}
-      revenue={revenue}
-      order={order}
-      loading={loading}
-      orderCount={orderCount}
-      revenueCount={revenueCount}
+      listOrder={listOrder}
+      refreshing={refreshing}
+      onRefresh={_onRefresh}
     />
   );
 }

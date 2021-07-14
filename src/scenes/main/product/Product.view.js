@@ -3,7 +3,7 @@ import NumberFormat from 'components/NumberFormat';
 import SellerProduct from 'components/ProductItem';
 import StarRating from 'components/StarRating';
 import SCENE_NAMES from 'constants/sceneName';
-import React, { useRef } from 'react';
+import React, {useRef} from 'react';
 import {
   Alert,
   Animated,
@@ -19,6 +19,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Swiper from 'react-native-swiper';
 import Feather from 'react-native-vector-icons/Feather';
@@ -32,7 +33,7 @@ const NAMESPACE = 'common';
 
 // import {NAMESPACE} from './Product.constants';
 
-const { height, width } = Dimensions.get('screen');
+const {height, width} = Dimensions.get('screen');
 function ProductView(props) {
   const {
     addCart,
@@ -76,7 +77,7 @@ function ProductView(props) {
           backgroundColor="transparent"
           translucent={true}
         />
-        <Animated.View style={[styles.headerFont1, { height: headerHeight }]}>
+        <Animated.View style={[styles.headerFont1, {height: headerHeight}]}>
           <TouchableOpacity
             style={styles.setTouchableBack}
             onPress={() => NavigationServices.goBack()}>
@@ -111,7 +112,7 @@ function ProductView(props) {
           showsVerticalScrollIndicator={false}
           scrollEventThrottle={16}
           onScroll={Animated.event([
-            { nativeEvent: { contentOffset: { y: scrollY } } },
+            {nativeEvent: {contentOffset: {y: scrollY}}},
           ])}>
           <Swiper
             loop={true}
@@ -121,7 +122,10 @@ function ProductView(props) {
             height={height / 2}>
             {listmoreimage.map((item) => (
               <View backgroundColor="white" style={styles.profileContainer}>
-                <Image source={{ uri: item }} style={styles.profileImage} />
+                <FastImage
+                  source={{uri: item, priority: FastImage.priority.high}}
+                  style={styles.profileImage}
+                />
               </View>
             ))}
           </Swiper>
@@ -166,7 +170,7 @@ function ProductView(props) {
                     <StarRating rating={rating} size={17} />
                     <TouchableOpacity
                       // eslint-disable-next-line react-native/no-inline-styles
-                      style={{ marginLeft: 10 }}
+                      style={{marginLeft: 10}}
                       onPress={() => {
                         refRBSheet.current.open();
                       }}>
@@ -189,7 +193,7 @@ function ProductView(props) {
                   </Text>
                   {price === promotionprice ? null : (
                     // eslint-disable-next-line react-native/no-inline-styles
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{flexDirection: 'row'}}>
                       <Text style={styles.promotionText}>
                         <NumberFormat value={price} />
                       </Text>
@@ -219,7 +223,7 @@ function ProductView(props) {
                 showsHorizontalScrollIndicator={false}
                 style={styles.flatstyle}
                 data={listproductlienquan}
-                renderItem={({ item }) => (
+                renderItem={({item}) => (
                   <TouchableOpacity
                     onPress={() => {
                       NavigationServices.push(SCENE_NAMES.PRODUCT, {
@@ -305,7 +309,7 @@ function ProductView(props) {
             showsVerticalScrollIndicator={false}
             initialNumToRender={3}
             pagingEnabled={true}
-            renderItem={({ item }) => <CommentItem item={item} />}
+            renderItem={({item}) => <CommentItem item={item} />}
           />
         </ScrollView>
         <View style={styles.centeredView}>
@@ -333,7 +337,7 @@ function ProductView(props) {
                 </View>
 
                 <View style={styles.rowView}>
-                  <Image source={{ uri: image }} style={styles.modalImage} />
+                  <Image source={{uri: image}} style={styles.modalImage} />
                   <View style={styles.byView}>
                     <Text numberOfLines={1} style={styles.modalnameText}>
                       {name}
