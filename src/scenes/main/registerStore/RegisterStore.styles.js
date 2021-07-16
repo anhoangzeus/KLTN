@@ -1,6 +1,6 @@
-import { StyleSheet, Dimensions } from 'react-native';
-import { normalize } from 'react-native-elements';
-const { height, width } = Dimensions.get('screen');
+import {StyleSheet, Dimensions} from 'react-native';
+import {normalize} from 'react-native-elements';
+const {height, width} = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -44,7 +44,7 @@ export default StyleSheet.create({
     width: width * 0.9,
     height: height / 15,
     borderColor: '#6Ec0B6',
-    paddingHorizontal: 8,
+    paddingHorizontal: normalize(8),
     marginTop: 10,
   },
   btnthem: {
@@ -113,6 +113,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     marginTop: 10,
     paddingHorizontal: 8,
+    height: normalize(50),
   },
   divider: {
     height: 2,
@@ -141,7 +142,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   ModalContainer: {
-    maxHeight: height / 2.3,
+    maxHeight: height / 2,
     width: width - 20,
     borderRadius: 15,
     paddingHorizontal: 20,
@@ -180,13 +181,13 @@ export default StyleSheet.create({
     borderRadius: height / 50,
   },
   picker1: {
-    height: height / 25,
+    height: height / 20,
     width: width / 2.3,
     color: 'gray',
   },
-  marTen: { marginLeft: 10 },
-  marHori: { marginHorizontal: 10 },
-  greenText: { color: '#6Ec0B6', fontSize: 20 },
+  marTen: {marginLeft: 10},
+  marHori: {marginHorizontal: 10},
+  greenText: {color: '#6Ec0B6', fontSize: 20},
   btnSubmit: {
     backgroundColor: '#6Ec0B6',
     alignSelf: 'center',
@@ -213,5 +214,5 @@ export default StyleSheet.create({
   address: {
     width: width * 0.8,
   },
-  legacy: { width: width * 0.8, marginLeft: width * 0.1 },
+  legacy: {width: width * 0.8, marginLeft: width * 0.1, fontSize: 16},
 });
