@@ -15,7 +15,7 @@ import {
 import styles from './DetailAddress.styles';
 import * as Animatable from 'react-native-animatable';
 import CheckBox from '@react-native-community/checkbox';
-import { Picker } from '@react-native-picker/picker';
+import {Picker} from '@react-native-picker/picker';
 import RNPickerSelect from 'react-native-picker-select';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Header from 'components/Header';
@@ -65,7 +65,6 @@ function DetailAddressView(props) {
                 <TextInput
                   placeholderTextColor="#666666"
                   autoCapitalize="none"
-                  multiline
                   onChangeText={(val) => textInputFullName(val)}
                   style={styles.welcomeText}>
                   {data.ShipName}
@@ -75,7 +74,7 @@ function DetailAddressView(props) {
             {data.check_textInputFullName ? (
               <View style={styles.divider} />
             ) : (
-              <View style={{ height: 2, backgroundColor: 'red' }} />
+              <View style={{height: 2, backgroundColor: 'red'}} />
             )}
 
             <View style={styles.userContainer}>
@@ -110,7 +109,7 @@ function DetailAddressView(props) {
             {data.check_textInputSDT ? (
               <View style={styles.divider} />
             ) : (
-              <View style={{ height: 2, backgroundColor: 'red' }} />
+              <View style={{height: 2, backgroundColor: 'red'}} />
             )}
             <View style={styles.userContainer}>
               <View style={styles.textContainer}>
@@ -121,7 +120,8 @@ function DetailAddressView(props) {
                         ? styles.titletext
                         : styles.errtext
                     }>
-                    {I18n.t(`${NAMESPACE}.address`)} <Text style={{ fontSize: 12 }}>(Số nhà/tên đường)</Text>
+                    {I18n.t(`${NAMESPACE}.address`)}{' '}
+                    <Text style={{fontSize: 12}}>(Số nhà/tên đường)</Text>
                   </Text>
                   {data.check_textInputaddress ? null : (
                     <Animatable.View animation="fadeInLeft" duration={500}>
@@ -134,7 +134,6 @@ function DetailAddressView(props) {
                 <TextInput
                   placeholderTextColor="#666666"
                   autoCapitalize="none"
-                  multiline
                   onChangeText={(val) => textInputAddress(val)}
                   style={styles.welcomeText}>
                   {data.NumberAddress}
@@ -144,7 +143,7 @@ function DetailAddressView(props) {
             {data.check_textInputaddress ? (
               <View style={styles.divider} />
             ) : (
-              <View style={{ height: 2, backgroundColor: 'red' }} />
+              <View style={{height: 2, backgroundColor: 'red'}} />
             )}
             <View style={styles.divider} />
             <View style={styles.userContainer}>
@@ -158,7 +157,7 @@ function DetailAddressView(props) {
                     selectedValue={data.City}
                     mode="dialog"
                     onValueChange={(value) => {
-                      setData({ ...data, City: value });
+                      setData({...data, City: value});
                     }}>
                     {provinceData()}
                   </Picker>
@@ -166,7 +165,7 @@ function DetailAddressView(props) {
                   <RNPickerSelect
                     style={styles.picker}
                     onValueChange={(value) => {
-                      setData({ ...data, City: value });
+                      setData({...data, City: value});
                     }}
                     items={provinceData()}
                   />
@@ -185,14 +184,14 @@ function DetailAddressView(props) {
                     selectedValue={data.Huyen}
                     mode="dialog"
                     onValueChange={(value) => {
-                      setData({ ...data, Huyen: value });
+                      setData({...data, Huyen: value});
                     }}>
                     {districtData(data.City)}
                   </Picker>
                 ) : (
                   <RNPickerSelect
                     onValueChange={(value) => {
-                      setData({ ...data, Huyen: value });
+                      setData({...data, Huyen: value});
                     }}
                     items={districtData(data.City)}
                     style={styles.picker1}
@@ -209,16 +208,17 @@ function DetailAddressView(props) {
                     selectedValue={data.Xa}
                     mode="dialog"
                     onValueChange={(value) => {
-                      setData({ ...data, Xa: value });
+                      setData({...data, Xa: value});
                     }}>
                     {wardData(data.City, data.Huyen)}
                   </Picker>
                 ) : (
                   <RNPickerSelect
                     onValueChange={(value) => {
-                      setData({ ...data, Xa: value });
+                      setData({...data, Xa: value});
                     }}
                     items={wardData(data.City, data.Huyen)}
+                    style={styles.iosPick}
                   />
                 )}
               </View>

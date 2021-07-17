@@ -169,14 +169,6 @@ const ProfileMainView = (props) => {
               <ProfileItem name={I18n.t(`${NAMESPACE}.ordercancel`)} />
             </TouchableOpacity>
             <View style={styles.divider1} />
-            <TouchableOpacity
-              onPress={() => {
-                NavigationServices.navigate(SCENE_NAMES.TopStackOrder, {
-                  screen: SCENE_NAMES.Order_TraHang,
-                });
-              }}>
-              <ProfileItem name={I18n.t(`${NAMESPACE}.orderreturn`)} />
-            </TouchableOpacity>
             <View style={styles.divider} />
             <TouchableOpacity
               onPress={() => {

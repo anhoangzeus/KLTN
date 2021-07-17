@@ -2,10 +2,13 @@ import {StyleSheet} from 'react-native';
 import SIZE from 'constants/size';
 
 export default StyleSheet.create({
-  container: {
+  screenContainer: {
     flex: 1,
-    backgroundColor: 'silver',
-    marginTop: 60,
+    backgroundColor: '#c4c4c4',
+  },
+  screenContainers: {
+    backgroundColor: '#2B4F8C',
+    flex: 1,
   },
   listItem: {
     margin: 5,

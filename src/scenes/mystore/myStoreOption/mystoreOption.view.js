@@ -82,7 +82,7 @@ export default function MyStoreOptionView(props) {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              NavigationServices.navigate(SCENE_NAMES.SELLER_ORDER);
+              NavigationServices.navigate(SCENE_NAMES.TopOrderManager);
             }}>
             <ProfileItem
               icon="format-list-bulleted"

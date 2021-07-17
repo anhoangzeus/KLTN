@@ -1,6 +1,6 @@
-import { StyleSheet, Dimensions } from 'react-native';
-import { normalize } from 'react-native-elements';
-const { width, height } = Dimensions.get('screen');
+import {StyleSheet, Dimensions} from 'react-native';
+import {normalize} from 'react-native-elements';
+const {width, height} = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -69,7 +69,8 @@ export default StyleSheet.create({
     fontWeight: '400',
     fontSize: 8,
     color: 'rgba(138, 138, 142, 1)',
-    alignSelf: 'flex-end',
+    alignSelf: 'center',
+    marginTop: normalize(5),
   },
   text: {
     fontWeight: '500',

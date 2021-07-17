@@ -90,6 +90,7 @@ class App extends PureComponent {
   }
   componentDidMount() {
     FCMService.getFcmToken((token) => {
+      console.log('token set storage:', token);
       AsyncStorage.setItem('token', token);
     });
 

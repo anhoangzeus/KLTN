@@ -107,7 +107,7 @@ export default function StoreProfileContainer({navigation, route}) {
     }
   };
   const onFollow = async () => {
-    if (auth().currentUser.uid) {
+    if (auth().currentUser?.uid) {
       await database()
         .ref('Brief/' + info.UserID + '/Follow/' + auth().currentUser.uid)
         .child(token)

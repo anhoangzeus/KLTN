@@ -36,6 +36,7 @@ import AddProductContainer from 'scenes/mystore/addProduct/addProduct.container'
 import MyStoreOptionContainer from 'scenes/mystore/myStoreOption/myStoreOption.container';
 import AddRessScreen from 'scenes/userOption/Address/address.container';
 import DetailOrderContainer from 'scenes/userOption/order/detail_order/detail_order.container';
+import ConfimOrderContainer from 'scenes/sellerOption/order/confim_order/confim_order.container';
 import InfoUser from 'scenes/userOption/profile/infoUser.container';
 import NavigationServices from 'utils/navigationServices';
 import RatingScreen from '../scenes/userOption/Rating/rating.container';
@@ -44,6 +45,7 @@ import MainTabNavigator from './TabNavigator';
 import TopStackLogin from './TopTabNavigator/LoginTab';
 import TopStackOrder from './TopTabNavigator/OrderTab';
 import TopRatingScreen from './TopTabNavigator/RatingTab';
+import TopOrderManager from './TopTabNavigator/SellerTab';
 import Route_ContentViews from 'components/ContentView';
 //import ProductNewContainer from 'scenes/userOption/ProductView/ProductNewScreen';
 
@@ -176,6 +178,12 @@ function RootNavigator({onNavigationStateChange}) {
         />
         <Stack.Screen
           options={{headerShown: false}}
+          name={SCENE_NAMES.TopOrderManager}
+          component={TopOrderManager}
+        />
+
+        <Stack.Screen
+          options={{headerShown: false}}
           name={SCENE_NAMES.TopStackOrder}
           component={TopStackOrder}
         />
@@ -188,6 +196,12 @@ function RootNavigator({onNavigationStateChange}) {
           options={{headerShown: false}}
           name={SCENE_NAMES.DetailOrderContainer}
           component={DetailOrderContainer}
+        />
+
+        <Stack.Screen
+          options={{headerShown: false}}
+          name={SCENE_NAMES.ConfimOrderContainer}
+          component={ConfimOrderContainer}
         />
         <Stack.Screen
           options={{headerShown: false}}

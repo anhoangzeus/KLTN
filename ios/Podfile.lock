@@ -384,7 +384,7 @@ PODS:
     - React-Core
   - RNCPushNotificationIOS (1.8.0):
     - React-Core
-  - RNDeviceInfo (7.0.2):
+  - RNDeviceInfo (8.1.3):
     - React-Core
   - RNFastImage (8.3.3):
     - React-Core
@@ -746,7 +746,7 @@ SPEC CHECKSUMS:
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNCPicker: 61c7a0645b9e4ac67960aa7f22a3effcecfdfb8d
   RNCPushNotificationIOS: 61a7c72bd1ebad3568025957d001e0f0e7b32191
-  RNDeviceInfo: e1d82a27d0c1ea6278e3b141784dc38e51fc90f4
+  RNDeviceInfo: 8d3a29207835f972bce883723882980143270d55
   RNFastImage: ff7e055d085abe465b358ce5aa51e3c6d64b1efd
   RNFBApp: 9c90f9d576861947ba75fe0830567c570bcbcf6d
   RNFBAuth: 99fdbce04ff3d39e57a7a3956d632ee69145685b

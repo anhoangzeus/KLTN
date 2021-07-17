@@ -16,7 +16,8 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
 ]);
 
 export default function ReportContainer({navigation, route}) {
-  const {params} = NavigationServices.getParams(route);
+  const {proID, userID} = NavigationServices.getParams(route);
+  console.log('param report: ', userID);
   const [content, setContent] = useState('');
   const [rule1, setRule1] = useState(false);
   const [rule2, setRule2] = useState(false);
@@ -46,13 +47,12 @@ export default function ReportContainer({navigation, route}) {
       .child(key)
       .update({
         Content: Content,
-        CreatedDate: moment().subtract(10, 'days').calendar(),
+        CreatedDate: moment(new Date()).format('DD/MM/YYYY'),
         FeedBackID: key,
         ReportName: rpname,
         Status: 'True',
-        StoreID: params.StoreID,
-        StoreName: params.StoreName,
-        UserID: params.StoreID,
+        ProductID: proID,
+        userID: userID,
       });
     setVisible(true);
     setTimeout(() => {

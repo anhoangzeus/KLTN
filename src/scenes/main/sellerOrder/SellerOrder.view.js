@@ -9,6 +9,7 @@ import {
   Image,
   RefreshControl,
   StatusBar,
+  SafeAreaView,
 } from 'react-native';
 import Header from 'components/Header';
 import styles from './SellerOrder.styles';
@@ -95,31 +96,33 @@ const SellerOrderView = (props) => {
     );
   }
   return (
-    <View style={styles.screenContainer}>
-      <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
-      <Header title={I18n.t(`${NAMESPACE}.order`)} />
-      <FlatList
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={_onRefresh} />
-        }
-        pagingEnabled={false}
-        data={listOrder}
-        initialNumToRender={10}
-        renderItem={({item}) => (
-          <RenderList
-            CreatedDate={item.CreatedDate}
-            ShipAddress={item.ShipAddress}
-            ShipName={item.ShipName}
-            ShipMoblie={item.ShipMoblie}
-            ToTalPrice={item.Total}
-            orderDetail={item.Detail}
-            id={item.OrderID}
-            key={item.id}
-          />
-        )}
-        ListEmptyComponent={renderNull}
-      />
-    </View>
+    <SafeAreaView style={styles.screenContainers}>
+      <View style={styles.screenContainer}>
+        <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
+        <Header title={I18n.t(`${NAMESPACE}.order`)} />
+        <FlatList
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={_onRefresh} />
+          }
+          pagingEnabled={false}
+          data={listOrder}
+          initialNumToRender={10}
+          renderItem={({item}) => (
+            <RenderList
+              CreatedDate={item.CreatedDate}
+              ShipAddress={item.ShipAddress}
+              ShipName={item.ShipName}
+              ShipMoblie={item.ShipMoblie}
+              ToTalPrice={item.Total}
+              orderDetail={item.Detail}
+              id={item.OrderID}
+              key={item.id}
+            />
+          )}
+          ListEmptyComponent={renderNull}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 export default SellerOrderView;

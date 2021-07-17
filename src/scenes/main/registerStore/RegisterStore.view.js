@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import CheckBox from '@react-native-community/checkbox';
-import { Picker } from '@react-native-picker/picker';
+import {Picker} from '@react-native-picker/picker';
 import Col from 'components/Col';
 // import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // import NavigationServices from 'utils/navigationServices';
@@ -8,14 +8,23 @@ import Header from 'components/Header';
 import Loading from 'components/LoadingView';
 import React from 'react';
 import {
-  FlatList, Image, Platform, SafeAreaView, ScrollView, StatusBar, Text,
-  TextInput, TouchableOpacity, View, Dimensions,
+  FlatList,
+  Image,
+  Platform,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Dimensions,
 } from 'react-native';
 import Modal from 'react-native-modal';
 import RNPickerSelect from 'react-native-picker-select';
 import I18n from 'utils/i18n';
 import styles from './RegisterStore.styles';
-const { width } = Dimensions.get('screen');
+const {width} = Dimensions.get('screen');
 const NAMESPACE = 'common';
 
 // import {NAMESPACE} from './RegisterStore.constants';
@@ -56,12 +65,14 @@ function RegisterStoreView(props) {
         {step === 1 ? (
           <ScrollView>
             <View style={styles.resView}>
-              <Image source={require('../../../assets/images/step1.png')} style={styles.stepImg} />
+              <Image
+                source={require('../../../assets/images/step1.png')}
+                style={styles.stepImg}
+              />
               <View style={styles.infoView}>
                 <Text style={styles.nameText}>Tên cửa hàng</Text>
                 <TextInput
                   style={styles.nameInput}
-                  multiline
                   placeholder={'Nhập tên...'}
                   value={name}
                   onChangeText={(value) => setName(value)}
@@ -69,7 +80,6 @@ function RegisterStoreView(props) {
                 <Text style={styles.nameText}>Mô tả cửa hàng</Text>
                 <TextInput
                   placeholder={'Nhập mô tả cửa hàng...'}
-                  multiline
                   style={styles.nameInput}
                   value={des}
                   onChangeText={(value) => setDes(value)}
@@ -79,17 +89,22 @@ function RegisterStoreView(props) {
                   onPress={() => setVisible(true)}>
                   <Text style={styles.themAdd}>Thêm địa chỉ</Text>
                 </TouchableOpacity>
-                {address?.length > 0 &&
-                  <Text style={styles.nameText}>Danh sách địa chỉ</Text>}
+                {address?.length > 0 && (
+                  <Text style={styles.nameText}>Danh sách địa chỉ</Text>
+                )}
                 <FlatList
                   data={address}
-                  ListEmptyComponent={<View>
-                    <Text style={styles.nameText}>Chưa có địa chỉ cửa hàng !</Text>
-                  </View>}
-                  renderItem={({ item, index }) => {
+                  ListEmptyComponent={
+                    <View>
+                      <Text style={styles.nameText}>
+                        Chưa có địa chỉ cửa hàng !
+                      </Text>
+                    </View>
+                  }
+                  renderItem={({item, index}) => {
                     return (
                       <View style={styles.listItem}>
-                        <View style={{ flex: 1, marginLeft: 5 }}>
+                        <View style={{flex: 1, marginLeft: 5}}>
                           <View
                             style={{
                               flexDirection: 'row',
@@ -116,21 +131,26 @@ function RegisterStoreView(props) {
                   }}
                 />
               </View>
-              {name !== '' && des !== '' && address.length > 0 &&
+              {name !== '' && des !== '' && address.length > 0 && (
                 <TouchableOpacity
                   style={styles.next}
                   onPress={() => setStep(2)}>
                   <Text style={styles.themAdd}>
                     {I18n.t(`${NAMESPACE}.next`)}
                   </Text>
-                </TouchableOpacity>}
-              <Modal isVisible={visible} onBackdropPress={() => setVisible(false)}>
+                </TouchableOpacity>
+              )}
+              <Modal
+                isVisible={visible}
+                onBackdropPress={() => setVisible(false)}>
                 <View style={styles.ModalContainer}>
-                  <Text style={styles.whiteText}>{I18n.t(`${NAMESPACE}.address`)}<Text style={{ fontSize: 10 }}> (Số nhà/tên đường)</Text></Text>
+                  <Text style={styles.whiteText}>
+                    {I18n.t(`${NAMESPACE}.address`)}
+                    <Text style={{fontSize: 10}}> (Số nhà/tên đường)</Text>
+                  </Text>
                   <TextInput
                     placeholderTextColor="#666666"
                     autoCapitalize="none"
-                    multiline
                     placeholder={'Nhập địa chỉ...'}
                     onChangeText={(val) => textInputAddress(val)}
                     style={styles.welcomeText}>
@@ -139,7 +159,7 @@ function RegisterStoreView(props) {
                   {data.check_textInputaddress ? (
                     <View style={styles.divider} />
                   ) : (
-                    <View style={{ height: 2, backgroundColor: 'red' }} />
+                    <View style={{height: 2, backgroundColor: 'red'}} />
                   )}
                   <View style={styles.divider} />
                   <Text style={styles.whiteText}>
@@ -151,7 +171,7 @@ function RegisterStoreView(props) {
                       selectedValue={data.City}
                       mode="dialog"
                       onValueChange={(value) => {
-                        setData({ ...data, City: value });
+                        setData({...data, City: value});
                       }}>
                       {provinceData()}
                     </Picker>
@@ -160,7 +180,7 @@ function RegisterStoreView(props) {
                       <RNPickerSelect
                         style={styles.picker1}
                         onValueChange={(value) => {
-                          setData({ ...data, City: value });
+                          setData({...data, City: value});
                         }}
                         items={provinceData()}
                       />
@@ -169,7 +189,7 @@ function RegisterStoreView(props) {
                   <View style={styles.divider} />
                   <View style={styles.userContainer}>
                     <View>
-                      <Text style={{ fontSize: 14, color: '#000' }}>
+                      <Text style={{fontSize: 14, color: '#000'}}>
                         {I18n.t(`${NAMESPACE}.district`)}
                       </Text>
                       {Platform.OS === 'android' ? (
@@ -178,7 +198,7 @@ function RegisterStoreView(props) {
                           selectedValue={data.Huyen}
                           mode="dialog"
                           onValueChange={(value) => {
-                            setData({ ...data, Huyen: value });
+                            setData({...data, Huyen: value});
                           }}>
                           {districtData(data.City)}
                         </Picker>
@@ -186,7 +206,7 @@ function RegisterStoreView(props) {
                         <View style={styles.pickerView}>
                           <RNPickerSelect
                             onValueChange={(value) => {
-                              setData({ ...data, Huyen: value });
+                              setData({...data, Huyen: value});
                             }}
                             items={districtData(data.City)}
                             style={styles.picker1}
@@ -195,7 +215,7 @@ function RegisterStoreView(props) {
                       )}
                     </View>
                     <View style={styles.textContainer}>
-                      <Text style={{ fontSize: 14, color: '#000' }}>
+                      <Text style={{fontSize: 14, color: '#000'}}>
                         {I18n.t(`${NAMESPACE}.prov`)}
                       </Text>
                       {Platform.OS === 'android' ? (
@@ -204,7 +224,7 @@ function RegisterStoreView(props) {
                           selectedValue={data.Xa}
                           mode="dialog"
                           onValueChange={(value) => {
-                            setData({ ...data, Xa: value });
+                            setData({...data, Xa: value});
                           }}>
                           {wardData(data.City, data.Huyen)}
                         </Picker>
@@ -212,7 +232,7 @@ function RegisterStoreView(props) {
                         <View style={styles.pickerView}>
                           <RNPickerSelect
                             onValueChange={(value) => {
-                              setData({ ...data, Xa: value });
+                              setData({...data, Xa: value});
                             }}
                             items={wardData(data.City, data.Huyen)}
                           />
@@ -233,7 +253,7 @@ function RegisterStoreView(props) {
             </View>
           </ScrollView>
         ) : null}
-        {step === 2 &&
+        {step === 2 && (
           <View style={styles.resView}>
             <Image
               source={require('../../../assets/images/step2.png')}
@@ -242,18 +262,21 @@ function RegisterStoreView(props) {
             <Text style={styles.nameText}>Chụp CMND/CCCD mặt trước</Text>
             <TouchableOpacity onPress={() => takeFrontID()}>
               <Image
-                source={{ uri: frontID }}
-                style={{ width: '100%', height: 300, resizeMode: 'contain', marginTop: 10 }}
+                source={{uri: frontID}}
+                style={{
+                  width: '100%',
+                  height: 300,
+                  resizeMode: 'contain',
+                  marginTop: 10,
+                }}
               />
             </TouchableOpacity>
             <View style={styles.ChangeStatus}>
-              <TouchableOpacity style={styles.pre} onPress={() => setStep(1)} >
-                <Text style={styles.themAdd}>
-                  Quay về
-                </Text>
+              <TouchableOpacity style={styles.pre} onPress={() => setStep(1)}>
+                <Text style={styles.themAdd}>Quay về</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={{ ...styles.next, width: width / 2.5 }}
+                style={{...styles.next, width: width / 2.5}}
                 onPress={() => setStep(3)}>
                 <Text style={styles.themAdd}>
                   {I18n.t(`${NAMESPACE}.next`)}
@@ -261,8 +284,8 @@ function RegisterStoreView(props) {
               </TouchableOpacity>
             </View>
           </View>
-        }
-        {step === 3 &&
+        )}
+        {step === 3 && (
           <View style={styles.resView}>
             <Image
               source={require('../../../assets/images/step3.png')}
@@ -271,18 +294,24 @@ function RegisterStoreView(props) {
             <Text style={styles.nameText}>Chụp CMND/CCCD mặt sau</Text>
             <TouchableOpacity onPress={() => takeBackID()}>
               <Image
-                source={{ uri: backID }}
-                style={{ width: '100%', height: 300, resizeMode: 'contain', marginTop: 10 }}
+                source={{uri: backID}}
+                style={{
+                  width: '100%',
+                  height: 300,
+                  resizeMode: 'contain',
+                  marginTop: 10,
+                }}
               />
             </TouchableOpacity>
             <View style={styles.ChangeStatus}>
-              <TouchableOpacity style={styles.pre} onPress={() => setStep(2)} >
+              <TouchableOpacity style={styles.pre} onPress={() => setStep(2)}>
                 <Text style={styles.themAdd}>
-                  Quay về
+                  {' '}
+                  {I18n.t(`${NAMESPACE}.back`)}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={{ ...styles.next, width: width / 2.5 }}
+                style={{...styles.next, width: width / 2.5}}
                 onPress={() => setStep(4)}>
                 <Text style={styles.themAdd}>
                   {I18n.t(`${NAMESPACE}.next`)}
@@ -290,8 +319,8 @@ function RegisterStoreView(props) {
               </TouchableOpacity>
             </View>
           </View>
-        }
-        {step === 4 &&
+        )}
+        {step === 4 && (
           <View style={styles.resView}>
             <Image
               source={require('../../../assets/images/step4.png')}
@@ -304,7 +333,9 @@ function RegisterStoreView(props) {
             <Text styles={styles.legacy}>
               {I18n.t(`${NAMESPACE}.legacy1`)}{' '}
             </Text>
-            <Text>{I18n.t(`${NAMESPACE}.legacy2`)} </Text>
+            <Text styles={styles.legacy}>
+              {I18n.t(`${NAMESPACE}.legacy2`)}{' '}
+            </Text>
             <View style={styles.ChangeStatus}>
               <CheckBox
                 value={check}
@@ -313,13 +344,14 @@ function RegisterStoreView(props) {
               <Text>{I18n.t(`${NAMESPACE}.argree`)}</Text>
             </View>
             <View style={styles.ChangeStatus}>
-              <TouchableOpacity style={styles.pre} onPress={() => setStep(3)} >
+              <TouchableOpacity style={styles.pre} onPress={() => setStep(3)}>
                 <Text style={styles.themAdd}>
-                  Quay về
+                  {' '}
+                  {I18n.t(`${NAMESPACE}.back`)}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={{ ...styles.next, width: width / 2.5 }}
+                style={{...styles.next, width: width / 2.5}}
                 onPress={() => submit()}>
                 <Text style={styles.themAdd}>
                   {I18n.t(`${NAMESPACE}.submit`)}
@@ -327,7 +359,7 @@ function RegisterStoreView(props) {
               </TouchableOpacity>
             </View>
           </View>
-        }
+        )}
         {loading && (
           <Col
             center
