@@ -73,7 +73,6 @@ function RegisterStoreView(props) {
                 <Text style={styles.nameText}>Tên cửa hàng</Text>
                 <TextInput
                   style={styles.nameInput}
-                  multiline
                   placeholder={'Nhập tên...'}
                   value={name}
                   onChangeText={(value) => setName(value)}
@@ -81,7 +80,6 @@ function RegisterStoreView(props) {
                 <Text style={styles.nameText}>Mô tả cửa hàng</Text>
                 <TextInput
                   placeholder={'Nhập mô tả cửa hàng...'}
-                  multiline
                   style={styles.nameInput}
                   value={des}
                   onChangeText={(value) => setDes(value)}
@@ -153,7 +151,6 @@ function RegisterStoreView(props) {
                   <TextInput
                     placeholderTextColor="#666666"
                     autoCapitalize="none"
-                    multiline
                     placeholder={'Nhập địa chỉ...'}
                     onChangeText={(val) => textInputAddress(val)}
                     style={styles.welcomeText}>

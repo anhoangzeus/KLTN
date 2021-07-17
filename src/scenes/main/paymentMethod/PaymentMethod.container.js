@@ -160,8 +160,7 @@ export default function PaymentMethodContainer({navigation, route}) {
           OrderID: key,
           Payment: '01',
           ShipPayment: shipMoney,
-          Total: (parseInt(props.content, 10) + parseInt(shipMoney, 10))
-            .toString,
+          Total: parseInt(props.content, 10) + parseInt(shipMoney, 10),
           CustomerID: auth().currentUser.uid,
           //ShipLocation: location,
           TimeLine: {

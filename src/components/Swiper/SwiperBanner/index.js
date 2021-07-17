@@ -8,6 +8,7 @@ import FastImage from 'react-native-fast-image';
 import SCENE_NAMES from 'constants/sceneName';
 
 const SwiperBraner = (listcontents) => {
+  console.log('list content: ', listcontents);
   return (
     <Swiper
       autoplay={true}
@@ -28,7 +29,11 @@ const SwiperBraner = (listcontents) => {
             })
           }>
           <View style={styles.sectionContainer}>
-            <FastImage source={{uri: item.Image}} style={styles.sectionImage} />
+            <FastImage
+              source={{uri: item.Image, priority: FastImage.priority.high}}
+              style={styles.sectionImage}
+              resizeMode={FastImage.resizeMode.contain}
+            />
           </View>
         </TouchableOpacity>
       ))}

@@ -44,8 +44,8 @@ export default StyleSheet.create({
     width: width * 0.9,
     height: height / 15,
     borderColor: '#6Ec0B6',
-    paddingHorizontal: normalize(8),
     marginTop: 10,
+    fontSize: 16,
   },
   btnthem: {
     backgroundColor: '#6Ec0B6',

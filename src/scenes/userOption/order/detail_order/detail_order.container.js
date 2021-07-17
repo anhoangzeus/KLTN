@@ -9,6 +9,7 @@ const functionsCounter = new Set();
 
 const DetailOrderContainer = ({navigation, route}) => {
   const {id} = getParams(route);
+  console.log('id truyen qua: ', id);
   const [OrderID, setOrderID] = useState('');
   const [CusID, setCusID] = useState('');
   const [CreatedDate, setCreatedDate] = useState('');
@@ -43,6 +44,7 @@ const DetailOrderContainer = ({navigation, route}) => {
       .child(id)
       .once('value')
       .then((snapshot) => {
+        console.log(snapshot.val());
         if (snapshot.val().Status === '1') {
           setStatus('Chờ xác nhận');
         } else if (snapshot.val().Status === '2') {
@@ -117,7 +119,8 @@ const DetailOrderContainer = ({navigation, route}) => {
   };
   useEffect(() => {
     getListOrder();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   functionsCounter.add(huy_Order);
   functionsCounter.add(setModalVisible);

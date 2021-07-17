@@ -4,6 +4,11 @@ import SIZE from 'constants/size';
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
+    backgroundColor: '#ededed',
+  },
+  safeContainer: {
+    backgroundColor: '#2B4F8C',
+    flex: 1,
   },
   bodyContainer: {
     flex: 1,
