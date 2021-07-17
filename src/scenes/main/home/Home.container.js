@@ -212,6 +212,10 @@ function HomeContainer({navigation}) {
     _getListPhoneNew();
     getnumcart();
     getCountChats();
+    setTimeout(() => {
+      setLoading(false);
+      setRefreshing(false);
+    }, 15000);
   };
   useEffect(() => {
     setToken();
@@ -220,6 +224,10 @@ function HomeContainer({navigation}) {
     getListBanner();
     getnumcart();
     getCountChats();
+    setTimeout(() => {
+      setLoading(false);
+      setRefreshing(false);
+    }, 15000);
   }, []);
 
   const renderNofiCart = () => {

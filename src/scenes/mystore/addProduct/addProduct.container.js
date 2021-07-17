@@ -261,7 +261,7 @@ export default function AddProductContainer({navigation, route}) {
       CreatedDate: date,
       Description: des,
       Image: imgTemp[0],
-      MoreImage: moreimage,
+      Images: moreimage,
       MetaDescription: keyword,
       Name: name,
       Price: formprice,

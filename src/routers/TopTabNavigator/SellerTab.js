@@ -2,11 +2,11 @@ import React from 'react';
 import {View, StyleSheet, Dimensions} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import SCENE_NAMES from 'constants/sceneName';
-import OrderXuli from 'scenes/userOption/order/order/orderXacNhan/orderXacNhan.container';
-import Order_LayHangScreen from 'scenes/userOption/order/order/orderLayHang/orderLayHang.container';
-import Order_DangVanChuyen from 'scenes/userOption/order/order/orderDangGiao/orderDangGiao.container';
-import Order_DaGiao from 'scenes/userOption/order/order/orderDaGiao/orderDaGiao.container';
-import Order_DaHuy from 'scenes/userOption/order/order/orderDaHuy/orderDaHuy.container';
+import OrderXuli from 'scenes/sellerOption/order/order/orderXacNhan/orderXacNhan.container';
+import Order_LayHangScreen from 'scenes/sellerOption/order/order/orderLayHang/orderLayHang.container';
+import Order_DangVanChuyen from 'scenes/sellerOption/order/order/orderDangGiao/orderDangGiao.container';
+import Order_DaGiao from 'scenes/sellerOption/order/order/orderDaGiao/orderDaGiao.container';
+import Order_DaHuy from 'scenes/sellerOption/order/order/orderDaHuy/orderDaHuy.container';
 
 import Header from 'components/Header';
 import {SafeAreaView} from 'react-native';
@@ -40,11 +40,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 });
-export default function TopOrder(props) {
+export default function TopOrderManager(props) {
   return (
     <SafeAreaView style={styles.safeCon}>
       <View style={styles.containner}>
-        <Header title={'Đơn hàng của tôi'} type={true} />
+        <Header title={'Quản lý đơn hàng'} type={true} />
         <TopStackOrder.Navigator
           tabBarOptions={{
             activeTintColor: '#2B4F8C',
@@ -68,7 +68,7 @@ export default function TopOrder(props) {
             name={SCENE_NAMES.Order_DangVanChuyen}
             component={Order_DangVanChuyen}
             options={{
-              title: 'Đang vận chuyển',
+              title: 'Đang giao hàng',
             }}
           />
           <TopStackOrder.Screen
@@ -78,6 +78,13 @@ export default function TopOrder(props) {
               title: 'Đã giao',
             }}
           />
+          {/* <TopStackOrder.Screen
+            name={SCENE_NAMES.Order_DaGiao}
+            component={Order_DaGiao}
+            options={{
+              title: 'Đơn bị hoàn',
+            }}
+          /> */}
           <TopStackOrder.Screen
             name={SCENE_NAMES.Order_DaHuy}
             component={Order_DaHuy}
