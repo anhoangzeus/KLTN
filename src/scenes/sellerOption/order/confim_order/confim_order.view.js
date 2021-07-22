@@ -69,7 +69,6 @@ const ConfimOrderView = (props) => {
     modalVisibleWarning,
     confirmOrder,
   } = props;
-  console.log('///// Total: ', ShipAddress);
   return (
     <SafeAreaView style={styles.safeContainer}>
       <View style={styles.screenContainer}>

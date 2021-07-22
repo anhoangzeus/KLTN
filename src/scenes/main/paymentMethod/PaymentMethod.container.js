@@ -153,7 +153,7 @@ export default function PaymentMethodContainer({navigation, route}) {
       await database()
         .ref('Orders/' + key)
         .update({
-          Status: '1',
+          Status: '0',
           CreatedDate: GetCurrentDate(),
           ShipAddress: diachi,
           ShipName: name,
@@ -198,6 +198,8 @@ export default function PaymentMethodContainer({navigation, route}) {
                 UserProduct: childSnapshot.val().UserID ? true : false,
                 Status: false,
                 detailStatus: '0',
+                apptransid: '',
+                isRefund: false,
               });
 
             database()

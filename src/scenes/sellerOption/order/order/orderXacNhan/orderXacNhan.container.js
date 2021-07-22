@@ -56,12 +56,17 @@ const OrderXacNhanContainer = () => {
           let temp = 0;
           let count = 0;
           let item = [];
-          if (childSnapshot.val().Status !== '2') {
+          if (childSnapshot.val().Status == '2') {
+            console.log('la 2');
             childSnapshot.child('OrderDetails').forEach((element) => {
-              if (element.val().UserID === auth().currentUser.uid) {
+              if (
+                element.val().UserID === auth().currentUser.uid &&
+                element.val().detailStatus === '0'
+              ) {
                 item.push(element.val());
                 temp++;
-                count += parseInt(element.val().Price) * element.val().Quantity;
+                count +=
+                  parseInt(element.val().Price, 10) * element.val().Quantity;
               }
             });
             if (temp !== 0) {

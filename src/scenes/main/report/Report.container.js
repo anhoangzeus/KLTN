@@ -26,6 +26,7 @@ export default function ReportContainer({navigation, route}) {
   const [rule5, setRule5] = useState(false);
   const [visible, setVisible] = useState(false);
   const [rpname, setRpName] = useState('');
+  const [storename, setStoreName] = useState('');
   const isLoading = useSelectorShallow(loadingSelector);
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -52,7 +53,9 @@ export default function ReportContainer({navigation, route}) {
         ReportName: rpname,
         Status: 'True',
         ProductID: proID,
-        userID: userID,
+        StoreID: userID,
+        UserID: auth().currentUser.uid,
+        StoreName: storename,
       });
     setVisible(true);
     setTimeout(() => {
@@ -66,11 +69,18 @@ export default function ReportContainer({navigation, route}) {
       .ref('Users/' + auth().currentUser.uid)
       .once('value')
       .then((snapshot) => {
-        setRpName(snapshot.val().UserName);
+        setRpName(snapshot.val().FullName);
+      });
+    database()
+      .ref('Brief/' + userID)
+      .once('value')
+      .then((snapshot) => {
+        setStoreName(snapshot.val().StoreName);
       });
   };
   useEffect(() => {
     getReportInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   functionsCounter.add(onPress);

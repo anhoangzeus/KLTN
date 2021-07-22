@@ -125,6 +125,7 @@ function ProductView(props) {
                 <FastImage
                   source={{uri: item, priority: FastImage.priority.high}}
                   style={styles.profileImage}
+                  resizeMode={FastImage.resizeMode.contain}
                 />
               </View>
             ))}
