@@ -8,7 +8,6 @@ import FastImage from 'react-native-fast-image';
 import SCENE_NAMES from 'constants/sceneName';
 
 const SwiperBraner = (listcontents) => {
-  console.log('list content: ', listcontents);
   return (
     <Swiper
       autoplay={true}

@@ -37,7 +37,6 @@ export default function SellerOrderContainer({navigation}) {
           let count = 0;
           childSnapshot.child('OrderDetails').forEach((element) => {
             if (element.val().UserID === auth().currentUser.uid) {
-              console.log('elêmnt: ', element.val());
               item.push(element.val());
               count +=
                 parseInt(element.val().Price, 10) *

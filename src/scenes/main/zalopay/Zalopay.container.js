@@ -14,6 +14,7 @@ import CryptoJS from 'crypto-js';
 import NavigationServices, {getParams} from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 import Geocoder from 'react-native-geocoding';
+const axios = require('axios');
 Geocoder.init('AIzaSyDNzy29FhjgnLXCCa9f8vqgcq_B-32uXLs');
 
 const {PayZaloBridge} = NativeModules;
@@ -60,7 +61,6 @@ const loadingSelector = selectorWithProps(getIsFetchingByActionsTypeSelector, [
 export default function ZalopayContainer({navigation, route}) {
   const isLoading = useSelectorShallow(loadingSelector);
   const routes = getParams(route);
-  var key = database().ref().child('Orders/').push().key;
   console.log(routes);
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -74,16 +74,16 @@ export default function ZalopayContainer({navigation, route}) {
   const [modalVisible, setmodal] = React.useState(false);
   const [amountprice, setamount] = React.useState(0);
   const [check, setCheck] = React.useState(0);
-  const [apptransid, setAppTransID] = React.useState('');
+  const [apptransid, setApptransid] = React.useState('');
   const address = routes.Address;
   // eslint-disable-next-line no-unused-vars
   const subscription = payZaloBridgeEmitter.addListener(
     'EventPayZalo',
     (data) => {
       if (data.returnCode == 1 && check == 0) {
-        setCheck(1);
         // eslint-disable-next-line no-use-before-define
-
+        thanhToan();
+        setCheck(1);
         //data.returnCode = 0;
       } else if (data.returnCode === 4) {
         NavigationServices.navigate(SCENE_NAMES.HOME);
@@ -99,16 +99,16 @@ export default function ZalopayContainer({navigation, route}) {
     address.Huyen +
     ', ' +
     address.City;
-  const getCurrentDateYYMMDD = () => {
+  function getCurrentDateYYMMDD() {
     var todayDate = new Date().toISOString().slice(2, 10);
     return todayDate.split('-').join('');
-  };
-  const payOrder = () => {
+  }
+  function payOrder() {
     var payZP = NativeModules.PayZaloBridge;
     payZP.payOrder(token);
-  };
+  }
 
-  const CheckOrder = async () => {
+  async function CheckOrder() {
     let appid = 553;
     let key = '9phuAOYhan4urywHTh0ndEXiV3pKHr5Q';
     let hmacInput = appid + '|' + apptransid + '|' + key;
@@ -121,6 +121,8 @@ export default function ZalopayContainer({navigation, route}) {
       apptransid: apptransid,
       mac: mac,
     };
+    console.log('mac: ', mac);
+    console.log('app id:', apptransid);
     let formBody = [];
     for (let i in order) {
       var encodedKey = encodeURIComponent(i);
@@ -128,21 +130,21 @@ export default function ZalopayContainer({navigation, route}) {
       formBody.push(encodedKey + '=' + encodedValue);
     }
     formBody = formBody.join('&');
-    await fetch(
+    let res = await axios.get(
       'https://sandbox.zalopay.com.vn/v001/tpe/getstatusbyapptransid',
+      formBody,
       {
-        method: 'GET',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: formBody,
       },
-    ).then((res) => console.log('trang thai tra ve: ', res));
-  };
+    );
+    console.log('bill zalo res:', res);
+  }
 
-  const createOrder = async () => {
-    let trans = getCurrentDateYYMMDD() + '_' + new Date().getTime();
-    setAppTransID(trans);
+  async function createOrder() {
+    let apptransid = getCurrentDateYYMMDD() + '_' + new Date().getTime();
+    setApptransid(apptransid);
     let appid = 553;
     let amount = routes.amount + routes.shipMoney;
     setamount(amount);
@@ -150,11 +152,11 @@ export default function ZalopayContainer({navigation, route}) {
     let apptime = new Date().getTime();
     let embeddata = '{}';
     let item = '[id : 12]';
-    let description = 'Mua sản phẩm trên TiAn' + trans;
+    let description = 'Mua sản phẩm trên TiAn' + apptransid;
     let hmacInput =
       appid +
       '|' +
-      trans +
+      apptransid +
       '|' +
       appuser +
       '|' +
@@ -174,7 +176,7 @@ export default function ZalopayContainer({navigation, route}) {
       appuser: appuser,
       apptime: apptime,
       amount: amount,
-      apptransid: trans,
+      apptransid: apptransid,
       embeddata: embeddata,
       item: item,
       description: description,
@@ -194,24 +196,23 @@ export default function ZalopayContainer({navigation, route}) {
       },
       body: formBody,
     })
-      .then((response) => {
-        response.json();
-      })
+      .then((response) => response.json())
       .then((resJson) => {
         setToken(resJson.zptranstoken);
         setReturnCode(resJson.returncode);
-        console.log('create or return: ', resJson);
+        console.log('zalo resJson: ', resJson);
       })
       .catch((error) => {
         console.log('error ', error);
       });
-  };
+  }
 
-  const getStatus = () => {
+  function getStatus() {
     NavigationServices.navigate(SCENE_NAMES.HOME);
     setmodal(false);
-  };
-  const thanhToan = async () => {
+  }
+
+  async function thanhToan() {
     await CheckOrder();
     var location = address.Location;
     Geocoder.from(diachi)
@@ -221,11 +222,11 @@ export default function ZalopayContainer({navigation, route}) {
       })
       .catch((error) => console.warn(error));
     console.log('vao ham thanh toan');
-
+    var key = database().ref().child('Orders/').push().key;
     database()
       .ref('Orders/' + key)
       .set({
-        Status: '0',
+        Status: '1',
         CreatedDate: GetCurrentDate(),
         ShipAddress: diachi,
         ShipName: address.ShipName,
@@ -236,8 +237,6 @@ export default function ZalopayContainer({navigation, route}) {
         Total: amountprice,
         CustomerID: auth().currentUser.uid,
         ShipLocation: location,
-        apptransid: apptransid,
-        isRefund: false,
         TimeLine: {
           ChoLayHang: '',
           ChoXacNhan: '',
@@ -266,12 +265,7 @@ export default function ZalopayContainer({navigation, route}) {
               Picture: childSnapshot.val().Picture,
               BrandName: childSnapshot.val().BrandName,
               CategoryName: childSnapshot.val().CategoryName,
-              UserID: childSnapshot.val().UserID
-                ? childSnapshot.val().UserID
-                : null,
-              UserProduct: childSnapshot.val().UserID ? true : false,
               Status: false,
-              detailStatus: '0',
             });
           database()
             .ref('Cart/' + auth().currentUser.uid)
@@ -281,15 +275,10 @@ export default function ZalopayContainer({navigation, route}) {
       });
 
     setmodal(true);
-  };
+  }
   useEffect(() => {
     createOrder();
   }, []);
-  useEffect(() => {
-    if (check === 1) {
-      thanhToan();
-    }
-  }, [check]);
 
   useEffect(() => {
     if (check === 1) {
