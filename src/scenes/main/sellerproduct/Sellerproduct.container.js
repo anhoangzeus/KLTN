@@ -326,7 +326,7 @@ export default function SellerproductContainer({navigation, route}) {
       .then((snapshot) => {
         const items = [];
         snapshot.forEach((childSnapshot) => {
-          if (childSnapshot.val().UserID === UserID && items.length < 7) {
+          if (childSnapshot.val().UserID === UserID && items.length < 6) {
             let point = 0;
             let count = 0;
             snapshot.child('Rating').forEach((child) => {

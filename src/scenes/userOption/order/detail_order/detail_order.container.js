@@ -45,7 +45,7 @@ const DetailOrderContainer = ({navigation, route}) => {
       .once('value')
       .then((snapshot) => {
         console.log(snapshot.val());
-        if (snapshot.val().Status === '1') {
+        if (snapshot.val().Status === '0') {
           setStatus('Chờ xác nhận');
         } else if (snapshot.val().Status === '2') {
           setStatus('Chờ lấy hàng');

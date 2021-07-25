@@ -14,7 +14,7 @@ import CryptoJS from 'crypto-js';
 import NavigationServices, {getParams} from 'utils/navigationServices';
 import SCENE_NAMES from 'constants/sceneName';
 import Geocoder from 'react-native-geocoding';
-const axios = require('axios');
+//const axios = require('axios');
 Geocoder.init('AIzaSyDNzy29FhjgnLXCCa9f8vqgcq_B-32uXLs');
 
 const {PayZaloBridge} = NativeModules;
@@ -67,14 +67,14 @@ export default function ZalopayContainer({navigation, route}) {
       title: getString(`${NAMESPACE}.title`),
     });
   }, [navigation]);
-
+  const key = database().ref().child('Orders/').push().key;
   const [token, setToken] = React.useState('');
   // eslint-disable-next-line no-unused-vars
   const [returncode, setReturnCode] = React.useState('');
   const [modalVisible, setmodal] = React.useState(false);
   const [amountprice, setamount] = React.useState(0);
   const [check, setCheck] = React.useState(0);
-  const [apptransid, setApptransid] = React.useState('');
+  //const [apptransid, setApptransid] = React.useState('');
   const address = routes.Address;
   // eslint-disable-next-line no-unused-vars
   const subscription = payZaloBridgeEmitter.addListener(
@@ -108,43 +108,43 @@ export default function ZalopayContainer({navigation, route}) {
     payZP.payOrder(token);
   }
 
-  async function CheckOrder() {
-    let appid = 553;
-    let key = '9phuAOYhan4urywHTh0ndEXiV3pKHr5Q';
-    let hmacInput = appid + '|' + apptransid + '|' + key;
-    let mac = CryptoJS.HmacSHA256(
-      hmacInput,
-      '9phuAOYhan4urywHTh0ndEXiV3pKHr5Q',
-    );
-    var order = {
-      appid: appid,
-      apptransid: apptransid,
-      mac: mac,
-    };
-    console.log('mac: ', mac);
-    console.log('app id:', apptransid);
-    let formBody = [];
-    for (let i in order) {
-      var encodedKey = encodeURIComponent(i);
-      var encodedValue = encodeURIComponent(order[i]);
-      formBody.push(encodedKey + '=' + encodedValue);
-    }
-    formBody = formBody.join('&');
-    let res = await axios.get(
-      'https://sandbox.zalopay.com.vn/v001/tpe/getstatusbyapptransid',
-      formBody,
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      },
-    );
-    console.log('bill zalo res:', res);
-  }
+  // async function CheckOrder() {
+  //   let appid = 553;
+  //   let key = '9phuAOYhan4urywHTh0ndEXiV3pKHr5Q';
+  //   let hmacInput = appid + '|' + apptransid + '|' + key;
+  //   let mac = CryptoJS.HmacSHA256(
+  //     hmacInput,
+  //     '9phuAOYhan4urywHTh0ndEXiV3pKHr5Q',
+  //   );
+  //   var order = {
+  //     appid: appid,
+  //     apptransid: apptransid,
+  //     mac: mac,
+  //   };
+  //   console.log('mac: ', mac);
+  //   console.log('app id:', apptransid);
+  //   let formBody = [];
+  //   for (let i in order) {
+  //     var encodedKey = encodeURIComponent(i);
+  //     var encodedValue = encodeURIComponent(order[i]);
+  //     formBody.push(encodedKey + '=' + encodedValue);
+  //   }
+  //   formBody = formBody.join('&');
+  //   let res = await axios.get(
+  //     'https://sandbox.zalopay.com.vn/v001/tpe/getstatusbyapptransid',
+  //     formBody,
+  //     {
+  //       headers: {
+  //         'Content-Type': 'application/x-www-form-urlencoded',
+  //       },
+  //     },
+  //   );
+  //   console.log('bill zalo res:', res);
+  // }
 
   async function createOrder() {
     let apptransid = getCurrentDateYYMMDD() + '_' + new Date().getTime();
-    setApptransid(apptransid);
+    //(apptransid);
     let appid = 553;
     let amount = routes.amount + routes.shipMoney;
     setamount(amount);
@@ -213,7 +213,7 @@ export default function ZalopayContainer({navigation, route}) {
   }
 
   async function thanhToan() {
-    await CheckOrder();
+    //await CheckOrder();
     var location = address.Location;
     Geocoder.from(diachi)
       .then((json) => {
@@ -222,7 +222,7 @@ export default function ZalopayContainer({navigation, route}) {
       })
       .catch((error) => console.warn(error));
     console.log('vao ham thanh toan');
-    var key = database().ref().child('Orders/').push().key;
+    //var key = database().ref().child('Orders/').push().key;
     database()
       .ref('Orders/' + key)
       .set({

@@ -23,7 +23,7 @@ const OrderStatus = () => {
         snapshot.forEach((child) => {
           if (auth().currentUser) {
             if (auth().currentUser.uid === child.val().CustomerID) {
-              if (child.val().Status === '1') {
+              if (child.val().Status === '0') {
                 stateChoXac++;
               } else if (child.val().Status === '2') {
                 stateChoLay++;
