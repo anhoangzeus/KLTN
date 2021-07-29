@@ -226,7 +226,7 @@ export default function ZalopayContainer({navigation, route}) {
     database()
       .ref('Orders/' + key)
       .set({
-        Status: '1',
+        Status: '0',
         CreatedDate: GetCurrentDate(),
         ShipAddress: diachi,
         ShipName: address.ShipName,

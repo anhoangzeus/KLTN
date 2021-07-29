@@ -66,6 +66,7 @@ export default function SearchContainer({navigation}) {
     st = bodau(st);
     database()
       .ref('/Products')
+      .limitToFirst(20)
       .once('value')
       .then((snapshot) => {
         var items = [];
