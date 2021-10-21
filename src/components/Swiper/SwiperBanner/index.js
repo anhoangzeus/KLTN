@@ -28,7 +28,11 @@ const SwiperBraner = (listcontents) => {
             })
           }>
           <View style={styles.sectionContainer}>
-            <FastImage source={{uri: item.Image}} style={styles.sectionImage} />
+            <FastImage
+              source={{uri: item.Image, priority: FastImage.priority.high}}
+              style={styles.sectionImage}
+              resizeMode={FastImage.resizeMode.contain}
+            />
           </View>
         </TouchableOpacity>
       ))}

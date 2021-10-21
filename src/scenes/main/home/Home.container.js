@@ -104,6 +104,7 @@ function HomeContainer({navigation}) {
   const _getListPhoneNew = () => {
     database()
       .ref('/Products')
+      .limitToFirst(20)
       .orderByValue('Price')
       .once('value')
       .then((snapshot) => {
@@ -148,6 +149,7 @@ function HomeContainer({navigation}) {
   const ListenForItems = () => {
     database()
       .ref('/ProductUser')
+      .limitToFirst(20)
       .once('value')
       .then((snapshot) => {
         var items = [];
@@ -212,6 +214,10 @@ function HomeContainer({navigation}) {
     _getListPhoneNew();
     getnumcart();
     getCountChats();
+    setTimeout(() => {
+      setLoading(false);
+      setRefreshing(false);
+    }, 15000);
   };
   useEffect(() => {
     setToken();
@@ -220,6 +226,10 @@ function HomeContainer({navigation}) {
     getListBanner();
     getnumcart();
     getCountChats();
+    setTimeout(() => {
+      setLoading(false);
+      setRefreshing(false);
+    }, 15000);
   }, []);
 
   const renderNofiCart = () => {

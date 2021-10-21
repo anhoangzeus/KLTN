@@ -20,10 +20,10 @@
 		36C7424827AEE7A76EE7F879 /* libPods-BaseCode-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF56E2C340C7C5C6FC1DFEDE /* libPods-BaseCode-tvOS.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9C9460581AAA4C288243D0BE /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1F6B94EBDD04D3B88D2724C /* rubicon-icon-font.ttf */; };
-		AD154BEA267C55CA00593E2C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD154BE9267C55CA00593E2C /* GoogleService-Info.plist */; };
-		AD154BEB267C55CA00593E2C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD154BE9267C55CA00593E2C /* GoogleService-Info.plist */; };
 		AD9888AF264665B5003FC85B /* zpdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9888AE264665B5003FC85B /* zpdk.framework */; };
 		AD9888B826466625003FC85B /* zpdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9888AE264665B5003FC85B /* zpdk.framework */; };
+		ADD5874A2681D4E8008B4B5B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
+		ADD5874C2681DE05008B4B5B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ADD5874B2681DE04008B4B5B /* GoogleService-Info.plist */; };
 		ADD72700265222EE00ACDEF1 /* PayZaloBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD726FF265222EE00ACDEF1 /* PayZaloBridge.m */; };
 		C2CC2C6EE1F2A5BDE65D5CA7 /* libPods-BaseCode-BaseCodeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48B3F68F12ADDEFC40ED0C1A /* libPods-BaseCode-BaseCodeTests.a */; };
 		C8826B4B4792471BA1153DB5 /* BadScript-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 305F6D2A1AA44D8AA3230655 /* BadScript-Regular.ttf */; };
@@ -95,9 +95,9 @@
 		926B0DB5B06446C59A71D26F /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		9AD7D16962ED4939B97B1A50 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		A201A2D1237442EDB46C46F6 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/native-base/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
-		AD154BE9267C55CA00593E2C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AD9888AE264665B5003FC85B /* zpdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = zpdk.framework; sourceTree = "<group>"; };
 		AD9D48192631E4E800D73B96 /* BaseCode.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = BaseCode.entitlements; path = BaseCode/BaseCode.entitlements; sourceTree = "<group>"; };
+		ADD5874B2681DE04008B4B5B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ADD726FE265222EE00ACDEF1 /* PayZaloBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayZaloBridge.h; sourceTree = "<group>"; };
 		ADD726FF265222EE00ACDEF1 /* PayZaloBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayZaloBridge.m; sourceTree = "<group>"; };
 		C0A39E10CFB3452AA892E1A8 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
@@ -254,7 +254,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				AD154BE9267C55CA00593E2C /* GoogleService-Info.plist */,
+				ADD5874B2681DE04008B4B5B /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* BaseCode */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* BaseCodeTests */,
@@ -419,7 +419,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD154BEB267C55CA00593E2C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,7 +432,7 @@
 				073D575683F94AD58FD468D9 /* Roboto_medium.ttf in Resources */,
 				F0D07B27F4564C119EFF7414 /* Roboto.ttf in Resources */,
 				9C9460581AAA4C288243D0BE /* rubicon-icon-font.ttf in Resources */,
-				AD154BEA267C55CA00593E2C /* GoogleService-Info.plist in Resources */,
+				ADD5874C2681DE05008B4B5B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -741,6 +740,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADD5874A2681D4E8008B4B5B /* AppDelegate.m in Sources */,
 				00E356F31AD99517003FC87E /* BaseCodeTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -854,7 +854,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pixa.VNRiddles;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flagsingroup.app;
 				PRODUCT_NAME = BaseCode;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -885,7 +885,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pixa.VNRiddles;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flagsingroup.app;
 				PRODUCT_NAME = BaseCode;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

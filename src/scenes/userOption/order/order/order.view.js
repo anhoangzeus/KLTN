@@ -18,6 +18,7 @@ import I18n from 'utils/i18n';
 const NAMESPACE = 'common';
 const OrderView = (props) => {
   const {loading, _onRefresh, refreshing, listOrder} = props;
+  console.log('list order: ', listOrder);
   const RenderList = ({
     CreatedDate,
     ShipAddress,

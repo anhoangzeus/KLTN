@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import SIZE from 'constants/size';
 
 export default StyleSheet.create({
@@ -13,6 +13,7 @@ export default StyleSheet.create({
   itemImage: {
     width: SIZE.DEVICE_WIDTH / 2.5,
     height: SIZE.DEVICE_HEIGHT / 4,
+    marginTop: 3,
     resizeMode: 'contain',
     alignSelf: 'center',
   },

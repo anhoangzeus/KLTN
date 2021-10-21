@@ -9,8 +9,9 @@ export default StyleSheet.create({
   },
   sectionImage: {
     width: SIZE.DEVICE_WIDTH - 24,
-    height: SIZE.DEVICE_HEIGHT / 4.5,
+    height: SIZE.DEVICE_HEIGHT / 5,
     borderRadius: 10,
-    resizeMode: 'center',
+    marginRight: 12,
+    //resizeMode: 'center',
   },
 });

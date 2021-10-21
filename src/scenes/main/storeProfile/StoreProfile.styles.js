@@ -43,7 +43,7 @@ export default StyleSheet.create({
   tagImg: {
     height: height / 25,
     width: height / 25,
-    resizeMode: 'center',
+    //resizeMode: 'center',
   },
   tagImg1: {
     height: height / 25,

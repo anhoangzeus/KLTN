@@ -1,9 +1,9 @@
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import messaging from '@react-native-firebase/messaging';
-import { Platform } from 'react-native';
-import PushNotification, { Importance } from 'react-native-push-notification';
-import { NotificationConstants } from 'utils/appContants';
-export function displayNotification({ title, body }, data) {
+import {Platform} from 'react-native';
+import PushNotification, {Importance} from 'react-native-push-notification';
+import {NotificationConstants} from 'utils/appContants';
+export function displayNotification({title, body}, data) {
   PushNotification.localNotificationSchedule({
     title,
     message: body, // (required)
@@ -12,12 +12,12 @@ export function displayNotification({ title, body }, data) {
   });
 }
 export default class NotificationService {
-  static initPushNotifications = (onNotification = () => { }) => {
+  static initPushNotifications = (onNotification = () => {}) => {
     PushNotification.configure({
       // (optional) Called when Token is generated (iOS and Android)
       onRegister: function (token) {
         console.log('TOKEN register FCM:', token);
-        NotificationConstants.fcmToken = token?.token
+        NotificationConstants.fcmToken = token?.token;
       },
 
       // (required) Called when a remote is received or opened, or local notification is opened
@@ -97,11 +97,12 @@ export default class NotificationService {
     //   });
   };
 
-  static getFcmToken = (callback = () => { }) => {
+  static getFcmToken = (callback = () => {}) => {
     try {
       messaging()
         .getToken()
         .then((token) => {
+          console.log('token from messaging: ', token);
           if (token) {
             callback(token);
           }

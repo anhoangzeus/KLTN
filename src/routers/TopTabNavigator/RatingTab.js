@@ -1,15 +1,17 @@
 import React from 'react';
-import {View, StyleSheet, StatusBar} from 'react-native';
+import {StyleSheet, StatusBar} from 'react-native';
 import Rating from 'scenes/userOption/Rating/rating.container';
 import RatingDone from 'scenes/userOption/ratingDone/ratingdone.container';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import Header from 'components/Header';
+import {SafeAreaView} from 'react-native';
 
 const TopTab = createMaterialTopTabNavigator();
 
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
+    backgroundColor: '#2B4F8C',
   },
   headerContainer: {
     flexDirection: 'row',
@@ -32,7 +34,7 @@ const styles = StyleSheet.create({
 
 export default function TopRatingScreen(props) {
   return (
-    <View style={styles.screenContainer}>
+    <SafeAreaView style={styles.screenContainer}>
       <StatusBar backgroundColor="#2B4F8C" barStyle="light-content" />
       <Header title={'Đánh giá sản phẩm'} type={true} />
       <TopTab.Navigator
@@ -54,6 +56,6 @@ export default function TopRatingScreen(props) {
           }}
         />
       </TopTab.Navigator>
-    </View>
+    </SafeAreaView>
   );
 }

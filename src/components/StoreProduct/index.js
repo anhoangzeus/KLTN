@@ -18,7 +18,6 @@ function StoreProduct({item, del}) {
   //   database()
   //     .ref('ProductUser/' + item.item.ProductID)
   //     .remove()
-  //     .then(console.log('xoá thành công'));
   // };
   return (
     <View style={styles.itemContainer}>

@@ -54,9 +54,8 @@ class ChatContainer extends React.Component {
           ) : (
             <Text
               numberOfLines={1}
-              style={{width: size.DEVICE_WIDTH / 2, color: '#666666'}}>
-              [Hình ảnh]
-            </Text>
+              style={{width: size.DEVICE_WIDTH / 2, color: '#666666'}}
+            />
           )}
         </View>
         <Text style={styles.textTime}>

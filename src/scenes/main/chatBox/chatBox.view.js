@@ -16,7 +16,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {normalize} from 'react-native-elements';
 import ImageView from 'react-native-image-viewing';
 import Modal from 'react-native-modal';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -141,18 +140,25 @@ class ChatBoxContainer extends React.Component {
   };
   chatMessage = ({item}) => {
     return item.Type === 'CUS' ? (
-      <View style={{flexDirection: 'row'}}>
-        {this.renderContent(item)}
-        <Text style={{...styles.messTime, marginLeft: normalize(15)}}>
+      <View>
+        <View style={{flexDirection: 'row'}}>{this.renderContent(item)}</View>
+        <Text style={{...styles.messTime}}>
           {moment.unix(item.CreatedTime).format('hh:mm MM-DD-YY')}
         </Text>
       </View>
     ) : (
-      <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-        <Text style={{...styles.messTime, marginRight: normalize(15)}}>
+      <View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            alignContent: 'flex-end',
+          }}>
+          {this.renderContent(item)}
+        </View>
+        <Text style={{...styles.messTime}}>
           {moment.unix(item.CreatedTime).format('hh:mm MM-DD-YY')}
         </Text>
-        {this.renderContent(item)}
       </View>
     );
   };
@@ -346,6 +352,8 @@ class ChatBoxContainer extends React.Component {
           openDuration={250}
           customStyles={{
             container: {
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
               justifyContent: 'center',
               alignItems: 'center',
             },

@@ -1,19 +1,13 @@
-import React, { Component } from 'react';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {
-  TouchableOpacity,
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  StatusBar,
-} from 'react-native';
-import { WebView } from 'react-native-webview';
-import SCENE_NAMES from 'constants/sceneName';
-import NavigationServices from 'utils/navigationServices';
+import React, {Component} from 'react';
+
+import {View, StyleSheet, Dimensions, StatusBar} from 'react-native';
+import {WebView} from 'react-native-webview';
+
 import database from '@react-native-firebase/database';
-const { width } = Dimensions.get('screen');
-export default function Route_Contents({ route }) {
+import {normalize} from 'react-native-elements';
+import Header from 'components/Header';
+const {width} = Dimensions.get('screen');
+export default function Route_Contents({route}) {
   var searchContent = '';
   if (route.params != null) {
     searchContent = route.params.id;
@@ -35,8 +29,8 @@ const styles = StyleSheet.create({
   },
   headconteiner: {
     flexDirection: 'row',
-    paddingHorizontal: 5,
-    paddingTop: 15,
+    padding: 5,
+    paddingBottom: normalize(0),
   },
   screenContainer: {
     flex: 1,
@@ -51,35 +45,26 @@ const styles = StyleSheet.create({
 });
 
 export class Contents extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       items: {},
     };
   }
   componentDidMount() {
-
-    database().ref('Announces').child(`${this.props.content}`).once('value').then(snapshot => {
-      this.setState({ items: snapshot.val() });
-    });
+    database()
+      .ref('Announces')
+      .child(`${this.props.content}`)
+      .once('value')
+      .then((snapshot) => {
+        this.setState({items: snapshot.val()});
+      });
   }
   render() {
     return (
       <View style={styles.containner}>
         <StatusBar barStyle="light-content" />
-        <View style={styles.headconteiner}>
-          <TouchableOpacity
-            style={styles.btnBack}
-            onPress={() => NavigationServices.navigate(SCENE_NAMES.MAIN)}>
-            <FontAwesome
-              name="angle-left"
-              size={30}
-              color="#fff"
-              style={{ marginLeft: width / 40 }}
-            />
-          </TouchableOpacity>
-          <Text style={styles.texthead}>Thông tin chi tiết</Text>
-        </View>
+        <Header title={'Thông tin chi tiết'} type={true} />
         <WebView
           source={{
             html: this.state.items?.Url,

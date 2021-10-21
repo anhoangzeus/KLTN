@@ -131,10 +131,11 @@ export default function PaymentMethodContainer({navigation, route}) {
   };
   const thanhToan = async () => {
     if (checked === 'first') {
+      setVisibleConfirm(false);
       var key = database().ref('Orders/').push().key;
       var phone = props.address.ShipPhone;
       var name = props.address.ShipName;
-      //var location = props.address.Location;
+      var location = props.address.Location;
       var diachi =
         props.address.NumberAddress +
         ', ' +
@@ -143,16 +144,16 @@ export default function PaymentMethodContainer({navigation, route}) {
         props.address.Huyen +
         ', ' +
         props.address.City;
-      await Geocoder.from(diachi)
-        .then((json) => {
-          var locationSearch = json.results[0].geometry.location;
-          location = locationSearch.lat + '-' + locationSearch.lng;
-        })
-        .catch((error) => console.warn(error));
+      // await Geocoder.from(diachi)
+      //   .then((json) => {
+      //     var locationSearch = json.results[0].geometry.location;
+      //     location = locationSearch.lat + '-' + locationSearch.lng;
+      //   })
+      //   .catch((error) => console.warn(error));
       await database()
         .ref('Orders/' + key)
         .update({
-          Status: '1',
+          Status: '0',
           CreatedDate: GetCurrentDate(),
           ShipAddress: diachi,
           ShipName: name,
@@ -160,10 +161,9 @@ export default function PaymentMethodContainer({navigation, route}) {
           OrderID: key,
           Payment: '01',
           ShipPayment: shipMoney,
-          Total: (parseInt(props.content, 10) + parseInt(shipMoney, 10))
-            .toString,
+          Total: parseInt(props.content, 10) + parseInt(shipMoney, 10),
           CustomerID: auth().currentUser.uid,
-          //ShipLocation: location,
+          ShipLocation: location,
           TimeLine: {
             ChoLayHang: '',
             ChoXacNhan: '',
@@ -197,6 +197,9 @@ export default function PaymentMethodContainer({navigation, route}) {
                   : null,
                 UserProduct: childSnapshot.val().UserID ? true : false,
                 Status: false,
+                detailStatus: '0',
+                apptransid: '',
+                isRefund: false,
               });
 
             database()
@@ -205,7 +208,7 @@ export default function PaymentMethodContainer({navigation, route}) {
               .set({});
           });
         });
-      setVisibleConfirm(false);
+
       setModalVisible(true);
     } else {
       handleCloseConfirm();

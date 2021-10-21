@@ -10,6 +10,7 @@ const NewProductItem = ({item}) => (
     <FastImage
       source={{uri: item?.Image, priority: FastImage.priority.high}}
       style={styles.itemImage}
+      resizeMode={FastImage.resizeMode.contain}
     />
     <Text style={styles.itemName} numberOfLines={2}>
       {item?.Name}

@@ -87,24 +87,6 @@ function StoreProfileView(props) {
                       <Text>Unf</Text>
                     </TouchableOpacity>
                   )}
-
-                  <TouchableOpacity
-                    style={styles.Tag}
-                    onPress={() => {
-                      if (auth().currentUser.uid) {
-                        NavigationServices.navigate(SCENE_NAMES.REPORT, {
-                          params: storeInfo,
-                        });
-                      } else {
-                        setVisible(true);
-                      }
-                    }}>
-                    <Image
-                      source={require('../../../assets/images/report.png')}
-                      style={styles.tagImg}
-                    />
-                    <Text>Report</Text>
-                  </TouchableOpacity>
                 </View>
               ) : null}
             </View>
